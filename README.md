@@ -1,4 +1,4 @@
-# Santa Clara University 2024 - Discord BOT
+# Santa Clara University (SCU) | 🐎💨 - Discord BOT
 This is a simple command-line bot made for our Discord server [here](https://discord.com)
 
 ## Commands:
