@@ -1,5 +1,5 @@
 {
-  "name": "scu_bot",
+  "name": "scu-discord-bot",
   "version": "1.0.0",
   "description": "A COOL SCU BOT",
   "main": "index.js",
@@ -11,5 +11,13 @@
   "dependencies": {
     "discord.js": "^12.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javu404/scu-bot-discord.git"
+  },
+  "bugs": {
+    "url": "https://github.com/javu404/scu-bot-discord/issues"
+  },
+  "homepage": "https://github.com/javu404/scu-bot-discord#readme"
 }

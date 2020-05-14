@@ -29,9 +29,10 @@ client.on("message", (message) => {
 	if (message.content.startsWith(`${prefix}ping`)) { // >ping
 		const ping_time = new Date().getTime() - message.createdTimestamp + " ms";
 		message.reply("Your Pong! time was: " + ping_time);
-	} else if (message.content.startsWith(`${prefix}foo`)) { // >foo
-		message.reply("bar!");
-	} else if (message.content.startsWith(`${prefix}motto`)) { // >motto
+	} else if (message.content.startsWith(`${prefix}foo`)) {
+		message.reply("Bar!");
+    }
+	else if (message.content.startsWith(`${prefix}motto`)) { // >motto
 		message.reply("Ad Majorem Dei Gloriam - For the Greater Glory of God");
 	} else if (message.content.startsWith(`${prefix}mission`)) { // >mission
 		message.reply("The University pursues its vision by creating an academic community that" + 
@@ -47,14 +48,14 @@ client.on("message", (message) => {
 		"community and diversity, and Jesuit distinctiveness all year round!");
 	} else if (message.content.startsWith(`${prefix}commands`) || (message.content.startsWith(`{prefix}help`))) { // >commands || >help
 		message.reply("Here are the following commmands:" + " \n>ping " + "\n>foo" + "\n>motto" + "\n>mission" + 
-		"\n>vision" + "\n>values" + "\n>social-media" + "\n>server" + "\n>user-info" + "\n>server" + "\n>avatar");
+		"\n>vision" + "\n>values" + "\n>social-media" + "\n>server" + "\n>user-info" + "\n>avatar");
 	} else if (message.content.startsWith(`${prefix}social-media`)) { //will display social media sites in unordered list order
 		message.reply("Here are SCU's media platforms:" + "\n- Official Website: https://www.scu.edu/" + "\n- FaceBook: https://www.facebook.com/SantaClaraUniversity/" + "\n- Twitter: https://twitter.com/SantaClaraUniv/" +
 		"\n- Instagram: https://www.instagram.com/santaclarauniversity/" + "\n- Reddit: https://www.reddit.com/r/SCU/" + "\n- LinkedIn: https://www.linkedin.com/school/santa-clara-university/");
 	} else if (message.content.startsWith(`${prefix}server`)) { //will display server name and amount of current members
-		message.channel.send(`Server name: ${message.guild.name}\nTotal members: ${message.guild.memberCount}`);
+		message.reply(`Here is the server information: \nServer Name: ${message.guild.name}\nServer Region: ${message.guild.region}\nUser Count: ${message.guild.memberCount}\nVerification Level: ${message.guild.verificationLevel}`);
 	} else if (message.content.startsWith(`${prefix}user-info`)) { //will display the following user info: username and ID
-		message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
+		message.reply(`Here is your information: \nYour Username: ${message.author.username}\nYour Tag: ${message.author.tag}\nYour ID: ${message.author.id}\nBot? (true/false): ${message.author.bot}`);
 	} else if (message.content.startsWith(`${prefix}kick`)) {
 		// grab the "first" mentioned user from the message
 		// this will return a `User` object, just like `message.author`
