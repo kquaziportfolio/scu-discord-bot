@@ -1,0 +1,26 @@
+<rss version="2.0">
+  <channel>
+    <title> Santa Clara University - Official Website New </title>
+    <link> https://www.scu.edu/ </link>
+    <description> SCU Official News </description>
+    <language> en-us </language>
+    <image>
+      <title> Santa Clara University - Official Website News </title>
+      <link> https://www.scu.edu/news-and-events/press-releases/ </link>
+      <url>
+      https://pbs.twimg.com/profile_images/1035217234098962432/RtnOLVyo_400x400.jpg
+      </url>
+      <width> 144 </width>
+      <height> 124 </height>
+    </image>
+    <item>
+      <title> New SCU Press Release! </title>
+      <pubDate> Tue 5 May 2020 21:09 </pubDate>
+      <link> https://www.scu.edu/news-and-events/press-releases/ </link>
+      <description>Our faculty, staff, and students make headlines every day, both on and off campus.</description>
+      <author> Santa Clara University </author>
+      <enclosure url="https://youtu.be/3MHfhFhjXD0" length="5000" type="audio/mpeg"/>
+      <tags> Jesuit, arts, sciences, business, law, engineering, undergraduate, and graduate </tags>
+    </item>
+  </channel>
+</rss>
