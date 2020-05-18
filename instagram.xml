@@ -5,10 +5,10 @@
     <description> Instagram Feed </description>
     <language> en-us </language>
     <image>
-      <title> Santa Clara University - Instagram Post </title>
+      <title> Santa Clara University - Instagram Feed </title>
       <link> https://www.instagram.com/santaclarauniversity/ </link>
       <url>
-      https://www.scu.edu/media/offices/umc/scu-brand-guidelines/visual-identity-amp-photography/visual-identity-toolkit/logos-amp-seals/Mission-Dont3.png
+      https://upload.wikimedia.org/wikipedia/en/thumb/a/ad/Santa_Clara_U_Seal.svg/1200px-Santa_Clara_U_Seal.svg.png
       </url>
       <width> 144 </width>
       <height> 124 </height>
@@ -17,8 +17,10 @@
       <title> Check out this post! </title>
       <pubDate> Sun 15 May 2020 21:09 </pubDate>
       <link> https://www.instagram.com/santaclarauniversity/ </link>
-      <description>Santa Clara University Instagram Page!</description>
-      <author> mhurlbut@scu.edu </author>
+      <description>Showcasing life at Santa Clara University, the Jesuit University in Silicon Valley. Tag your pics with #LifeAtSCU to share your Bronco Pride!
+linkin.bio/santaclarauniversity
+</description>
+      <author> Santa Clara University </author>
       <enclosure url="https://youtu.be/3MHfhFhjXD0" length="5000" type="audio/mpeg"/>
     </item>
   </channel>
