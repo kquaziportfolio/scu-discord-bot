@@ -56,15 +56,6 @@ client.on("message", (message) => {
 		message.reply(`Here is the server information: \nServer Name: ${message.guild.name}\nServer Region: ${message.guild.region}\nUser Count: ${message.guild.memberCount}\nVerification Level: ${message.guild.verificationLevel}`);
 	} else if (message.content.startsWith(`${prefix}user-info`)) { //will display the following user info: username and ID
 		message.reply(`Here is your information: \nYour Username: ${message.author.username}\nYour Tag: ${message.author.tag}\nYour ID: ${message.author.id}\nBot? (true/false): ${message.author.bot}`);
-	} else if (message.content.startsWith(`${prefix}kick`)) {
-		// grab the "first" mentioned user from the message
-		// this will return a `User` object, just like `message.author`
-		if (!message.mentions.users.size) {
-			return message.reply('you need to tag a user in order to kick them!');
-		}
-		const taggedUser = message.mentions.users.first();
-
-		message.channel.send(`You wanted to kick: ${taggedUser.username}`);
 	} else if (message.content.startsWith(`${prefix}avatar`)) {
 		if (!message.mentions.users.size) {
 			return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: true })}>`);
