@@ -2,13 +2,13 @@
   <channel>
     <title> Santa Clara University - FaceBook </title>
     <link> https://facebook.com/santaclarauniversity/ </link>
-    <description> FaceBook Fed </description>
+    <description> FaceBook Feed </description>
     <language> en-us </language>
     <image>
-      <title> Santa Clara University - FaceBook Post </title>
+      <title> Santa Clara University - FaceBook Page </title>
       <link> https://facebook.com/santaclarauniversity/ </link>
       <url>
-      https://www.scu.edu/media/offices/umc/scu-brand-guidelines/visual-identity-amp-photography/visual-identity-toolkit/logos-amp-seals/Mission-Dont3.png
+      https://upload.wikimedia.org/wikipedia/en/thumb/a/ad/Santa_Clara_U_Seal.svg/1200px-Santa_Clara_U_Seal.svg.png
       </url>
       <width> 144 </width>
       <height> 124 </height>
@@ -17,8 +17,8 @@
       <title> Check out this post! </title>
       <pubDate> Sun 17 May 2020 19:00 </pubDate>
       <link> https://www.facebook.com/SantaClaraUniversity/ </link>
-      <description>Santa Clara University FaceBook Page!</description>
-      <author> mhurlbut@scu.edu </author>
+      <description>Santa Clara University is a Jesuit Catholic university in Silicon Valley offering undergraduate and graduate degrees. For more info, visit www.scu.edu.</description>
+      <author> Santa Clara University </author>
       <enclosure url="https://youtu.be/3MHfhFhjXD0" length="5000" type="audio/mpeg"/>
     </item>
   </channel>
