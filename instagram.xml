@@ -1,0 +1,25 @@
+<rss version="2.0">
+  <channel>
+    <title> Santa Clara University - Instagram </title>
+    <link> https://www.instagram.com/santaclarauniversity/ </link>
+    <description> Instagram Feed </description>
+    <language> en-us </language>
+    <image>
+      <title> Santa Clara University - Instagram Post </title>
+      <link> https://www.instagram.com/santaclarauniversity/ </link>
+      <url>
+      https://www.scu.edu/media/offices/umc/scu-brand-guidelines/visual-identity-amp-photography/visual-identity-toolkit/logos-amp-seals/Mission-Dont3.png
+      </url>
+      <width> 144 </width>
+      <height> 124 </height>
+    </image>
+    <item>
+      <title> Check out this post! </title>
+      <pubDate> Sun 17 May 2020 21:09 </pubDate>
+      <link> https://www.instagram.com/santaclarauniversity/ </link>
+      <description>Santa Clara University Instagram Page!</description>
+      <author> mhurlbut@scu.edu </author>
+      <enclosure url="https://youtu.be/3MHfhFhjXD0" length="5000" type="audio/mpeg"/>
+    </item>
+  </channel>
+</rss>
