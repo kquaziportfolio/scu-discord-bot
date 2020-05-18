@@ -5,10 +5,10 @@
     <description> Twitter Feed </description>
     <language> en-us </language>
     <image>
-      <title> Santa Clara University - Twitter Post </title>
+      <title> Santa Clara University - Twitter Page </title>
       <link> https://twitter.com/SantaClaraUniv/ </link>
       <url>
-      https://www.scu.edu/media/offices/umc/scu-brand-guidelines/visual-identity-amp-photography/visual-identity-toolkit/logos-amp-seals/Mission-Dont3.png
+      https://pbs.twimg.com/profile_images/1035217234098962432/RtnOLVyo_400x400.jpg
       </url>
       <width> 144 </width>
       <height> 124 </height>
@@ -17,8 +17,8 @@
       <title> Check out this post! </title>
       <pubDate> Sun 17 May 2020 21:09 </pubDate>
       <link> https://www.twitter.com/SantaClaraUniv/ </link>
-      <description>Santa Clara University Twitter Page!</description>
-      <author> mhurlbut@scu.edu </author>
+      <description>Santa Clara University is the leading #Jesuit university in #SiliconValley advancing faith-inspired values of #socialjustice, #sustainability, and #ethics.</description>
+      <author> Santa Clara University </author>
       <enclosure url="https://youtu.be/3MHfhFhjXD0" length="5000" type="audio/mpeg"/>
     </item>
   </channel>
