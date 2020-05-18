@@ -1,21 +1,22 @@
 {
   "name": "scu-discord-bot",
   "version": "1.0.0",
-  "description": "A COOL SCU BOT",
+  "description": "SCU DISCORD BOT",
   "main": "index.js",
+  "dependencies": {
+    "discord.rss": "^6.0.0-dev",
+    "mongod": "^2.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jason Vu",
-  "license": "ISC",
-  "dependencies": {
-    "discord.js": "^12.2.0"
-  },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/javu404/scu-bot-discord.git"
   },
+  "author": "Jason Anh Vu",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/javu404/scu-bot-discord/issues"
   },
