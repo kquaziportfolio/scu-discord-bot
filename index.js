@@ -80,5 +80,5 @@ client.on("message", (message) => {
 	}
 });
 
-client.login(token); // Replace XXXXX with your bot token
+client.login(token) // Replace XXXXX with your bot token
 //bot token is found here: https://discord.com/developers/applications/709168573003857940/bot
