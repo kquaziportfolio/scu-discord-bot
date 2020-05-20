@@ -3,20 +3,20 @@
 // 3. Bot is hosted on Discord for free!
 
 const Discord = require("discord.js"); //requires Discord.js integration package
-const { prefix, token } = require("./config.json"); //retrieves data from config.json file 
 const client = new Discord.Client();
+const { prefix, token } = require("./config.json"); //retrieves data from config.json file 
 const { Client, MessageEmbed } = require('discord.js'); //for embed functionality
 const emojiCharacters = require('./emoji-characters'); //for emojis
 
-client.on("ready", () => {
-	console.log(`${client.user.tag} is ready to preach!`);
-	console.log(emojiCharacters.l + emojiCharacters.o + emojiCharacters.v  + emojiCharacters.e)
-	client.user.setActivity("Santa Clara University", { type: "WATCHING"}).catch(console.error);
-});
-    // Alternatively, you can set the activity to any of the following:
+client.on("ready", () => {x
+	//specific guild
+	const guild = client.guilds.cache.get("709118412542050364");
+	client.user.setActivity(`over ${guild.members.cache.size} members in the ${guild.name} server...`, { type: "LISTENING"})
+		.then(e => console.log(`${client.user.tag} is listening to over ${guild.members.cache.size} members in the ${guild.name} server...`));
+	// Alternatively, you can set the activity to any of the following:
     // PLAYING, STREAMING, LISTENING, WATCHING
-    // For example:
-	// client.user.setActivity("TV", {type: "WATCHING"})
+    // For example: client.user.setActivity("TV", {type: "WATCHING"})
+});
 
 client.on("message", (message) => {	
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
@@ -65,24 +65,6 @@ client.on("message", (message) => {
 			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
 			message.reply(embed)
 	} else if (message.content.startsWith(`${prefix}values`)) { // >values
-<<<<<<< HEAD
-		message.reply("We serve academic excellence, engaged learning, commitment to students, service to others, " +
-		"community and diversity, and Jesuit distinctiveness all year round!");
-	} else if (message.content.startsWith(`${prefix}commands`) || (message.content.startsWith(`{prefix}help`))) { // >commands || >help
-		message.reply("Here are the following commmands:" + " \n>ping " + "\n>foo" + "\n>motto" + "\n>mission" + 
-		"\n>vision" + "\n>values" + "\n>social-media" + "\n>server" + "\n>user-info" + "\n>avatar");
-	} else if (message.content.startsWith(`${prefix}social-media`)) { //will display social media sites in unordered list order
-		message.reply("Here are SCU's media platforms:" + "\n- Official Website: https://www.scu.edu/" + "\n- FaceBook: https://www.facebook.com/SantaClaraUniversity/" + "\n- Twitter: https://twitter.com/SantaClaraUniv/" +
-		"\n- Instagram: https://www.instagram.com/santaclarauniversity/" + "\n- Reddit: https://www.reddit.com/r/SCU/" + "\n- LinkedIn: https://www.linkedin.com/school/santa-clara-university/");
-	} else if (message.content.startsWith(`${prefix}server`)) { //will display server name and amount of current members
-		message.reply(`Here is the server information: \nServer Name: ${message.guild.name}\nServer Region: ${message.guild.region}\nUser Count: ${message.guild.memberCount}\nVerification Level: ${message.guild.verificationLevel}`);
-	} else if (message.content.startsWith(`${prefix}user-info`)) { //will display the following user info: username and ID
-		message.reply(`Here is your information: \nYour Username: ${message.author.username}\nYour Tag: ${message.author.tag}\nYour ID: ${message.author.id}\nBot? (true/false): ${message.author.bot}`);
-	} else if (message.content.startsWith(`${prefix}avatar`)) {
-		if (!message.mentions.users.size) {
-			return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: true })}>`);
-	}
-=======
 		const embed = new MessageEmbed()
 			.setColor(10231598)
 			.setAuthor("Santa Clara University")
@@ -121,7 +103,8 @@ client.on("message", (message) => {
 			.setAuthor("Santa Clara University")
 			.setColor(10231598)
 			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
-			.setDescription(`Here is the server information: \nServer Name: ${message.guild.name}\nServer Region: ${message.guild.region}\nUser Count: ${message.guild.memberCount}\nVerification Level: ${message.guild.verificationLevel}`);
+			.setDescription(`Here is the server information: \nServer Name: ${message.guild.name}\nServer Region: ${message.guild.region}
+			\nUser Count: ${message.guild.memberCount}\nVerification Level: ${message.guild.verificationLevel}`);
 			message.reply(embed);
 	} else if (message.content.startsWith(`${prefix}user-info`)) { // >user-info
 		const embed = new MessageEmbed()
@@ -141,7 +124,6 @@ client.on("message", (message) => {
 				.setDescription(`Your avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: true })}>`);
 				message.reply(embed);
 		}
->>>>>>> 2243098... Updated 5/19/20)
 
 		const avatarList = message.mentions.users.map(user => {
 			return `${user.username}"s avatar: <${user.displayAvatarURL({ format: "png", dynamic: true })}>`;
@@ -160,8 +142,8 @@ client.on('message', (message) => { // >prayer commands from the Great Fr. O'Bri
 			.setAuthor("Santa Clara University")
 			.setColor(10231598)
 			.setImage("https://www.scu.edu/media/offices/st-clare-garden/images/7409198466_9070d20dba_o-800x531.jpg")
-			.setDescription("Here are the following commmands:" + " \n>our-father" + "\n>hail-mary" +
-			"\n>glory-be" + "\n>act-of-contrition" + "\n>apostles-creed" + "\n>nicene-creed")
+			.setDescription(`Here are the following commmands: \n>our-father + \n>hail-mary
+			\n>glory-be + \n>act-of-contrition + \n>apostles-creed + \n>nicene-creed`)
 			message.reply(embed)
 	} else if (message.content.startsWith(`${prefix}our-father`)) { // >our-father
 		const embed = new MessageEmbed()
@@ -232,53 +214,4 @@ client.on('message', (message) => { // >prayer commands from the Great Fr. O'Bri
 	}
 });
 
-client.on("message", (message) => { // >kick 
-
-	if(!message.content.startsWith)
-
-    if(message.content.startsWith(`${prefix}kick`)) {
-        if(message.channel.type === 'DM') {
-            //First check if message channel is not direct message, because you cant kick out of guide 
-            message.channel.send('This command can use only in guide');
-            return;
-        };
-
-        //Then check if user have permissions to do that
-        if(!message.member.hasPermission('KICK_MEMBERS')) {
-            message.channel.send('You have no permissions to do that');
-            return;
-        };
-
-        //const a member, wich you need yo kick (its fist mention message member)
-        let mentionMember = message.mentions.members.first();
-        //If user doesn't mention a member, that show him this error msg
-        if(!mentionMember) {
-            message.channel.send('Please mention the member who you want to kick...');
-            return;
-        }
-
-        //Get the highest role of user for compare
-        let authorHighestRole = message.member.highestRole.position;
-        let mentionHighestRole = mentionMember.highestRole.position;
-
-        //If mention user have same or higher role, so show this error msg
-        if(mentionHighestRole >= authorHighestRole) {
-            message.channel.send('You can`t kick members with equal or higher position...');
-            return;
-        };
-
-        //Check if your bot can`t kick this user, so that show this error msg 
-        if(!mentionMember.kickable) {
-            message.channel.send('I have no permissions to kick this user...');
-            return;
-        };
-
-        //If all steps are completed successfully try kick this user
-        mentionMember.kick()
-            .then(() => console.log(`Kicked ${member.displayName}`))
-            .catch(console.error);
-    };
-});
-
 client.login(token) // Replace XXXXX with your bot token
-//bot token is found here: https://discord.com/developers/applications/709168573003857940/bot
