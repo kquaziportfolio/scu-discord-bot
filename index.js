@@ -8,13 +8,22 @@ const { prefix, token } = require("./config.json"); //retrieves data from config
 const { Client, MessageEmbed } = require('discord.js'); //for embed functionality
 const emojiCharacters = require('./emoji-characters'); //for emojis
 
+<<<<<<< HEAD
 client.on("ready", () => {x
+=======
+client.on("ready", () => {
+>>>>>>> fd3677c... UPDATED CODE
 	//specific guild
 	const guild = client.guilds.cache.get("709118412542050364");
 	client.user.setActivity(`over ${guild.members.cache.size} members in the ${guild.name} server...`, { type: "LISTENING"})
 		.then(e => console.log(`${client.user.tag} is listening to over ${guild.members.cache.size} members in the ${guild.name} server...`));
 	// Alternatively, you can set the activity to any of the following:
     // PLAYING, STREAMING, LISTENING, WATCHING
+<<<<<<< HEAD
+=======
+    // For example:
+	// client.user.setActivity("TV", {type: "WATCHING"})
+>>>>>>> fd3677c... UPDATED CODE
     // For example: client.user.setActivity("TV", {type: "WATCHING"})
 });
 
