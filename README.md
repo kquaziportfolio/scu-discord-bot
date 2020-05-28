@@ -42,13 +42,9 @@ in #role-select for your roles! Thank you for your cooperation and have a great 
 }  
 ```
 
-## Feeds command (.feeds) with 24/7 Nadeko bot integration:
+## Set Bot Activity (.setgame):
 ```
-1. https://reddit.com/r/scu.rss
-2. https://javu404.github.io/scu-discord-bot/xml/facebook.xml
-3. https://javu404.github.io/scu-discord-bot/xml/twitter.xml
-4. https://javu404.github.io/scu-discord-bot/xml/youtube.xml
-5. https://javu404.github.io/scu-discord-bot/xml/instagram.xml
+Playing With over %users% members in the %server.name% server!
 ```
 
 ## Creator(s):
