@@ -1,0 +1,422 @@
+jvu40@Jason-AL061NR MINGW64 /c/users/jvu40/documents/github_repos/scu-discord-bot (master)
+$ git log
+commit bbc805d (HEAD -> master, origin/master, origin/HEAD)
+Author: Jason Vu <javu404@gmail.com>
+Date:   Thu May 28 08:29:19 2020 -0700
+
+    UPDATED 5/28/20
+
+commit 8ab3241
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Thu May 28 08:26:40 2020 -0700
+
+    Create BOT_BEST_PRACTICES
+
+commit 2760c0d
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Thu May 28 08:24:48 2020 -0700
+
+    Create LICENSE.md
+
+commit a050c28
+Author: Jason Vu <javu404@gmail.com>
+Date:   Mon May 25 12:38:22 2020 -0700
+
+    UPDATED CODE
+
+commit 1d3899d
+Author: Jason Vu <javu404@gmail.com>
+Date:   Mon May 25 12:36:19 2020 -0700
+
+    UPDATED CODE
+
+commit 5530817
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 20 11:55:11 2020 -0700
+
+    Update index.js
+
+commit 66933f9
+Author: Jason Vu <javu404@gmail.com>
+Date:   Tue May 19 13:00:22 2020 -0700
+
+    NEW
+
+commit 35b25fe
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Tue May 19 12:50:39 2020 -0700
+
+    Delete .gitignore.txt
+
+commit 3d0a860
+Author: Jason Vu <javu404@gmail.com>
+Date:   Tue May 19 12:25:48 2020 -0700
+
+    Updated files
+
+commit 1b4c4b4
+Author: Jason Vu <javu404@gmail.com>
+Date:   Tue May 19 12:20:31 2020 -0700
+
+    Goin' thru changes
+
+commit 86a0914
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 13:13:09 2020 -0700
+
+    Set theme jekyll-theme-modernist
+
+commit b67976b
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 13:10:08 2020 -0700
+
+    Updated README.md
+
+commit 90cfb83
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 13:04:31 2020 -0700
+
+    Update README.md
+
+commit 6b83b0d
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 12:46:21 2020 -0700
+
+    Updated index.js
+
+commit 08ee3d2
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 12:44:51 2020 -0700
+
+    Update youtube.xml
+
+commit 8481f80
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 12:44:40 2020 -0700
+
+    Update twitter.xml
+
+commit 66d7c3f
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 12:44:18 2020 -0700
+
+    Update scu-news.xml
+
+commit 3e6e759
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 12:44:02 2020 -0700
+
+    updated xml file for discord feed
+
+commit 02a2ebe
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 12:43:41 2020 -0700
+
+    updated scu news xml file for discord feed
+
+commit abafe6d
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 12:43:20 2020 -0700
+
+    updated facebook xml file for discord feed
+
+commit 2541c3f
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 10:19:34 2020 -0700
+
+    Create scu-news.xml
+
+commit d297afe
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 09:37:29 2020 -0700
+
+    Update config.json
+
+commit d3a8721
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 09:36:36 2020 -0700
+
+    Create .gitignore
+
+commit c81cbd0
+Author: Jason Vu <javu404@gmail.com>
+Date:   Mon May 18 09:33:44 2020 -0700
+
+    New
+
+commit b19aba4
+Author: Jason Vu <javu404@gmail.com>
+Date:   Mon May 18 09:30:28 2020 -0700
+
+    Added XML folder
+
+commit d02498a
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 09:32:20 2020 -0700
+
+    Update README.md
+
+commit c44eb5c
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 09:30:01 2020 -0700
+
+    Create README.md
+
+commit ddea39c
+Author: Jason Vu <javu404@gmail.com>
+Date:   Mon May 18 09:14:46 2020 -0700
+
+    Updated 5/18/20
+
+commit 1c669f7
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 08:52:03 2020 -0700
+
+    Update youtube.xml
+
+commit 5cb6e5a
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 08:51:50 2020 -0700
+
+    Update instagram.xml
+
+commit 0a3118b
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 08:51:36 2020 -0700
+
+    Update facebook.xml
+
+commit 4311cde
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 08:51:21 2020 -0700
+
+    Update twitter.xml
+
+commit 08f7b73
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 08:51:10 2020 -0700
+
+    Create linkedin.xml
+
+commit 79c602e
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon May 18 08:38:53 2020 -0700
+
+    Update youtube.xml
+
+commit b02a7e1
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:47:12 2020 -0700
+
+    Update twitter.xml
+
+commit 6f5d5f7
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:46:51 2020 -0700
+
+    Update instagram.xml
+
+commit 269e902
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:46:29 2020 -0700
+
+    Update facebook.xml
+
+commit e98974a
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:45:54 2020 -0700
+
+    Create youtube.xml
+
+commit 6714fde
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:40:47 2020 -0700
+
+    Update instagram.xml
+
+commit 2656714
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:39:44 2020 -0700
+
+    Update facebook.xml
+
+commit 28bcdd3
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:37:37 2020 -0700
+
+    Update twitter.xml
+
+commit ea3e1ec
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:23:54 2020 -0700
+
+    Set theme jekyll-theme-time-machine
+
+commit 7f11a51
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:22:40 2020 -0700
+
+    Delete index.html
+
+commit 78f66f6
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:21:00 2020 -0700
+
+    Update instagram.xml
+
+commit 560b55f
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:18:14 2020 -0700
+
+    Update twitter.xml
+
+commit 5760523
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:17:58 2020 -0700
+
+    Create instagram.xml
+
+commit 9b7db37
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:15:30 2020 -0700
+
+    Create twitter.xml
+
+commit 6f2435d
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:15:18 2020 -0700
+
+    Delete twitter.xml
+
+commit c6965eb
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:14:08 2020 -0700
+
+    Rename SCU-TWITTER.xml to twitter.xml
+
+commit 3937be9
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:13:52 2020 -0700
+
+    Rename SCU-FACEBOOK.xml to facebook.xml
+
+commit 1f7637e
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:10:25 2020 -0700
+
+    Rename SCU-TWITTER-BOT to SCU-TWITTER.xml
+
+commit 0dccdee
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:09:27 2020 -0700
+
+    Created new xml file for SCU Twitter
+
+commit d1b989a
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:03:31 2020 -0700
+
+    Create index.html
+
+commit 9390855
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Sun May 17 23:01:49 2020 -0700
+
+    Create SCU-FACEBOOK.xml
+
+commit bfa68a2
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Thu May 14 14:59:06 2020 -0700
+
+    Update README.md
+
+commit ece6a68
+Author: Jason Vu <javu404@gmail.com>
+Date:   Thu May 14 14:48:45 2020 -0700
+
+    5/14/20
+
+commit 7a19cfe
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Thu May 14 14:56:14 2020 -0700
+
+    Create .gitignore
+
+commit e8e6b76
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 14:16:10 2020 -0700
+
+    Rename LICENSE to LICENSE.md
+
+commit d230c3f
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 14:16:00 2020 -0700
+
+    Update LICENSE
+
+commit 719ed45
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 14:09:13 2020 -0700
+
+    Update README.md
+
+commit 9045865
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 14:08:19 2020 -0700
+
+    Update README.md
+
+commit 771e80a
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 14:04:59 2020 -0700
+
+    Updated 05/13/2020
+
+commit afb8d62
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 13:51:29 2020 -0700
+
+    Update README.md
+
+commit 9c5253c
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 12:16:57 2020 -0700
+
+    Update README.md
+
+commit 044b455
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 12:16:17 2020 -0700
+
+    Updated 5/13/2020
+
+commit 99dfbc1
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 12:10:52 2020 -0700
+
+    Update config.json
+
+commit 6530486
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 12:10:36 2020 -0700
+
+    Update config.json
+
+commit 653cc29
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 12:08:22 2020 -0700
+
+    Added files for SCU Discord BOT - 5/13/20
+
+commit eaea814
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 12:05:38 2020 -0700
+
+    Update README.md
+
+commit 2ef1af1
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Wed May 13 11:53:24 2020 -0700
+
+    Initial commit
+
