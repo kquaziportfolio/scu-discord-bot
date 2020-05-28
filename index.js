@@ -8,7 +8,7 @@ const { prefix, token } = require("./config.json"); //retrieves data from config
 const { Client, MessageEmbed } = require('discord.js'); //for embed functionality
 const emojiCharacters = require('./emoji-characters'); //for emojis
 
-client.on("ready", () => {x
+client.on("ready", () => {
 	//specific guild
 	const guild = client.guilds.cache.get("709118412542050364");
 	client.user.setActivity(`over ${guild.members.cache.size} members in the ${guild.name} server...`, { type: "LISTENING"})
