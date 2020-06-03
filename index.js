@@ -1,6 +1,6 @@
 // 1. Edit code and save (CTRL+S)!
-// 2. Run "cmd" -> Type "cd Documents\SCU_BOT\ ->  Type "node ."
-// 3. Bot is hosted on Discord for free!
+// 2. Run "cmd" -> Type "cd Documents/GitHub_Repos/scu-discord-bot/ ->  Type "pm2 start index.js / "pm2 restart index.js"
+// 3. Bot is hosted 24/7 on Raspberry Pi 4 for free!
 
 const Discord = require("discord.js"); //requires Discord.js integration package
 const client = new Discord.Client();
@@ -11,14 +11,30 @@ const emojiCharacters = require('./emoji-characters'); //for emojis
 client.on("ready", () => {
 	//specific guild
 	const guild = client.guilds.cache.get("709118412542050364");
-	client.user.setActivity(`over ${guild.members.cache.size} members in the ${guild.name} server...`, { type: "LISTENING"})
-		.then(e => console.log(`${client.user.tag} is listening to over ${guild.members.cache.size} members in the ${guild.name} server...`));
+	const bot_activity = `Preaching to over ${guild.members.cache.size} members in the ${guild.name} server...`
+	client.user.setActivity(bot_activity);
+	console.log(bot_activity);
 	// Alternatively, you can set the activity to any of the following:
     // PLAYING, STREAMING, LISTENING, WATCHING
     // For example: client.user.setActivity("TV", {type: "WATCHING"})
 });
 
 client.on("message", (message) => {	
+	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+
+	if ((message.content.startsWith(`${prefix}commands`)) || (message.content.startsWith(`${prefix}help`))) { // >commands 
+		const embed = new MessageEmbed()
+			.setTitle('Bot Commands List')
+			.setColor(10231598)
+			.setAuthor("Santa Clara University")
+			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
+			.setDescription(">ping " + "\n>foo" + "\n>motto" + "\n>mission" + "\n>vision" + 
+			"\n>values" + "\n>social-media" + "\n>server" + "\n>user-info" + "\n>prayers");
+			message.reply(embed);
+	} 
+});
+
+client.on("message", (message) => {
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
 	if (message.content.startsWith(`${prefix}ping`)) { // >ping
@@ -73,15 +89,6 @@ client.on("message", (message) => {
 			"community and diversity, and Jesuit distinctiveness all year round!")
 			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
 			message.reply(embed)
-	} else if ((message.content.startsWith(`${prefix}commands`)) || (message.content.startsWith(`${prefix}help`))) { // >commands 
-		const embed = new MessageEmbed()
-			.setTitle('Bot Commands List')
-			.setColor(10231598)
-			.setAuthor("Santa Clara University")
-			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
-			.setDescription(">ping " + "\n>foo" + "\n>motto" + "\n>mission" + "\n>vision" + "\n>values" + 
-			"\n>social-media" + "\n>server" + "\n>user-info" + "\n>avatar" + "\nprayers");
-			message.reply(embed);
 	} else if (message.content.startsWith(`${prefix}social-media`)) { // >social-media
 		const embed = new MessageEmbed() 
 			// Set the title of the field
@@ -97,35 +104,38 @@ client.on("message", (message) => {
 			"\n- Instagram: https://www.instagram.com/santaclarauniversity/" + "\n- Reddit: https://www.reddit.com/r/SCU/" + "\n- LinkedIn: https://www.linkedin.com/school/santa-clara-university/");
 			// Send the embed to the same channel as the message 
 			message.reply(embed);
-	} else if (message.content.startsWith(`${prefix}server`) || (message.content.startsWith(`${prefix}server-info`))) {  
+	} 
+});
+
+client.on("message", (message) => {
+	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+
+	if (message.content.startsWith(`${prefix}server`) || (message.content.startsWith(`${prefix}server-info`))) {  
 		const embed = new MessageEmbed()
 			.setTitle('Server Information')
 			.setAuthor("Santa Clara University")
 			.setColor(10231598)
-			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
-			.setDescription(`\nServer Name: ${message.guild.name}\nServer Region: ${message.guild.region}
-			\nUser Count: ${message.guild.memberCount}\nVerification Level: ${message.guild.verificationLevel}`);
+			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
+			.setDescription(`\nServer Name: ${message.guild.name}\nServer Region: ${message.guild.region}` +
+			`\nUser Count: ${message.guild.memberCount}\nVerification Level: ${message.guild.verificationLevel}`);
 			message.reply(embed);
 	} else if (message.content.startsWith(`${prefix}user-info`)) { // >user-info
+		let user = message.mentions.users.first() || message.author;
+		const get_avatar = user.displayAvatarURL();
 		const embed = new MessageEmbed()
 			.setTitle('User Information')
 			.setAuthor("Santa Clara University")
 			.setColor(10231598)
-			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
-			.setDescription(`\nYour Username: ${message.author.username}\nYour Tag: ${message.author.tag}\nYour ID: ${message.author.id}\nBot? (true/false): ${message.author.bot}`);
+			.setImage(`${get_avatar}`)
+			.setDescription(`\nCreated At: ${user.createdAt}\nYour Username: ${user.username}\nYour Tag: ${user.tag}` +
+			`\nYour Presence: ${user.presence.status}\nBot? (true/false): ${user.bot}\nYour Avatar:`);
 			message.reply(embed);
-	} else if (message.content.startsWith(`${prefix}avatar`)) { // >avatar
-		const get_avatar = message.author.displayAvatarURL();
-		const embed = new MessageEmbed()
-			.setTitle('Your Avatar Image')
-			.setAuthor("Santa Clara University")
-			.setColor(10231598)
-			.setDescription(`${get_avatar}`)
-			message.reply(embed);
-	} 
+	}
 });
 
 client.on('message', (message) => { // >prayer commands from the Great Fr. O'Brien
+	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+
 	if (message.content.startsWith(`${prefix}prayers`)) { // >prayers
 		const embed = new MessageEmbed()
 			.setTitle("Prayer Commands")
@@ -204,6 +214,8 @@ client.on('message', (message) => { // >prayer commands from the Great Fr. O'Bri
 });
 
 client.on('message', message => { // >kick command
+	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+
 	// Ignore messages that aren't from this guild
 	if (!message.guild) return;
 
