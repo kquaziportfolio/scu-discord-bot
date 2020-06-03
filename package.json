@@ -1,7 +1,7 @@
 {
   "name": "scu-discord-bot",
   "version": "1.0.0",
-  "description": "SCU DISCORD BOT",
+  "description": "A super fun and modular discord.js bot written in js and hosted 24/7 on my Raspberry Pi 4!",
   "main": "index.js",
   "dependencies": {
     "discord.js": "^12.2.0",
@@ -15,8 +15,16 @@
     "type": "git",
     "url": "git+https://github.com/javu404/scu-bot-discord.git"
   },
+  "keywords": [
+    "discord",
+    "bot",
+    "node",
+    "node.js",
+    "discord.js",
+    "santa clara university"
+  ],
   "author": "Jason Vu",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/javu404/scu-bot-discord/issues"
   },

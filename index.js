@@ -57,7 +57,7 @@ client.on("message", (message) => {
 			message.reply(embed)	
 	} else if (message.content.startsWith(`${prefix}vision`)) { // >vision
 		const embed = new MessageEmbed()
-			.setColor(10231598)
+			.setColor(10231598);
 			.setAuthor("Santa Clara University")
 			.setTitle("SCU's Vision")
 			.setDescription("Santa Clara University will educate citizens and leaders of competence, conscience, " + 
@@ -73,19 +73,19 @@ client.on("message", (message) => {
 			"community and diversity, and Jesuit distinctiveness all year round!")
 			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
 			message.reply(embed)
-	} else if (message.content.startsWith(`${prefix}commands`)) { // >commands 
+	} else if ((message.content.startsWith(`${prefix}commands`)) || (message.content.startsWith(`${prefix}help`))) { // >commands 
 		const embed = new MessageEmbed()
 			.setTitle('Bot Commands List')
 			.setColor(10231598)
 			.setAuthor("Santa Clara University")
 			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
-			.setDescription("Here are the following commmands:" + " \n>ping " + "\n>foo" + "\n>motto" + "\n>mission" + 
-			"\n>vision" + "\n>values" + "\n>social-media" + "\n>server" + "\n>user-info" + "\n>avatar")
+			.setDescription(">ping " + "\n>foo" + "\n>motto" + "\n>mission" + "\n>vision" + "\n>values" + 
+			"\n>social-media" + "\n>server" + "\n>user-info" + "\n>avatar" + "\nprayers");
 			message.reply(embed);
 	} else if (message.content.startsWith(`${prefix}social-media`)) { // >social-media
 		const embed = new MessageEmbed() 
 			// Set the title of the field
-			.setTitle("SCU's Social Media")
+			.setTitle("SCU's Social Media Platforms")
 			// Set the author of the social media
 			.setAuthor("Santa Clara University")
 			// Set the color of the embed
@@ -93,7 +93,7 @@ client.on("message", (message) => {
 			// Set the main content of the embed
 			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
 			// Set the image url
-			.setDescription("Here are SCU's media platforms:" + "\n- Official Website: https://www.scu.edu/" + "\n- FaceBook: https://www.facebook.com/SantaClaraUniversity/" + "\n- Twitter: https://twitter.com/SantaClaraUniv/" +
+			.setDescription("- Official Website: https://www.scu.edu/" + "\n- FaceBook: https://www.facebook.com/SantaClaraUniversity/" + "\n- Twitter: https://twitter.com/SantaClaraUniv/" +
 			"\n- Instagram: https://www.instagram.com/santaclarauniversity/" + "\n- Reddit: https://www.reddit.com/r/SCU/" + "\n- LinkedIn: https://www.linkedin.com/school/santa-clara-university/");
 			// Send the embed to the same channel as the message 
 			message.reply(embed);
@@ -103,7 +103,7 @@ client.on("message", (message) => {
 			.setAuthor("Santa Clara University")
 			.setColor(10231598)
 			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
-			.setDescription(`Here is the server information: \nServer Name: ${message.guild.name}\nServer Region: ${message.guild.region}
+			.setDescription(`\nServer Name: ${message.guild.name}\nServer Region: ${message.guild.region}
 			\nUser Count: ${message.guild.memberCount}\nVerification Level: ${message.guild.verificationLevel}`);
 			message.reply(embed);
 	} else if (message.content.startsWith(`${prefix}user-info`)) { // >user-info
@@ -112,26 +112,16 @@ client.on("message", (message) => {
 			.setAuthor("Santa Clara University")
 			.setColor(10231598)
 			.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
-			.setDescription(`Here is your information: \nYour Username: ${message.author.username}\nYour Tag: ${message.author.tag}\nYour ID: ${message.author.id}\nBot? (true/false): ${message.author.bot}`);
+			.setDescription(`\nYour Username: ${message.author.username}\nYour Tag: ${message.author.tag}\nYour ID: ${message.author.id}\nBot? (true/false): ${message.author.bot}`);
 			message.reply(embed);
 	} else if (message.content.startsWith(`${prefix}avatar`)) { // >avatar
-		if (!message.mentions.users.size) {
-			const embed = new MessageEmbed()
-				.setTitle('Avatar Image')
-				.setAuthor("Santa Clara University")
-				.setColor(10231598)
-				.setImage("https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png")
-				.setDescription(`Your avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: true })}>`);
-				message.reply(embed);
-		}
-
-		const avatarList = message.mentions.users.map(user => {
-			return `${user.username}"s avatar: <${user.displayAvatarURL({ format: "png", dynamic: true })}>`;
-		});
-
-		// send the entire array of strings as a message
-		// by default, discord.js will `.join()` the array with `\n`
-		message.channel.send(avatarList);
+		const get_avatar = message.author.displayAvatarURL();
+		const embed = new MessageEmbed()
+			.setTitle('Your Avatar Image')
+			.setAuthor("Santa Clara University")
+			.setColor(10231598)
+			.setDescription(`${get_avatar}`)
+			message.reply(embed);
 	} 
 });
 
@@ -142,8 +132,7 @@ client.on('message', (message) => { // >prayer commands from the Great Fr. O'Bri
 			.setAuthor("Santa Clara University")
 			.setColor(10231598)
 			.setImage("https://www.scu.edu/media/offices/st-clare-garden/images/7409198466_9070d20dba_o-800x531.jpg")
-			.setDescription(`Here are the following commmands: \n>our-father + \n>hail-mary
-			\n>glory-be + \n>act-of-contrition + \n>apostles-creed + \n>nicene-creed`)
+			.setDescription(`>our-father + \n>hail-mary +\n>glory-be + \n>act-of-contrition + \n>apostles-creed + \n>nicene-creed`)
 			message.reply(embed)
 	} else if (message.content.startsWith(`${prefix}our-father`)) { // >our-father
 		const embed = new MessageEmbed()
@@ -211,6 +200,55 @@ client.on('message', (message) => { // >prayer commands from the Great Fr. O'Bri
 		' who proceedeth from the Father and the Son: who together with the Father and the Son is adored and glorified; who spake by the prophets. And one holy' +
 		' Catholic and Apostolic Church. I confess one baptism for the remission of sins. And I look for the resurrection of the dead, and the life of the world to come. Amen')
 		message.reply(embed)	
+	}
+});
+
+client.on('message', message => { // >kick command
+	// Ignore messages that aren't from this guild
+	if (!message.guild) return;
+
+	if (message.content.startsWith(`${prefix}kick`)) {
+		// Assuming we mention someone in the message, this will return the user
+		const user = message.mentions.users.first();
+		if (user) {
+			// Now we get the member from the user
+			const member = message.guild.member(user);
+			// If the member is in the guild
+			if (member) {
+				/**
+				 * Kick the member
+				 * Make sure you run this on a member, not a user!
+				 * There are big differences between a user and a member
+				 */
+				member 
+					.kick("Optional reason that will display in the audit logs...")
+					.then(() => {
+						// We let the message author know we were able to kick the person, outputted as embed
+						const embed = new MessageEmbed()
+						.setColor(10231598)
+						.setAuthor("Santa Clara University")
+						.setTitle("User Kicked...")
+						.setDescription(`Successfully kicked ${user.tag}...`)
+						.setImage("https://media1.giphy.com/media/qiiimDJtLj4XK/giphy.gif")
+						message.reply(embed)
+					})
+					.catch(err => {
+						// An error happened
+						// This is generally due to the bot not being able to kick the member,
+						// either due to missing permissions or role hierarchy
+						message.reply("I was unable to kick the member...");
+						// Log the error
+						console.log(err);
+					})
+			} else {
+				//mentioned user not in guild
+				message.reply("The mentioned user isn't in this guild!")
+			} 
+		}
+			else {
+				//outputs when no user mentioned
+				message.reply("You didn't mention the user to kick!");
+			}
 	}
 });
 
