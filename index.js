@@ -57,7 +57,7 @@ client.on("message", (message) => {
 			message.reply(embed)	
 	} else if (message.content.startsWith(`${prefix}vision`)) { // >vision
 		const embed = new MessageEmbed()
-			.setColor(10231598);
+			.setColor(10231598)
 			.setAuthor("Santa Clara University")
 			.setTitle("SCU's Vision")
 			.setDescription("Santa Clara University will educate citizens and leaders of competence, conscience, " + 
