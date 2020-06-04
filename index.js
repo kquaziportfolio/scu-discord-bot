@@ -213,6 +213,25 @@ client.on('message', (message) => { // >prayer commands from the Great Fr. O'Bri
 	}
 });
 
+client.on('message', (message) => {
+	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+
+	if (message.content.startsWith(`${prefix}quote`)) {
+
+	const quotes = [ //lists of random quotes
+		"The greatest glory in living lies not in never falling, but in rising every time we fall. \n-Nelson Mandela",
+		"The way to get started is to quit talking and begin doing. \n-Walt Disney",
+		"Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking. \n-Steve Jobs",
+		"If life were predictable it would cease to be life, and be without flavor. \n-Eleanor Roosevelt",
+		"If you look at what you have in life, you'll always have more. If you look at what you don't have in life, you'll never have enough. \n-Oprah Winfrey",
+		"If you set your goals ridiculously high and it's a failure, you will fail above everyone else's success. \n-James Cameron",
+		"Life is what happens when you're busy making other plans. \n-John Lennon" 
+	];
+
+	message.reply(quotes[Math.floor(Math.random()*quotes.length)]); //Replies to user with random quote
+	}
+});
+
 client.on('message', message => { // >kick command
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
@@ -222,6 +241,7 @@ client.on('message', message => { // >kick command
 	if (message.content.startsWith(`${prefix}kick`)) {
 		// Assuming we mention someone in the message, this will return the user
 		const user = message.mentions.users.first();
+
 		if (user) {
 			// Now we get the member from the user
 			const member = message.guild.member(user);
@@ -240,7 +260,7 @@ client.on('message', message => { // >kick command
 						.setColor(10231598)
 						.setAuthor("Santa Clara University")
 						.setTitle("User Kicked...")
-						.setDescription(`Successfully kicked ${user.tag}...`)
+						.setDescription(`Successfully kicked ${user.username}...`)
 						.setImage("https://media1.giphy.com/media/qiiimDJtLj4XK/giphy.gif")
 						message.reply(embed)
 					})
@@ -248,19 +268,54 @@ client.on('message', message => { // >kick command
 						// An error happened
 						// This is generally due to the bot not being able to kick the member,
 						// either due to missing permissions or role hierarchy
-						message.reply("I was unable to kick the member...");
+						const embed = new MessageEmbed()
+						.setColor(10231598)
+						.setAuthor("Santa Clara University")
+						.setTitle(`Oops, an error happened...`)
+						.setImage("https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png")
+						message.reply(embed)
 						// Log the error
 						console.log(err);
 					})
 			} else {
 				//mentioned user not in guild
-				message.reply("The mentioned user isn't in this guild!")
+				const embed = new MessageEmbed()
+						.setColor(10231598)
+						.setAuthor("Santa Clara University")
+						.setTitle("The mentioned user isn't in this guild!")
+						.setImage("https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png")
+						message.reply(embed)
 			} 
 		}
 			else {
 				//outputs when no user mentioned
-				message.reply("You didn't mention the user to kick!");
+				const embed = new MessageEmbed()
+						.setColor(10231598)
+						.setAuthor("Santa Clara University")
+						.setTitle("You didn't mention the user to kick!")
+						.setImage("https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png")
+						message.reply(embed)
 			}
+	} else if (message.content.startsWith(`${prefix}ban`)) {
+		let member = message.mentions.members.first();
+
+		if(!member)
+			return message.reply("Please mention a valid member in this server.");
+		if(!member.bannable) 
+			return message.reply("I cannot ban this user! Do they have a higher role?");
+
+		let reason = args.slice(1).join(' ');
+		if(!reason) reason = "No reason provided.";
+
+		member.ban(reason) 
+			.catch(error => message.reply(`Sorry ${message.author} I couldn't ban because of ${error}.`));
+			const embed = new MessageEmbed()
+			.setColor(10231598)
+			.setAuthor("Santa Clara University")
+			.setTitle("User Banned...")
+			.setImage("https://gulf-insider-i35ch33zpu3sxik.stackpathdns.com/wp-content/uploads/2017/07/banned.jpg")
+			.setDescription(`${member.user.tag} has been banned by ${message.author.tag} because: ${reason}.`);
+			message.reply(embed);
 	}
 });
 
