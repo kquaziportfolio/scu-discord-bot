@@ -4,7 +4,6 @@
 
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const client = new Discord.Client();
-const config = require(`./config.json`);
 const { prefix, token } = require(`./config.json`); //retrieves data from config.json file 
 const { Client, MessageEmbed } = require('discord.js'); //for embed functionality
 const emojiCharacters = require('./emoji-characters'); //for emojis
@@ -229,21 +228,28 @@ client.on('message', (message) => {
 		message.reply(embed);
   	} else if (message.content.startsWith(`${prefix}meme`)) {
 		let reddit = ["meme", "animemes", "me_irl", "2meirl4meirl", "dankmemes", "memeeconomy",
-		"prequelmemes", "comedycemetery", "historymemes", "nukedmemes", "deepfriedmemes", 
-		"mathmemes", "mathjokes", "collegememes", "exammemes"]
+		"prequelmemes", "mathmemes", "mathjokes", "collegememes", "exammemes"]
 
 		let subreddit = reddit[Math.floor(Math.random() * reddit.length)];
 
 		message.channel.startTyping();
 
 		memes(subreddit).then (async url => {
-			message.channel.send({
+			await message.channel.send({
 				files: [{
 					attachment: url,
 					name: 'meme.png'
 				}]
-			}).then(() => message.channel.stopTyping());
-		}).catch(err => console.log(err));
+			}).then(() => message.channel.stopTyping(true));
+		}).catch(err => {
+			const embed = new MessageEmbed()
+			.setColor(10231598)
+			.setAuthor(`Santa Clara University`)
+			.setTitle(`Oops, an error happened...`)
+			.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
+			message.reply(embed)
+			console.log(err);
+		});
 	}
 });
 
@@ -255,8 +261,14 @@ client.on('message', (message) => { // >kick command
 
 	if (message.content.startsWith(`${prefix}kick`)) {
 		// Assuming we mention someone in the message, this will return the user
-		if (!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) {
-			return message.channel.send("You dont have permission to perform this command!");
+		if (!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
+			const embed = new MessageEmbed()
+			.setColor(10231598)
+			.setAuthor(`Santa Clara University`)
+			.setTitle(`Oops, an error happened...`)
+			.setDescription(`You don't have permission to perform this command!`)
+			.setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
+			message.reply(embed)
 		}
 		const user = message.mentions.users.first();
 
@@ -315,8 +327,14 @@ client.on('message', (message) => { // >kick command
 						message.reply(embed)
 			}
 	} else if (message.content.startsWith(`${prefix}ban`)) {
-		if (!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) {
-			return message.channel.send("You dont have permission to perform this command!");
+		if (!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
+			const embed = new MessageEmbed()
+			.setColor(10231598)
+			.setAuthor(`Santa Clara University`)
+			.setTitle(`Oops, an error happened...`)
+			.setDescription(`You dont have permission to perform this command!`)
+			.setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
+			message.reply(embed)
 		}
 
 		let member = message.mentions.members.first();
