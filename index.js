@@ -14,14 +14,15 @@ client.on(`ready`, () => {
 	//specific guild
 	const guild = client.guilds.cache.get(`709118412542050364`);
 	const bot_activity = `Preaching to over ${guild.members.cache.size} members in the ${guild.name} server...`
-	client.user.setActivity(bot_activity);
-	console.log(bot_activity);
+	client.user.setActivity(bot_activity)
+		.then(console.log(bot_activity))
+		.catch(err => console.log(err))
 	// Alternatively, you can set the activity to any of the following:
     // PLAYING, STREAMING, LISTENING, WATCHING
     // For example: client.user.setActivity(`TV`, {type: `WATCHING`})
 });
 
-client.on(`message`, (message) => {	
+client.on(`message`, async message => {	
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
 	if ((message.content.startsWith(`${prefix}commands`)) || (message.content.startsWith(`${prefix}help`))) { // >commands 
@@ -36,7 +37,7 @@ client.on(`message`, (message) => {
 	} 
 });
 
-client.on(`message`, (message) => {
+client.on(`message`, async message => {
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
 	if (message.content.startsWith(`${prefix}ping`)) { // >ping
@@ -109,7 +110,7 @@ client.on(`message`, (message) => {
 	} 
 });
 
-client.on(`message`, (message) => {
+client.on(`message`, async message => {
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
 	if (message.content.startsWith(`${prefix}server`) || (message.content.startsWith(`${prefix}server-info`))) {  
@@ -135,7 +136,7 @@ client.on(`message`, (message) => {
 	}
 });
 
-client.on('message', (message) => { // >prayer commands from the Great Fr. O'Brien
+client.on('message', async message => { // >prayer commands from the Great Fr. O'Brien
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
 	if (message.content.startsWith(`${prefix}prayers`)) { // >prayers
@@ -215,7 +216,7 @@ client.on('message', (message) => { // >prayer commands from the Great Fr. O'Bri
 	}
 });
 
-client.on('message', (message) => {
+client.on ('message', async message => {
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
 	if (message.content.startsWith(`${prefix}quote`)) {
@@ -253,7 +254,7 @@ client.on('message', (message) => {
 	}
 });
 
-client.on('message', (message) => { // >kick command
+client.on('message', async message => { // >kick command
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
 	// Ignore messages that aren't from this guild
