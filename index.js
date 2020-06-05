@@ -245,7 +245,6 @@ client.on ('message', async message => {
 		}).catch(err => {
 			const embed = new MessageEmbed()
 			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
 			.setTitle(`Oops, an error happened...`)
 			.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
 			message.reply(embed)
@@ -265,7 +264,6 @@ client.on('message', async message => { // >kick command
 		if (!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
 			const embed = new MessageEmbed()
 			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
 			.setTitle(`Oops, an error happened...`)
 			.setDescription(`You don't have permission to perform this command!`)
 			.setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
@@ -289,7 +287,6 @@ client.on('message', async message => { // >kick command
 						// We let the message author know we were able to kick the person, outputted as embed
 						const embed = new MessageEmbed()
 						.setColor(10231598)
-						.setAuthor(`Santa Clara University`)
 						.setTitle(`User Kicked...`)
 						.setDescription(`Successfully kicked ${user.username}...`)
 						.setImage(`https://media1.giphy.com/media/qiiimDJtLj4XK/giphy.gif`)
@@ -301,7 +298,6 @@ client.on('message', async message => { // >kick command
 						// either due to missing permissions or role hierarchy
 						const embed = new MessageEmbed()
 						.setColor(10231598)
-						.setAuthor(`Santa Clara University`)
 						.setTitle(`Oops, an error happened...`)
 						.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
 						message.reply(embed)
@@ -312,7 +308,6 @@ client.on('message', async message => { // >kick command
 				//mentioned user not in guild
 				const embed = new MessageEmbed()
 						.setColor(10231598)
-						.setAuthor(`Santa Clara University`)
 						.setTitle(`The mentioned user isn't in this guild!`)
 						.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
 						message.reply(embed)
@@ -322,7 +317,6 @@ client.on('message', async message => { // >kick command
 				//outputs when no user mentioned
 				const embed = new MessageEmbed()
 						.setColor(10231598)
-						.setAuthor(`Santa Clara University`)
 						.setTitle(`You didn't mention the user to kick!`)
 						.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
 						message.reply(embed)
@@ -331,7 +325,6 @@ client.on('message', async message => { // >kick command
 		if (!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
 			const embed = new MessageEmbed()
 			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
 			.setTitle(`Oops, an error happened...`)
 			.setDescription(`You dont have permission to perform this command!`)
 			.setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
@@ -341,7 +334,7 @@ client.on('message', async message => { // >kick command
 		let member = message.mentions.members.first();
 
 		if(!member)
-			return message.reply(`Please mention a valid member in this server.`);
+			return message.reply(`The member isn't in this server!`)
 		if(!member.bannable) 
 			return message.reply(`I cannot ban this user! Do they have a higher role?`);
 
@@ -352,7 +345,6 @@ client.on('message', async message => { // >kick command
 			.catch(error => message.reply(`Sorry ${message.author} I couldn't ban because of ${error}.`));
 			const embed = new MessageEmbed()
 			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
 			.setTitle(`User Banned...`)
 			.setImage(`https://gulf-insider-i35ch33zpu3sxik.stackpathdns.com/wp-content/uploads/2017/07/banned.jpg`)
 			.setDescription(`${member.user.tag} has been banned by ${message.author.tag} because: ${reason}.`);
