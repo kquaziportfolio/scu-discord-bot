@@ -14,5 +14,5 @@ module.exports = {
 	up: '👍', down: '👎', comment: '💬', meme: '🤣',
 	prayer: '🙏', info: '📰', quote: '📙', 
 	media: '📷', mission: '⛪', speech: '🗣️',
-	reddit: '(∩ ͡° ͜ʖ ͡°)⊃━☆ ─=≡Σ'
+	reddit: '(∩ ͡° ͜ʖ ͡°)⊃━☆ ─=≡Σ', gear: '⚙️'
 };

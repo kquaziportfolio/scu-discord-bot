@@ -16,36 +16,36 @@ module.exports = (message) => {
         },
         "color": 10231598,
         "fields": [
-        {
-            "name": `${emojiCharacters.pong} Ping`,
-            "value": "`>ping`",
-            "inline": true
-        },
-        {
-            "name": `${emojiCharacters.bar} Foo`,
-            "value": "`>foo`",
-            "inline": true
-        },
-        {
-            "name": `${emojiCharacters.speech} About`,
-            "value": "`>about`",
-            "inline": true
-        },
-        {
-            "name": `${emojiCharacters.info} Info`,
-            "value": "`>info`",
-            "inline": true
-        },
-        {
-            "name": `${emojiCharacters.prayer} Prayers`,
-            "value": "`>prayers`",
-            "inline": true
-        },
-        {
-            "name": `${emojiCharacters.reddit} Reddit`,
-            "value": "`>reddit`",
-            "inline": true
-        },
+            {
+                "name": `${emojiCharacters.gear} Admin`,
+                "value": "`>admin`",
+                "inline": true
+            },
+            {
+                "name": `Commands`,
+                "value": "`>commands`",
+                "inline": true
+            },
+            {
+                "name": `${emojiCharacters.speech} About`,
+                "value": "`>about`",
+                "inline": true
+            },
+            {
+                "name": `${emojiCharacters.info} Info`,
+                "value": "`>info`",
+                "inline": true
+            },
+            {
+                "name": `${emojiCharacters.prayer} Prayers`,
+                "value": "`>prayers`",
+                "inline": true
+            },
+            {
+                "name": `${emojiCharacters.reddit} Reddit`,
+                "value": "`>reddit`",
+                "inline": true
+            },
         ],
         "timestamp": new Date(),
         "footer": {

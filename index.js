@@ -39,6 +39,7 @@ client.on("guildMemberAdd", (member) => { // Check out previous chapter for info
 
 client.on(`message`, async message => {	
 	const commands = require(`./commands/commands.js`); 
+	const fun = require(`./commands/fun.js`)
 	const ping = require(`./commands/ping.js`);
 	const foo = require(`./commands/foo.js`);
 
@@ -46,6 +47,8 @@ client.on(`message`, async message => {
 
 	if ((message.content.startsWith(`${prefix}commands`)) || (message.content.startsWith(`${prefix}help`))) { // >commands 
 		commands(message);
+	} else if (message.content.startsWith(`${prefix}fun`)) {
+		fun(message);
 	} else if (message.content.startsWith(`${prefix}ping`)) { // >ping
 		ping(message);
 	} else if (message.content.startsWith(`${prefix}foo`)) { // >foo
@@ -150,7 +153,22 @@ client.on('message', async message => { // >kick command
 	// Ignore messages that aren't from this guild
 	if (!message.guild) return;
 
-	if (message.content.startsWith(`${prefix}kick`)) {
+	if (message.content.startsWith(`${prefix}admin`)) {
+		if (!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
+			const permission_embed = new MessageEmbed()
+			.setColor(10231598)
+			.setTitle(`Oops, an error happened...`)
+			.setDescription(`You don't have permission to perform this command!`)
+			.setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
+			message.channel.send(permission_embed);
+		} else if (message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
+			const admin_embed = new MessageEmbed()
+			.setColor(10231598)
+			.setTitle(`Admin Commands`)
+			.setDescription("`kick`, `ban`")
+			message.channel.send(admin_embed)
+		}
+	} else if (message.content.startsWith(`${prefix}kick`)) {
 		// Assuming we mention someone in the message, this will return the user
 		if (!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
 			const embed = new MessageEmbed()
