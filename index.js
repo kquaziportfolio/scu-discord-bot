@@ -9,6 +9,7 @@ const { Client, MessageEmbed } = require('discord.js'); //for embed functionalit
 const emojiCharacters = require('./emoji-characters'); //for emojis
 const quotes = require(`inspirational-quotes`);
 const memes = require(`random-puppy`);
+const got = require(`got`);
 
 client.on(`ready`, () => {
 	//specific guild
@@ -22,18 +23,75 @@ client.on(`ready`, () => {
     // For example: client.user.setActivity(`TV`, {type: `WATCHING`})
 });
 
+client.on("guildMemberAdd", (member) => { // Check out previous chapter for information about this event
+	let guild = member.guild; 
+	let memberTag = member.user.username; 
+	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.RichEmbed
+		.setTitle("Invent the life you want to lead at Santa Clara University.") // Calling method setTitle on constructor. 
+		.setDescription(`${memberTag} has joined ${guild} which has ${member.guild.memberCount}! Be sure to follow instructions in the Bucky Bronco DM! Go Broncos!`) //Setting embed description
+		.setThumbnail(member.user.displayAvatarURL) // The image on the top right; method requires an url, not a path to file!
+		.setTimestamp() // Sets a timestamp at the end of the embed
+		.setImage("https://www.scu.edu/media/offices/umc/Palm-Drive-01-1160x652.png")
+		.setColor(10231598)
+		.setFooter("Brought to you by the creators of this Discord server.")
+	);
+});
+
 client.on(`message`, async message => {	
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
 	if ((message.content.startsWith(`${prefix}commands`)) || (message.content.startsWith(`${prefix}help`))) { // >commands 
-		const embed = new MessageEmbed()
-			.setTitle('Bot Commands List')
-			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
-			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
-			.setDescription(`>ping \n>foo \n>motto \n>mission \n>vision \n>values` + 
-			` \n>social-media \n>server \n>user-info \n>prayers \n>quote \n>memes`);
-			message.reply(embed);
+		const cmds_embed = {
+			"title": "Father O'Brien Commands List",
+			"description": "Give us feedback on our bot!",
+			"image": {
+				"url": "https://www.scu.edu/media/offices/umc/Palm-Drive-01-1160x652.png",
+			},
+			"author": {
+				name: `${message.author.username}`,
+				icon_url: 'https://media.discordapp.net/attachments/709464766472781895/711781960460271616/Discord_3_1.png',
+				url: 'https://jasonanhvu.github.io/',
+			},
+			"color": 10231598,
+			"fields": [
+			  {
+				"name": `${emojiCharacters.pong} Ping`,
+				"value": "`>ping`",
+				"inline": true
+			  },
+			  {
+				"name": `${emojiCharacters.bar} Foo`,
+				"value": "`>foo`",
+				"inline": true
+			  },
+			  {
+				"name": `${emojiCharacters.speech} About`,
+				"value": "`>about`",
+				"inline": true
+			  },
+			  {
+				"name": `${emojiCharacters.info} Info`,
+				"value": "`>info`",
+				"inline": true
+			  },
+			  {
+				"name": `${emojiCharacters.prayer} Prayers`,
+				"value": "`>prayers`",
+				"inline": true
+			  },
+			  {
+				"name": `${emojiCharacters.reddit} Reddit`,
+				"value": "`>reddit`",
+				"inline": true
+			  },
+			],
+			"timestamp": new Date(),
+			"footer": {
+				text: "Brought to you by the creators of this Discord server.",
+				url: 'https://jasonanhvu.github.io/scu-discord-bot/',
+			},
+		  }
+		message.channel.send({embed: cmds_embed});
 	} 
 });
 
@@ -44,150 +102,285 @@ client.on(`message`, async message => {
 		const ping_time = new Date().getTime() - message.createdTimestamp + ` ms!`;
 		const embed = new MessageEmbed()
 			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
 			.setTitle(`Ping`)
 			.setDescription(emojiCharacters.pong + `Pong! My ping time is  ` + ping_time)
 			.setImage(`https://images-na.ssl-images-amazon.com/images/I/61c34u91qcL._AC_SX466_.jpg`)
-			message.reply(embed)
+			message.channel.send(embed);
 	} else if (message.content.startsWith(`${prefix}foo`)) { // >foo
 		const embed = new MessageEmbed()
 			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
 			.setTitle(`Foo`)
 			.setDescription(emojiCharacters.bar + ` Bar!`)
 			.setImage(`https://4f39zz3w9kga2mxwan2t1zsc-wpengine.netdna-ssl.com/wp-content/uploads/2019/05/D6h5AFjWAAAsDK2-1024x512.jpg`)
-			message.reply(embed)
-    } else if (message.content.startsWith(`${prefix}motto`)) { // >motto
-		const embed = new MessageEmbed()
-			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
-			.setTitle(`SCU Motto`)
-			.setDescription(`Ad Majorem Dei Gloriam - For the Greater Glory of God`)
-			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
-			message.reply(embed)
-	} else if (message.content.startsWith(`${prefix}mission`)) { // >mission
-		const embed = new MessageEmbed()
-			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
-			.setTitle(`SCU's Mission`)
-			.setDescription(`The University pursues its vision by creating an academic community that educates the whole person within the Jesuit, Catholic tradition, ` + 
-			`making student learning our central focus, continuously improving our curriculum and co-curriculum, strengthening our scholarship and creative work, and serving the communities of which we are a part in Silicon Valley and world.`)
-			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
-			message.reply(embed)	
-	} else if (message.content.startsWith(`${prefix}vision`)) { // >vision
-		const embed = new MessageEmbed()
-			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
-			.setTitle(`SCU's Vision`)
-			.setDescription(`Santa Clara University will educate citizens and leaders of competence, conscience, ` + 
-			`and compassion and cultivate knowledge and faith to build a more humane, just, and sustainable world.`)
-			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
-			message.reply(embed)
-	} else if (message.content.startsWith(`${prefix}values`)) { // >values
-		const embed = new MessageEmbed()
-			.setColor(10231598)
-			.setAuthor(`Santa Clara University`)
-			.setTitle(`SCU's Values`)
-			.setDescription(`We serve academic excellence, engaged learning, commitment to students, service to others, ` +
-			`community and diversity, and Jesuit distinctiveness all year round!`)
-			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
-			message.reply(embed)
-	} else if (message.content.startsWith(`${prefix}social-media`)) { // >social-media
-		const embed = new MessageEmbed() 
-			// Set the title of the field
-			.setTitle(`SCU's Social Media Platforms`)
-			// Set the author of the social media
-			.setAuthor(`Santa Clara University`)
-			// Set the color of the embed
-			.setColor(10231598)
-			// Set the main content of the embed
-			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
-			// Set the image url
-			.setDescription(`- Official Website: https://www.scu.edu/` + `\n- FaceBook: https://www.facebook.com/SantaClaraUniversity/` + `\n- Twitter: https://twitter.com/SantaClaraUniv/` +
-			`\n- Instagram: https://www.instagram.com/santaclarauniversity/` + `\n- Reddit: https://www.reddit.com/r/SCU/` + `\n- LinkedIn: https://www.linkedin.com/school/santa-clara-university/`);
-			// Send the embed to the same channel as the message 
-			message.reply(embed);
-	} 
+			message.channel.send(embed);
+	}
 });
 
 client.on(`message`, async message => {
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
-	if (message.content.startsWith(`${prefix}server`) || (message.content.startsWith(`${prefix}server-info`))) {  
+	if (message.content.startsWith(`${prefix}about`)) {
+		const embed = new MessageEmbed()
+			.setColor(10231598)
+			.setTitle(`About Commands`)
+			.setDescription("`mission`, `values`, `motto`, `vision`")
+			.setFooter("Use `>` before each command!")
+			message.channel.send(embed)
+	}
+	else if (message.content.startsWith(`${prefix}motto`)) { // >motto
+		const embed = new MessageEmbed()
+			.setColor(10231598)
+			.setTitle(`SCU Motto`)
+			.setDescription(`Ad Majorem Dei Gloriam - For the Greater Glory of God`)
+			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
+			message.channel.send(embed);
+	} else if (message.content.startsWith(`${prefix}mission`)) { // >mission
+		const embed = new MessageEmbed()
+			.setColor(10231598)	
+			.setDescription(`The University pursues its vision by creating an academic community that educates the whole person within the Jesuit, Catholic tradition, ` + 
+			`making student learning our central focus, continuously improving our curriculum and co-curriculum, strengthening our scholarship and creative work, and serving the communities of which we are a part in Silicon Valley and world.`)
+			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
+			message.channel.send(embed);
+	} else if (message.content.startsWith(`${prefix}vision`)) { // >vision
+		const embed = new MessageEmbed()
+			.setColor(10231598)
+			.setTitle(`SCU's Vision`)
+			.setDescription(`Santa Clara University will educate citizens and leaders of competence, conscience, ` + 
+			`and compassion and cultivate knowledge and faith to build a more humane, just, and sustainable world.`)
+			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
+			message.channel.send(embed);
+	} else if (message.content.startsWith(`${prefix}values`)) { // >values
+		const embed = new MessageEmbed()
+			.setColor(10231598)
+			.setTitle(`SCU's Values`)
+			.setDescription(`We serve academic excellence, engaged learning, commitment to students, service to others, ` +
+			`community and diversity, and Jesuit distinctiveness all year round!`)
+			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
+			message.channel.send(embed);
+	} 
+})
+
+client.on(`message`, async message => {
+	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+
+	if (message.content.startsWith(`${prefix}info`)) {
+		const embed = new MessageEmbed()
+			.setTitle(`Info Commands`)
+			.setColor(10231593)
+			.setDescription("`server-info`, `user-info`")
+			.setFooter("Use `>` before each command!")
+			message.channel.send(embed);
+	} else if (message.content.startsWith(`${prefix}server-info`)) {  
 		const embed = new MessageEmbed()
 			.setTitle('Server Information')
-			.setAuthor(`Santa Clara University`)
 			.setColor(10231598)
 			.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
 			.setDescription(`\nServer Name: ${message.guild.name}\nServer Region: ${message.guild.region}` +
 			`\nUser Count: ${message.guild.memberCount}\nVerification Level: ${message.guild.verificationLevel}`);
-			message.reply(embed);
+			message.channel.send(embed);
 	} else if (message.content.startsWith(`${prefix}user-info`)) { // >user-info
 		let user = message.mentions.users.first() || message.author;
 		const get_avatar = user.displayAvatarURL();
 		const embed = new MessageEmbed()
 			.setTitle('User Information')
-			.setAuthor(`Santa Clara University`)
 			.setColor(10231598)
 			.setImage(`${get_avatar}`)
 			.setDescription(`\nCreated At: ${user.createdAt}\nYour Username: ${user.username}\nYour Tag: ${user.tag}` +
 			`\nYour Presence: ${user.presence.status}\nBot? (true/false): ${user.bot}\nYour Avatar:`);
-			message.reply(embed);
+			message.channel.send(embed);
+	}
+});
+
+client.on(`message`, async message => {
+	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+	
+	if (message.content.startsWith(`${prefix}reddit`)) {
+		const embed = new MessageEmbed()
+		.setTitle(`Reddit Commands`)
+		.setColor(10231593)
+		.setDescription("`jojo`, `meme`, `scu`, `template`, `quote`")
+		.setFooter("Use `>` before each command!")
+		message.channel.send(embed);
+	} else if (message.content.startsWith(`${prefix}quote`)) {
+		const embed = new MessageEmbed()
+		.setTitle(`Here's your quote!`)
+		.setColor(10231598)	
+		.setImage(`https://s3.envato.com/files/232193117/1026_Preview_Image_v002.png`)
+		.setDescription(quotes.getRandomQuote())
+		message.channel.send(embed);
+	} else if (message.content.startsWith(`${prefix}meme`)) {
+		let reddit = ["meme", "animemes", "me_irl", "2meirl4meirl", "dankmemes", "prequelmemes", "historymemes",
+		"collegememes", "dankchristianmemes", "memes", "wholesomememes", "raimimemes", "comedyheaven"];
+
+		let subreddit = reddit[Math.floor(Math.random() * reddit.length)];
+
+		message.channel.startTyping();
+
+			setTimeout(() => {
+			// Removes the user from the set after a minute
+				memes(subreddit).then (async url => {
+					await message.channel.send({
+						files: [{
+							attachment: url,
+							name: 'meme.jpg'
+						}]
+					}).then(() => message.channel.stopTyping(true));
+				}).catch(err => {
+					const embed = new MessageEmbed()
+					.setColor(10231598)
+					.setTitle(`Oops, wait 5 seconds...`)
+					.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
+					message.channel.send(embed);
+					console.log(err);
+				});
+			}, 5000);
+	} else if (message.content.startsWith(`${prefix}template`)) {
+		let reddit = ["memetemplatesofficial", "templatememes"]
+		let subreddit = reddit[Math.floor(Math.random() * reddit.length)];
+
+		message.channel.startTyping();
+		setTimeout(() => {
+			// Removes the user from the set after a minute
+				memes(subreddit).then (async url => {
+					await message.channel.send({
+						files: [{
+							attachment: url,
+							name: 'meme-template.jpg'
+						}]
+					}).then(() => message.channel.stopTyping(true));
+				}).catch(err => {
+					const embed = new MessageEmbed()
+					.setColor(10231598)
+					.setTitle(`Oops, wait 5 seconds...`)
+					.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
+					message.channel.send(embed);
+					console.log(err);
+				});
+			}, 5000);
+	} else if (message.content.startsWith(`${prefix}jojo`)) {
+		got(`https://www.reddit.com/r/StardustCrusaders/random/.json`).then(response => {
+			let content = JSON.parse(response.body);
+			const jojo_title = content[0].data.children[0].data.title;
+			const jojo_image = content[0].data.children[0].data.url;
+			const jojo_selftext = content[0].data.children[0].data.selftext;
+			const jojo_author = content[0].data.children[0].data.author;
+			const jojo_url = content[0].data.children[0].data.permalink;
+			const jojo_subreddit_name = content[0].data.children[0].data.subreddit_name_prefixed;
+			const jojo_ups = content[0].data.children[0].data.ups;
+			const jojo_num_comments = content[0].data.children[0].data.num_comments;
+			const jojo_embed = new MessageEmbed()
+				.setTitle(`${jojo_title}`)
+				.setURL(`${jojo_url}`)
+				.setAuthor(`${jojo_subreddit_name}`)
+				.setImage(`${jojo_image}`)
+				.setColor(10231598)	
+				.setDescription(`${jojo_selftext}`)
+				.setFooter(`${emojiCharacters.up} ${jojo_ups} | ${emojiCharacters.comment} ${jojo_num_comments}`)
+			message.channel.send(jojo_embed)
+				.then(sent => console.log(`Sent a reply to ${sent.author.username}`))
+				}).catch(console.error);	
+	} else if (message.content.startsWith(`${prefix}scu`)) {
+		got(`https://www.reddit.com/r/SCU/random/.json`).then(response => {
+			let content = JSON.parse(response.body);
+			const scu_title = content[0].data.children[0].data.title;
+			const scu_selftext = content[0].data.children[0].data.selftext;
+			const scu_url = content[0].data.children[0].data.url;
+			const scu_subreddit_name = content[0].data.children[0].data.subreddit_name_prefixed;
+			const scu_ups = content[0].data.children[0].data.ups;
+			const scu_num_comments = content[0].data.children[0].data.num_comments;
+			const scu_embed = new MessageEmbed()
+				.setTitle(`${scu_title}`)
+				.setURL(`${scu_url}`)
+				.setAuthor(`${scu_subreddit_name}`)
+				.setColor(10231598)	
+				.setDescription(`${scu_selftext}`)
+				.setFooter(`${emojiCharacters.up} ${scu_ups} | ${emojiCharacters.comment} ${scu_num_comments}`)
+			message.channel.send(scu_embed)
+			.then(sent => console.log(`Sent a reply to ${sent.author.username}`))
+			}).catch(console.error);	
 	}
 });
 
 client.on('message', async message => { // >prayer commands from the Great Fr. O'Brien
 	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
 
-	if (message.content.startsWith(`${prefix}prayers`)) { // >prayers
-		const embed = new MessageEmbed()
-			.setTitle(`Prayer Commands`)
-			.setAuthor(`Santa Clara University`)
-			.setColor(10231598)
-			.setImage(`https://www.scu.edu/media/offices/st-clare-garden/images/7409198466_9070d20dba_o-800x531.jpg`)
-			.setDescription(`>our-father + \n>hail-mary +\n>glory-be + \n>act-of-contrition + \n>apostles-creed + \n>nicene-creed`)
-			message.reply(embed)
+	if ((message.content.startsWith(`${prefix}prayers`))) { // >commands 
+		const prayer_embed = {
+			"title": "Prayer Commands List",
+			"color": 10231598,
+			"footer": {
+				"text": "For all your Catholic needs!"
+			},
+			"fields": [
+			  {
+				"name": `${emojiCharacters.prayer} Our Father`,
+				"value": "`>our-father`",
+				"inline": true
+			  },
+			  {
+				"name": `${emojiCharacters.prayer} Hail Mary`,
+				"value": "`>hail-mary`",
+				"inline": true
+			  },
+			  {
+				"name": `${emojiCharacters.prayer} Glory Be`,
+				"value": "`>glory-be`",
+				"inline": true
+			  },
+			  {
+				"name": `${emojiCharacters.prayer} Act of Contrition`,
+				"value": "`>act-of-contrition`",
+				"inline": true
+			  },
+			  {
+				"name": `${emojiCharacters.prayer} Apostles' Creed`,
+				"value": "`>apostles-creed`",
+				"inline": true
+			  },
+			  {
+				"name": `${emojiCharacters.prayer} Nicene Creed`,
+				"value": "`>nicene-creed`",
+				"inline": true
+			  },
+			]
+		  }
+		message.channel.send({embed: prayer_embed});
 	} else if (message.content.startsWith(`${prefix}our-father`)) { // >our-father
 		const embed = new MessageEmbed()
 			.setTitle(`Our Father`)
-			.setAuthor(`Santa Clara University`)
 			.setColor(10231598)
 			.setImage(`https://www.acatholic.org/wp-content/uploads/god-500x389.jpg`)
 			.setDescription('Our Father, Who art in heaven, hallowed be Thy name; Thy kingdom come; Thy will be done on earth as it is in heaven. Give us this day our daily' +
 			' bread; and forgive  us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.') 
-			message.reply(embed)
+			message.channel.send(embed);
 	} else if (message.content.startsWith(`${prefix}hail-mary`)) { // >hail-mary
-			const embed = new MessageEmbed()
-			.setTitle(`Hail Mary`)
-			.setAuthor(`Santa Clara University`)
-			.setColor(10231598)
-			.setImage(`https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWzwkOQah1oOzjuSIORXP4sQQ8RiFV6clVBmEGvWleLFTsbWrF&usqp=CAU`)
-			.setDescription('Hail Mary, full of grace. The Lord is with thee. Blessed art thou among women, and' +
-							' blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God,' +
-							' pray for us sinners, now and at the hour of our death. Amen.')
-		message.reply(embed)
+		const embed = new MessageEmbed()
+		.setTitle(`Hail Mary`)
+		.setColor(10231598)
+		.setImage(`https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWzwkOQah1oOzjuSIORXP4sQQ8RiFV6clVBmEGvWleLFTsbWrF&usqp=CAU`)
+		.setDescription('Hail Mary, full of grace. The Lord is with thee. Blessed art thou among women, and' +
+						' blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God,' +
+						' pray for us sinners, now and at the hour of our death. Amen.')
+		message.channel.send(embed);
 	} else if (message.content.startsWith(`${prefix}glory-be`)) { // >glory-be
 		const embed = new MessageEmbed()
 		.setTitle(`Glory Be`)
-		.setAuthor(`Santa Clara University`)
 		.setColor(10231598)
 		.setImage(`https://media.swncdn.com/cms/CCOM/68488-cross-sunset-light.1200w.tn.jpg`)
 		.setDescription('Glory be to the Father, and to the Son, and to the Holy Spirit, as it' +
 						' was in the beginning, is now, and ever shall be, world without end. Amen.')
-		message.reply(embed)
+		message.channel.send(embed);
 	} else if (message.content.startsWith(`${prefix}act-of-contrition`)) { // >act-of-contrition
 		const embed = new MessageEmbed()
 		.setTitle(`Act of Contrition`)
-		.setAuthor(`Santa Clara University`)
 		.setColor(10231598)
 		.setImage(`https://i.ytimg.com/vi/ynn_4COXciU/maxresdefault.jpg`)
 		.setDescription('O my God, I am heartily sorry for having offended You. I detest all my sins because of your just punishments, but most of all because they offend you, My ' +
 						'God, who are all good and worthy of all my love. I firmly resolve, with the help of Your grace, to sin no more and to avoid the near occasions of sin. Amen.')
-		message.reply(embed)
+		message.channel.send(embed);
 	} else if (message.content.startsWith(`${prefix}apostles-creed`)) { // >apostles-creed
 		const embed = new MessageEmbed()
 		.setTitle(`Apostles' Creed`)
-		.setAuthor(`Santa Clara University`)
 		.setColor(10231598)
 		.setImage(`https://www.drivethruhistory.com/wp-content/uploads/2016/07/Twelve-Apostles-of-Jesus.png`)
 		.setDescription('I believe in God, the Father Almighty, Creator of Heaven and earth; and in Jesus Christ,' +
@@ -197,11 +390,10 @@ client.on('message', async message => { // >prayer commands from the Great Fr. O
 						' right hand of God, the Father almighty; from thence He shall come to judge the living and' +
 						' the dead. I believe in the Holy Spirit, the holy Catholic Church, the communion of saints,' +
 						' the forgiveness of sins, the resurrection of the body and life everlasting.')
-		message.reply(embed)
+		message.channel.send(embed);
 	} else if (message.content.startsWith(`${prefix}nicene-creed`)) { // >nicene-creed
 		const embed = new MessageEmbed()
 		.setTitle(`Nicene Creed`)
-		.setAuthor(`Santa Clara University`)
 		.setColor(10231598)
 		.setImage(`https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQZs7N11VSkjrLIOOrJgS6UYZKlajuc9YwS4z2jui3wD947iYDt&usqp=CAU`)
 		.setDescription('I believe in one God, the Father almighty, Maker of heaven and earth, and of all things visible and invisible' +
@@ -212,44 +404,7 @@ client.on('message', async message => { // >prayer commands from the Great Fr. O
 		' again with glory to judge both the living and the dead: of whose kingdom there shall be no end. And I believe in the Holy Ghost, the Lord and life-giver,' + 
 		' who proceedeth from the Father and the Son: who together with the Father and the Son is adored and glorified; who spake by the prophets. And one holy' +
 		' Catholic and Apostolic Church. I confess one baptism for the remission of sins. And I look for the resurrection of the dead, and the life of the world to come. Amen')
-		message.reply(embed)	
-	}
-});
-
-client.on ('message', async message => {
-	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
-
-	if (message.content.startsWith(`${prefix}quote`)) {
-		const embed = new MessageEmbed()
-		.setTitle(`Here's your quote!`)
-		.setAuthor(`Santa Clara University`)
-		.setColor(10231598)	
-		.setImage(`https://s3.envato.com/files/232193117/1026_Preview_Image_v002.png`)
-		.setDescription(quotes.getRandomQuote())
-		message.reply(embed);
-  	} else if (message.content.startsWith(`${prefix}meme`)) {
-		let reddit = ["meme", "animemes", "me_irl", "2meirl4meirl", "dankmemes", "memeeconomy",
-		"prequelmemes", "mathmemes", "mathjokes", "collegememes", "exammemes"]
-
-		let subreddit = reddit[Math.floor(Math.random() * reddit.length)];
-
-		message.channel.startTyping();
-
-		memes(subreddit).then (async url => {
-			await message.channel.send({
-				files: [{
-					attachment: url,
-					name: 'meme.png'
-				}]
-			}).then(() => message.channel.stopTyping(true));
-		}).catch(err => {
-			const embed = new MessageEmbed()
-			.setColor(10231598)
-			.setTitle(`Oops, an error happened...`)
-			.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
-			message.reply(embed)
-			console.log(err);
-		});
+		message.channel.send(embed);
 	}
 });
 
@@ -267,7 +422,7 @@ client.on('message', async message => { // >kick command
 			.setTitle(`Oops, an error happened...`)
 			.setDescription(`You don't have permission to perform this command!`)
 			.setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
-			message.reply(embed)
+			message.channel.send(embed);
 		}
 		const user = message.mentions.users.first();
 
@@ -290,7 +445,7 @@ client.on('message', async message => { // >kick command
 						.setTitle(`User Kicked...`)
 						.setDescription(`Successfully kicked ${user.username}...`)
 						.setImage(`https://media1.giphy.com/media/qiiimDJtLj4XK/giphy.gif`)
-						message.reply(embed)
+						message.channel.send(embed);
 					})
 					.catch(err => {
 						// An error happened
@@ -300,7 +455,7 @@ client.on('message', async message => { // >kick command
 						.setColor(10231598)
 						.setTitle(`Oops, an error happened...`)
 						.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
-						message.reply(embed)
+						message.channel.send(embed);
 						// Log the error
 						console.log(err);
 					})
@@ -310,7 +465,7 @@ client.on('message', async message => { // >kick command
 						.setColor(10231598)
 						.setTitle(`The mentioned user isn't in this guild!`)
 						.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
-						message.reply(embed)
+						message.channel.send(embed);
 			} 
 		}
 			else {
@@ -319,7 +474,7 @@ client.on('message', async message => { // >kick command
 						.setColor(10231598)
 						.setTitle(`You didn't mention the user to kick!`)
 						.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
-						message.reply(embed)
+						message.channel.send(embed);
 			}
 	} else if (message.content.startsWith(`${prefix}ban`)) {
 		if (!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
@@ -328,27 +483,27 @@ client.on('message', async message => { // >kick command
 			.setTitle(`Oops, an error happened...`)
 			.setDescription(`You dont have permission to perform this command!`)
 			.setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
-			message.reply(embed)
+			message.channel.send(embed);
 		}
 
 		let member = message.mentions.members.first();
 
 		if(!member)
-			return message.reply(`The member isn't in this server!`)
+			return message.channel.send(`The member isn't in this server!`)
 		if(!member.bannable) 
-			return message.reply(`I cannot ban this user! Do they have a higher role?`);
+			return message.channel.send(`I cannot ban this user! Do they have a higher role?`);
 
 		let reason = args.slice(1).join(' ');
 		if(!reason) reason = `No reason provided.`;
 
 		member.ban(reason) 
-			.catch(error => message.reply(`Sorry ${message.author} I couldn't ban because of ${error}.`));
+			.catch(error => message.channel.send(`Sorry ${message.author} I couldn't ban because of ${error}.`));
 			const embed = new MessageEmbed()
 			.setColor(10231598)
 			.setTitle(`User Banned...`)
 			.setImage(`https://gulf-insider-i35ch33zpu3sxik.stackpathdns.com/wp-content/uploads/2017/07/banned.jpg`)
 			.setDescription(`${member.user.tag} has been banned by ${message.author.tag} because: ${reason}.`);
-			message.reply(embed);
+			message.channel.send(embed);
 	} 
 });
 
