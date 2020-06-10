@@ -3,7 +3,7 @@ const { Client, MessageEmbed } = require(`discord.js`); //for embed functionalit
 const emojiCharacters = require(`../emoji-characters`); //for emojis
 const memes = require(`random-puppy`); //for memes
 
-module.exports = (message) => { 
+module.exports = async (message) => { 
     let reddit = ["meme", "animemes", "me_irl", "2meirl4meirl", "dankmemes", "prequelmemes", "historymemes",
             "collegememes", "dankchristianmemes", "memes", "wholesomememes", "raimimemes", "comedyheaven", "shitpostcrusaders"];
     let subreddit = reddit[Math.floor(Math.random() * reddit.length)];

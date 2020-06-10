@@ -2,7 +2,7 @@ const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
 const emojiCharacters = require(`../emoji-characters`); //for emojis
 
-module.exports = (message) => {  
+module.exports = async (message) => {  
     const embed = new MessageEmbed()
 			.setColor(10231598)	
 			.setDescription(`The University pursues its vision by creating an academic community that educates the whole person within the Jesuit, Catholic tradition, ` + 

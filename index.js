@@ -4,12 +4,11 @@
 
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const client = new Discord.Client();
-const { prefix, token } = require(`./config.json`); //retrieves data from config.json file 
+const CONFIG = require(`./config.json`); //retrieves data from config.json file 
+const prefix = CONFIG.prefix;
 const { Client, MessageEmbed } = require('discord.js'); //for embed functionality
-const emojiCharacters = require('./emoji-characters'); //for emojis
-const quotes = require(`inspirational-quotes`); //for quotes
-const memes = require(`random-puppy`); //for memes
 const got = require(`got`);
+const emojiCharacters = require(`./emoji-characters`);
 
 client.on(`ready`, () => {
 	//specific guild
@@ -23,103 +22,149 @@ client.on(`ready`, () => {
     // For example: client.user.setActivity(`TV`, {type: `WATCHING`})
 });
 
-client.on("guildMemberAdd", (member) => { // Check out previous chapter for information about this event
+client.on(`guildMemberAdd`, (member) => { // Check out previous chapter for information about this event
 	let guild = member.guild; 
-	let memberTag = member.user.username; 
-	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.RichEmbed
-		.setTitle("Invent the life you want to lead at Santa Clara University.") // Calling method setTitle on constructor. 
-		.setDescription(`${memberTag} has joined ${guild} which has ${member.guild.memberCount}! Be sure to follow instructions in the Bucky Bronco DM! Go Broncos!`) //Setting embed description
-		.setThumbnail(member.user.displayAvatarURL) // The image on the top right; method requires an url, not a path to file!
+	let memberTag = member.user.id; 
+		
+	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.RichEmbed to send public message on 'welcome' channel
+		.setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor. 
+		.setDescription(`<@${memberTag}> has joined **${guild.name}** which has ${member.guild.memberCount} ` + 
+		`members! Be sure to follow instructions in the DM! Go Broncos!`) //Setting embed description
+		.setThumbnail(`https://media.discordapp.net/attachments/709464766472781895/711781960460271616/Discord_3_1.png`) // The image on the top right; method requires an url, not a path to file!
 		.setTimestamp() // Sets a timestamp at the end of the embed
-		.setImage("https://www.scu.edu/media/offices/umc/Palm-Drive-01-1160x652.png")
+		.setImage(`https://www.scu.edu/media/offices/umc/Palm-Drive-01-1160x652.png`)
 		.setColor(10231598)
-		.setFooter("Brought to you by the creators of this Discord server.")
+		.setFooter(`Brought to you by the creators of this Discord server.`)
 	);
+
+	const welcome_Embed = new Discord.MessageEmbed()
+		.setTitle(`Invent the life you want to lead at Santa Clara University.`)
+		.setDescription(
+		`${emojiCharacters.one} Message in the <#710561799199785111> channel your proof of enrollment (e.g. acceptance letter, school email, and/or ECampus screenshot) at SCU! \n\n` +
+		`${emojiCharacters.two} Read the <#709118412542050368> channel and introduce yourself in the <#709119648368427018> channel! \n\n` +
+		`${emojiCharacters.three} Look at the <#710990323412631654> and enter **<i.am role>** in <#709173444096294993> for your roles! \n\n` +
+		`Thank you for your cooperation and Go Broncos! :racehorse:`)
+		.setThumbnail(`https://media.discordapp.net/attachments/709464766472781895/711781960460271616/Discord_3_1.png`) // The image on the top right; method requires an url, not a path to file!
+		.setTimestamp() // Sets a timestamp at the end of the embed
+		.setColor(10231598)
+		.setFooter(`Brought to you by the creators of this Discord server.`)
+
+	member.send(welcome_Embed); //send private DM to new user
 });
 
-client.on(`message`, async message => {	
+client.on("guildMemberRemove", (member) => {
+	let guild = member.guild; 
+	let memberTag = member.user.id; 
+
+	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.RichEmbed
+		.setTitle(`We're sorry to hear that you're leaving...`) // Calling method setTitle on constructor. 
+		.setDescription(`<@${memberTag}> has left **${guild.name}**! So sorry to hear that you're leaving! You'll be missed so much. Good luck for the future and try to stay in touch somehow!`) //Setting embed description
+		.setThumbnail(`https://media.discordapp.net/attachments/709464766472781895/711781960460271616/Discord_3_1.png`) // The image on the top right; method requires an url, not a path to file!
+		.setTimestamp() // Sets a timestamp at the end of the embed
+		.setImage(`https://www.scu.edu/media/offices/umc/Palm-Drive-01-1160x652.png`)
+		.setColor(10231598)
+		.setFooter(`Brought to you by the creators of this Discord server.`)
+	);
+
+	const bye_Embed = new Discord.MessageEmbed()
+		.setTitle(`We're sorry to hear that you're leaving...`) // Calling method setTitle on constructor. 
+		.setDescription(`<@${memberTag}> has left **${guild.name}**! So sorry to hear that you're leaving! You'll be missed so much. In case you want to rejoin here is the link: https://discord.gg/YusWdfu`) //Setting embed description
+		.setThumbnail(`https://media.discordapp.net/attachments/709464766472781895/711781960460271616/Discord_3_1.png`) // The image on the top right; method requires an url, not a path to file!
+		.setTimestamp() // Sets a timestamp at the end of the embed
+		.setImage(`https://www.scu.edu/media/offices/umc/Palm-Drive-01-1160x652.png`)
+		.setColor(10231598)
+		.setFooter(`Brought to you by the creators of this Discord server.`)
+
+	member.send(bye_Embed);
+  });
+
+client.on(`message`, async (message) => {	
 	const commands = require(`./commands/commands.js`); 
-	const fun = require(`./commands/fun.js`)
-	const ping = require(`./commands/ping.js`);
 	const foo = require(`./commands/foo.js`);
+	const joke = require(`./commands/joke.js`);
+	const ping = require(`./commands/ping.js`);
+	const random = require(`./commands/random.js`)
 
-	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+	if (!message.content.toLowerCase().startsWith(`${prefix}`) || message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
 
-	if ((message.content.startsWith(`${prefix}commands`)) || (message.content.startsWith(`${prefix}help`))) { // >commands 
+	if ((message.content.toLowerCase() == `${prefix}cmds`) || (message.content.toLowerCase() == `${prefix}help`)) { // >commands 
 		commands(message);
-	} else if (message.content.startsWith(`${prefix}fun`)) {
-		fun(message);
-	} else if (message.content.startsWith(`${prefix}ping`)) { // >ping
-		ping(message);
-	} else if (message.content.startsWith(`${prefix}foo`)) { // >foo
+	} else if (message.content.toLowerCase() == (`${prefix}foo`)) { // >foo
 		foo(message);
-	}
+	} else if (message.content.toLowerCase() == (`${prefix}joke`)) {
+		joke(message);
+	} else if (message.content.toLowerCase() == (`${prefix}ping`)) { // >ping
+		ping(message);
+	} else if (message.content.toLowerCase() == (`${prefix}random`)) {
+		random(message);
+	} 
+
 });
 
-client.on(`message`, async message => {
+client.on(`message`, async (message) => {
 	const about = require(`./commands/about.js`);
 	const mission = require(`./commands/mission.js`);
 	const values = require(`./commands/values.js`);
 	const motto = require(`./commands/motto.js`);
 	const vision = require(`./commands/vision.js`);
 
-	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+	if (!message.content.toLowerCase().startsWith(`${prefix}`) || message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
 
-	if (message.content.startsWith(`${prefix}about`)) {
+	if (message.content.toLowerCase() == (`${prefix}about`)) {
 		about(message);
-	} else if (message.content.startsWith(`${prefix}motto`)) { // >motto
+	} else if (message.content.toLowerCase() == (`${prefix}motto`)) { // >motto
 		motto(message);
-	} else if (message.content.startsWith(`${prefix}mission`)) { // >mission
+	} else if (message.content.toLowerCase() == (`${prefix}mission`)) { // >mission
 		mission(message);
-	} else if (message.content.startsWith(`${prefix}vision`)) { // >vision
+	} else if (message.content.toLowerCase() == (`${prefix}vision`)) { // >vision
 		vision(message);
-	} else if (message.content.startsWith(`${prefix}values`)) { // >values
+	} else if (message.content.toLowerCase() == (`${prefix}values`)) { // >values
 		values(message);
 	} 
 })
 
-client.on(`message`, async message => {
-	const info = require(`./commands/info.js`);
-	const server_info = require(`./commands/server-info.js`);
-	const user_info = require(`./commands/user-info.js`);
+client.on(`message`, async (message) => {
+	const stats = require(`./commands/stats.js`);
+	const server_stats = require(`./commands/server-stats.js`);
+	const user_stats = require(`./commands/user-stats.js`);
 
-	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+	if (!message.content.toLowerCase().startsWith(`${prefix}`) || message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
 
-	if (message.content.startsWith(`${prefix}info`)) {
-		info(message);
-	} else if (message.content.startsWith(`${prefix}server-info`)) {  
-		server_info(message);
-	} else if (message.content.startsWith(`${prefix}user-info`)) { // >user-info
-		user_info(message);
+	if (message.content.toLowerCase() == (`${prefix}stats`)) {
+		stats(message);
+	} else if (message.content.toLowerCase() == (`${prefix}server-stats`)) {  
+		server_stats(message);
+	} else if (message.content.toLowerCase() == (`${prefix}user-stats`)) { // >user-stats
+		user_stats(message);
 	}
 });
 
-client.on(`message`, async message => {
+client.on(`message`, async (message) => {
 	const reddit = require(`./commands/reddit.js`);
 	const quote = require(`./commands/quote.js`);
 	const meme = require(`./commands/meme.js`);
 	const template = require(`./commands/template.js`);
-	const jojo = require(`./commands/jojo.js`);
-	const scu = require(`./commands/scu.js`);
+	const jojo = require(`./commands/jojo-reddit.js`);
+	const scu = require(`./commands/scu-reddit.js`);
 
-	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+	if (!message.content.toLowerCase().startsWith(`${prefix}`) || message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
 	
-	if (message.content.startsWith(`${prefix}reddit`)) {
+	if (message.content.toLowerCase() == (`${prefix}reddit`)) {
 		reddit(message);
-	} else if (message.content.startsWith(`${prefix}quote`)) {
+	} else if (message.content.toLowerCase() == (`${prefix}quote`)) {
 		quote(message);
-	} else if (message.content.startsWith(`${prefix}meme`)) {
+	} else if (message.content.toLowerCase() == (`${prefix}meme`)) {
 		meme(message);
-	} else if (message.content.startsWith(`${prefix}template`)) {
+	} else if (message.content.toLowerCase() == (`${prefix}template`)) {
 		template(message);
-	} else if (message.content.startsWith(`${prefix}jojo`)) {
+	} else if (message.content.toLowerCase() == (`${prefix}jojo`)) {
 		jojo(message);
-	} else if (message.content.startsWith(`${prefix}scu`)) {
+	} else if (message.content.toLowerCase() == (`${prefix}scu`)) {
 		scu(message);	
 	}
 });
 
-client.on('message', async message => { // >prayer commands from the Great Fr. O'Brien
+client.on('message', async (message) => { // >prayer commands from the Great Fr. O'Brien
 	const prayers = require(`./commands/prayers.js`);
 	const our_father = require(`./commands/our-father.js`);
 	const hail_mary = require(`./commands/hail-mary.js`);
@@ -128,137 +173,45 @@ client.on('message', async message => { // >prayer commands from the Great Fr. O
 	const apostles_creed = require(`./commands/apostles-creed.js`);
 	const nicene_creed = require(`./commands/nicene-creed.js`);
 
-	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+	if (!message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
 
-	if ((message.content.startsWith(`${prefix}prayers`))) { // >commands 
+	if ((message.content.toLowerCase() == (`${prefix}prayers`))) { // >commands 
 		prayers(message)
-	} else if (message.content.startsWith(`${prefix}our-father`)) { // >our-father
+	} else if (message.content.toLowerCase() == (`${prefix}our-father`)) { // >our-father
 		our_father(message);
-	} else if (message.content.startsWith(`${prefix}hail-mary`)) { // >hail-mary
+	} else if (message.content.toLowerCase() == (`${prefix}hail-mary`)) { // >hail-mary
 		hail_mary(message);
-	} else if (message.content.startsWith(`${prefix}glory-be`)) { // >glory-be
+	} else if (message.content.toLowerCase() == (`${prefix}glory-be`)) { // >glory-be
 		glory_be(message)
-	} else if (message.content.startsWith(`${prefix}act-of-contrition`)) { // >act-of-contrition
+	} else if (message.content.toLowerCase() == (`${prefix}act-of-contrition`)) { // >act-of-contrition
 		act_of_contrition(message);
-	} else if (message.content.startsWith(`${prefix}apostles-creed`)) { // >apostles-creed
+	} else if (message.content.toLowerCase() == (`${prefix}apostles-creed`)) { // >apostles-creed
 		apostles_creed(message);
-	} else if (message.content.startsWith(`${prefix}nicene-creed`)) { // >nicene-creed
+	} else if (message.content.toLowerCase() == (`${prefix}nicene-creed`)) { // >nicene-creed
 		nicene_creed(message);
 	}
 });
 
-client.on('message', async message => { // >kick command
-	if (!message.content.startsWith(`${prefix}`) || message.author.bot) return;
+client.on('message', async (message) => { // >kick command
+	const admin = require(`./commands/admin.js`);
+	const ban = require(`./commands/ban.js`);
+	const kick = require(`./commands/kick.js`);
+	const rules = require(`./commands/rules.js`);
+	const server_info = require(`./commands/server-info.js`);
+	
+	if (!message.content.toLowerCase().startsWith(`${prefix}`) || message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
 
-	// Ignore messages that aren't from this guild
-	if (!message.guild) return;
-
-	if (message.content.startsWith(`${prefix}admin`)) {
-		if (!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
-			const permission_embed = new MessageEmbed()
-			.setColor(10231598)
-			.setTitle(`Oops, an error happened...`)
-			.setDescription(`You don't have permission to perform this command!`)
-			.setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
-			message.channel.send(permission_embed);
-		} else if (message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
-			const admin_embed = new MessageEmbed()
-			.setColor(10231598)
-			.setTitle(`Admin Commands`)
-			.setDescription("`kick`, `ban`")
-			message.channel.send(admin_embed)
-		}
-	} else if (message.content.startsWith(`${prefix}kick`)) {
-		// Assuming we mention someone in the message, this will return the user
-		if (!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
-			const embed = new MessageEmbed()
-			.setColor(10231598)
-			.setTitle(`Oops, an error happened...`)
-			.setDescription(`You don't have permission to perform this command!`)
-			.setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
-			message.channel.send(embed);
-		}
-		const user = message.mentions.users.first();
-
-		if (user) {
-			// Now we get the member from the user
-			const member = message.guild.member(user);
-			// If the member is in the guild
-			if (member) {
-				/**
-				 * Kick the member
-				 * Make sure you run this on a member, not a user!
-				 * There are big differences between a user and a member
-				 */
-				member 
-					.kick(`Optional reason that will display in the audit logs...`)
-					.then(() => {
-						// We let the message author know we were able to kick the person, outputted as embed
-						const embed = new MessageEmbed()
-						.setColor(10231598)
-						.setTitle(`User Kicked...`)
-						.setDescription(`Successfully kicked ${user.username}...`)
-						.setImage(`https://media1.giphy.com/media/qiiimDJtLj4XK/giphy.gif`)
-						message.channel.send(embed);
-					})
-					.catch(err => {
-						// An error happened
-						// This is generally due to the bot not being able to kick the member,
-						// either due to missing permissions or role hierarchy
-						const embed = new MessageEmbed()
-						.setColor(10231598)
-						.setTitle(`Oops, an error happened...`)
-						.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
-						message.channel.send(embed);
-						// Log the error
-						console.log(err);
-					})
-			} else {
-				//mentioned user not in guild
-				const embed = new MessageEmbed()
-						.setColor(10231598)
-						.setTitle(`The mentioned user isn't in this guild!`)
-						.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
-						message.channel.send(embed);
-			} 
-		}
-			else {
-				//outputs when no user mentioned
-				const embed = new MessageEmbed()
-						.setColor(10231598)
-						.setTitle(`You didn't mention the user to kick!`)
-						.setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
-						message.channel.send(embed);
-			}
-	} else if (message.content.startsWith(`${prefix}ban`)) {
-		if (!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR", "MODERATOR"])) {
-			const embed = new MessageEmbed()
-			.setColor(10231598)
-			.setTitle(`Oops, an error happened...`)
-			.setDescription(`You dont have permission to perform this command!`)
-			.setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
-			message.channel.send(embed);
-		}
-
-		let member = message.mentions.members.first();
-
-		if(!member)
-			return message.channel.send(`The member isn't in this server!`)
-		if(!member.bannable) 
-			return message.channel.send(`I cannot ban this user! Do they have a higher role?`);
-
-		let reason = args.slice(1).join(' ');
-		if(!reason) reason = `No reason provided.`;
-
-		member.ban(reason) 
-			.catch(error => message.channel.send(`Sorry ${message.author} I couldn't ban because of ${error}.`));
-			const embed = new MessageEmbed()
-			.setColor(10231598)
-			.setTitle(`User Banned...`)
-			.setImage(`https://gulf-insider-i35ch33zpu3sxik.stackpathdns.com/wp-content/uploads/2017/07/banned.jpg`)
-			.setDescription(`${member.user.tag} has been banned by ${message.author.tag} because: ${reason}.`);
-			message.channel.send(embed);
+	if (message.content.toLowerCase() == (`${prefix}admin`)) {
+		admin(message);
+	} else if(message.content.toLowerCase() == (`${prefix}ban`)) {
+		ban(message);
+	}  else if (message.content.toLowerCase() == (`${prefix}kick`)) {
+		kick(message);
+	} else if (message.content.toLowerCase() == (`${prefix}rules`)) {
+		rules(message);
+	} else if (message.content.toLowerCase() == (`${prefix}server-info`)) {
+		server_info(message);
 	} 
 });
 
-client.login(token) // Replace XXXXX with your bot token
+client.login(CONFIG.token) // Replace XXXXX with your bot token

@@ -3,7 +3,7 @@ const { Client, MessageEmbed } = require(`discord.js`); //for embed functionalit
 const emojiCharacters = require(`../emoji-characters`); //for emojis
 const got = require(`got`);
 
-module.exports = (message) => {
+module.exports = async (message) => {
     got(`https://www.reddit.com/r/StardustCrusaders/random/.json`).then(response => {
         let content = JSON.parse(response.body);
         const jojo_title = content[0].data.children[0].data.title;
