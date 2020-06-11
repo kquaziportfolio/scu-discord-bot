@@ -6,12 +6,12 @@ module.exports = {
 	name: 'rules',
     description: 'rules!',
 		execute(message, args) { 
-            if (message.member.hasPermission("MENTION_MEMBERS")) {
+            if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
                 rules_embed = new Discord.MessageEmbed() 
                 .setColor(10231598)
                 .setTitle("Server Rules:")
                 .setDescription(
-                `${emojiCharacters.one} No harassment, sexual or otherwise, towards other members. Excessive use of @ mentions falls under the category of harassment.\n
+               `${emojiCharacters.one} No harassment, sexual or otherwise, towards other members. Excessive use of @ mentions falls under the category of harassment.\n
                 ${emojiCharacters.two} Be respectful to your fellow members of the server.\n
                 ${emojiCharacters.three} No spamming or flooding of text messages, emoji, attachments, or links. Excessive use or otherwise spamming of bot commands is punishable at moderator's discretion.\n			
                 ${emojiCharacters.four} No usage of hate speech, slurs, death threats, racism, or derogatory terms. Additionally, any use of offensive or derogatory bot commands (such as the pasta command) is subject to punishment.\n
@@ -30,7 +30,7 @@ module.exports = {
                 .setFooter("Created by the server lords!")
                 message.channel.send(rules_embed);
             } else {
-                const embed = new MessageEmbed()
+                const embed = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Oops, an error happened...`)
                 .setDescription(`You don't have permission to perform this command!`)

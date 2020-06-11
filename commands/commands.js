@@ -5,7 +5,7 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 module.exports = { 
     name: 'cmds',
     description: 'commands!',   
-    execute(message, args) {
+    async execute(message, args) {
         const cmds_embed = {
             "title": "Father O'Brien Commands List",
             "description": "Give us feedback on our bot!",
@@ -35,8 +35,8 @@ module.exports = {
                     "inline": true
                 },
                 {
-                    "name": `${emojiCharacters.four} ${emojiCharacters.info} Stats`,
-                    "value": "`>stats`",
+                    "name": `${emojiCharacters.four} ${emojiCharacters.info} Info`,
+                    "value": "`>info`",
                     "inline": true
                 },
                 {

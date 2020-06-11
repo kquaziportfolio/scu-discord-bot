@@ -7,14 +7,14 @@ module.exports = {
     description: 'admin!',   
         execute(message, args) {
             if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
-                const admin_embed = new MessageEmbed()
+                const admin_embed = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Admin Commands`)
                 .setDescription("`ban`, `kick`, `rules`, `server-info`")
                 .setFooter("Use `>` before each command!")
                 message.channel.send(admin_embed)
             } else {
-                const permission_embed = new MessageEmbed()
+                const permission_embed = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Oops, an error happened...`)
                 .setDescription(`You don't have permission to perform this command!`)

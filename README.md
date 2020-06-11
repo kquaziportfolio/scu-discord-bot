@@ -9,11 +9,11 @@ This is a 24/7 bot that I made for my Discord server [here](https://discord.gg/Y
 
 ## Commands:
 ```
->admin
 >about
->commands
+>admin
 >info
 >prayers
+>random
 >reddit
 ```
 

@@ -1,19 +1,17 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
 
 module.exports = {
 	name: 'roles',
     description: 'roles!',
 		execute(message, args) {
-            if (message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod'])) {
-                const rolesEmbed = new MessageEmbed()
+                const rolesEmbed1 = new Discord.MessageEmbed()
                 .setTitle("Server Roles")
                 .setDescription(`
             **⟪1 - Undergraduate Majors⟫**\n
             ‌‌ Bioengineering
             ‌‌ Computer Science and Engineering
-            ‌‌ Civil, Environmental, and Sustainable Engineering
+            ‌‌ Civil Engineering
             ‌‌ Electrical Engineering
             ‌‌ Electrical and Computer Engineering
             ‌‌ General Engineering
@@ -47,12 +45,12 @@ module.exports = {
             ‌‌ Latin Language and Literature
             ‌‌ Mathematics
             ‌‌ Military Science
-            ‌‌ Modern Languages and Literatures - Arabic
-            ‌‌ Modern Languages and Literatures - Chinese
-            ‌‌ Modern Languages and Literatures - French
-            ‌‌ Modern Languages and Literatures - German
-            ‌‌ Modern Languages and Literatures - Italian
-            ‌‌ Modern Languages and Literatures - Japanese
+            ‌‌ MLAL - Arabic
+            ‌‌ MLAL - Chinese
+            ‌‌ MLAL - French
+            ‌‌ MLAL - German
+            ‌‌ MLAL - Italian
+            ‌‌ MLAL - Japanese
             ‌‌ Music
             ‌‌ Neuroscience
             ‌‌ Philosophy
@@ -64,7 +62,16 @@ module.exports = {
             ‌‌ Studio Art
             ‌‌ Theatre and Dance
             ‌‌ Women's and Gender Studies
-
+            Undeclared - Arts and Sciences
+            Undeclared - Business
+            Undeclared - Engineering
+                `)
+                .setColor(10231598)
+            message.channel.send(rolesEmbed1);
+                const rolesEmbed2 = new Discord.MessageEmbed()
+                .setColor(10231598)
+                .setTimestamp()
+                .setDescription(`
             **⟪2 - User Status⟫**\n
             Alumni
             ‌‌Grad Student
@@ -87,14 +94,7 @@ module.exports = {
             **⟪5 - Fun⟫**\n
             ‌‌ Gamer
                 `)
-                .setColor(10231598)
-                .setTimestamp()
                 .setFooter("Use `<i.am [role]>` to select roles!")
-            message.channel.send(rolesEmbed);
-            } else {
-                message.channel.send("You do not have sufficient permissions to run this command!")
-                    .then(msg => msg.delete({timeout: 5000}))
-            }
-    }
-  
+            message.channel.send(rolesEmbed2)
+        }
 }

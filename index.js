@@ -28,13 +28,13 @@ client.on(`ready`, () => {
     // For example: client.user.setActivity(`TV`, {type: `WATCHING`})
 });
 
-client.on(`guildMemberAdd`, (member) => { // Check out previous chapter for information about this event
+client.on('guildMemberAdd', (member) => { // Check out previous chapter for information about this event
 	let guild = member.guild; 
 	let memberTag = member.user.id; 
 		
 	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.RichEmbed to send public message on 'welcome' channel
 		.setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor. 
-		.setDescription(`<@${memberTag}> has joined **${guild.name}** which has ${member.guild.memberCount} ` + 
+		.setDescription(`<@${memberTag}> has joined **${guild.name}** which currently  ${member.guild.memberCount} ` + 
 		`members! Be sure to follow instructions in the DM! Go Broncos!`) //Setting embed description
 		.setThumbnail(`https://media.discordapp.net/attachments/709464766472781895/711781960460271616/Discord_3_1.png`) // The image on the top right; method requires an url, not a path to file!
 		.setTimestamp() // Sets a timestamp at the end of the embed
@@ -58,7 +58,7 @@ client.on(`guildMemberAdd`, (member) => { // Check out previous chapter for info
 	member.send(welcome_Embed); //send private DM to new user
 });
 
-client.on(`guildMemberRemove`, (member) => {
+client.on('guildMemberRemove', (member) => {
 	let guild = member.guild; 
 	let memberTag = member.user.id; 
 
@@ -71,17 +71,6 @@ client.on(`guildMemberRemove`, (member) => {
 		.setColor(10231598)
 		.setFooter(`Brought to you by the creators of this Discord server.`)
 	);
-
-	const bye_Embed = new Discord.MessageEmbed()
-		.setTitle(`We're sorry to hear that you're leaving...`) // Calling method setTitle on constructor. 
-		.setDescription(`<@${memberTag}> has left **${guild.name}**! So sorry to hear that you're leaving! You'll be missed so much. In case you want to rejoin here is the link: https://discord.gg/YusWdfu`) //Setting embed description
-		.setThumbnail(`https://media.discordapp.net/attachments/709464766472781895/711781960460271616/Discord_3_1.png`) // The image on the top right; method requires an url, not a path to file!
-		.setTimestamp() // Sets a timestamp at the end of the embed
-		.setImage(`https://www.scu.edu/media/offices/umc/Palm-Drive-01-1160x652.png`)
-		.setColor(10231598)
-		.setFooter(`Brought to you by the creators of this Discord server.`)
-
-	member.send(bye_Embed);
   });
 
 client.on(`message`, async (message) => {	
@@ -96,7 +85,7 @@ client.on(`message`, async (message) => {
 		client.commands.get(command).execute(message, args);
 	} catch (error) {
 		console.error(error);
-		message.reply('there was an error trying to execute that command!');
+		await message.reply('there was an error trying to execute that command!');
 	}
 });
 

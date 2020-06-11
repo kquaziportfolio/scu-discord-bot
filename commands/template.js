@@ -11,6 +11,12 @@ module.exports = {
             let subreddit = reddit[Math.floor(Math.random() * reddit.length)];
 
             message.channel.startTyping();
+
+            message.channel.send({embed: {
+                color: 10231598,
+                description: `**Generating template...**`
+                } 
+            }).then(msg => msg.delete({timeout: 1000}))
             
             setTimeout(() => {
                 // Removes the user from the set after a minute
@@ -36,6 +42,6 @@ module.exports = {
                         message.channel.send(embed);
                         console.log(err);
                     });
-            }, 5000);
+            }, 1000);
         }
 }

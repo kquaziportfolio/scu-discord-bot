@@ -5,11 +5,11 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 module.exports = {
 	name: 'reddit',
 	description: 'reddit!',
-		execute(message, args) {  
+	async execute(message, args) {  
             const embed = new MessageEmbed()
             .setTitle(`Reddit Commands`)
             .setColor(10231593)
-            .setDescription("`jojo`, `meme`, `scu`, `template`")
+            .setDescription("`jojo`, `memereddit`, `scu`")
             .setFooter("Use `>` before each command!")
             message.channel.send(embed);
         }

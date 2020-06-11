@@ -6,7 +6,7 @@ const quotes = require(`inspirational-quotes`); //for quotes
 module.exports = {
 	name: 'quote',
 	description: 'quotes!',
-		execute(message, args) {
+	async execute(message, args) {
 			const embed = new MessageEmbed()
 				.setTitle(`Here's your quote!`)
 				.setColor(10231598)	
