@@ -5,14 +5,20 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 module.exports = {
 	name: 'kick',
 	description: 'kick!',
-		execute(message, args) {   
-            if (message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod'])) {
-                // the kick code here
-                message.channel.send("You have permission to kick. Abuse away!")
-                .then(msg => msg.delete({timeout: 5000}))
-            } else {
-                message.channel.send("You do not have sufficient permissions to run this command!")
-                .then(msg => msg.delete({timeout: 5000}))
+	async execute(message, args) {   
+        if(message.member.hasPermission("KICK_MEMBERS")) {
+            // the mute code here
+            return message.channel.send({embed: {
+                description: "You have permission to kick. Abuse away!",
+                color: 10231598
             }
+        }).then(msg => msg.delete({timeout: 2000}))
+        } else {
+            return message.channel.send({embed: {
+                description: "You do not have sufficient permissions to run this command!",
+                color: 10231598
+            }
+            }).then(msg => msg.delete({timeout: 2000}))
         }
+    }
 }
