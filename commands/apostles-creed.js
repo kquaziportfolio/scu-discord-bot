@@ -2,7 +2,10 @@ const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
 const emojiCharacters = require(`../emoji-characters`); //for emojis
 
-module.exports = async (message) => {
+module.exports = {
+	name: 'apostles-creed',
+	description: 'apostles-creed!',
+		execute(message, args) { 
     const embed = new MessageEmbed()
         .setTitle(`Apostles' Creed`)
         .setColor(10231598)
@@ -15,4 +18,5 @@ module.exports = async (message) => {
                         ' the dead. I believe in the Holy Spirit, the holy Catholic Church, the communion of saints,' +
                         ' the forgiveness of sins, the resurrection of the body and life everlasting.')
         message.channel.send(embed);
+    }
 }

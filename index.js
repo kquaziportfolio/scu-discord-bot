@@ -4,16 +4,22 @@
 
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const client = new Discord.Client();
-const CONFIG = require(`./config.json`); //retrieves data from config.json file 
-const prefix = CONFIG.prefix;
+const {prefix, token} = require(`./config.json`);
 const { Client, MessageEmbed } = require('discord.js'); //for embed functionality
-const got = require(`got`);
 const emojiCharacters = require(`./emoji-characters`);
+const fs = require(`fs`);
+
+client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith(`.js`));
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.name, command);
+}
 
 client.on(`ready`, () => {
 	//specific guild
 	const guild = client.guilds.cache.get(`709118412542050364`);
-	const bot_activity = `Preaching to over ${guild.members.cache.size} members in the ${guild.name} server...`
+	const bot_activity = `Preaching to ${guild.members.cache.size} members in the ${guild.name} server...`
 	client.user.setActivity(bot_activity)
 		.then(console.log(bot_activity))
 		.catch(err => console.log(err))
@@ -52,7 +58,7 @@ client.on(`guildMemberAdd`, (member) => { // Check out previous chapter for info
 	member.send(welcome_Embed); //send private DM to new user
 });
 
-client.on("guildMemberRemove", (member) => {
+client.on(`guildMemberRemove`, (member) => {
 	let guild = member.guild; 
 	let memberTag = member.user.id; 
 
@@ -79,139 +85,19 @@ client.on("guildMemberRemove", (member) => {
   });
 
 client.on(`message`, async (message) => {	
-	const commands = require(`./commands/commands.js`); 
-	const foo = require(`./commands/foo.js`);
-	const joke = require(`./commands/joke.js`);
-	const ping = require(`./commands/ping.js`);
-	const random = require(`./commands/random.js`)
+	const args = message.content.slice(prefix.length).split(/ +/);
+	const command = args.shift().toLowerCase();
 
-	if (!message.content.toLowerCase().startsWith(`${prefix}`) || message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-	if ((message.content.toLowerCase() == `${prefix}cmds`) || (message.content.toLowerCase() == `${prefix}help`)) { // >commands 
-		commands(message);
-	} else if (message.content.toLowerCase() == (`${prefix}foo`)) { // >foo
-		foo(message);
-	} else if (message.content.toLowerCase() == (`${prefix}joke`)) {
-		joke(message);
-	} else if (message.content.toLowerCase() == (`${prefix}ping`)) { // >ping
-		ping(message);
-	} else if (message.content.toLowerCase() == (`${prefix}random`)) {
-		random(message);
-	} 
+	if (!client.commands.has(command)) return;
 
-});
-
-client.on(`message`, async (message) => {
-	const about = require(`./commands/about.js`);
-	const mission = require(`./commands/mission.js`);
-	const values = require(`./commands/values.js`);
-	const motto = require(`./commands/motto.js`);
-	const vision = require(`./commands/vision.js`);
-
-	if (!message.content.toLowerCase().startsWith(`${prefix}`) || message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
-
-	if (message.content.toLowerCase() == (`${prefix}about`)) {
-		about(message);
-	} else if (message.content.toLowerCase() == (`${prefix}motto`)) { // >motto
-		motto(message);
-	} else if (message.content.toLowerCase() == (`${prefix}mission`)) { // >mission
-		mission(message);
-	} else if (message.content.toLowerCase() == (`${prefix}vision`)) { // >vision
-		vision(message);
-	} else if (message.content.toLowerCase() == (`${prefix}values`)) { // >values
-		values(message);
-	} 
-})
-
-client.on(`message`, async (message) => {
-	const stats = require(`./commands/stats.js`);
-	const server_stats = require(`./commands/server-stats.js`);
-	const user_stats = require(`./commands/user-stats.js`);
-
-	if (!message.content.toLowerCase().startsWith(`${prefix}`) || message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
-
-	if (message.content.toLowerCase() == (`${prefix}stats`)) {
-		stats(message);
-	} else if (message.content.toLowerCase() == (`${prefix}server-stats`)) {  
-		server_stats(message);
-	} else if (message.content.toLowerCase() == (`${prefix}user-stats`)) { // >user-stats
-		user_stats(message);
+	try {
+		client.commands.get(command).execute(message, args);
+	} catch (error) {
+		console.error(error);
+		message.reply('there was an error trying to execute that command!');
 	}
 });
 
-client.on(`message`, async (message) => {
-	const reddit = require(`./commands/reddit.js`);
-	const quote = require(`./commands/quote.js`);
-	const meme = require(`./commands/meme.js`);
-	const template = require(`./commands/template.js`);
-	const jojo = require(`./commands/jojo-reddit.js`);
-	const scu = require(`./commands/scu-reddit.js`);
-
-	if (!message.content.toLowerCase().startsWith(`${prefix}`) || message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
-	
-	if (message.content.toLowerCase() == (`${prefix}reddit`)) {
-		reddit(message);
-	} else if (message.content.toLowerCase() == (`${prefix}quote`)) {
-		quote(message);
-	} else if (message.content.toLowerCase() == (`${prefix}meme`)) {
-		meme(message);
-	} else if (message.content.toLowerCase() == (`${prefix}template`)) {
-		template(message);
-	} else if (message.content.toLowerCase() == (`${prefix}jojo`)) {
-		jojo(message);
-	} else if (message.content.toLowerCase() == (`${prefix}scu`)) {
-		scu(message);	
-	}
-});
-
-client.on('message', async (message) => { // >prayer commands from the Great Fr. O'Brien
-	const prayers = require(`./commands/prayers.js`);
-	const our_father = require(`./commands/our-father.js`);
-	const hail_mary = require(`./commands/hail-mary.js`);
-	const glory_be = require(`./commands/glory-be.js`);
-	const act_of_contrition = require(`./commands/act-of-contrition.js`);
-	const apostles_creed = require(`./commands/apostles-creed.js`);
-	const nicene_creed = require(`./commands/nicene-creed.js`);
-
-	if (!message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
-
-	if ((message.content.toLowerCase() == (`${prefix}prayers`))) { // >commands 
-		prayers(message)
-	} else if (message.content.toLowerCase() == (`${prefix}our-father`)) { // >our-father
-		our_father(message);
-	} else if (message.content.toLowerCase() == (`${prefix}hail-mary`)) { // >hail-mary
-		hail_mary(message);
-	} else if (message.content.toLowerCase() == (`${prefix}glory-be`)) { // >glory-be
-		glory_be(message)
-	} else if (message.content.toLowerCase() == (`${prefix}act-of-contrition`)) { // >act-of-contrition
-		act_of_contrition(message);
-	} else if (message.content.toLowerCase() == (`${prefix}apostles-creed`)) { // >apostles-creed
-		apostles_creed(message);
-	} else if (message.content.toLowerCase() == (`${prefix}nicene-creed`)) { // >nicene-creed
-		nicene_creed(message);
-	}
-});
-
-client.on('message', async (message) => { // >kick command
-	const admin = require(`./commands/admin.js`);
-	const ban = require(`./commands/ban.js`);
-	const kick = require(`./commands/kick.js`);
-	const rules = require(`./commands/rules.js`);
-	const server_info = require(`./commands/server-info.js`);
-	
-	if (!message.content.toLowerCase().startsWith(`${prefix}`) || message.content.toLowerCase() == (`${prefix}`) || message.author.bot) return;
-
-	if (message.content.toLowerCase() == (`${prefix}admin`)) {
-		admin(message);
-	} else if(message.content.toLowerCase() == (`${prefix}ban`)) {
-		ban(message);
-	}  else if (message.content.toLowerCase() == (`${prefix}kick`)) {
-		kick(message);
-	} else if (message.content.toLowerCase() == (`${prefix}rules`)) {
-		rules(message);
-	} else if (message.content.toLowerCase() == (`${prefix}server-info`)) {
-		server_info(message);
-	} 
-});
-
-client.login(CONFIG.token) // Replace XXXXX with your bot token
+client.login(token) // Replace XXXXX with your bot token

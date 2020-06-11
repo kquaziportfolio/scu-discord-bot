@@ -2,7 +2,10 @@ const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
 const emojiCharacters = require(`../emoji-characters`); //for emojis
 
-module.exports = async (message) => {
+module.exports = {
+	name: 'hail-mary',
+	description: 'hail-mary!',
+		execute(message, args) { 
     const embed = new MessageEmbed()
         .setTitle(`Hail Mary`)
         .setColor(10231598)
@@ -11,4 +14,5 @@ module.exports = async (message) => {
                         ' blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God,' +
                         ' pray for us sinners, now and at the hour of our death. Amen.')
         message.channel.send(embed);
+    }
 }

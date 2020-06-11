@@ -7,7 +7,9 @@
     "discord.js": "^12.2.0",
     "got": "^11.3.0",
     "inspirational-quotes": "^1.0.8",
+    "random-animals-api": "^1.2.0",
     "random-puppy": "^1.1.0",
+    "superagent": "^5.2.2",
     "ytdl-core": "^2.1.2"
   },
   "devDependencies": {},

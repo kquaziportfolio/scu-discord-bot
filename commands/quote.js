@@ -3,12 +3,16 @@ const { Client, MessageEmbed } = require(`discord.js`); //for embed functionalit
 const emojiCharacters = require(`../emoji-characters`); //for emojis
 const quotes = require(`inspirational-quotes`); //for quotes
 
-module.exports = async (message) => { 
-    const embed = new MessageEmbed()
-		.setTitle(`Here's your quote!`)
-		.setColor(10231598)	
-		.setDescription(quotes.getRandomQuote())
-		.setTimestamp()
-        .setFooter("Created by the server lords!")
-	message.channel.send(embed);
-}
+module.exports = {
+	name: 'quote',
+	description: 'quotes!',
+		execute(message, args) {
+			const embed = new MessageEmbed()
+				.setTitle(`Here's your quote!`)
+				.setColor(10231598)	
+				.setDescription(quotes.getRandomQuote())
+				.setTimestamp()
+				.setFooter("Created by the server lords!")
+			message.channel.send(embed);
+		}
+	}

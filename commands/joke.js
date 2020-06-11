@@ -4,16 +4,20 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 const JOKES = require(`../jokes.json`); //for jokes
 const jokes_list = JOKES.jokes;
 
-module.exports = async (message) => { 
-    function randomJoke() {
-        return jokes_list[Math.floor(Math.random() * jokes_list.length)];
+module.exports = {
+    name: 'joke',
+    description: 'joke!',
+    execute(message, args) { 
+        function randomJoke() {
+            return jokes_list[Math.floor(Math.random() * jokes_list.length)];
+        }
+        
+        const embed = new MessageEmbed()
+            .setTitle("Joke!")
+            .setColor(10231598)
+            .setDescription(randomJoke())
+            .setTimestamp()
+            .setFooter("Created by the server lords!")
+        message.channel.send(embed)
     }
-    
-    const embed = new MessageEmbed()
-        .setTitle("Joke!")
-        .setColor(10231598)
-        .setDescription(randomJoke())
-        .setTimestamp()
-        .setFooter("Created by the server lords!")
-    message.channel.send(embed)
 }
