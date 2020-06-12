@@ -27,7 +27,7 @@ module.exports = {
                         color: 10231598,
                         description: `**Generating meme...**`
                         } 
-                    }).then(msg => msg.delete({timeout: 5000}))
+                    }).then(msg => msg.delete({timeout: 1000}))
                     await message.channel.send({embed: {
                         color: 10231598,
                         description: `**Here's your meme!**`,

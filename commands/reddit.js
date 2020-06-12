@@ -9,7 +9,7 @@ module.exports = {
             const embed = new MessageEmbed()
             .setTitle(`Reddit Commands`)
             .setColor(10231593)
-            .setDescription("`jojo`, `memereddit`, `scu`")
+            .setDescription("`jojo`, `meme`, `scu`")
             .setFooter("Use `>` before each command!")
             message.channel.send(embed);
         }

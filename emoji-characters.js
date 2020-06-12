@@ -14,5 +14,7 @@ module.exports = {
 	up: '👍', down: '👎', comment: '💬', meme: '🤣',
 	prayer: '🙏', info: '📰', quote: '📙', 
 	media: '📷', mission: '⛪', speech: '🗣️',
-	reddit: '🤓', gear: '⚙️', shield: '🛡️'
+	reddit: '🤓', gear: '⚙️', shield: '🛡️', key: '🔑',
+	book: '📚', gym: '💪', tech: '💻', safety: '🦺', student: '🎓',
+	money: '💰', register: '🧾', house: '🏡', car: '🚗', diversity: '🙆'
 };

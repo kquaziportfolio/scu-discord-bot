@@ -3,8 +3,8 @@ const { Client, MessageEmbed } = require(`discord.js`); //for embed functionalit
 const emojiCharacters = require(`../emoji-characters`); //for emojis
 
 module.exports = { 
-    name: 'memereddit',
-    description: 'memereddit!',
+    name: 'meme',
+    description: 'meme-reddit!',
 	async execute(message, args) {
         const embed = new MessageEmbed()
         .setColor(10231598)
