@@ -25,7 +25,8 @@ module.exports = {
                         color: 10231598,
                         description: `**Here's your meme!**`,
                         footer: {
-                            text: "Created by the server lords!"
+                            text: "Brought to you by the creators of this Discord server.",
+                            url: 'https://jasonanhvu.github.io/scu-discord-bot/'
                         },
                         image: {
                             url: "attachment://meme.jpg"
@@ -40,8 +41,7 @@ module.exports = {
                     .setTitle(`Oops, wait 5 seconds...`)
                     .setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
                     .setTimestamp()
-                    .setFooter("Created by the server lords!")
-                    message.channel.send(embed);
+                    .setFooter("Use `>` before each command!")
                     console.log(err);
                 });
             }, 1000);

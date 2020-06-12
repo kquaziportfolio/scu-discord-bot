@@ -94,7 +94,7 @@ module.exports = {
             **⟪5 - Fun⟫**\n
             ‌‌ Gamer
                 `)
-                .setFooter("Use `<i.am [role]>` to select roles!")
+                .setFooter("Brought to you by the creators of this Discord server.", 'https://jasonanhvu.github.io/scu-discord-bot/')
             message.channel.send(rolesEmbed2)
         }
 }

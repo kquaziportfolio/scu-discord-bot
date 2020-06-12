@@ -52,7 +52,7 @@ module.exports = {
             ],
             "timestamp": new Date(),
             "footer": {
-                text: "Brought to you by the creators of this Discord server.",
+                text: "Type `>` before every command!",
                 url: 'https://jasonanhvu.github.io/scu-discord-bot/',
             },
         }

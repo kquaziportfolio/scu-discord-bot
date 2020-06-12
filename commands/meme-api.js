@@ -3,8 +3,8 @@ const { Client, MessageEmbed } = require(`discord.js`);
 const superagent = require(`superagent`);
 
 module.exports = { 
-    name: 'memeapi',
-	description: 'memeapi!',
+    name: 'meme-api',
+	description: 'meme-api!',
 	async execute (message, args) {
         let {body} = await superagent .get("https://some-random-api.ml/meme")
 

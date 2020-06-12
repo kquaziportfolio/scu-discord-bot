@@ -7,18 +7,68 @@ module.exports = {
 	description: 'kick!',
 	async execute(message, args) {   
         if(message.member.hasPermission("KICK_MEMBERS")) {
-            // the mute code here
-            return message.channel.send({embed: {
-                description: "You have permission to kick. Abuse away!",
+            // the kick code here
+
+            let kickInstructions = new Discord.MessageEmbed()
+                .setColor(10231598)
+                .setTitle("Ban Command")
+                .addField("Description:", `Kick a member`, true)
+                .addField("Usage:", `>kick [user] [reason]`, true)
+                .addField("Example:", `>kick @JV | Phở Eating Intern | CSE '24 Being Admin`)
+
+            let member = message.mentions.members.first();
+            if(!member) return message.channel.send(kickInstructions)
+            .then(msg => msg.delete(2000))
+            .catch(err => console.log(`Error: ${err}`))
+
+            if(!member.kickable) return message.channel.send({embed: {
+                description: "I can't kick this user!",
                 color: 10231598
+                }
+            }).then(msg => msg.delete(2000))
+            .catch(err => console.log(`Error: ${err}`))
+            
+            if(member.user.id === "401542675423035392" || member.user.id === "403377362730876928") return message.channel.send({embed: {
+                description: "I can't kick my owner!",
+                color: 10231598
+                }
+            }).then(msg => msg.delete(2000))
+            .catch(err => console.log(`Error: ${err}`))
+
+            if(member.id === message.author.id) return message.channel.send({embed: {
+                description: `You can't kick yourself!`,
+                color: 10231598
+                }
+            }).then(msg => msg.delete(2000))
+            .catch(err => console.log(`Error: ${err}`))
+
+            let reason = args.slice(1).join(" ");
+
+            if(!reason) {
+                reason_card = "No reason given";
+            } else {
+                reason_card = reason;
             }
-        }).then(msg => msg.delete({timeout: 2000}))
+
+            await member.kick(reason)
+            .catch(err => console.log(`Error: ${err}`))
+
+            let kick_card = new Discord.MessageEmbed()
+                .setColor(10231598)
+                .setTitle(`Kick | ${member.user.tag}`)
+                .addField("User", member, true)
+                .addField("Moderator", message.author, true)
+                .addField("Reason", reason_card)
+                .setTimestamp()
+
+            message.channel.send(kick_card);
         } else {
             return message.channel.send({embed: {
                 description: "You do not have sufficient permissions to run this command!",
                 color: 10231598
-            }
+                }
             }).then(msg => msg.delete({timeout: 2000}))
+            .catch(err => console.log(`Error: ${err}`))
         }
     }
 }

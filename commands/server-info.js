@@ -6,6 +6,7 @@ module.exports = {
 	name: 'server-info',
     description: 'server-info!',
 		execute(message, args) { 
+            if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
             let authorTag = message.author.id; 
             const serverEmbed = new Discord.MessageEmbed()
                 .setTitle("**Server Information**")
@@ -16,11 +17,11 @@ module.exports = {
                 `\n\n__**Questions / Concerns / Inquiries**__\nMessage <@${authorTag}>/<@403377362730876928> or ping away in <#709119726344732754>`)
                 .setColor(10231598)
             message.channel.send(serverEmbed);
-            const resourcesEmbed = {
-                "title": "**Server Information**",
-                "color": 10231598,
-                "description": "__**Resources**__\n\n",
-                "fields": [
+            const resourcesEmbed = new Discord.MessageEmbed()
+                .setTitle("**Server Information**")
+                .setColor(10231598)
+                .setDescription("__**Resources**__\n\n")
+                .addFields(
                     {name: `**${emojiCharacters.key} Access Card**`, value: "[Link](https://www.scu.edu/access/)", inline: true},
                     {name: `**${emojiCharacters.book} Bookstore**`, value: "[Link](https://www.scu.edu/auxiliary-services/bookstore/)", inline: true},
                     {name: `**${emojiCharacters.money} Bursar's Office**`, value: "[Link](https://www.scu.edu/bursar/)", inline: true},
@@ -42,16 +43,24 @@ module.exports = {
                     {name: `**${emojiCharacters.tech} Technology Office**`, value: "[Link](https://www.scu.edu/technology/)", inline: true},
                     {name: `**${emojiCharacters.book} Guadalupe Hall Services**`, value: "[Link](https://www.scu.edu/ecp/current-students/guadalupe-hall-resources/)", inline: true},
                     {name: `**${emojiCharacters.book} Office of Accessible Education**`, value: "[Link](https://www.scu.edu/ecp/current-students/disability-resources/)", inline: true},
-                ],
-                "image": {
-                    url: "https://cdn.discordapp.com/attachments/709118412542050368/711778672092119080/scu-seal-redbg.png",
-                },
-                "timestamp": new Date(),
-                "footer": {
-                    text: "Brought to you by the creators of this Discord server.",
-                    url: 'https://jasonanhvu.github.io/scu-discord-bot/',
-                },
-            }
+                )
+                .attachFiles([`./assets/scu-seal.jpg`])
+                .setImage('attachment://scu-seal.jpg')
+                .setTimestamp()
+                .setFooter("Brought to you by the creators of this Discord server.", 'https://jasonanhvu.github.io/scu-discord-bot/')
             message.channel.send({embed: resourcesEmbed});
+        } else {
+        const permission_embed = new Discord.MessageEmbed()
+            .setColor(10231598)
+            .setTitle(`Oops, an error happened...`)
+            .setDescription(`You don't have permission to perform this command!`)
+            .attachFiles(`./assets/no_perm.gif`)
+            .setImage(`attachment://no_perm.gif`)
+        message.channel.send(permission_embed)
+            .then(msg => {
+                msg.delete({ timeout: 2000 })
+            })
+            .catch(err => console.log(`Error: ${err}`));
         }
+    }
 }

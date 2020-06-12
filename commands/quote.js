@@ -12,7 +12,7 @@ module.exports = {
 				.setColor(10231598)	
 				.setDescription(quotes.getRandomQuote())
 				.setTimestamp()
-				.setFooter("Created by the server lords!")
+				.setFooter("Use `>` before each command!")
 			message.channel.send(embed);
 		}
 	}

@@ -25,20 +25,22 @@ module.exports = {
                 ${emojiCharacters.one}${emojiCharacters.two} Please keep discussion to English.\n
                 ${emojiCharacters.one}${emojiCharacters.three} Contact an Admin or Moderator before advertising anything.\n
                 ${emojiCharacters.one}${emojiCharacters.four} Do not ping @ Admin or @ Moderator for strange reasons.`)
-                .setImage("https://www.scu.edu/media/offices/umc/Palm-Drive-01-1160x652.png")
+                .attachFiles([`./assets/scu-background.png`])
+                .setImage(`attachment://scu-background.png`)
                 .setTimestamp()
-                .setFooter("Created by the server lords!")
+                .setFooter("Brought to you by the creators of this Discord server.", 'https://jasonanhvu.github.io/scu-discord-bot/')
                 message.channel.send(rules_embed);
             } else {
                 const embed = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Oops, an error happened...`)
                 .setDescription(`You don't have permission to perform this command!`)
-                .setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
+                .attachFiles([`./assets/no-perm.gif`])
+                .setImage(`attachment://no-perm.gif`)
                 .setTimestamp()
                 message.channel.send(embed)
                 .then(msg => {
-                    msg.delete({ timeout: 5000 })
+                    msg.delete({ timeout: 2000 })
                 })
                 .catch(err => console.log(`Error: ${err}`));
             }

@@ -9,7 +9,7 @@ module.exports = {
             const embed = new MessageEmbed()
             .setTitle(`Info Commands`)
             .setColor(10231593)
-            .setDescription("`server-info`, `rules`, `user-info`")
+            .setDescription("`server-stats`, `roles`, `user-info`")
             .setFooter("Use `>` before each command!")
             message.channel.send(embed);
         }

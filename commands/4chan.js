@@ -40,7 +40,7 @@ module.exports = {
                     .setTitle(`Oops, wait 5 seconds...`)
                     .setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
                     .setTimestamp()
-                    .setFooter("Created by the server lords!")
+                    .setFooter("Use `>` before each command!")
                     message.channel.send(embed);
                     console.log(err);
                 });
