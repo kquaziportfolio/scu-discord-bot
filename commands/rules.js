@@ -23,8 +23,8 @@ module.exports = {
                 ${emojiCharacters.ten} No usage of any usernames/nicknames that violate the aforementioned rules. Moderators reserve the right to change nicknames without warning if they are in violation of the rules, or if they are not easily pingable with an @ mention.\n
                 ${emojiCharacters.one}${emojiCharacters.one} Dispersing misinformation and trolling is not allowed. Anyone suspected of trolling or abetting the efforts of a troll will be punished.\n
                 ${emojiCharacters.one}${emojiCharacters.two} Please keep discussion to English.\n
-                ${emojiCharacters.one}${emojiCharacters.three} Contact an Admin or Moderator before advertising anything.\n
-                ${emojiCharacters.one}${emojiCharacters.four} Do not ping @ Admin or @ Moderator for strange reasons.`)
+                ${emojiCharacters.one}${emojiCharacters.three} Contact an <@Admin> or <@Mod> before advertising anything.\n
+                ${emojiCharacters.one}${emojiCharacters.four} Do not ping Admin or Moderator for strange reasons.`)
                 .attachFiles([`./assets/scu-background.png`])
                 .setImage(`attachment://scu-background.png`)
                 .setTimestamp()

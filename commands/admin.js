@@ -6,11 +6,11 @@ module.exports = {
     name: 'admin',
     description: 'admin!',   
     async execute(message, args) {
-            if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
+        if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
                 const admin_embed = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Admin Commands`)
-                .setDescription("`ban`, `kick`, `mute`, `purge`, `rules`, `server-info`")
+                .setDescription("`announce`, `ban`, `kick`, `mute`, `purge`, `rules`, `server-info`")
                 .setFooter("Use `>` before each command!")
                 message.channel.send(admin_embed)
             } else {

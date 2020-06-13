@@ -14,38 +14,38 @@ module.exports = {
                 .setTitle("Ban Command")
                 .addField("Description:", `Kick a member`, true)
                 .addField("Usage:", `>kick [user] [reason]`, true)
-                .addField("Example:", `>kick @JV | Phở Eating Intern | CSE '24 Being Admin`)
+                .addField("Example:", `>kick <@401542675423035392> Being Admin`)
 
             let member = message.mentions.members.first();
             if(!member) return message.channel.send(kickInstructions)
-            .then(msg => msg.delete(2000))
+            .then(msg => msg.delete({timeout: 10000}))
             .catch(err => console.log(`Error: ${err}`))
 
             if(!member.kickable) return message.channel.send({embed: {
                 description: "I can't kick this user!",
                 color: 10231598
                 }
-            }).then(msg => msg.delete(2000))
+            }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))
             
             if(member.user.id === "401542675423035392" || member.user.id === "403377362730876928") return message.channel.send({embed: {
                 description: "I can't kick my owner!",
                 color: 10231598
                 }
-            }).then(msg => msg.delete(2000))
+            }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))
 
             if(member.id === message.author.id) return message.channel.send({embed: {
                 description: `You can't kick yourself!`,
                 color: 10231598
                 }
-            }).then(msg => msg.delete(2000))
+            }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))
 
             let reason = args.slice(1).join(" ");
 
             if(!reason) {
-                reason_card = "No reason given";
+                message.channel.send(`You must provide a reason to kick the user!`);
             } else {
                 reason_card = reason;
             }

@@ -8,8 +8,10 @@ module.exports = {
 		execute(message, args) { 
             if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
             let authorTag = message.author.id; 
+            let serverIcon = message.guild.iconURL();
             const serverEmbed = new Discord.MessageEmbed()
                 .setTitle("**Server Information**")
+                .setThumbnail(`${serverIcon}`)
                 .setDescription(`__**Discord Etiquette**__\n-To notify only the members of a specific majors use @ followed by the name` +
                 ` of the major. Read Discord's Terms of Service [here](https://discord.com/terms).\n\n__**Roles**__\nTo be assigned a role,` +
                 ` look at <#710990323412631654> before selecting roles in <#709173444096294993>\n\nStudent Organizations with a sizeable` +
@@ -47,7 +49,7 @@ module.exports = {
                 .attachFiles([`./assets/scu-seal.jpg`])
                 .setImage('attachment://scu-seal.jpg')
                 .setTimestamp()
-                .setFooter("Brought to you by the creators of this Discord server.", 'https://jasonanhvu.github.io/scu-discord-bot/')
+                .setFooter('Brought to you by the creators of this Discord server.')
             message.channel.send({embed: resourcesEmbed});
         } else {
         const permission_embed = new Discord.MessageEmbed()

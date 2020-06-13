@@ -65,11 +65,12 @@ client.on('guildMemberAdd', (member) => { // Check out previous chapter for info
 client.on('guildMemberRemove', (member) => {
 	let guild = member.guild; 
 	let memberTag = member.user.id; 
+	let serverIcon = guild.iconURL();
 
 	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.RichEmbed
 		.setTitle(`We're sorry to hear that you're leaving...`) // Calling method setTitle on constructor. 
 		.setDescription(`<@${memberTag}> has left **${guild.name}**! So sorry to hear that you're leaving! You'll be missed so much. Good luck for the future and try to stay in touch somehow!`) //Setting embed description
-		.setThumbnail(`https://jasonanhvu.github.io/assets/img/logo-pic.png`) // The image on the top right; method requires an url, not a path to file!
+		.setThumbnail(`${serverIcon}`) // The image on the top right; method requires an url, not a path to file!
 		.setTimestamp() // Sets a timestamp at the end of the embed
 		.attachFiles([`./assets/scu-background.png`])
 		.setImage(`attachment://scu-background.png`)

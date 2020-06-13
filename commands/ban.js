@@ -14,11 +14,11 @@ module.exports = {
                 .setTitle("Ban Command")
                 .addField("Description:", `Ban a member`, true)
                 .addField("Usage:", `>ban [user] [reason]`, true)
-                .addField("Example:", `>ban @JV | Phở Eating Intern | CSE '24 Being Admin`)
+                .addField("Example:", `>ban <@401542675423035392> Being Admin`)
 
             let member = message.mentions.members.first();
             if(!member) return message.channel.send(ban_Instructions)
-            .then(msg => msg.delete(2000))
+            .then(msg => msg.delete({timeout: 10000}))
             .catch(err => console.log(`Error: ${err}`))
 
             if(!member.bannable) return message.channel.send({embed: {
@@ -32,20 +32,20 @@ module.exports = {
                 description: "I can't ban my owner!",
                 color: 10231598
                 }
-            }).then(msg => msg.delete(2000))
+            }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))
 
             if(member.id === message.author.id) return message.channel.send({embed: {
                 description: `You can't ban yourself!`,
                 color: 10231598
                 }
-            }).then(msg => msg.delete(2000))
+            }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))
 
             let reason = args.slice(1).join(" ");
 
             if(!reason) {
-                reason_card = "No reason given";
+                message.channel.send(`You must provide a reason to ban the user!`);
             } else {
                 reason_card = reason;
             }
