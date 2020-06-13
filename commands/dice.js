@@ -7,15 +7,33 @@ module.exports = {
 	description: 'die-roll!',
     async execute(message, args) {  
         const dice = [1, 2, 3, 4, 5, 6];
+        const first_die = dice[Math.floor(Math.random()*dice.length)];
+        const second_die = dice[Math.floor(Math.random()*dice.length)];
 
-        const embed = new Discord.MessageEmbed()
-            .setTitle(`Here's your roll!`)
+        if (first_die == 1 && second_die == 1) {
+            const embed = new Discord.MessageEmbed()
+            .setTitle(`__**SNAKE EYES**__`)
             .setColor(10231598)
-            .addField("__**First dice**__", dice[Math.floor(Math.random()*dice.length)], true)
-            .addField("__**Second dice**__", dice[Math.floor(Math.random()*dice.length)], true)
+            .setDescription(`YOU GOT SNAKE EYES!`)
+            .attachFiles([`./assets/snakeeyes.jpeg`])
+            .setImage(`attachments://snakeeyes.jpeg`)
             .setTimestamp()
             .setFooter(`Created by the server lords!`)
 
-        return message.channel.send(embed);   
+            return message.channel.send(embed)
+            .catch(err => `Error: ${err}`) 
+
+        } else {
+            const embed = new Discord.MessageEmbed()
+            .setTitle(`Here's your roll!`)
+            .setColor(10231598)
+            .addField("__**First Die**__", first_die, true)
+            .addField("__**Second Die**__", second_die, true)
+            .setTimestamp()
+            .setFooter(`Created by the server lords!`)
+
+            return message.channel.send(embed)
+            .catch(err => `Error: ${err}`)  
+        }
     }
 }

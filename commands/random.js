@@ -9,7 +9,7 @@ module.exports = {
         const embed = new MessageEmbed()
         .setColor(10231598)
         .setTitle(`Random Commands`)
-        .setDescription("`8ball`, `bird`, `cat`, `dice-roll`, `dog`, `foo`, `fox`, `hug`, `joke`," +
+        .setDescription("`8ball`, `bird`, `cat`, `dic-roll`, `dog`, `foo`, `fox`, `hug`, `joke`," +
         " `koala` `meme-api`, `panda`, `pat`, `pikachu`, `ping`, `quote`, `server-stats`, `wink`")
         .setFooter("Use `>` before each command!")
         message.channel.send(embed);

@@ -17,7 +17,7 @@ module.exports = {
                     color: 10231598
                 }}).then(msg => msg.delete({timeout: 2000}))
             }            
-            await message.channel.bulkDelete(deleteCount + 1).catch(error => message.channel.send({embed: {description: `Couldn't delete messages because of: ${error}`}}));
+            await message.channel.bulkDelete(deleteCount + 1).catch(error => console.log(`Couldn't delete messages because of: ${error}`));
         } else {
                 return message.channel.send({embed: {
                     description: "You do not have sufficient permissions to run this command!",
