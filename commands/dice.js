@@ -15,8 +15,8 @@ module.exports = {
             .setTitle(`__**SNAKE EYES**__`)
             .setColor(10231598)
             .setDescription(`YOU GOT SNAKE EYES!`)
-            .attachFiles([`./assets/snakeeyes.jpeg`])
-            .setImage(`attachments://snakeeyes.jpeg`)
+            .attachFiles([`./assets/snakeeyes.jpg`])
+            .setImage(`attachments://snakeeyes.jpg`)
             .setTimestamp()
             .setFooter(`Created by the server lords!`)
 

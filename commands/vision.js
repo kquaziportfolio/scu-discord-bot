@@ -11,7 +11,8 @@ module.exports = {
 				.setTitle(`SCU's Vision`)
 				.setDescription(`Santa Clara University will educate citizens and leaders of competence, conscience, ` + 
 				`and compassion and cultivate knowledge and faith to build a more humane, just, and sustainable world.`)
-				.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
+				.attachFiles([`./assets/scu-mission.png`])
+				.setImage(`attachment://scu-mission.png`)
 				message.channel.send(embed);
 		}
 }

@@ -9,7 +9,8 @@ module.exports = {
     const embed = new MessageEmbed()
         .setTitle(`Apostles' Creed`)
         .setColor(10231598)
-        .setImage(`https://www.drivethruhistory.com/wp-content/uploads/2016/07/Twelve-Apostles-of-Jesus.png`)
+        .attachFiles([`./assets/apostles-creed.png`])
+        .setImage(`attachment://apostles-creed.png`)
         .setDescription('I believe in God, the Father Almighty, Creator of Heaven and earth; and in Jesus Christ,' +
                         ' His only Son Our Lord, Who was conceived by the Holy Spirit, born of the Virgin Mary,' + 
                         ' suffered under Pontius Pilate, was crucified, died, and was buried. He descended into Hell;' +

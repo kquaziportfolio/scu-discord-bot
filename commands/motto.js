@@ -10,7 +10,8 @@ module.exports = {
             .setColor(10231598)
             .setTitle(`SCU Motto`)
             .setDescription(`Ad Majorem Dei Gloriam - For the Greater Glory of God`)
-            .setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
+            .attachFiles([`./assets/scu-mission.png`])
+            .setImage(`attachment://scu-mission.png`)
             message.channel.send(embed);
         }
 }

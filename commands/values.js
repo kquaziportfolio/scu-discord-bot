@@ -11,7 +11,8 @@ module.exports = {
 					.setTitle(`SCU's Values`)
 					.setDescription(`We serve academic excellence, engaged learning, commitment to students, service to others, ` +
 					`community and diversity, and Jesuit distinctiveness all year round!`)
-					.setImage(`https://www.scu.edu/media/offices/umc/Mission-Exterior-01-1160x652.png`)
+					.attachFiles([`./assets/scu-mission.png`])
+					.setImage(`attachment://scu-mission.png`)
 					message.channel.send(embed);
 		}
 }
