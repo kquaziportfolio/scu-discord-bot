@@ -7,16 +7,17 @@ module.exports = {
     description: 'announce!',   
     async execute(message, args) {
         if (message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod'])) {
-            let announceInstructions = new Discord.MessageEmbed()
+            const announceInstructions = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle("Announcements Command")
                 .addField("Description:", `Public announcements`, true)
-                .addField("Usage:", `>announce [title] [description]`, true)
-                .addField("Example:", `>announce Hi! / Welcome to the server!`)
+                .addField("Usage:", "`>announce [title] / [description]`", true)
+                .addField("Example:", "`>announce Hi! / Welcome to the server!`")
+                .setTimestamp();
 
                 const prompt = args.join(' ').split('/');
-                const announce_embed = new Discord.MessageEmbed()
 
+                const announce_embed = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`${prompt[0]}`)
                 .setDescription(`${prompt[1]}`)
@@ -50,6 +51,7 @@ module.exports = {
                 .setTitle(`Oops, an error happened...`)
                 .setDescription(`You don't have permission to perform this command!`)
                 .setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
+                .setTimestamp()
                 message.channel.send(permission_embed)
                 .then(msg => {
                     msg.delete({ timeout: 2000 })

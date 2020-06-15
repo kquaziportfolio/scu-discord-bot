@@ -31,21 +31,22 @@ module.exports = {
                 return onlineCount;
             }
 
-            let sicon = message.guild.iconURL;
+            let sicon = message.guild.iconURL();
+            let owner = message.guild.owner;
             let serverembed = new Discord.MessageEmbed()
-                .setAuthor(`${message.guild.name} - Statistics`, message.guild.iconURL)
-                .setColor("#15f153")
-                .addField('Server owner', message.guild.owner, true)
-                .addField('Server region', message.guild.region, true)
-                .setThumbnail(sicon)
-                .addField("Server Name", message.guild.name)
+                .setDescription(`__**${message.guild.name} - Statistics**__`)
+                .setColor(10231598)
+                .addField('Server Owners', `${owner}\n<@403377362730876928>`, true)
+                .addField('Server Region', message.guild.region, true)
+                .setThumbnail(sicon, true)
+                .addField("Server Name", message.guild.name, true)
                 .addField('Verification level', message.guild.verificationLevel, true)
-                .addField('Channel count', message.guild.channels.cache.size, true)
-                .addField('Total member count', message.guild.memberCount)
+                .addField('Channel Count', message.guild.channels.cache.size, true)
+                .addField('Total Member Count', message.guild.memberCount, true)
                 .addField('Humans', checkMembers(message.guild), true)
                 .addField('Bots', checkBots(message.guild), true)
-                .addField('Online', checkOnlineUsers(message.guild))
-                .addField('Guild created at:', message.guild.createdAt)
+                .addField('Online', checkOnlineUsers(message.guild), true)
+                .addField('Guild Created At:', message.guild.createdAt, true)
                 .setTimestamp()
 
             return message.channel.send(serverembed);

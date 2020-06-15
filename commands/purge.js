@@ -7,15 +7,20 @@ module.exports = {
 	description: 'purge!',
     async execute(message, args) {   
 
+        const purgeInstructions = new Discord.MessageEmbed()
+        .setColor(10231598)
+        .setTitle("Purge Command")
+        .addField("Description:", `Please provide a number between 1 and 100 for the number of messages to delete`, true)
+        .addField("Usage:", "`>purge [number of messages]`", true)
+        .addField("Example:", "`>purge 10`")
+        .setTimestamp()
+
         const deleteCount = parseInt(args[0], 10);
 
         if(message.member.hasPermission("MANAGE_MESSAGES")) {
             // the mute code here
             if(!deleteCount || deleteCount < 1 || deleteCount > 100) {
-                return message.channel.send({embed: {
-                    description: "Please provide a number between 1 and 100 for the number of messages to delete",
-                    color: 10231598
-                }}).then(msg => msg.delete({timeout: 2000}))
+                return message.channel.send(purgeInstructions).then(msg => msg.delete({timeout: 10000}))
             }            
             await message.channel.bulkDelete(deleteCount + 1).catch(error => console.log(`Couldn't delete messages because of: ${error}`));
         } else {

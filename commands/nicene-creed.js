@@ -9,7 +9,8 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setTitle(`Nicene Creed`)
                 .setColor(10231598)
-                .setImage(`https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQZs7N11VSkjrLIOOrJgS6UYZKlajuc9YwS4z2jui3wD947iYDt&usqp=CAU`)
+                .attachFiles(`./assets/nicene-creed.jpg`)
+                .setImage(`attachment://nicene-creed.jpg`)
                 .setDescription('I believe in one God, the Father almighty, Maker of heaven and earth, and of all things visible and invisible' +
                 ' And in one Lord Jesus Christ, the only-begotten Son of God, born of the Father before all ages. God of God; Light of Light; true God of true God;' +
                 ' begotten not made; consubstantial with the Father, by whom all things were made. Who for us men, and for our salvation, came down from heaven, and' +

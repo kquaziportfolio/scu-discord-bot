@@ -9,14 +9,15 @@ module.exports = {
         if(message.member.hasPermission("BAN_MEMBERS")) {
             // the ban code here
 
-            let ban_Instructions = new Discord.MessageEmbed()
+            const ban_Instructions = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle("Ban Command")
                 .addField("Description:", `Ban a member`, true)
-                .addField("Usage:", `>ban [user] [reason]`, true)
-                .addField("Example:", `>ban <@401542675423035392> Being Admin`)
+                .addField("Usage:", "`>ban [user mention] [reason]`", true)
+                .addField("Example:", ">ban <@401542675423035392> Being Admin")
+                .setTimestamp()
 
-            let member = message.mentions.members.first();
+            const member = message.mentions.members.first();
             if(!member) return message.channel.send(ban_Instructions)
             .then(msg => msg.delete({timeout: 10000}))
             .catch(err => console.log(`Error: ${err}`))
@@ -28,9 +29,10 @@ module.exports = {
             }).then(msg => msg.delete(2000))
             .catch(err => console.log(`Error: ${err}`))
 
-            if(member.user.id === "401542675423035392" || member.user.id === "403377362730876928") return message.channel.send({embed: {
-                description: "I can't ban my owner!",
-                color: 10231598
+            if(member.user.id === "401542675423035392" || member.user.id === "403377362730876928") 
+                return message.channel.send({embed: {
+                    description: "I can't ban my owner!",
+                    color: 10231598
                 }
             }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))
@@ -42,10 +44,11 @@ module.exports = {
             }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))
 
-            let reason = args.slice(1).join(" ");
+            const reason = args.slice(1).join(" ");
 
             if(!reason) {
-                message.channel.send(`You must provide a reason to ban the user!`);
+                message.channel.send(`You must provide a reason to ban the user!`)
+                .then(msg => msg.delete({timeout: 2000}))
             } else {
                 reason_card = reason;
             }
@@ -53,7 +56,7 @@ module.exports = {
             await member.ban(reason)
             .catch(err => console.log(`Error: ${err}`))
 
-            let ban_card = new Discord.MessageEmbed()
+            const ban_card = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Ban | ${member.user.tag}`)
                 .addField("User", member, true)

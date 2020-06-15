@@ -11,9 +11,9 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle('User Information')
                 .setColor(10231598)
-                .setImage(`${get_avatar}`)
-                .setDescription(`\nCreated At: ${user.createdAt}\nYour Username: ${user.username}\nYour Tag: ${user.tag}` +
-                `\nYour Presence: ${user.presence.status}\nBot? (true/false): ${user.bot}\nYour Avatar:`);
+                .setThumbnail(`${get_avatar}`)
+                .setDescription(`\n• **Created At:** ${user.createdAt}\n• **Your Username:** <@${user.id}>\n• **Your Tag:** ${user.tag}` +
+                `\n• **Your Locale:** ${user.locale}\n• **Your Status:** ${user.show_activity}\n• **Bot? (true/false)**: ${user.bot}\n• **Verification:** ${user.verified}`);
                 message.channel.send(embed);
         }
 }

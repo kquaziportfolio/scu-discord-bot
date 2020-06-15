@@ -7,10 +7,12 @@ const client = new Discord.Client();
 const {prefix, token} = require(`./config.json`);
 const { Client, MessageEmbed } = require('discord.js'); //for embed functionality
 const emojiCharacters = require(`./emoji-characters`);
+const OBS = require(`./commands/obs.json`);
+const OBS_list = OBS.obs;
 const fs = require(`fs`);
 
 client.commands = new Discord.Collection();
-const commandFiles = fs.readdirSync(`./commands`).filter(file => file.endsWith(`.js`));
+const commandFiles = fs.readdirSync(`./commands/`).filter(file => file.endsWith(`.js`));
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
@@ -19,18 +21,23 @@ for (const file of commandFiles) {
 client.on(`ready`, () => {
 	//specific guild
 	const guild = client.guilds.cache.get(`709118412542050364`);
-	const bot_activity = `Preaching to ${guild.members.cache.size} members in the ${guild.name} server...`
+	let memberCount = 0;
+	guild.members.cache.forEach(member => {
+		if(!member.user.bot) memberCount++;
+		return memberCount;
+	});
+	const bot_activity = `Preaching to ${memberCount} members in the ${guild.name} server...`
 	client.user.setActivity(bot_activity)
 		.then(console.log(bot_activity))
-		.catch(err => console.log(err))
+		.catch(err => console.log(`Error: ${err}`))
 	// Alternatively, you can set the activity to any of the following:
     // PLAYING, STREAMING, LISTENING, WATCHING
     // For example: client.user.setActivity(`TV`, {type: `WATCHING`})
 });
 
-client.on('guildMemberAdd', (member) => { // Check out previous chapter for information about this event
-	let guild = member.guild; 
-	let memberTag = member.user.id; 
+client.on(`guildMemberAdd`, (member) => { // Check out previous chapter for information about this event
+	const guild = member.guild; 
+	const memberTag = member.user.id; 
 		
 	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.RichEmbed to send public message on 'welcome' channel
 		.setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor. 
@@ -62,10 +69,10 @@ client.on('guildMemberAdd', (member) => { // Check out previous chapter for info
 	member.send(welcome_Embed); //send private DM to new user
 });
 
-client.on('guildMemberRemove', (member) => {
-	let guild = member.guild; 
-	let memberTag = member.user.id; 
-	let serverIcon = guild.iconURL();
+client.on(`guildMemberRemove`, (member) => {
+	const guild = member.guild; 
+	const memberTag = member.user.id; 
+	const serverIcon = guild.iconURL();
 
 	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.RichEmbed
 		.setTitle(`We're sorry to hear that you're leaving...`) // Calling method setTitle on constructor. 
@@ -79,6 +86,22 @@ client.on('guildMemberRemove', (member) => {
 	);
   });
 
+client.on('message', async (message) => {
+	const memberTag = message.author.id;
+
+	for (let i = 0; i < OBS_list.length; i++) {
+		if (message.content.toLowerCase().includes(OBS_list[i])) {
+			message.channel.send({embed: {
+				description: `<@${memberTag}> used a controversial word. If you think this is unfair, please contact <@401542675423035392> right away.`,
+				color: 10231598
+			}}) .catch(err => console.log(`Error: ${err}`))
+
+		return message.delete()
+			.catch(err => console.log(`Error: ${err}`))
+		}
+	}
+});
+
 client.on(`message`, async (message) => {	
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();
@@ -91,12 +114,11 @@ client.on(`message`, async (message) => {
 		client.commands.get(command).execute(message, args);
 	} catch (error) {
 		console.error(error);
-		await message.reply({embed: {
+		await message.channel.send({embed: {
 			description: "There was an error trying to execute that command!", 
 			color: 10231598
 			}
-		}).then(msg => {
-			msg.delete({ timeout: 2000 })
+		}).then(msg => { msg.delete({ timeout: 2000 })
 		}).catch(err => console.log(`Error: ${err}`));
 	}
 });

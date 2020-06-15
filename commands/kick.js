@@ -9,14 +9,15 @@ module.exports = {
         if(message.member.hasPermission("KICK_MEMBERS")) {
             // the kick code here
 
-            let kickInstructions = new Discord.MessageEmbed()
+            const kickInstructions = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle("Ban Command")
                 .addField("Description:", `Kick a member`, true)
-                .addField("Usage:", `>kick [user] [reason]`, true)
-                .addField("Example:", `>kick <@401542675423035392> Being Admin`)
+                .addField("Usage:", "`>kick [user mention] [reason]`", true)
+                .addField("Example:", ">kick <@401542675423035392> Being Admin")
+                .setTimestamp()
 
-            let member = message.mentions.members.first();
+            const member = message.mentions.members.first();
             if(!member) return message.channel.send(kickInstructions)
             .then(msg => msg.delete({timeout: 10000}))
             .catch(err => console.log(`Error: ${err}`))
@@ -28,9 +29,10 @@ module.exports = {
             }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))
             
-            if(member.user.id === "401542675423035392" || member.user.id === "403377362730876928") return message.channel.send({embed: {
-                description: "I can't kick my owner!",
-                color: 10231598
+            if(member.user.id === "401542675423035392" || member.user.id === "403377362730876928") 
+                return message.channel.send({embed: {
+                    description: "I can't kick my owner!",
+                    color: 10231598
                 }
             }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))
@@ -42,10 +44,11 @@ module.exports = {
             }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))
 
-            let reason = args.slice(1).join(" ");
+            const reason = args.slice(1).join(" ");
 
             if(!reason) {
-                message.channel.send(`You must provide a reason to kick the user!`);
+                message.channel.send(`You must provide a reason to kick the user!`)
+                .then(msg => msg.delete({timeout: 2000}))
             } else {
                 reason_card = reason;
             }
@@ -53,7 +56,7 @@ module.exports = {
             await member.kick(reason)
             .catch(err => console.log(`Error: ${err}`))
 
-            let kick_card = new Discord.MessageEmbed()
+            const kick_card = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Kick | ${member.user.tag}`)
                 .addField("User", member, true)

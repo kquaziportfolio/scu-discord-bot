@@ -10,7 +10,7 @@ module.exports = {
                 const admin_embed = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Admin Commands`)
-                .setDescription("`announce`, `ban`, `kick`, `mute`, `purge`, `rules`, `server-info`")
+                .setDescription("`announce`, `ban`, `kick`, `mute`, `purge`, `rules`, `server-info`, `unban`")
                 .setFooter("Use `>` before each command!")
                 message.channel.send(admin_embed)
             } else {
@@ -18,7 +18,8 @@ module.exports = {
                 .setColor(10231598)
                 .setTitle(`Oops, an error happened...`)
                 .setDescription(`You don't have permission to perform this command!`)
-                .setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
+                .attachFiles([`./assets/no_perm.gif`])
+                .setImage(`attachment://no_perm.gif`)
                 message.channel.send(permission_embed)
                 .then(msg => {
                     msg.delete({ timeout: 2000 })

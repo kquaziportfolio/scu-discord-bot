@@ -17,6 +17,6 @@ module.exports = {
         .setTimestamp()
         .setFooter(`Created by the server lords!`)
 
-        message.channel.send({embed: birdEmbed});
+        message.channel.send(`Fetching from the api...`).then(msg => { message.channel.send(birdEmbed)});
     }
 }

@@ -16,7 +16,8 @@ module.exports = {
                 ` of the major. Read Discord's Terms of Service [here](https://discord.com/terms).\n\n__**Roles**__\nTo be assigned a role,` +
                 ` look at <#710990323412631654> before selecting roles in <#709173444096294993>\n\nStudent Organizations with a sizeable` +
                 ` populous within the server may request their own channel.\n\n__**Permanent Invite Link**__\n[SCU 🐎💨 | #BroncoUp](https://discord.gg/YusWdfu)` +
-                `\n\n__**Questions / Concerns / Inquiries**__\nMessage <@${authorTag}>/<@403377362730876928> or ping away in <#709119726344732754>`)
+                `\n\n__**Questions / Concerns / Inquiries**__\nMessage <@${authorTag}>/<@403377362730876928> or ping away in <#709119726344732754>\n` +
+                `\n__**SCU Social Networking**__\n- [FaceBook](https://www.facebook.com/SantaClaraUniversity/)\n- [LinkedIn](https://www.linkedin.com/school/santa-clara-university/)\n- [Twitter](https://www.facebook.com/SantaClaraUniversity/)\n- [Instagram](https://instagram.com/santaclarauniversity/)\n- [YouTube](https://www.youtube.com/santaclarauniversity)`)
                 .setColor(10231598)
             message.channel.send(serverEmbed);
             const resourcesEmbed = new Discord.MessageEmbed()
