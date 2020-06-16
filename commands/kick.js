@@ -4,7 +4,7 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 
 module.exports = {
 	name: 'kick',
-	description: 'kick!',
+    description: 'kick!',
 	async execute(message, args) {   
         if(message.member.hasPermission("KICK_MEMBERS")) {
             // the kick code here

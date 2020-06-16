@@ -68,7 +68,7 @@ client.on(`guildMemberAdd`, async (member) => { // Check out previous chapter fo
 	const welcome_Embed = new Discord.MessageEmbed()
 		.setTitle(`Invent the life you want to lead at Santa Clara University.`)
 		.setDescription(
-		`${emojiCharacters.one} Message in the <#710561799199785111> channel your proof of enrollment (e.g. acceptance letter, school email, and/or ECampus screenshot) at SCU! \n\n` +
+		`${emojiCharacters.one}Fill out the Google Form [here](https://forms.gle/vqmrDx9LRVexdwLk6) to verify yourself in the SCU server! Note: If you're a guest or alumni, you are exempted from this requirement \n\n` +
 		`${emojiCharacters.two} Read the <#709118412542050368> channel and introduce yourself in the <#709119648368427018> channel! \n\n` +
 		`${emojiCharacters.three} Look at the <#710990323412631654> and enter **<i.am role>** in <#709173444096294993> for your roles! \n\n` +
 		`Thank you for your cooperation and Go Broncos! :racehorse:`)

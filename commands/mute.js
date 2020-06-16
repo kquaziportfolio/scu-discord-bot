@@ -4,7 +4,7 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 
 module.exports = {
 	name: 'mute',
-	description: 'mute!',
+    description: 'mute!',
     async execute(message, args) {   
         if(message.member.hasPermission("MUTE_MEMBERS")) {
             // the mute code here

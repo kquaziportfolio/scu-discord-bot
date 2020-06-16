@@ -6,11 +6,9 @@ module.exports =  { // >ping
 	name: 'ping',
 	description: 'Ping!',
 	execute(message, args) {
-        const ping_time = new Date().getTime() - message.createdTimestamp + ` ms!`;
-        const embed = new MessageEmbed()
-            .setColor(10231598)
-            .setTitle(`Ping`)
-            .setDescription(emojiCharacters.pong + `Pong! My ping time is  ` + ping_time)
-            message.channel.send(embed);
+        message.channel.send("Pinging ...") // Placeholder for pinging ... 
+			.then((msg) => { // Resolve promise
+				msg.edit({embed: {description: "Ping:" + (Date.now() - msg.createdTimestamp) + " ms", color : 10231598}}) // Edits message with current timestamp minus timestamp of message
+            })
     }
 } 

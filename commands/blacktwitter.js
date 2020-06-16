@@ -7,7 +7,7 @@ module.exports = {
     name: 'blacktwitter',
 	description: 'blacktwitter',
 	async execute(message, args) {
-        let reddit = ["blackpeopletwitter"];
+        let reddit = ["BlackPeopleTwitter"];
 
         message.channel.startTyping();
 

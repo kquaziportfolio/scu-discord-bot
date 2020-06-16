@@ -4,7 +4,7 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 
 module.exports = {
 	name: 'ban',
-	description: 'ban!',
+    description: 'ban!',
 	async execute(message, args) {   
         if(message.member.hasPermission("BAN_MEMBERS")) {
             // the ban code here

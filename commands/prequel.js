@@ -4,8 +4,8 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 const memes = require(`random-puppy`); //for memes
 
 module.exports = { 
-    name: 'meirl',
-	description: 'meirl',
+    name: 'prequel',
+	description: 'prequel',
 	async execute( message, args) {
         let reddit = ["prequelmemes", "exiledprequelmemers"];
         let subreddit = reddit[Math.floor(Math.random() * reddit.length)];
