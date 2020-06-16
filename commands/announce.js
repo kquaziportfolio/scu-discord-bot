@@ -6,7 +6,7 @@ module.exports = {
     name: 'announce',
     description: 'announce!',   
     async execute(message, args) {
-        if (message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod'])) {
+        if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
             const announceInstructions = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle("Announcements Command")
@@ -24,6 +24,7 @@ module.exports = {
                 .setFooter('Brought to you by the creators of this Discord server.')
                 
                 if (!prompt[0] && !prompt[1]) {
+                    
                     message.channel.send(announceInstructions)
                     .then(msg => msg.delete({timeout: 10000}))
                     .catch(error => console.log(`Error: ${error}`))
@@ -43,7 +44,8 @@ module.exports = {
                     .catch(error => console.log(`Error: ${error}`))
                 }
                 else {
-                    message.channel.send(announce_embed);
+                    const channel = message.guild.channels.cache.find(channel => channel.name === "announcements")
+                    channel.send(announce_embed);
                 }
             } else {
                 const permission_embed = new Discord.MessageEmbed()

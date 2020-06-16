@@ -50,7 +50,7 @@ module.exports = {
                 message.channel.send(`You must provide a reason to ban the user!`)
                 .then(msg => msg.delete({timeout: 2000}))
             } else {
-                reason_card = reason;
+                const reason_card = reason;
             }
 
             await member.ban(reason)

@@ -2,11 +2,11 @@ const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
 
 module.exports = {
-	name: 'roles',
-    description: 'roles!',
+	name: 'roles-list',
+    description: 'roles-list!',
 		execute(message, args) {
                 const rolesEmbed1 = new Discord.MessageEmbed()
-                .setTitle("Server Roles")
+                .setTitle("Server Roles List")
                 .setDescription(`
             **⟪1 - Undergraduate Majors⟫**\n
             ‌‌ Bioengineering

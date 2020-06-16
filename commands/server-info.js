@@ -5,10 +5,10 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 module.exports = {
 	name: 'server-info',
     description: 'server-info!',
-		execute(message, args) { 
+		async execute(message, args) { 
             if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
             let authorTag = message.author.id; 
-            let serverIcon = message.guild.iconURL();
+            let serverIcon = message.guild.iconURL({ dynamic: true });
             const serverEmbed = new Discord.MessageEmbed()
                 .setTitle("**Server Information**")
                 .setThumbnail(`${serverIcon}`)
@@ -59,6 +59,7 @@ module.exports = {
             .setDescription(`You don't have permission to perform this command!`)
             .attachFiles(`./assets/no_perm.gif`)
             .setImage(`attachment://no_perm.gif`)
+            .setThumbnail(`${serverIcon}`)
         message.channel.send(permission_embed)
             .then(msg => {
                 msg.delete({ timeout: 2000 })
