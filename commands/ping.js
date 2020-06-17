@@ -8,7 +8,7 @@ module.exports =  { // >ping
 	execute(message, args) {
         message.channel.send("Pinging ...") // Placeholder for pinging ... 
 			.then((msg) => { // Resolve promise
-				msg.edit({embed: {description: "Ping:" + (Date.now() - msg.createdTimestamp) + " ms", color : 10231598}}) // Edits message with current timestamp minus timestamp of message
+				msg.edit({embed: {description: "Ping: " + (Date.now() - msg.createdTimestamp) + " ms", color : 10231598}}) // Edits message with current timestamp minus timestamp of message
             })
     }
 } 

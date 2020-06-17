@@ -46,12 +46,15 @@ client.on(`disconnected`, async () => {
 	client.user.setActivity(bot_activity)
 		.then(console.log(bot_activity))
 		.catch(err => console.log(`Error: ${err}`))
-})
+});
 
 client.on(`guildMemberAdd`, async (member) => { // Check out previous chapter for information about this event
 	const guild = member.guild; 
 	const memberTag = member.user.id; 
 	const sicon = guild.iconURL();
+
+	const role = member.guild.roles.find('name', 'Unverified');
+  	member.addRole(role);
 		
 	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.RichEmbed to send public message on 'welcome' channel
 		.setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor. 
@@ -104,7 +107,7 @@ client.on('message', async (message) => {
 	const memberTag = message.author.id;
 
 	for (let i = 0; i < OBS_list.length; i++) {
-		if (message.content.toLowerCase().includes(OBS_list[i]) || message.content.toLowerCase().startsWith(OBS_list[i]) || message.content.toLowerCase() == (OBS_list[i])) {
+		if (message.content.toLowerCase().includes(OBS_list[i])) {
 			message.channel.send({embed: {
 				description: `<@${memberTag}> used a controversial word. If you think this is unfair, please contact <@401542675423035392> right away.`,
 				color: 10231598

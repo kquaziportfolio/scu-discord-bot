@@ -9,7 +9,7 @@ module.exports = {
             const prayer_embed = {
                 "title": "Prayer Commands List",
                 "color": 10231598,
-                "description": "`our-father`, `hail-mary`, `glory-be`, `act-of-contrition`, `apostles-creed`, `nicene-creed`",
+                "description": "`>our-father`, `>hail-mary`, `>glory-be`, `>act-of-contrition`, `>apostles-creed`, `>nicene-creed`",
                 "footer": {
                     "text": "For all your Catholic needs!"
                 },

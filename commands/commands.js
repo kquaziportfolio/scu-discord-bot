@@ -29,8 +29,8 @@ module.exports = {
                     inline: true
                 },
                 {
-                    name: `${emojiCharacters.four} ${emojiCharacters.info} Info`,
-                    value: "`>info`",
+                    name: `${emojiCharacters.four} ${emojiCharacters.game} Game Stats`,
+                    value: "`>game-stats`",
                     inline: true
                 },
                 {

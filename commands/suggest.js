@@ -9,56 +9,33 @@ module.exports = {
         const announceInstructions = new Discord.MessageEmbed()
         .setColor(10231598)
         .setTitle("Suggestions Command")
-        .addField("Description:", `Public suggestions`, true)
-        .addField("Usage:", "`>suggest [user ids]| [title] | [description]`", true)
-        .addField("Example:", ">suggest <@Role1> <@User1>| Hi! | Can I have more Wumpus?`")
+        .addField("Description:", `Public suggestions to ping admins!`, true)
+        .addField("Usage:", "`>suggest [insert title] | [insert description]`", true)
+        .addField("Example:", ">suggest Hi! | Can I have more Wumpus?`")
         .setTimestamp();
 
         const prompt = args.join(' ').split('|');
         
-        if (!prompt[0] && !prompt[1] && !prompt[2]) {    
+        if (!prompt[0] && !prompt[1]) {    
             message.channel.send(announceInstructions)
-            .then(msg => msg.delete({timeout: 10000}))
             .catch(error => console.log(`Error: ${error}`))
-        } else if (prompt[0] && !prompt[1] && !prompt[2]) {
-            message.channel.send({ embed: {
-                description: `You must enter the user mentions/roles!`,
-                color: 10231598
-                }
-            }).then(msg => msg.delete({timeout: 2000}))
-            .catch(error => console.log(`Error: ${error}`))
-        } else if (!prompt[0] && prompt[1] && prompt[2]) {
-            message.channel.send({ embed: {
-                description: `You must enter the title and description!`,
-                color: 10231598
-                }
-            }).then(msg => msg.delete({timeout: 2000}))
-            .catch(error => console.log(`Error: ${error}`))
-        } else if (prompt[0] && prompt[1] && !prompt[2]) {
+        } else if (prompt[0] && !prompt[1]) {
             message.channel.send({ embed: {
                 description: `You must enter the description!!`,
                 color: 10231598
                 }
             }).then(msg => msg.delete({timeout: 2000}))
             .catch(error => console.log(`Error: ${error}`))
-        } else if (!prompt[0] && prompt[1] && !prompt[2]) {
+        } else if (!prompt[0] && prompt[1]) {
             message.channel.send({ embed: {
                 description: `You must enter the title!`,
                 color: 10231598
                 }
             }).then(msg => msg.delete({timeout: 2000}))
             .catch(error => console.log(`Error: ${error}`))
-        } else if (!prompt[0] && !prompt[1] && !prompt[2]) {
-            message.channel.send({ embed: {
-                description: `You must enter the user mentions/roles and title!`,
-                color: 10231598
-                }
-            }).then(msg => msg.delete({timeout: 2000}))
-            .catch(error => console.log(`Error: ${error}`))
-        }
-        else {
+        } else {
             const channel = message.guild.channels.cache.find(channel => channel.name === "suggestions")
-            channel.send(`${prompt[0]}`,{embed : {color: 10231598, title: `${prompt[1]}`, description: `${prompt[2]}`}});
+            channel.send(`<@&709118762707845211>`,{embed : {color: 10231598, title: `${prompt[0]}`, description: `${prompt[1]}`}});
         }
     }          
 }

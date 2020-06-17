@@ -12,7 +12,7 @@ module.exports = {
 	ten: '🔟', '#': '#️⃣', '*': '*️⃣',
 	'!': '❗', '?': '❓', bar: '🍫', pong: '🏓',
 	up: '👍', down: '👎', comment: '💬', meme: '🤣',
-	prayer: '🙏', info: '📰', quote: '📙', 
+	prayer: '🙏', game: '🎮', quote: '📙', 
 	media: '📷', mission: '⛪', speech: '🗣️',
 	reddit: '🤓', gear: '⚙️', shield: '🛡️', key: '🔑',
 	book: '📚', gym: '💪', tech: '💻', safety: '🦺', student: '🎓',

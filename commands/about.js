@@ -9,7 +9,7 @@ module.exports = {
             const embed = new MessageEmbed()
             .setColor(10231598)
             .setTitle(`About Commands`)
-            .setDescription("`mission`, `values`, `motto`, `vision`")
+            .setDescription("`>diversity`, `>jesuit-catholic-tradition`, `>history`, `>mission`, `>motto`, `>values`, `>vision`")
             .setFooter("Use `>` before each command!")
             message.channel.send(embed)
         }
