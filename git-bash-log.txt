@@ -1,6 +1,180 @@
 jvu40@Jason-AL061NR MINGW64 /c/users/jvu40/documents/github_repos/scu-discord-bot (master)
 $ git log
-commit bbc805d (HEAD -> master, origin/master, origin/HEAD)
+commit 66c851d (HEAD -> master, origin/master, origin/HEAD)
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Wed Jun 17 12:18:32 2020 -0700
+
+    Still need to fix music commands...
+
+commit 0d34646
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Tue Jun 16 13:05:18 2020 -0700
+
+    UPDATED 6/16/20
+
+commit b7d5d39
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Tue Jun 16 13:04:10 2020 -0700
+
+    UPDATED 6/16/2020
+
+commit 43a8b9e
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Mon Jun 15 21:15:31 2020 -0700
+
+    UPDATED TODAY
+
+commit 4236edb
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Sun Jun 14 22:31:35 2020 -0700
+
+    UPDATED 6/14/20
+
+commit ec8a5f1
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Sat Jun 13 09:41:23 2020 -0700
+
+    UPDATED
+
+commit 507accb
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Fri Jun 12 22:32:09 2020 -0700
+
+    UPDATED
+
+commit 1e30131
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Fri Jun 12 21:46:59 2020 -0700
+
+    UPDATED
+
+commit a010563
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Fri Jun 12 14:48:31 2020 -0700
+
+    UPDATED 6/12/20
+
+commit 0066abb
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Thu Jun 11 22:09:03 2020 -0700
+
+    UPDATED
+
+commit 12e8420
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Thu Jun 11 16:14:54 2020 -0700
+
+    UPDATED
+
+commit 853642d
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Thu Jun 11 15:19:05 2020 -0700
+
+    UPDATED 6/11/2020
+
+commit c77f288
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Wed Jun 10 18:54:44 2020 -0700
+
+    UPDATED
+
+commit 9c6ae94
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Wed Jun 10 12:50:14 2020 -0700
+
+    UPDATED
+
+commit d6a2445
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Mon Jun 8 16:55:22 2020 -0700
+
+    Update README.md
+
+commit 3dfeb64
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Mon Jun 8 16:41:16 2020 -0700
+
+    UPDATED
+
+commit 5108b22
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Mon Jun 8 16:20:59 2020 -0700
+
+    UPDATED
+
+commit 77b0855
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Mon Jun 8 14:00:45 2020 -0700
+
+    UPDATED
+
+commit 08829db
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Thu Jun 4 18:16:39 2020 -0700
+
+    UPDATED
+
+commit 079cd9a
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Thu Jun 4 16:58:04 2020 -0700
+
+    UPDATED
+
+commit 1044b59
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Thu Jun 4 16:30:19 2020 -0700
+
+    UPDATED
+
+commit bd04d0d
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Thu Jun 4 12:46:17 2020 -0700
+
+    UPDATED
+
+commit 461b9e9
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Thu Jun 4 07:59:12 2020 -0700
+
+    UPDATED
+
+commit 1e7ff02
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Wed Jun 3 14:25:42 2020 -0700
+
+    UPDATED
+
+commit d0f9119
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Tue Jun 2 21:43:25 2020 -0700
+
+    UPDATED
+
+commit 42f8fd3
+Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Date:   Tue Jun 2 21:25:28 2020 -0700
+
+    UPDATED 6/2/2020
+
+commit 8d434b4
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Thu May 28 09:13:09 2020 -0700
+
+    Update README.md
+
+commit d458dd6
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Thu May 28 09:10:49 2020 -0700
+
+    Create git-bash-log.txt
+
+commit 0bc29cd
+Author: Jason Anh Vu <javu404@gmail.com>
+Date:   Thu May 28 08:57:19 2020 -0700
+
+    Create CODE_OF_CONDUCT.md
+
+commit bbc805d
 Author: Jason Vu <javu404@gmail.com>
 Date:   Thu May 28 08:29:19 2020 -0700
 
@@ -419,4 +593,3 @@ Author: Jason Anh Vu <javu404@gmail.com>
 Date:   Wed May 13 11:53:24 2020 -0700
 
     Initial commit
-
