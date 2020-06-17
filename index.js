@@ -52,9 +52,6 @@ client.on(`guildMemberAdd`, async (member) => { // Check out previous chapter fo
 	const guild = member.guild; 
 	const memberTag = member.user.id; 
 	const sicon = guild.iconURL();
-
-	const role = member.guild.roles.find('name', 'Unverified');
-  	member.addRole(role);
 		
 	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.RichEmbed to send public message on 'welcome' channel
 		.setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor. 
