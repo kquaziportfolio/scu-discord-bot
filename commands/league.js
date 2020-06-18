@@ -31,8 +31,8 @@ module.exports = {
                 .then(msg => msg.delete({timeout: 10000}))
                 .catch(error => console.log(`Error: ${error}`))
             } else if (prompt[0]) {
-                message.channel.send({embed: {title: `__**Here's your LOL stats!**__`, description: `<@${member}>'s [LOL](https://wol.gg/stats/na/${prompt[0]}/) Stats`, image: {url: `https://wol.gg/stats/na/${prompt[0]}/`}, color: 10231598}})
+                message.channel.send({embed: {title: `__**Here's your LOL stats!**__`, description: `<@${member}>'s [LOL](https://na.op.gg/summoner/userName=${prompt[0]}/`, color: 10231598}})
                 .catch(err => console.log(`Error: ${err}`))
             }
-        }
-        }
+    }
+}

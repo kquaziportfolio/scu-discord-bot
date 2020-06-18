@@ -1,4 +1,4 @@
-var POST_URL = "{insert webhook url}";
+var POST_URL = "https://discordapp.com/api/webhooks/722305154518482984/RFcEiZZ3hm-EwejsBRkexK2Pgn9tVkC5sSbZJzxhNNwNF7AYoiwIXu_mwpqgmVztkvZ5";
 
 function onSubmit(e) {
     var form = FormApp.getActiveForm();
@@ -52,7 +52,8 @@ function onSubmit(e) {
                 "color": 10231598 ,
               "thumbnail": {
                 "url": "https://jasonanhvu.github.io/assets/img/logo-pic.png",
-              }
+              },
+              "timestamp": new Date()
             }]
         })
     };

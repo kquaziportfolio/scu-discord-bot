@@ -35,7 +35,7 @@ module.exports = {
             .catch(error => console.log(`Error: ${error}`))
         } else {
             const channel = message.guild.channels.cache.find(channel => channel.name === "suggestions")
-            channel.send(`<@&709118762707845211>`,{embed : {color: 10231598, title: `${prompt[0]}`, description: `${prompt[1]}`}});
+            channel.send(`<@&709118762707845211> <@&710593727864897646>`,{embed : {color: 10231598, title: `${prompt[0]}`, description: `${prompt[1]}`}});
         }
     }          
 }
