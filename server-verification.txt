@@ -3,8 +3,12 @@ var POST_URL = "[INSERT WEBHOOK URL HERE";
 =======
 //actually a google script
 
+<<<<<<< HEAD
 var POST_URL = "https://discordapp.com/api/webhooks/722305154518482984/RFcEiZZ3hm-EwejsBRkexK2Pgn9tVkC5sSbZJzxhNNwNF7AYoiwIXu_mwpqgmVztkvZ5";
 >>>>>>> 2c72918... Made bot give Unverified role to new users on join
+=======
+var POST_URL = "[insert webhook url here]";
+>>>>>>> dbd49d9... Made bot give Unverified roles to new users on join
 
 function onSubmit(e) {
     var form = FormApp.getActiveForm();
