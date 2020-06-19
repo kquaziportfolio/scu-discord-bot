@@ -10,6 +10,7 @@ const emojiCharacters = require(`./emoji-characters`);
 const OBS = require(`./commands/obs.json`); //no-no list
 const OBS_list = OBS.obs; //no-no list
 const fs = require(`fs`);
+let db = JSON.parse(fs.readFileSync("./commands/leaderboard.json", "utf8"));
 
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync(`./commands/`).filter(file => file.endsWith(`.js`)); //will retrieve all .js files in command directory
@@ -45,7 +46,7 @@ client.on(`guildMemberAdd`, async (member) => { // will trigger when new member 
 		return memberCount;
 	});
 	const memberTag = member.user.id; 
-	const sicon = guild.iconURL();
+	const sicon = guild.iconURL({format: "jpg"});
 		
 	guild.systemChannel.send(new Discord.MessageEmbed() // triggers when new users joins to specific channel in server
 		.setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor. 
@@ -85,7 +86,7 @@ client.on(`guildMemberRemove`, async (member) => { //triggers embed when user le
 		return memberCount;
 	});
 	const memberTag = member.user.id; 
-	const sicon = guild.iconURL();
+	const sicon = guild.iconURL({format: "jpg"});
 
 	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.MessageEmbed()
 		.setTitle(`We're sorry to hear that you're leaving...`) // Calling method setTitle on constructor. 
@@ -115,6 +116,57 @@ client.on('message', async (message) => { //obscenities filter
 	}
 });
 
+client.on("message", async (message) => {
+	const guild = client.guilds.cache.get(`${identification}`);
+	const sicon = guild.iconURL({format: "jpg"});
+	if (message.author.bot) return; // ignore bots
+    // if the user is not on db add the user and change his values to 0
+    if (!db[message.author.id]) db[message.author.id] = {
+        xp: 0,
+        level: 0
+	};
+    db[message.author.id].xp++;
+    let userInfo = db[message.author.id];
+    if(userInfo.xp > 100) {
+        userInfo.level++
+        userInfo.xp = 0
+        message.channel.send({embed: {description: `Congratulations, ${message.author.id}, you leveled up!`, color: 10231598}})
+    }
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
+    if(message.content.toLowerCase() === `${prefix}level`) {
+		let memberTag = message.author;
+        let userInfo = db[message.author.id];
+        let member = message.mentions.members.first();
+        let embed = new Discord.MessageEmbed()
+		.setColor(10231598)
+		.setAuthor(`${guild.name}`, `${sicon}`, `https://jasonanhvu.github.io/scu-discord-bot/`)
+		.setTitle(`__**Your Current Level!**__`)
+        .addField("**Level**", userInfo.level, true)
+		.addField("**XP**", userInfo.xp+"/100", true)
+		.setThumbnail(`${memberTag.avatarURL({ format: "jpg"})}`)
+		.setFooter(`Your stats provided by the server lords!`)
+		.setTimestamp()
+		if(!member) return message.channel.send(embed)
+		.catch(err => `Error: ${err}`)
+        let memberInfo = db[member.id];
+        let embed2 = new Discord.MessageEmbed()
+		.setColor(10231598)
+		.setAuthor(`${guild.name}`, `${sicon}`, `https://jasonanhvu.github.io/scu-discord-bot/`)
+		.setTitle(`__**Your Current Level!**__`)
+        .addField("**Level**", memberInfo.level)
+		.addField("**XP**", memberInfo.xp+"/100")
+		.setThumbnail(`${memberTag.avatarURL({ format: "jpg" })}`)
+		.setFooter(`<Your stats provided by the server lords!`)
+		.setTimestamp()
+		message.channel.send(embed2)
+		.catch(err => `Error: ${err}`)
+    }
+    fs.writeFile("./commands/leaderboard.json", JSON.stringify(db), (x) => {
+        if (x) console.error(x)
+	});
+});
+
 client.on(`message`, async (message) => {	
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();
@@ -131,7 +183,7 @@ client.on(`message`, async (message) => {
 			description: "There was an error trying to execute that command!", 
 			color: 10231598
 			}
-		}).then(msg => { msg.delete({ timeout: 2000 })
+		}).then(msg => { msg.delete({ timeout: 5000 })
 		}).catch(err => console.log(`Error: ${err}`));
 	}
 });

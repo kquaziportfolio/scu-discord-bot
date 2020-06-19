@@ -10,7 +10,7 @@ module.exports = {
         .setColor(10231598)
         .setTitle(`Random Commands`)
         .setDescription("`>8ball`, `>bird`, `>cat`, `>die-roll`, `>dog`, `>foo`, `>fox`, `>hug`, `>joke`, `>koala`," +
-        " `>meme-api`, `>panda`, `>pat`, `>pikachu`, `>pokedex`, `>ping`, `>quote`, `>suggest`, `>wink`")
+        " `>level`, `>meme-api`, `>panda`, `>pat`, `>pikachu`, `>pokedex`, `>ping`, `>quote`, `>suggest`, `>wink`")
         .setFooter("Use `>` before each command!")
         message.channel.send(embed);
     }
