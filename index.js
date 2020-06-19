@@ -35,21 +35,10 @@ client.on(`ready`, async () => { //will trigger when bot is up
     // For example: client.user.setActivity(`TV`, {type: `WATCHING`})
 });
 
-client.on(`disconnected`, async () => { //will trigger when bot is down
-	const guild = client.guilds.cache.get(`${identification}`); //My secret server id
-	let memberCount = 0;
-	guild.members.cache.forEach(member => { //will only count human members not bots
-		if(!member.user.bot) memberCount++;
-		return memberCount;
-	});
-	const bot_activity = `Reflecting in silence with ${memberCount} members in the ${guild.name} server...`
-	client.user.setActivity(bot_activity)
-		.then(console.log(bot_activity)) //will set this activity when bot is down
-		.catch(err => console.log(`Error: ${err}`))
-});
-
 client.on(`guildMemberAdd`, async (member) => { // will trigger when new member joins the server
 	const guild = client.guilds.cache.get(`${identification}`);
+	const role = member.guild.roles.cache.find(role => role.name === 'Unverified ❌'); //gives new user unverified role
+	member.roles.add(role); //adds unverified role
 	let memberCount = 0;
 	guild.members.cache.forEach(member => {  //will only count human members not bots
 		if(!member.user.bot) memberCount++; 
@@ -75,7 +64,7 @@ client.on(`guildMemberAdd`, async (member) => { // will trigger when new member 
 		.setDescription(
 		`${emojiCharacters.one}Fill out the Google Form [here](https://forms.gle/vqmrDx9LRVexdwLk6) to verify yourself in the SCU server! Note: If you're a guest or alumni, you are exempted from this requirement \n\n` +
 		`${emojiCharacters.two} Read the <#709118412542050368> channel and introduce yourself in the <#709119648368427018> channel! \n\n` +
-		`${emojiCharacters.three} Look at the <#710990323412631654> and enter **<i.am role>** in <#709173444096294993> for your roles! \n\n` +
+		`${emojiCharacters.three} Look at the <#722494512420618370> and enter **<i.am role>** in <#709173444096294993> for your roles! \n\n` +
 		`Thank you for your cooperation and Go Broncos! :racehorse:`)
 		.setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!
 		.setTimestamp() // Sets a timestamp at the end of the embed
@@ -114,7 +103,7 @@ client.on('message', async (message) => { //obscenities filter
 	const memberTag = message.author.id;
 
 	for (let i = 0; i < OBS_list.length; i++) {
-		if (message.content.toLowerCase().includes(OBS_list[i]) && message.content.toLowerCase().startsWith(OBS_list[i])) {
+		if (message.content.toLowerCase().includes(OBS_list[i]) || message.content.toLowerCase().startsWith(OBS_list[i])) {
 			message.channel.send({embed: {
 				description: `<@${memberTag}> used a controversial word. If you think this is unfair, please contact <@401542675423035392> right away.`,
 				color: 10231598

@@ -73,6 +73,6 @@ module.exports = {
                     msg.delete({ timeout: 2000 })
                 })
                 .catch(err => console.log(`Error: ${err}`));
-            } 
-        }
+        } 
     }
+}

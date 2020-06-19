@@ -1,45 +1,42 @@
+<<<<<<< HEAD
 var POST_URL = "[INSERT WEBHOOK URL HERE";
+=======
+//actually a google script
+
+var POST_URL = "https://discordapp.com/api/webhooks/722305154518482984/RFcEiZZ3hm-EwejsBRkexK2Pgn9tVkC5sSbZJzxhNNwNF7AYoiwIXu_mwpqgmVztkvZ5";
+>>>>>>> 2c72918... Made bot give Unverified role to new users on join
 
 function onSubmit(e) {
     var form = FormApp.getActiveForm();
     var allResponses = form.getResponses();
     var latestResponse = allResponses[allResponses.length - 1];
     var response = latestResponse.getItemResponses();
-    var items = [];
-
-    for (var i = 0; i < response.length; i++) {
-        var question = response[i].getItem().getTitle();
-        var answer = response[i].getResponse();
-        try {
-            var parts = answer.match(/[\s\S]{1,1024}/g) || [];
-        } catch (e) {
-            var parts = answer;
-        }
-
-        if (answer == "") {
-            continue;
-        }
-        for (var j = 0; j < parts.length; j++) {
-            if (j == 0) {
-                items.push({
-                    "name": question,
-                    "value": parts[j],
-                    "inline": false
-                });
-            } else {
-                items.push({
-                    "name": question.concat(" (cont.)"),
-                    "value": parts[j],
-                    "inline": false
-                });
-            }
-        }
-    }
-
+      var items = {};
+   for (i in response){   
+     if (response[i].getItem().getTitle() == "First and Last Name") {
+       items['name'] = response[i].getResponse()
+     }
+     if (response[i].getItem().getTitle() == "Current Major") {
+       items['major'] = response[i].getResponse()
+     }
+     if (response[i].getItem().getTitle() == "SCU Email") {
+       items['email'] = response[i].getResponse()
+     }
+     if (response[i].getItem().getTitle() == "Graduating Year") {
+       items['year'] = response[i].getResponse()
+     }
+     if (response[i].getItem().getTitle() == "ECampus Username") {
+       items['ecampus'] = response[i].getResponse()
+     }
+     if (response[i].getItem().getTitle() == "Discord Tag") {
+       items['discord'] = response[i].getResponse()
+     }
+   }
     var options = {
         "method": "post",
         "headers": {
             "Content-Type": "application/json",
+            "key": "your-api-key-set-in-config" //to change soon
         },
         "payload": JSON.stringify({
             "content": "‌", // This is not an empty string
