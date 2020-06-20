@@ -6,20 +6,23 @@ module.exports  = {
     name: 'dm',
     description: 'direct message!',   
     async execute(message, args) {
-            const prompt = message.content.join(" ");
+        const dmInstructions = new Discord.MessageEmbed()
+        .setColor(10231598)
+        .setTitle("Single Direct Message Command")
+        .addField("Description:", `Single direct messaging`, true)
+        .addField("Usage:", "`>dm [single user mention] | [message]`", true)
+        .addField("Example:", ">dm @DiHydrogenMonoxide | [message]!")
+        .setTimestamp()
 
-            if (isNaN(prompt[1])) return message.channel.send("This is not an ID! Make sure to you the user's ID!")
-            const embed = new Discord.MessageEmbed()
-                .setColor(10231598)
-                .setAuthor("New Message", "https://cdn.discordapp.com/attachments/502649544622735362/520740243133956138/receive.png")
-                .setDescription(Rargs)
-                .setTitle("**Message**:")
-                .setFooter("This Message Was Sent By: " + message.author.username + " ", message.author.avatarURL)
-            client.users.get(prompt[1]).send(embed).catch(console.log(`Message was sent to ${prompt[1]}!`))
-            if (message.author.bot) return;
-            message.channel.send("Your Message was Sent!").then(msg => msg.delete(3000)).catch(console.error)
-            
-        if(!message.member.hasPermission("MENTION_MEMBERS")) {
+        const mentionedUser = message.mentions.members.first();
+        const messageUser = args.slice(1).join(" ").split("|");
+        if(!mentionedUser) return message.channel.send(dmInstructions).then(msg => msg.delete({timeout: 10000}))
+        if(!messageUser) return message.channel.send(dmInstructions).then(msg => msg.delete({timeout: 10000}))
+        mentionedUser.send(`${messageUser}`)
+        .then(console.log(`Message sent to ${mentionedUser}`))
+        .catch(err => `Error: ${err}`)
+    
+        if (!(message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
             const permission_embed = new Discord.MessageEmbed()
             .setColor(10231598)
             .setTitle(`Oops, an error happened...`)

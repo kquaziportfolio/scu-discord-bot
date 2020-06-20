@@ -10,7 +10,7 @@ module.exports = {
                 const admin_embed = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Admin Commands`)
-                .setDescription("`>announce`, `>ban`, `>kick`, >`mute`, `>purge`, `>roles`, `>rules`, `>server-info`, `>server-stats`, `>unmute`")
+                .setDescription("`>announce`, `>ban`, `>dm`, `>kick`, >`mute`, `>purge`, `>roles`, `>rules`, `>server-info`, `>server-stats`, `>unmute`")
                 .setFooter("Use `>` before each command!")
                 message.channel.send(admin_embed)
             } else {

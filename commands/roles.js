@@ -11,7 +11,7 @@ module.exports = {
                 .setDescription(`
             **⟪1 - Undergraduate Majors⟫**\n
             ‌‌ Bioengineering
-            ‌‌ Computer Science and Engineering
+            ‌‌ Computer Science and Engineering (SOE)
             ‌‌ Civil Engineering
             ‌‌ Electrical Engineering
             ‌‌ Electrical and Computer Engineering
@@ -21,7 +21,7 @@ module.exports = {
             ‌‌ Accounting
             ‌‌ Accounting & Information Systems
             ‌‌ Finance
-            ‌‌ Individual Studies
+            ‌‌ Individual Studies (LSB)
             ‌‌ Management Information Systems
             ‌‌ Marketing
             ‌‌ Anthropology
@@ -31,7 +31,7 @@ module.exports = {
             ‌‌ Chemistry
             ‌‌ Child Studies
             Classical Studies
-            ‌‌ Communication
+            ‌‌ Communication 
             ‌‌ Computer Science (CAS)
             ‌‌ Economics (CAS)
             ‌‌ Engineering Physics
@@ -52,6 +52,7 @@ module.exports = {
             ‌‌ MLAL - German
             ‌‌ MLAL - Italian
             ‌‌ MLAL - Japanese
+             MLAL - Spanish
             ‌‌ Music
             ‌‌ Neuroscience
             ‌‌ Philosophy

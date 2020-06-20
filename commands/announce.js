@@ -11,8 +11,8 @@ module.exports = {
                 .setColor(10231598)
                 .setTitle("Announcements Command")
                 .addField("Description:", `Public announcements`, true)
-                .addField("Usage:", "`>announce [user ids]| [title] | [description]`", true)
-                .addField("Example:", ">announce <@Role1> <@User1>| Hi! | Welcome to the server!`")
+                .addField("Usage:", "`>announce [user ids] | [title] | [description]`", true)
+                .addField("Example:", ">announce <@Role1> <@User1> | Hi! | Welcome to the server!`")
                 .setTimestamp();
 
                 const prompt = args.join(' ').split('|');

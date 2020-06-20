@@ -5,7 +5,7 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const client = new Discord.Client();
 const {prefix, identification, token} = require(`./config.json`); //special config.json file
-const { Client, MessageEmbed } = require('discord.js'); //for embed functionality
+const { Client, MessageEmbed, MessageAttachment } = require('discord.js'); //for embed functionality
 const emojiCharacters = require(`./emoji-characters`);
 const OBS = require(`./commands/obs.json`); //no-no list
 const OBS_list = OBS.obs; //no-no list
@@ -46,7 +46,7 @@ client.on(`guildMemberAdd`, async (member) => { // will trigger when new member 
 		return memberCount;
 	});
 	const memberTag = member.user.id; 
-	const sicon = guild.iconURL({format: "jpg"});
+	const sicon = guild.iconURL();
 		
 	guild.systemChannel.send(new Discord.MessageEmbed() // triggers when new users joins to specific channel in server
 		.setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor. 
@@ -86,7 +86,7 @@ client.on(`guildMemberRemove`, async (member) => { //triggers embed when user le
 		return memberCount;
 	});
 	const memberTag = member.user.id; 
-	const sicon = guild.iconURL({format: "jpg"});
+	const sicon = guild.iconURL();
 
 	guild.systemChannel.send(new Discord.MessageEmbed() // Creating instance of Discord.MessageEmbed()
 		.setTitle(`We're sorry to hear that you're leaving...`) // Calling method setTitle on constructor. 
@@ -101,24 +101,51 @@ client.on(`guildMemberRemove`, async (member) => { //triggers embed when user le
   });
 
 client.on('message', async (message) => { //obscenities filter
+	const guild = client.guilds.cache.get(`${identification}`);
+	const sicon = guild.iconURL();
 	const memberTag = message.author.id;
 
 	for (let i = 0; i < OBS_list.length; i++) {
 		if (message.content.toLowerCase().includes(OBS_list[i]) || message.content.toLowerCase().startsWith(OBS_list[i])) {
 			message.channel.send({embed: {
-				description: `<@${memberTag}> used a controversial word. If you think this is unfair, please contact <@401542675423035392> right away.`,
-				color: 10231598
+				author: {
+					name: `**Blacklisted Word Detected**`, 
+					icon_url: `${sicon}`,
+				},		
+				description: `If you think this is an infringement on your speech, please contact <@&709118762707845211>/<@&710593727864897646> right away.` +
+				` Otherwise, rephrase your speech so the bot doesn't think you're using the word!`,
+				color: 10231598,
+				thumbnail: {
+					"url": "attachment://ohno.jpg",
+				},
+				fields: [
+					{
+						name: `User`,
+						value: `<@${memberTag}>`,
+						inline: true
+					},
+					{
+						name: `Blacklisted Word`,
+						value: "||" + OBS_list[i] + "||",
+						inline: true
+					},
+				],
+				files: [{
+					attachment:'./assets/ohno.jpg',
+					name:'ohno.jpg'
+				}],
+				timestamp: new Date()
 			}}) .catch(err => console.log(`Error: ${err}`))
-
-		return message.delete()
-			.catch(err => console.log(`Error: ${err}`))
+		
+			return message.delete().catch(err => console.log(`Error: ${err}`))
 		}
+
 	}
 });
 
 client.on("message", async (message) => {
 	const guild = client.guilds.cache.get(`${identification}`);
-	const sicon = guild.iconURL({format: "jpg"});
+	const sicon = guild.iconURL();
 	if (message.author.bot) return; // ignore bots
     // if the user is not on db add the user and change his values to 0
     if (!db[message.author.id]) db[message.author.id] = {
@@ -130,7 +157,7 @@ client.on("message", async (message) => {
     if(userInfo.xp > 100) {
         userInfo.level++
         userInfo.xp = 0
-        message.channel.send({embed: {description: `Congratulations, ${message.author.id}, you leveled up!`, color: 10231598}})
+        message.channel.send({embed: {description: `Congratulations, <@${message.author.id}>, you leveled up!`, color: 10231598}})
     }
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
