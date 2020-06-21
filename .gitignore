@@ -1,6 +1,6 @@
 node_modules/
-logs/
 json/
 config.json
-obs.json
 eslintjrc.json
+commands/
+obs.json
