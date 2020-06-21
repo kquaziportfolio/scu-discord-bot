@@ -1,6 +1,5 @@
-node_modules
+node_modules/
 
-/json
-config.json
+*config.json
 
 /commands/obs.json
