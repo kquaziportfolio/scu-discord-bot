@@ -1,8 +1,2 @@
-node_modules/
-.vscode/
-json/
-config.json
-obs.json
-eslintjrc.json
-package.json
-package-lock.json
+/node_modules
+.json
