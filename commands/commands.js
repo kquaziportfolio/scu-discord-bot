@@ -27,8 +27,8 @@ module.exports = {
                     inline: true
                 },
                 {
-                    name: `${emojiCharacters.three} ${emojiCharacters.gear} Random`,
-                    value: "`>random`",
+                    name: `${emojiCharacters.three} ${emojiCharacters.gear} Fun`,
+                    value: "`>Fun`",
                     inline: true
                 },
                 {

@@ -8,3 +8,10 @@ node_modules/
 
 commands/
 
+*eslintjrc.json
+
+*json.sqlite
+
+*_config.yml
+
+*git-bash-log.txt

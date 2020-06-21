@@ -10,7 +10,7 @@ const emojiCharacters = require(`./emoji-characters`);
 const OBS = require(`./commands/obs.json`); //no-no list
 const OBS_list = OBS.obs; //no-no list
 const fs = require(`fs`);
-let db = JSON.parse(fs.readFileSync("./commands/leaderboard.json", "utf8"));
+let db = JSON.parse(fs.readFileSync("./commands/level.json", "utf8"));
 
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync(`./commands/`).filter(file => file.endsWith(`.js`)); //will retrieve all .js files in command directory
@@ -159,8 +159,6 @@ client.on("message", async (message) => {
         userInfo.xp = 0
         message.channel.send({embed: {description: `Congratulations, <@${message.author.id}>, you leveled up!`, color: 10231598}})
     }
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
     if(message.content.toLowerCase() === `${prefix}level`) {
 		let memberTag = message.author;
         let userInfo = db[message.author.id];
@@ -174,8 +172,10 @@ client.on("message", async (message) => {
 		.setThumbnail(`${memberTag.avatarURL({ format: "jpg"})}`)
 		.setFooter(`Your stats provided by the server lords!`)
 		.setTimestamp()
+
 		if(!member) return message.channel.send(embed)
 		.catch(err => `Error: ${err}`)
+
         let memberInfo = db[member.id];
         let embed2 = new Discord.MessageEmbed()
 		.setColor(10231598)
@@ -189,7 +189,7 @@ client.on("message", async (message) => {
 		message.channel.send(embed2)
 		.catch(err => `Error: ${err}`)
     }
-    fs.writeFile("./commands/leaderboard.json", JSON.stringify(db), (x) => {
+    fs.writeFile("./commands/level.json", JSON.stringify(db), (x) => {
         if (x) console.error(x)
 	});
 });
