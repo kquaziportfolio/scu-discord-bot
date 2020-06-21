@@ -1,6 +1,5 @@
 node_modules/
+.vscode/
 json/
 config.json
-eslintjrc.json
-commands/
 obs.json
