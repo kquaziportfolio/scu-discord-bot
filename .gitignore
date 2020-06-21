@@ -1,5 +1,4 @@
-node_modules/
-.vscode/
-json/
-config.json
-obs.json
+/node_modules/
+/.vscode/
+*.json
+!package.json
