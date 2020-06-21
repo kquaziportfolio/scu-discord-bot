@@ -1,5 +1,8 @@
-/json
-eslintjrc.json
+node_modules/
+.vscode/
+json/
 config.json
-obj.json
-!package.json
+obs.json
+eslintjrc.json
+package.json
+package-lock.json
