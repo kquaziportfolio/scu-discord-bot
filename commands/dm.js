@@ -26,7 +26,7 @@ module.exports  = {
             const permission_embed = new Discord.MessageEmbed()
             .setColor(10231598)
             .setTitle(`Oops, an error happened...`)
-            .setDescription(`You don't have permission to perform this command!`)
+            .setDescription("You must have the following roles: " + "`Admin`, `Mod`")
             .setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
             .setTimestamp()
             message.channel.send(permission_embed)

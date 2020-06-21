@@ -25,9 +25,16 @@ module.exports = {
             await message.channel.bulkDelete(deleteCount + 1).catch(error => console.log(`Couldn't delete messages because of: ${error}`));
         } else {
                 return message.channel.send({embed: {
-                    description: "You do not have sufficient permissions to run this command!",
-                    color: 10231598
-            }
+                    description: `You must have the following permission(s): ` + "`MANAGE MANAGES`",
+                    color: 10231598,
+                    image: {
+                        url: `attachment://no_perm.gif`,
+                    },
+                    files: [{
+                        attachment: `./assets/no_perm.gif`,
+                        name: `no_perm.gif`
+                    }],
+                }
             }).then(msg => msg.delete({timeout: 2000}))
         }
     }

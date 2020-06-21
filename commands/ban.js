@@ -67,8 +67,15 @@ module.exports = {
             message.channel.send(ban_card);
         } else {
             return message.channel.send({embed: {
-                description: "You do not have sufficient permissions to run this command!",
-                color: 10231598
+                description: `You must have the following permission(s): ` + "`BAN MEMBERS`",
+                color: 10231598,
+                image: {
+                    url: `attachment://no_perm.gif`,
+                },
+                files: [{
+                    attachment: `./assets/no_perm.gif`,
+                    name: `no_perm.gif`
+                }],
                 }
             }).then(msg => msg.delete({timeout: 2000}))
             .catch(err => console.log(`Error: ${err}`))

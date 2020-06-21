@@ -36,8 +36,8 @@ module.exports = {
       
 
       const embed = new MessageEmbed()
-	  .setTitle("User Infomation")
-	  .setColor(10231598)
+      .setTitle("User Infomation")
+      .setColor(10231598)
       .setThumbnail(avatar)
       .addField("**User Info**", [
         `**• Username:** ${user.tag}`,

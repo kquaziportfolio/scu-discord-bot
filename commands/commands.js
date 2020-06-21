@@ -6,9 +6,12 @@ module.exports = {
     name: 'cmds',
     description: 'commands!',   
     async execute(message, args) {
+        const guild = message.guild;
+        const sicon = guild.iconURL();
         let cmds_embed = new Discord.MessageEmbed()
             .setColor(10231598)
-            .setTitle(`Bot Commands List`)
+            .setThumbnail(`${sicon}`)
+            .setTitle(`${guild.name} Bot Commands List`)
             .setDescription(`Give us feedback on our bot!`)
             .attachFiles([`./assets/scu-background.png`])
             .setImage(`attachment://scu-background.png`)

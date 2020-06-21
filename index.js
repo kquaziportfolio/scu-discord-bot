@@ -65,7 +65,7 @@ client.on(`guildMemberAdd`, async (member) => { // will trigger when new member 
 		.setDescription(
 		`${emojiCharacters.one}Fill out the Google Form [here](https://forms.gle/vqmrDx9LRVexdwLk6) to verify yourself in the SCU server! Note: If you're a guest or alumni, you are exempted from this requirement \n\n` +
 		`${emojiCharacters.two} Read the <#709118412542050368> channel and introduce yourself in the <#709119648368427018> channel! \n\n` +
-		`${emojiCharacters.three} Look at the <#722494512420618370> and enter **<i.am role>** in <#709173444096294993> for your roles! \n\n` +
+		`${emojiCharacters.three} Look at the <#722494512420618370> and enter ` + "**`>role-select | [first role group] | [second role group] | [third role group]`**" + ` in <#709173444096294993> for your roles! \n\n` +
 		`Thank you for your cooperation and Go Broncos! :racehorse:`)
 		.setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!
 		.setTimestamp() // Sets a timestamp at the end of the embed
@@ -167,7 +167,7 @@ client.on("message", async (message) => {
         let member = message.mentions.members.first();
         let embed = new Discord.MessageEmbed()
 		.setColor(10231598)
-		.setAuthor(`${guild.name}`, `${sicon}`, `https://jasonanhvu.github.io/scu-discord-bot/`)
+		.setAuthor(`${guild.name}`, `${sicon}`)
 		.setTitle(`__**Your Current Level!**__`)
         .addField("**Level**", userInfo.level, true)
 		.addField("**XP**", userInfo.xp+"/100", true)
@@ -179,7 +179,7 @@ client.on("message", async (message) => {
         let memberInfo = db[member.id];
         let embed2 = new Discord.MessageEmbed()
 		.setColor(10231598)
-		.setAuthor(`${guild.name}`, `${sicon}`, `https://jasonanhvu.github.io/scu-discord-bot/`)
+		.setAuthor(`${guild.name}`, `${sicon}`)
 		.setTitle(`__**Your Current Level!**__`)
         .addField("**Level**", memberInfo.level)
 		.addField("**XP**", memberInfo.xp+"/100")

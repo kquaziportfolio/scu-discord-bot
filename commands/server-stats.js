@@ -55,7 +55,7 @@ module.exports = {
                 const permission_embed = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Oops, an error happened...`)
-                .setDescription(`You don't have permission to perform this command!`)
+                .setDescription("You must have the following roles: " + "`Admin`, `Mod`")
                 .attachFiles([`./assets/no_perm.gif`])
                 .setImage(`attachment://no_perm.gif`)
                 message.channel.send(permission_embed)
