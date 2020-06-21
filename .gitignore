@@ -1,5 +1,3 @@
-node_modules/
-.vscode/
+*node_modules/
+*.vscode/
 json/
-config.json
-obs.json
