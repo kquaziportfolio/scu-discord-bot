@@ -2,6 +2,17 @@ const Discord = require(`discord.js`); //requires Discord.js integration package
 const client = new Discord.Client();
 const { identification } = require(`../config.json`);
 
+/*
+==========================================================================================
+  _____   ____  _      ______   _____  ______          _____ _______ 
+ |  __ \ / __ \| |    |  ____| |  __ \|  ____|   /\   / ____|__   __|
+ | |__) | |  | | |    | |__    | |__) | |__     /  \ | |       | |   
+ |  _  /| |  | | |    |  __|   |  _  /|  __|   / /\ \| |       | |   
+ | | \ \| |__| | |____| |____  | | \ \| |____ / ____ \ |____   | |   
+ |_|  \_\\____/|______|______| |_|  \_\______/_/    \_\_____|  |_|   
+==========================================================================================
+  */
+
 module.exports = async (member) => {
     const guild = client.guilds.cache.get(`${identification}`);
     const role = member.guild.roles.cache.find(role => role.name === 'Unverified ❌'); //gives new user unverified role
@@ -31,7 +42,7 @@ module.exports = async (member) => {
         .setDescription(
         `${emojiCharacters.one}Fill out the Google Form [here](https://forms.gle/vqmrDx9LRVexdwLk6) to verify yourself in the SCU server! Note: If you're a guest or alumni, you are exempted from this requirement \n\n` +
         `${emojiCharacters.two} Read the <#709118412542050368> channel and introduce yourself in the <#709119648368427018> channel! \n\n` +
-        `${emojiCharacters.three} Look at the <#722494512420618370> and enter ` + "**`>role-select | [first role group] | [second role group] | [third role group]`**" + ` in <#709173444096294993> for your roles! \n\n` +
+        `${emojiCharacters.three} Look at the <#722494512420618370> and react to the emojis for your specific roles! ` +
         `Thank you for your cooperation and Go Broncos! :racehorse:`)
         .setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!
         .setTimestamp() // Sets a timestamp at the end of the embed
