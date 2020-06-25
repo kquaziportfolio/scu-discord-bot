@@ -6,14 +6,14 @@ module.exports = {
     name: 'cat',
 	description: 'cat!',
 	async execute (message, args) {
-        let {body} = await superagent .get("https://aws.random.cat/meow")
+        let {body} = await superagent.get("https://some-random-api.ml/img/cat")
 
         if(!{body}) return nmessage.channel.send("I broke! Try again!")
 
         let catEmbed = new Discord.MessageEmbed()
         .setTitle(`Here are some cats!`)
         .setColor(10231598)
-        .setImage(body.file)
+        .setImage(body.link)
         .setTimestamp()
         .setFooter(`Created by the server lords!`)
 

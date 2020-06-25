@@ -31,6 +31,7 @@ fs.readdir("./events/", (err, files) => {
     let eventName = file.split(".")[0];
     client.on(eventName, event.bind(null, client));
     delete require.cache[require.resolve(`./events/${file}`)];
+    console.log(`| Loading event: ${eventName} |`);
   });
 });
 
@@ -42,7 +43,7 @@ fs.readdir("./commands/", (err, files) => {
     if (!file.endsWith(".js")) return;
     let props = require(`./commands/${file}`);
     let commandName = file.split(".")[0];
-    console.log(`Attempting to load command ${commandName}`);
+    console.log(`| Loading command: ${commandName} |`);
     client.commands.set(commandName, props);
   });
 });
@@ -55,9 +56,9 @@ client.on(`messageReactionAdd`, async (reaction, user) => {
 	
 	if (user.bot) return; // If the user was a bot, return.
 	if (!reaction.message.guild) return; // If the user was reacting something but not in the guild/server, ignore them.
-	if (reaction.message.guild.id !== `${config.identification}`) return; // Use this if your bot was only for one server/private server.
+	if (reaction.message.guild.id !== `${roles.message_channel_id}`) return; // Use this if your bot was only for one server/private server.
 	
-	if (reaction.message.channel.id === "722494512420618370") { // This is a #role-menu channel.
+	if (reaction.message.channel.id === `${roles.message_channel_id}`) { // This is a #role-menu channel.
 		if (reaction.emoji.name === "☣️") {
 			await reaction.message.guild.members.cache.get(user.id).roles.add(soe_majors[0].Bioengineering) 
 			return user.send({embed: { description: `<@${user.id}>, ` + "`Bioengineering` role was added!", timestamp: new Date(), footer: { text: 'Go Broncos!'}, color: 10231598}}).catch(() => console.log("Failed to send DM."));
@@ -284,7 +285,7 @@ client.on(`messageReactionRemove`, async (reaction, user) => {
   if (!reaction.message.guild) return;
   if (reaction.message.guild.id !== `${config.identification}`) return;
 
-  if (reaction.message.channel.id === "722494512420618370") {
+  if (reaction.message.channel.id === `${roles.message_channel_id}`) {
     if (reaction.emoji.name === "☣️") {
       await reaction.message.guild.members.cache.get(user.id).roles.remove(soe_majors[0].Bioengineering) 
       return user.send({embed: { description: `<@${user.id}>, ` + "`Bioengineering` role was removed!", timestamp: new Date(), footer: { text: 'Go Broncos!'}, color: 10231598}}).catch(() => console.log("Failed to send DM."));

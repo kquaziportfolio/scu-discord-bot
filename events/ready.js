@@ -32,7 +32,7 @@ module.exports = async (client) => {
 	];
 	setInterval(function() {
 		let status = statuses[Math.floor(Math.random() * statuses.length)];
-		client.user.setPresence({activity: { name: status }, status: 'online'}).then(console.log(status))
+		client.user.setPresence({activity: { name: status }, status: 'online'})
 	}, 5000);
 	//specific guild
 	// Alternatively, you can set the activity to any of the following:
