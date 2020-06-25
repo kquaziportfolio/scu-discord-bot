@@ -1,20 +1,8 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
-const client = new Discord.Client();
-const { identification } = require(`../config.json`);
+const config = require(`../config.json`);
 
-/*
-==========================================================================================
-  _____   ____  _      ______   _____  ______          _____ _______ 
- |  __ \ / __ \| |    |  ____| |  __ \|  ____|   /\   / ____|__   __|
- | |__) | |  | | |    | |__    | |__) | |__     /  \ | |       | |   
- |  _  /| |  | | |    |  __|   |  _  /|  __|   / /\ \| |       | |   
- | | \ \| |__| | |____| |____  | | \ \| |____ / ____ \ |____   | |   
- |_|  \_\\____/|______|______| |_|  \_\______/_/    \_\_____|  |_|   
-==========================================================================================
-  */
-
-module.exports = async (member) => {
-    const guild = client.guilds.cache.get(`${identification}`);
+module.exports = async (client, member) => {
+    const guild = client.guilds.cache.get(`${config.identification}`);
 	let memberCount = 0;
 	guild.members.cache.forEach(member => {  //counts total human members at that point in time
 		if(!member.user.bot) memberCount++;

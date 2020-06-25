@@ -1,22 +1,12 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
-const client = new Discord.Client();
-const { identification } = require(`../config.json`);
+const config = require(`../config.json`);
+const emojiCharacters = require(`../emoji-characters.js`);
 
-/*
-==========================================================================================
-  _____   ____  _      ______   _____  ______          _____ _______ 
- |  __ \ / __ \| |    |  ____| |  __ \|  ____|   /\   / ____|__   __|
- | |__) | |  | | |    | |__    | |__) | |__     /  \ | |       | |   
- |  _  /| |  | | |    |  __|   |  _  /|  __|   / /\ \| |       | |   
- | | \ \| |__| | |____| |____  | | \ \| |____ / ____ \ |____   | |   
- |_|  \_\\____/|______|______| |_|  \_\______/_/    \_\_____|  |_|   
-==========================================================================================
-  */
-
-module.exports = async (member) => {
-    const guild = client.guilds.cache.get(`${identification}`);
-    const role = member.guild.roles.cache.find(role => role.name === 'Unverified ❌'); //gives new user unverified role
-    member.roles.add(role); //adds unverified role
+module.exports = async (client, member) => { 
+    let role = member.guild.roles.cache.find(role => role.name === "Unverified");
+    await(member.roles.add(role)).catch(err => console.log(err => `Error: ${err}`))
+    console.log(`The **Unverified** role has been given to **${member.user.tag}** by **${client.user.tag}**!`)
+    const guild = client.guilds.cache.get(`${config.identification}`);
     let memberCount = 0;
     guild.members.cache.forEach(member => {  //will only count human members not bots
         if(!member.user.bot) memberCount++; 

@@ -1,27 +1,22 @@
-const Discord = require(`discord.js`); //requires Discord.js integration package
-const client = new Discord.Client();
-const { prefix } = require(`../config.json`)
+const { prefix } = require(`../config.json`);
 
-module.exports = async (client, message) => {
-    // Ignore all bots
-    if (message.author.bot) return;
-  
-    // Ignore messages not starting with the prefix (in config.json)
-    if (message.content.indexOf(prefix) !== 0) return;
-  
-    // Our standard argument/command name definition.
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
+module.exports = (client, message) => {
+  // Ignore all bots
+  if (message.author.bot) return;
 
-    try {
-        client.commands.get(command).execute(message, args);
-    } catch (error) {
-        console.error(error);
-        await message.channel.send({embed: {
-            description: "There was an error trying to execute that command!", 
-            color: 10231598
-            }
-        }).then(msg => { msg.delete({ timeout: 5000 })
-        }).catch(err => console.log(`Error: ${err}`));
-    }
+  // Ignore messages not starting with the prefix (in config.json)
+  if (message.content.indexOf(prefix) !== 0) return;
+
+  // Our standard argument/command name definition.
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+
+  // Grab the command data from the client.commands Enmap
+  const cmd = client.commands.get(command);
+
+  // If that command doesn't exist, silently exit and do nothing
+  if (!cmd) return;
+
+  // Run the command
+  cmd.execute(message, args);
 };

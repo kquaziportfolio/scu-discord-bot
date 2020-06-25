@@ -5,10 +5,12 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 module.exports =  { // >ping
 	name: 'ping',
 	description: 'Ping!',
-	execute(message, args) {
-        message.channel.send("Pinging ...") // Placeholder for pinging ... 
-			.then((msg) => { // Resolve promise
-				msg.edit({embed: {description: "Ping: " + (Date.now() - msg.createdTimestamp) + " ms", color : 10231598}}) // Edits message with current timestamp minus timestamp of message
-            })
+	async execute(message, args) {
+		const msg = await message.channel.send(`Pinging...`)
+		const latency = msg.createdTimestamp - message.createdTimestamp;
+		const choices = ['Is this really my ping?', 'Is it ok, I can\'t look!', 'I hope it isn\'t bad!'];
+		const response = choices[Math.floor(Math.random() * choices.length)];
+
+		msg.edit({embed: {description: `**Response:** ${response}\n**Ping Latency:** ${latency}ms`, color: 10231598}})
     }
 } 

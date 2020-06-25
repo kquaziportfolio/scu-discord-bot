@@ -11,14 +11,14 @@ module.exports = {
                 .setColor(10231598)
                 .setTitle("Other Discords Command")
                 .addField("Description:", `For spitting out other Discord embeds`, true)
-                .addField("Usage:", "`>other-discords [title] | [description]`", true)
-                .addField("Example:", ">other-discord General SCU Server | [Join!](https://discord.gg/YusWdfu) | https://jasonanhvu.github.io/assets/img/logo-pic.png")
+                .addField("Usage:", "`>other-discords [title] | [description] | [image url]`", true)
+                .addField("Example:", ">other-discords General SCU Server | [Join!](https://discord.gg/YusWdfu) | https://jasonanhvu.github.io/assets/img/logo-pic.png")
                 .setTimestamp();
 
                 const prompt = args.join(' ').split('|');
                 
                 if (!prompt[0] && !prompt[1] && !prompt[2]) {    
-                    message.channel.send(announceInstructions)
+                    message.channel.send(discordInstructions)
                     .then(msg => msg.delete({timeout: 10000}))
                     .catch(error => console.log(`Error: ${error}`))
                 } else if (prompt[0] && !prompt[1] && !prompt[2]) {
@@ -50,8 +50,8 @@ module.exports = {
                     }).then(msg => msg.delete({timeout: 2000}))
                     .catch(error => console.log(`Error: ${error}`))
                 } else {
-                    const channel = message.guild.channels.cache.find(channel => channel.name === "other-discords")
-                    channel.send({embed : {color: 10231598, title: `${prompt[0]}`, description: `${prompt[1]}`, thumbnail       : {url: `${prompt[2]}`}}});
+                    const channel = message.guild.channels.cache.find(channel => channel.name === "discord-promos")
+                    channel.send({embed : {color: 10231598, title: `${prompt[0]}`, description: `${prompt[1]}`, thumbnail: {url: `${prompt[2]}`}}});
                 }
             } else {
                 const permission_embed = new Discord.MessageEmbed()
