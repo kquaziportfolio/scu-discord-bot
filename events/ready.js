@@ -1,6 +1,6 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
-const config = require(`../config.json`);
 const client = new Discord.Client();
+const config = require(`../config.json`);
 
 module.exports = async (client) => {
 	const guild = client.guilds.cache.get(`${config.identification}`); //My secret server id
@@ -34,6 +34,7 @@ module.exports = async (client) => {
 		let status = statuses[Math.floor(Math.random() * statuses.length)];
 		client.user.setPresence({activity: { name: status }, status: 'online'})
 	}, 5000);
+	
 	//specific guild
 	// Alternatively, you can set the activity to any of the following:
     // PLAYING, STREAMING, LISTENING, WATCHING

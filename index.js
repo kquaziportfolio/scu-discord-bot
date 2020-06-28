@@ -21,8 +21,6 @@ const situation = roles.situation;
 const OBS = require(`./events/obs.json`);
 const OBS_list = OBS.obs;
 
-const emojiCharacters = require(`./emoji-characters`);
-
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
@@ -504,8 +502,6 @@ client.on(`messageReactionRemove`, async (reaction, user) => {
 });
 
 client.on(`message`, async (message) => {    
-    const guild = client.guilds.cache.get(`${config.identification}`);
-    const sicon = guild.iconURL();
     const memberTag = message.author.id;
 
     for (let i = 0; i < OBS_list.length; i++) {
@@ -513,7 +509,6 @@ client.on(`message`, async (message) => {
         message.channel.send({embed: {
           author: {
             name: `**Blacklisted Word Detected**`, 
-            icon_url: `${sicon}`,
           },		
           description: `If you think this is an infringement on your speech, please contact <@&709118762707845211>/<@&710593727864897646> right away.` +
           ` Otherwise, rephrase your speech so the bot doesn't think you're using the word!`,

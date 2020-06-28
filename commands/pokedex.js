@@ -31,11 +31,11 @@ module.exports = {
             const { 
                 sprites, 
                 stats, 
-				weight, 
-				height,
+                weight, 
                 name, 
                 id, 
                 base_experience,
+                abilities,
                 types
             } = pokeData;
             const embed = new MessageEmbed();
@@ -43,8 +43,7 @@ module.exports = {
             embed.setThumbnail(`${sprites.front_default}`);
             stats.forEach(stat => embed.addField(`__**${stat.stat.name.toUpperCase()}**__`, stat.base_stat, true));
             types.forEach(type => embed.addField('__**Type**__', type.type.name, true));
-			embed.addField('__**Weight**__', `${weight} lbs`, true);
-			embed.addField('__**Height**__', `${height} ft`, true);
+            embed.addField('__**Weight**__', `${weight} lbs`, true);
 			embed.addField('__**Base Experience**__', `${base_experience} XP`, true);
 			embed.setColor(10231598);
             message.channel.send(embed).catch(err => `Error: ${err}`)

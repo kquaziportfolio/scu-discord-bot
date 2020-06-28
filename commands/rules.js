@@ -5,7 +5,7 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 module.exports = {
 	name: 'rules',
     description: 'rules!',
-		execute(message, args) { 
+		async execute(message, args) { 
             if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
                 rules_embed = new Discord.MessageEmbed() 
                 .setColor(10231598)
