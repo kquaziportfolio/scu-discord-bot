@@ -9,6 +9,7 @@
     "better-sqlite3": "^7.0.1",
     "discord.js": "^11.6.4",
     "discord.js-commando": "^0.10.0",
+    "discord.js-pagination": "^1.0.2",
     "enmap": "^5.3.1",
     "eslint": "^7.2.0",
     "form-data": "github:discordjs/form-data",
