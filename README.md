@@ -20,17 +20,14 @@ This is a 24/7 bot that I made for my Discord server [here](https://discord.gg/Y
 ## Greet DM command (with 24/7 Raspberry Pi integration):
 ```
 Current DM greet message: 
-[user], before you have a great time here in [server name], we want to make sure you can verify that you’re an 
-enrolled student at SCU! Please message in the #checkpoint channel your proof of enrollment (e.g. acceptance 
-letter, school email, and/or ECampus screenshot) at SCU! After this, be sure to read the #server-info channel 
-and introduce yourself in the #introductions channel! Last of all, look at the #role-menu and enter `<i.am role>` 
-in #role-select for your roles! Thank you for your cooperation and have a great day! Go Broncos! :racehorse:
+Fill out the Google Form [here](https://forms.gle/vqmrDx9LRVexdwLk6) to verify yourself in the SCU server! Note: If you're a guest or alumni, you are exempted from this requirement.Read the <#server-info> channel and introduce yourself in the <#intros> channel! Look at the <#role-menu> and react to the emojis for your specific roles! Thank
+you for your cooperation and Go Bronocs!`
 ```
 
 ## Greet MSG commmand (with 24/7 Raspberry Pi integration):
 ```
 { 
- [@user], welcome to SCU :racehorse::dash: | #BroncoUp! Be sure to follow instructions on the Bucky Bronco DM! Go Broncos!
+ `<@${memberTag}> has joined **${guild.name}** which currently has ${memberCount} members! Be sure to follow instructions in the DM! Go Broncos!`
 }  
 ```
 
@@ -41,4 +38,5 @@ Preaching to over [amount of users] members in the [server name] server!
 
 ## Creator(s):
 - Jason Vu = Discord server admin, moderator, and back-end
-- Bennett Nguyen = Discord server admin, moderator, and back-end
+- Bennett Nguyen = Discord server admin and moderator
+- Samuel Stephen = Discord server moderator and back-end
