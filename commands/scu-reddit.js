@@ -9,23 +9,23 @@ module.exports = {
 		execute(message, args) {   
             got(`https://www.reddit.com/r/SCU/random/.json`).then(response => {
                 let content = JSON.parse(response.body);
-                const scu_title = content[0].data.children[0].data.title;
-                const scu_image = content[0].data.children[0].data.url;
-                const scu_selftext = content[0].data.children[0].data.selftext;
-                const scu_author = content[0].data.children[0].data.author;
-                const scu_url = content[0].data.children[0].data.url;
-                const scu_subreddit_name = content[0].data.children[0].data.subreddit_name_prefixed;
-                const scu_ups = content[0].data.children[0].data.ups;
-                const scu_downs = content[0].data.children[0].data.downs;
-                const scu_num_comments = content[0].data.children[0].data.num_comments;
+                const title = content[0].data.children[0].data.title;
+                const image = content[0].data.children[0].data.url;
+                const selftext = content[0].data.children[0].data.selftext;
+                const author = content[0].data.children[0].data.author;
+                const url = content[0].data.children[0].data.url;
+                const subreddit_name = content[0].data.children[0].data.subreddit_name_prefixed;
+                const ups = content[0].data.children[0].data.ups;
+                const downs = content[0].data.children[0].data.downs;
+                const num_comments = content[0].data.children[0].data.num_comments;
                 const scu_embed = new MessageEmbed()
-                    .setTitle(`${scu_title}`)
-                    .setURL(`${scu_url}`)
-                    .setAuthor(`${scu_subreddit_name} | u/${scu_author}`)
-                    .setImage(`${scu_image}`)
+                    .setTitle(`${title}`)
+                    .setURL(`${url}`)
+                    .setAuthor(`${subreddit_name} | u/${author}`)
+                    .setImage(`${image}`)
                     .setColor(10231598)	
-                    .setDescription(`${scu_selftext}`)
-                    .setFooter(`${emojiCharacters.up} ${scu_ups} | ${emojiCharacters.down} ${scu_downs} | ${emojiCharacters.comment} ${scu_num_comments}`)
+                    .setDescription(`${selftext}`)
+                    .setFooter(`${emojiCharacters.up} ${ups} | ${emojiCharacters.down} ${downs} | ${emojiCharacters.comment} ${num_comments}`)
                 message.channel.send(scu_embed)
                 .then(sent => console.log(`\n`))
                 }).catch(console.error);

@@ -5,10 +5,10 @@ const emojiCharacters = require(`../emoji-characters`); //for emojis
 module.exports = {
 	name: '8ball',
 	description: '8ball!',
-		execute(message, args) { 
+		async execute(message, args) { 
             const prompt = args.join(' ');
 
-            if(!prompt[3]) 
+            if(!prompt[3] || !prompt.includes("?")) 
                 return message.reply({embed: {
                     title: "8Ball Command",
                     description: "**Description:**\nPlease enter a full question with 3 or more words!",

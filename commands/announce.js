@@ -10,50 +10,19 @@ module.exports = {
             const announceInstructions = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle("Announcements Command")
-                .addField("Description:", `Public announcements`, true)
-                .addField("Usage:", "`>announce [user ids] | [title] | [description]`", true)
-                .addField("Example:", ">announce <@Role1> <@User1> | Hi! | Welcome to the server!")
+                .addField("Description:", `Public announcements`)
+                .addField("Usage:", "`>announce [channel id] ~ [mentions] ~ [title] ~ [description] ~ [image url]`")
+                .addField("Example:", ">announce  726585970799149149 ~ <@Role1> <@User1> ~ Hi! ~ Welcome to the server! ~ https://jasonanhvu.github.io/assets/img/logo-pic.png")
                 .setTimestamp();
 
-                const prompt = args.join(' ').split('|');
+                const prompt = args.join(' ').split(' ~ ');
                 
-                if (!prompt[0] && !prompt[1] && !prompt[2]) {    
-                    message.channel.send(announceInstructions)
-                    .then(msg => msg.delete({timeout: 10000}))
-                    .catch(error => console.log(`Error: ${error}`))
-                } else if (prompt[0] && !prompt[1] && !prompt[2]) {
-                    message.channel.send({ embed: {
-                        description: `You must enter the user mentions/roles!`,
-                        color: 10231598
-                        }
-                    }).then(msg => msg.delete({timeout: 2000}))
-                    .catch(error => console.log(`Error: ${error}`))
-                } else if (!prompt[0] && prompt[1] && prompt[2]) {
-                    message.channel.send({ embed: {
-                        description: `You must enter the title and description!`,
-                        color: 10231598
-                        }
-                    }).then(msg => msg.delete({timeout: 2000}))
-                    .catch(error => console.log(`Error: ${error}`))
-                } else if (prompt[0] && prompt[1] && !prompt[2]) {
-                    message.channel.send({ embed: {
-                        description: `You must enter the description!!`,
-                        color: 10231598
-                        }
-                    }).then(msg => msg.delete({timeout: 2000}))
-                    .catch(error => console.log(`Error: ${error}`))
-                } else if (!prompt[0] && prompt[1] && !prompt[2]) {
-                    message.channel.send({ embed: {
-                        description: `You must enter the title!`,
-                        color: 10231598
-                        }
-                    }).then(msg => msg.delete({timeout: 2000}))
-                    .catch(error => console.log(`Error: ${error}`))
-                } else {
-                    const channel = message.guild.channels.cache.find(channel => channel.name === "announcements")
-                    channel.send(`${prompt[0]}`,{embed : {color: 10231598, title: `${prompt[1]}`, description: `${prompt[2]}`}});
-                }
-            } else {
+                if(!prompt[4]) return message.channel.send(announceInstructions);
+
+                let channelID = `${prompt[0]}`;
+                let targetChannel = message.guild.channels.cache.get(channelID);
+                if(targetChannel) targetChannel.send(`${prompt[1]}`,{embed : {color: 10231598, title: `${prompt[2]}`, description: `${prompt[3]}`, image: { url: `${prompt[4]}`}}});
+        } else {
                 const permission_embed = new Discord.MessageEmbed()
                 .setColor(10231598)
                 .setTitle(`Oops, an error happened...`)

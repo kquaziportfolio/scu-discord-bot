@@ -19,4 +19,4 @@ module.exports = (client, message) => {
 
   // Run the command
   cmd.execute(message, args);
-};
+}
