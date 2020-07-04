@@ -15,27 +15,9 @@ module.exports = {
         .setTimestamp();
 
         const prompt = args.join(' ').split('|');
+        if(!prompt[2]) return message.channel.send(announceInstructions);
         
-        if (!prompt[0] && !prompt[1]) {    
-            message.channel.send(announceInstructions)
-            .catch(error => console.log(`Error: ${error}`))
-        } else if (prompt[0] && !prompt[1]) {
-            message.channel.send({ embed: {
-                description: `You must enter the description!!`,
-                color: 10231598
-                }
-            }).then(msg => msg.delete({timeout: 2000}))
-            .catch(error => console.log(`Error: ${error}`))
-        } else if (!prompt[0] && prompt[1]) {
-            message.channel.send({ embed: {
-                description: `You must enter the title!`,
-                color: 10231598
-                }
-            }).then(msg => msg.delete({timeout: 2000}))
-            .catch(error => console.log(`Error: ${error}`))
-        } else {
-            const channel = message.guild.channels.cache.find(channel => channel.name === "suggestions")
-            channel.send(`<@&709118762707845211> <@&710593727864897646>`,{embed : {color: 10231598, title: `${prompt[0]}`, description: `${prompt[1]}`}});
-        }
+        const channel = message.guild.channels.cache.find(channel => channel.name === "suggestions")
+        channel.send(`<@&709118762707845211> <@&710593727864897646>`,{embed : {color: 10231598, title: `${prompt[0]}`, description: `${prompt[1]}`}});
     }          
 }

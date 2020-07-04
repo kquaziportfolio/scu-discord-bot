@@ -21,7 +21,7 @@ module.exports = {
 		.addField("Example:", ">pokedex Pikachu", true)
 		.setTimestamp()
 
-		if(!args.length) return message.channel.send(pokemonInstructions)
+		if(!args.length || !args[0]) return message.channel.send(pokemonInstructions)
 		.then(msg => msg.delete({timeout: 10000}))
 		.catch(err => console.log(`Error: ${err}`))
 

@@ -18,21 +18,8 @@ module.exports = {
 
             let member = message.author.id;
             
-            if (!prompt[0]) {    
-                message.channel.send(rocketLeagueInstructions)
-                .then(msg => msg.delete({timeout: 10000}))
-                .catch(error => console.log(`Error: ${error}`))
-            } else if (prompt[0].length <= 1) {    
-                message.channel.send(rocketLeagueInstructions)
-                .then(msg => msg.delete({timeout: 10000}))
-                .catch(error => console.log(`Error: ${error}`))
-            } else if (prompt[0].length >= 16) {    
-                message.channel.send(rocketLeagueInstructions)
-                .then(msg => msg.delete({timeout: 10000}))
-                .catch(error => console.log(`Error: ${error}`))
-            } else if (prompt[0]) {
-                message.channel.send({embed: {title: `__**Here's your Rocket League stats!**__`, description: `<@${member}>'s [Rocket League](https://rocketleague.tracker.network/profile/steam/${prompt[0]}/ Stats`}, color: 10231598})
-                .catch(err => console.log(`Error: ${err}`))
-            }
+            if(!prompt[0]) return message.channel.send(rocketLeagueInstructions);
+            message.channel.send({embed: {title: `__**Here's your Rocket League stats!**__`, description: `<@${member}>'s [Rocket League](https://rocketleague.tracker.network/profile/steam/${prompt[0]}/ Stats`}, color: 10231598})
+            .catch(err => console.log(`Error: ${err}`))
     }
 }

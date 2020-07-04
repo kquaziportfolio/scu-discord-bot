@@ -8,17 +8,17 @@ module.exports = {
 		async execute(message, args) { 
             const prompt = args.join(' ');
 
-            if(!prompt[3] || !prompt.includes("?")) 
+            if(!prompt[3] || !(prompt.includes("?"))) 
                 return message.reply({embed: {
-                    title: "8Ball Command",
-                    description: "**Description:**\nPlease enter a full question with 3 or more words!",
-                    fields: [
-                        { name: "Usage:", value: "`8ball [question]`", inline: true },
-                        { name: "Example:", value: "`>8ball Will I be admin someday?`", inline: true}
-                    ],
-                    color: 10231598,
-                    timestamp: new Date(),
-                    footer: "Created by the server lords"
+                        title: "8Ball Command",
+                        description: "**Description:**\nPlease enter a full question with 3 or more words!",
+                        fields: [
+                            { name: "Usage:", value: "`8ball [question]`", inline: true },
+                            { name: "Example:", value: "`>8ball Will I be admin someday?`", inline: true}
+                        ],
+                        color: 10231598,
+                        timestamp: new Date(),
+                        footer: "Created by the server lords"
                     }
                 }).then(msg => msg.delete({timeout: 10000}))
                 .catch(err => console.log(`Error: ${err}`))

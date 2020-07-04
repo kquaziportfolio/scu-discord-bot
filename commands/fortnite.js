@@ -10,29 +10,17 @@ module.exports = {
             .setColor(10231598)
             .setTitle("Fortnite Statistics Command")
             .addField("Description:", `Get Fortnite stats with username between 5-32 characters`, true)
-            .addField("Usage:", "`>fortnite [username]`", true)
-            .addField("Example:", ">fortnite JAVA9620", true)
+            .addField("Usage:", "`>fortnite | [username]`", true)
+            .addField("Example:", ">fortnite | JAVA9620", true)
             .setTimestamp();
 
-            const prompt = args.join(' ').split(' ');
+            const prompt = args.join(' ').split(' | ');
 
             let member = message.author.id;
             
-            if (!prompt[0]) {    
-                message.channel.send(fortniteInstructions)
-                .then(msg => msg.delete({timeout: 10000}))
-                .catch(error => console.log(`Error: ${error}`))
-            } else if (prompt[0].length < 5) {    
-                message.channel.send(fortniteInstructions)
-                .then(msg => msg.delete({timeout: 10000}))
-                .catch(error => console.log(`Error: ${error}`))
-            } else if (prompt[0].length > 32) {    
-                message.channel.send(fortniteInstructions)
-                .then(msg => msg.delete({timeout: 10000}))
-                .catch(error => console.log(`Error: ${error}`))
-            } else if (prompt[0]) {
-                message.channel.send({embed: {title: `__**Here's your Fortnite stats!**__`, description: `<@${member}>'s [Fortnite](https://fortnitetracker.com/profile/all/${prompt[0]}/) Stats`, color: 10231598}})
-                .catch(err => console.log(`Error: ${err}`))
-            }
+            if (!prompt[0]) return message.channel.send(fortniteInstructions);
+          
+            message.channel.send({embed: {title: `__**Here's your Fortnite stats!**__`, description: `<@${member}>'s [Fortnite](https://fortnitetracker.com/profile/all/${prompt[0]}/) Stats`, color: 10231598}})
+            .catch(err => console.log(`Error: ${err}`))
     }
 }
