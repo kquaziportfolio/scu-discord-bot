@@ -6,7 +6,7 @@ const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed, MessageAttachment } = require('discord.js'); //for embed functionality
 const Enmap = require("enmap");
 const fs = require("fs");
-const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"]});
+const client = new Discord.Client();
 const config = require(`./config.json`);
 // We also need to make sure we're attaching the config to the CLIENT so it's accessible everywhere!
 client.config = config;
@@ -21,6 +21,28 @@ const situation = roles.situation;
 const OBS = require(`./events/obs.json`);
 const OBS_list = OBS.obs;
 
+const emojiCharacters = require(`./emoji-characters`);
+
+const ReactionRole = require("reaction-role");
+const reactionRole = new ReactionRole(`${config.token}`);
+let option1 = reactionRole.createOption("csgo:728724579727573033", "728726891355176970");
+let option2 = reactionRole.createOption("dota:728725741344391169", "728726771247087674");
+let option3 = reactionRole.createOption("dbd:728725743017656360", "728726771247087674");
+let option4 = reactionRole.createOption("fortnite:728724908225331250", "728726981235179550");
+let option5 = reactionRole.createOption("gta:728725741520552046", "728726721364361296");
+let option6 = reactionRole.createOption("io:728844181090598993", "728726721364361296");
+let option7 = reactionRole.createOption("jackbox:728844182407610468", "728726721364361296");
+let option8 = reactionRole.createOption("League:726658053818023937", "726657281986527303");
+let option9 = reactionRole.createOption("minecraft:728724580251729930", "728727522631483402");
+let option10 = reactionRole.createOption("Overwatch:726658055831552049", "726657109361688607");
+let option11 = reactionRole.createOption("rss:728724775068893225", "728726931817889802");
+let option12 = reactionRole.createOption("rocketleague:728726211882385409", "728726681241780274");
+let option13 = reactionRole.createOption(":smash:728842766657912882", "728726681241780274")
+let option14 = reactionRole.createOption("Valorant:726658055684620349", "726657024703725578");
+reactionRole.createMessage("728845041090428948", "725015718449643611", true, option1, option2, option3, 
+option4, option5, option6, option7, option8, option9, option10, option11, option12, option13, option14);
+reactionRole.init();
+
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
@@ -29,7 +51,6 @@ fs.readdir("./events/", (err, files) => {
     let eventName = file.split(".")[0];
     client.on(eventName, event.bind(null, client));
     delete require.cache[require.resolve(`./events/${file}`)];
-    console.log(`| Loading event: ${eventName} |`);
   });
 });
 
@@ -41,7 +62,7 @@ fs.readdir("./commands/", (err, files) => {
     if (!file.endsWith(".js")) return;
     let props = require(`./commands/${file}`);
     let commandName = file.split(".")[0];
-    console.log(`| Loading command: ${commandName} |`);
+    console.log(`Attempting to load command ${commandName}`);
     client.commands.set(commandName, props);
   });
 });
@@ -54,9 +75,9 @@ client.on(`messageReactionAdd`, async (reaction, user) => {
 	
 	if (user.bot) return; // If the user was a bot, return.
 	if (!reaction.message.guild) return; // If the user was reacting something but not in the guild/server, ignore them.
-	if (reaction.message.guild.id !== `${roles.message_channel_id}`) return; // Use this if your bot was only for one server/private server.
+	if (reaction.message.guild.id !== `${config.identification}`) return; // Use this if your bot was only for one server/private server.
 	
-	if (reaction.message.channel.id === `${roles.message_channel_id}`) { // This is a #role-menu channel.
+	if (reaction.message.channel.id === "722494512420618370") { // This is a #role-menu channel.
 		if (reaction.emoji.name === "☣️") {
 			await reaction.message.guild.members.cache.get(user.id).roles.add(soe_majors[0].Bioengineering) 
 			return user.send({embed: { description: `<@${user.id}>, ` + "`Bioengineering` role was added!", timestamp: new Date(), footer: { text: 'Go Broncos!'}, color: 10231598}}).catch(() => console.log("Failed to send DM."));
@@ -270,7 +291,7 @@ client.on(`messageReactionAdd`, async (reaction, user) => {
 			return user.send({embed: { description: `<@${user.id}>, ` + "`Residential` role was added!", timestamp: new Date(), footer: { text: 'Go Broncos!'}, color: 10231598}}).catch(() => console.log("Failed to send DM."));
 		} 
 	} else {
-	  	console.log(`Wrong channel!`);
+	  	return;
   }
 });
 
@@ -283,7 +304,7 @@ client.on(`messageReactionRemove`, async (reaction, user) => {
   if (!reaction.message.guild) return;
   if (reaction.message.guild.id !== `${config.identification}`) return;
 
-  if (reaction.message.channel.id === `${roles.message_channel_id}`) {
+  if (reaction.message.channel.id === "722494512420618370") {
     if (reaction.emoji.name === "☣️") {
       await reaction.message.guild.members.cache.get(user.id).roles.remove(soe_majors[0].Bioengineering) 
       return user.send({embed: { description: `<@${user.id}>, ` + "`Bioengineering` role was removed!", timestamp: new Date(), footer: { text: 'Go Broncos!'}, color: 10231598}}).catch(() => console.log("Failed to send DM."));
@@ -497,11 +518,13 @@ client.on(`messageReactionRemove`, async (reaction, user) => {
       return user.send({embed: { description: `<@${user.id}>, ` + "`Residential` role was removed!", timestamp: new Date(), footer: { text: 'Go Broncos!'}, color: 10231598}}).catch(() => console.log("Failed to send DM."));
     } 
   } else {
-      console.log(`Wrong channel!`);
+      return;
   }
 });
 
 client.on(`message`, async (message) => {    
+    const guild = client.guilds.cache.get(`${config.identification}`);
+    const sicon = guild.iconURL();
     const memberTag = message.author.id;
 
     for (let i = 0; i < OBS_list.length; i++) {
@@ -509,6 +532,7 @@ client.on(`message`, async (message) => {
         message.channel.send({embed: {
           author: {
             name: `**Blacklisted Word Detected**`, 
+            icon_url: `${sicon}`,
           },		
           description: `If you think this is an infringement on your speech, please contact <@&709118762707845211>/<@&710593727864897646> right away.` +
           ` Otherwise, rephrase your speech so the bot doesn't think you're using the word!`,

@@ -9,20 +9,21 @@ module.exports = {
     name: 'overwatch',
     description: 'overwatch!',   
     async execute( message, args) {
-        args = args.join(" ").split(" | ");
+        args = args.join(" ").split(" ");
 
-        if(!args[0]) return message.channel.send({embed: {
+        if(!args[0] || !args[1] || (args[1] && !["pc", "xb1", "psn"].includes(args[1]))) return message.channel.send({embed: {
             title: `Overwatch Command`, 
-            description: "Please supply a username!", 
+            fields: [
+                {
+                    name: `Description:`,
+                    value: "Please supply a username and platform to check: `pc`, `xb1`, or `psn`!"
+                },
+                {
+                    name: `Usage:`,
+                    value: "`>overwatch Pogchamp#8888 pc`"
+                },
+            ],
             color: 10231598,
-            timestamp: new Date(),
-            footer: `Brought to you by the server lords!`
-        }});
-
-        if(!args[1] || (args[1] && !["pc", "xb1", "psn"].includes(args[1]))) return message.channel.send({embed: {
-            title: `Overwatch Command`,
-            description: "Please supply a platform to check: `pc`, `xb1`, or `psn`", 
-            color: 10231598, 
             timestamp: new Date(),
             footer: `Brought to you by the server lords!`
         }});
