@@ -7,12 +7,12 @@ module.exports = {
 	name: 'quote',
 	description: 'quotes!',
 	async execute(message, args) {
-			const embed = new MessageEmbed()
-				.setTitle(`Here's your quote!`)
-				.setColor(10231598)	
-				.setDescription(quotes.getRandomQuote())
-				.setTimestamp()
-				.setFooter("Use `>` before each command!")
-			message.channel.send(embed);
-		}
+		const embed = new MessageEmbed()
+		.setTitle(`Here's your quote!`)
+		.setColor(10231598)	
+		.setDescription(quotes.getRandomQuote())
+		.setTimestamp()
+		.setFooter("Use `>` before each command!")
+		message.channel.send(embed);
 	}
+}
