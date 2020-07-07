@@ -1,6 +1,8 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const client = new Discord.Client();
+const { Client, MessageEmbed, MessageAttachment } = require(`discord.js`); //for embed functionality
 const config = require(`../config.json`);
+const schedule = require('node-schedule');
 
 module.exports = async (client) => {
 	const guild = client.guilds.cache.get(`${config.identification}`); //My secret server id
@@ -38,5 +40,5 @@ module.exports = async (client) => {
 	//specific guild
 	// Alternatively, you can set the activity to any of the following:
     // PLAYING, STREAMING, LISTENING, WATCHING
-    // For example: client.user.setActivity(`TV`, {type: `WATCHING`})
+	// For example: client.user.setActivity(`TV`, {type: `WATCHING`})
 }

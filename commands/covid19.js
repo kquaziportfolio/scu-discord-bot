@@ -7,6 +7,8 @@ module.exports = {
     name: 'covid19', //forked from Raptor SA
     description: 'coronavirus tracker api command', //here is a change in the file
         async execute (message, args) {
+            let covid19Channel = message.guild.channels.cache.find(channel => channel.name === "covid-19");
+
             let global = await fetch(BASE_URL);
             let data = await global.json();
 
@@ -62,7 +64,7 @@ module.exports = {
             COVID_EMBED1.setImage(`attachment://covid-19.jpg`)
             COVID_EMBED2.setColor(10231598)
             
-            if (!args[0]) return message.channel.send(COVID_EMBED1).catch(err => `Error: ${err}`)
-            if (args[0]) return message.channel.send(COVID_EMBED2).catch(err => `Error: ${err}`)
+            if (!args[0]) return covid19Channel.send(COVID_EMBED1).catch(err => `Error: ${err}`)
+            if (args[0]) return covid19Channel.send(COVID_EMBED2).catch(err => `Error: ${err}`)
         }
 }
