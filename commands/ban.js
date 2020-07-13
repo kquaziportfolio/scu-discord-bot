@@ -50,21 +50,21 @@ module.exports = {
                 message.channel.send(`You must provide a reason to ban the user!`)
                 .then(msg => msg.delete({timeout: 2000}))
             } else {
-                const reason_card = reason;
+               await member.ban(reason)
+               .catch(err => console.log(`Error: ${err}`))
+   
+               const ban_card = new Discord.MessageEmbed()
+                   .setColor(10231598)
+                   .setTitle(`Ban | ${member.user.tag}`)
+                   .addField("User", member, true)
+                   .addField("Moderator", message.author, true)
+                   .addField("Reason", reason)
+                   .setTimestamp()
+   
+               let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
+   
+               auditLogs.send(ban_card);
             }
-
-            await member.ban(reason)
-            .catch(err => console.log(`Error: ${err}`))
-
-            const ban_card = new Discord.MessageEmbed()
-                .setColor(10231598)
-                .setTitle(`Ban | ${member.user.tag}`)
-                .addField("User", member, true)
-                .addField("Moderator", message.author, true)
-                .addField("Reason", reason_card)
-                .setTimestamp()
-
-            message.channel.send(ban_card);
         } else {
             return message.channel.send({embed: {
                 description: `You must have the following permission(s): ` + "`BAN MEMBERS`",
