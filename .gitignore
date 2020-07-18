@@ -1,5 +1,5 @@
-.vscode/*
-node_modules/*
+.vscode/
+node_modules/
 json/
 config.json
 obs.json
