@@ -1,11 +1,13 @@
 # scu-discord-bot
-SCU 🐎💨 | #BroncoUp 
+SCU DISCORD NETWORK
 
 # Discord BOT
 This is a 24/7 bot that I made for my Discord server [here](https://discord.gg/YusWdfu).
 
+![hi](https://github.com/jasonanhvu/scu-discord-bot/blob/master/assets/scu_banner.jpg?raw=true)
+
 # Logo
-![SCU 🐎💨 | #BroncoUp Logo](https://media.discordapp.net/attachments/709464766472781895/711781960460271616/Discord_3_1.png)
+![SCU Discord Network Logo](https://github.com/jasonanhvu/scu-discord-bot/blob/master/assets/logo-pic.png?raw=true)
 
 ## Commands:
 ```
@@ -20,7 +22,7 @@ This is a 24/7 bot that I made for my Discord server [here](https://discord.gg/Y
 ## Greet DM command (with 24/7 Raspberry Pi integration):
 ```
 Current DM greet message: 
-Fill out the Google Form [here](https://forms.gle/vqmrDx9LRVexdwLk6) to verify yourself in the SCU server! Note: If you're a guest or alumni, you are exempted from this requirement.Read the <#server-info> channel and introduce yourself in the <#intros> channel! Look at the <#role-menu> and react to the emojis for your specific roles! Thank
+Fill out the Google Form [here](https://shorturl.at/mnvP8) to verify yourself in the SCU server! Note: If you're a guest or alumni, you are exempted from this requirement.Read the <#server-info> channel and introduce yourself in the <#intros> channel! Look at the <#role-menu> and react to the emojis for your specific roles! Thank
 you for your cooperation and Go Bronocs!`
 ```
 
