@@ -2,7 +2,6 @@ const Discord = require(`discord.js`); //requires Discord.js integration package
 const client = new Discord.Client();
 const { Client, MessageEmbed, MessageAttachment } = require(`discord.js`); //for embed functionality
 const config = require(`../config.json`);
-const schedule = require('node-schedule');
 
 module.exports = async (client) => {
 	const guild = client.guilds.cache.get(`${config.identification}`); //My secret server id
@@ -11,6 +10,9 @@ module.exports = async (client) => {
 		if(!member.user.bot) memberCount++;
 		return memberCount;
 	});
+
+	const avatar = "https://thehoya.com/wp-content/uploads/2019/04/19.03.26_FrKevinOBrien_SantaClaraUniversity.png";
+	client.user.setAvatar(avatar);
 
 	let statuses = [
 		`Preaching to ${memberCount} members in the ${guild.name} server!`, 

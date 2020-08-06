@@ -1,4 +1,4 @@
-
+const Discord = require(`discord.js`); //requires Discord.js integration package
 const config = require(`../config.json`);
 const OBS = require(`./obs.json`);
 const OBS_list = OBS.obs;
@@ -11,40 +11,36 @@ module.exports = (client, message) => {
   const sicon = guild.iconURL();
   const memberTag = message.author.id;
 
-  for (let i = 0; i < OBS_list.length; i++) {
-    if (message.content.toLowerCase().includes(OBS_list[i]) || message.content.toLowerCase().startsWith(OBS_list[i])) {
-      message.channel.send({embed: {
-        author: {
-          name: `**Blacklisted Word Detected**`, 
-          icon_url: `${sicon}`,
-        },		
-        description: `If you think this is an infringement on your speech, please contact <@&709118762707845211>/<@&710593727864897646> right away.` +
-        ` Otherwise, rephrase your speech so the bot doesn't think you're using the word!`,
-        color: 10231598,
-        thumbnail: {
-          "url": "attachment://ohno.jpg",
-        },
-        fields: [
-          {
-            name: `User`,
-            value: `<@${memberTag}>`,
-            inline: true
+  let word = message.content.toLowerCase().split(" ");
+  let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
+
+  try {
+    for (let i = 0; i < OBS_list.length; i++) {
+      if (word.includes(OBS_list[i])) {
+        message.author.send({embed: {
+          author: {
+            name: `**Blacklisted Word Detected**`, 
+            icon_url: `${sicon}`,
+          },		
+          description: `<@${message.author.id}> , this is the Official Santa Clara University Discord Network! Please refrain from such speech immediately! You've been warned!`,
+          color: 10231598,
+          thumbnail: {
+            "url": "attachment://ohno.jpg",
           },
-          {
-            name: `Blacklisted Word (Please view at your discretion)`,
-            value: "||" + OBS_list[i] + "||",
-            inline: true
-          },
-        ],
-        files: [{
-          attachment:'./assets/ohno.jpg',
-          name:'ohno.jpg'
-        }],
-        timestamp: new Date()
-      }}) .catch(err => console.log(`Error: ${err}`))
-    
-      return message.delete().catch(err => console.log(`Error: ${err}`))
+          files: [{
+            attachment:'./assets/ohno.jpg',
+            name:'ohno.jpg'
+          }],
+          timestamp: new Date()
+        }});
+
+        auditLogs.send({ embed: { title: `__**Blacklisted Word Detected!**__`, description: `<@${message.author.id}> said the following word - ||${OBS_list[i]}|| - in ${message.channel}`, timestamp: new Date(), color: 10231598}});
+
+        return message.delete();
+      }
     }
+  } catch (e) {
+      auditLogs.send({ embed: { description: `There was an error: ${e}`}});
   }
 
   // Ignore messages not starting with the prefix (in config.json)
@@ -52,14 +48,60 @@ module.exports = (client, message) => {
 
   // Our standard argument/command name definition.
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-  const command = args.shift().toLowerCase();
+  const commandName = args.shift().toLowerCase();
 
   // Grab the command data from the client.commands Enmap
-  const cmd = client.commands.get(command);
+  const command = client.commands.get(commandName);
+
+    /*Some commands are meant to be used only inside servers and won't work whatsoever in DMs. 
+  A prime example of this would be a kick command. You can add a property to the necessary 
+  commands to determine whether or not it should be only available outside of servers.*/
+
+  if (command.guildOnly && message.channel.type !== 'text') {
+    return message.channel.send({ embed: { description: `<@${message.author.id}>, I can't execute that command inside DMs!` }});
+  }
+
+  if (command.args && !args.length) {
+    let reply = `You didn't provide any arguments, ${message.author}!`;
+
+    if (command.usage) {
+      reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}`;
+    }
+
+    return message.channel.send({embed: { description: reply }});
+  }
 
   // If that command doesn't exist, silently exit and do nothing
-  if (!cmd) return;
+  if (!client.commands.has(commandName)) return;
 
+  const cooldowns = new Discord.Collection();
+
+  if (!cooldowns.has(command.name)) {
+    cooldowns.set(command.name, new Discord.Collection());
+  }
+  
+  const now = Date.now();
+  const timestamps = cooldowns.get(command.name);
+  const cooldownAmount = (command.cooldown || 3) * 1000;
+  
+  if (timestamps.has(message.author.id)) {
+    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+    if (now < expirationTime) {
+      const timeLeft = (expirationTime - now) / 1000;
+      return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+    }
+
+    timestamps.set(message.author.id, now);
+    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+  }
+
+  try {
   // Run the command
-  cmd.execute(message, args);
+    command.execute(message, args);
+  } catch(err) {
+    let channel = message.guild.channels.find(channel => channel.name === "audit-logs");
+    console.log(err);
+    channel.send({embed: { description: `There was an error trying to execute \`${command.name}\`:\n\`${err.message}\``}});
+  }
 }
