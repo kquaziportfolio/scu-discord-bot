@@ -1,13 +1,15 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 const memes = require(`random-puppy`); //for memes
 
 module.exports = { 
-    name: 'blacktwitter',
-	description: 'blacktwitter',
-	async execute(message, args) {
-        let reddit = ["BlackPeopleTwitter"];
+    name: 'prequel',
+    description: 'Get your prequel memes from subreddits here!',
+    usage: `${prefix}prequel`,
+	async execute( message, args) {
+        let reddit = ["prequelmemes", "exiledprequelmemers"];
+        let subreddit = reddit[Math.floor(Math.random() * reddit.length)];
 
         message.channel.startTyping();
 
@@ -19,12 +21,13 @@ module.exports = {
 
         setTimeout(() => {
             // Removes the user from the set after a minute
-                memes(reddit).then (async url => {
+                memes(subreddit).then (async url => {
                     await message.channel.send({embed: {
                         color: 10231598,
                         description: `**Here's your meme!**`,
                         footer: {
-                            text: "Created by the server lords!"
+                            text: "Brought to you by the creators of this Discord server.",
+                            url: 'https://jasonanhvu.github.io/scu-discord-bot/'
                         },
                         image: {
                             url: "attachment://meme.jpg"
@@ -39,8 +42,7 @@ module.exports = {
                     .setTitle(`Oops, wait 5 seconds...`)
                     .setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
                     .setTimestamp()
-                    .setFooter("Created by the server lords!")
-                    message.channel.send(embed);
+                    .setFooter("Use `>` before each command!")
                     console.log(err);
                 });
             }, 1000);

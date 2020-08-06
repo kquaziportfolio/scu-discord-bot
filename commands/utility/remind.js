@@ -2,10 +2,12 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 let chrono = require("chrono-node");
 const moment = require('moment');
+const { prefix } = require('../config.json');
 
 module.exports = {
 	name: 'remind',
-    description: 'remind command!',
+    description: 'Set reminders!',
+    usage: `${prefix}remind [interval]`,
     async execute (message, args) {
         let messagez = args.join(' ');
         if (messagez.length < 1) return message.channel.send({ embed: { description: 'Incorrect format. !reminder <minutes> <message>', color: 10231598}});

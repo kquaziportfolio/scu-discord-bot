@@ -4,25 +4,18 @@ const client = new Discord.Client();
 const config = require(`../config.json`);
 const overwatch = require(`overwatch-api`);
 const {stripIndents} = require(`common-tags`);
+const { prefix } = require('../config.json');
 
 module.exports = { 
     name: 'overwatch', //here is a change in the file
-    description: 'overwatch!',   
+    description: 'Get your Overwatch statistics!',   
+    usage: `${prefix}overwatch [username] [platform]`,
     async execute( message, args) {
         args = args.join(" ").split(" ");
 
         if(!args[0] || !args[1] || (args[1] && !["pc", "xb1", "psn"].includes(args[1]))) return message.channel.send({embed: {
             title: `Overwatch Command`, 
-            fields: [
-                {
-                    name: `Description:`,
-                    value: "Please supply a username and platform to check: `pc`, `xb1`, or `psn`!"
-                },
-                {
-                    name: `Usage:`,
-                    value: "`>overwatch Pogchamp#8888 pc`"
-                },
-            ],
+            description: `Here's an example: ${prefix}overwatch Pogchamp#8888 pc`,
             color: 10231598,
             timestamp: new Date(),
             footer: `Brought to you by the server lords!`
@@ -37,7 +30,7 @@ module.exports = {
                 const { sportsmanship, shotcaller, teammate } = json.endorsement;
                 const { won, draw, played, lost, win_rate } = json.games.competitive;
             
-            if(private) return message.channel.send({embd: {
+            if(private) return message.channel.send({embed: {
                 title: `Overwatch Command`, 
                 description: "The user's stats and can't be obtained via this command.", 
                 color: 10231598, 

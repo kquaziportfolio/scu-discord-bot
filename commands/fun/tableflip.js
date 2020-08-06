@@ -8,10 +8,12 @@ const frames = [
     '(╯°□°)╯           ┬─┬',
     '                  ┬─┬◡ﾉ(° -°ﾉ)',
 ];
+const { prefix } = require('../config.json');
 
 module.exports = {
 	name: 'table-flip',
-	description: 'tableflip!',
+    description: 'For flipping tables!',
+    usage: `${prefix}table-flip`,
     async execute(message, args) { 
         const msg = await message.channel.send('(\\\\°□°)\\\\  ┬─┬');
         for (const frame of frames) {

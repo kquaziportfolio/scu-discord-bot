@@ -1,18 +1,17 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports = { 
     name: 'other-discords',
-    description: 'for outputting other discord server embeds',   
+    description: 'For outputting other Discord server embeds!',  
+    usage: `${prefix}other-discords [title] | [description] | [image url]`,
+    guildOnly: true, 
     async execute(message, args) {
-        if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
+        if ((message.member.roles.cache.some(role => role.name == ['Admin', 'Mod', 'admins']))) {
             const discordInstructions = new Discord.MessageEmbed()
                 .setColor(10231598)
-                .setTitle("Other Discords Command")
-                .addField("Description:", `For spitting out other Discord embeds`, true)
-                .addField("Usage:", "`>other-discords [title] | [description] | [image url]`", true)
-                .addField("Example:", ">other-discords General SCU Server | [Join!](https://discord.gg/YusWdfu) | https://jasonanhvu.github.io/assets/img/logo-pic.png")
+                .addField("Here's an example:", "&other-discords General SCU Server | [Join!](https://discord.gg/YusWdfu) | https://jasonanhvu.github.io/assets/img/logo-pic.png")
                 .setTimestamp();
 
             const prompt = args.join(' ').split('|');
@@ -24,7 +23,7 @@ module.exports = {
         const permission_embed = new Discord.MessageEmbed()
         .setColor(10231598)
         .setTitle(`Oops, an error happened...`)
-        .setDescription(`You don't have permission to perform this command!`)
+        .setDescription("You must have the following roles: " + "`Admin`, `Mod`, or `admins`")
         .setThumbnail(`attachments://no_perm.gif`)
         .attachFiles(`./assets/no_perm.gif`)
         .setTimestamp()

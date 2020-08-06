@@ -1,10 +1,12 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports =  { // >ping
 	name: 'ping',
-	description: 'Ping!',
+	description: 'Get the bot\'s ping latency and resposne!',
+	usage: `${prefix}ping`,
+	cooldown: 5,
 	async execute(message, args) {
 		const msg = await message.channel.send(`Pinging...`)
 		const latency = msg.createdTimestamp - message.createdTimestamp;

@@ -1,10 +1,12 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`);
 const superagent = require(`superagent`);
+const { prefix } = require('../config.json');
 
 module.exports = { 
     name: 'hug',
-	description: 'hug!',
+    description: 'Get hug pictures here!',
+    usage: `${prefix}hug`,
 	async execute (message, args) {
         let {body} = await superagent .get("https://some-random-api.ml/animu/hug")
 

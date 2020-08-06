@@ -1,17 +1,15 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports = { 
     name: 'league',
-    description: 'league!',   
+    description: 'Get League of Legends statistics here!',
+    usage: `${prefix}league [username]`,
     async execute(message, args) {
         const lolInstructions = new Discord.MessageEmbed()
             .setColor(10231598)
-            .setTitle("League of Legends Statistics Command")
-            .addField("Description:", `Get LOL stats with username between 1-16 characters`, true)
-            .addField("Usage:", "`>league [username]`", true)
-            .addField("Example:", ">league JAVA9620", true)
+            .addField("Here's an example:", ">league JAVA9620", true)
             .setTimestamp();
 
             const prompt = args.join(' ').split(' ');

@@ -1,10 +1,12 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const {MessageEmbed} = require(`discord.js`);
 const moment = require("moment");
+const { prefix } = require('../config.json');
 
 module.exports = {
     name: 'user-info',
-    description: 'Shows user info',
+    description: 'Get a user\'s Discord information here!',
+    usage: `${prefix}user-info [user-mention]`,
     inline: true,
 	async execute (message, args) {
 

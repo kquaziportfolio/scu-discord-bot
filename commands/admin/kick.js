@@ -1,20 +1,19 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports = {
 	name: 'kick',
-    description: 'kick!',
+    description: 'Kick a member!',
+    guildOnly: true,
+    usage: `${prefix}kick [user mention] [reason]`,
 	async execute(message, args) {   
         if(message.member.hasPermission("KICK_MEMBERS")) {
             // the kick code here
 
             const kickInstructions = new Discord.MessageEmbed()
                 .setColor(10231598)
-                .setTitle("Ban Command")
-                .addField("Description:", `Kick a member`, true)
-                .addField("Usage:", "`>kick [user mention] [reason]`", true)
-                .addField("Example:", ">kick <@401542675423035392> Being Admin")
+                .addField("Here's an example:", "&kick <@401542675423035392> Being Admin")
                 .setTimestamp()
 
             const member = message.mentions.members.first();

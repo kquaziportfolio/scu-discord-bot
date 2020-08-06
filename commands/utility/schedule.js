@@ -1,12 +1,14 @@
 // Import the discord.js-pagination package
 const Discord = require(`discord.js`)
-// Use either MessageEmbed or RichEmbed to make pages
+// Use either MessageEmbed to make pages
 // Keep in mind that Embeds should't have their footers set since the pagination method sets page info there
 const { MessageEmbed } = require('discord.js');
+const { prefix } = require('../config.json');
 
 module.exports = { 
     name: 'schedule',
-	description: 'scu schedule!',
+    description: 'Get the SCU schedule here!',
+    usage: `${prefix}schedule`,
 	async execute(message, args) {
         const paginationEmbed = require('discord.js-pagination');
         const embed1 = new MessageEmbed()

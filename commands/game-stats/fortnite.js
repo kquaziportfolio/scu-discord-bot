@@ -1,17 +1,15 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports = { 
     name: 'fortnite',
-    description: 'fortnite!',   
+    description: 'Get your Fortnite statistics!',
+    usage: `${prefix}fortnite [username]`,
     async execute(message, args) {
         const fortniteInstructions = new Discord.MessageEmbed()
             .setColor(10231598)
-            .setTitle("Fortnite Statistics Command")
-            .addField("Description:", `Get Fortnite stats with username between 5-32 characters`, true)
-            .addField("Usage:", "`>fortnite | [username]`", true)
-            .addField("Example:", ">fortnite | JAVA9620", true)
+            .addField(`Here's an example: ${prefix}fortnite | JAVA9620`)
             .setTimestamp();
 
             const prompt = args.join(' ').split(' | ');

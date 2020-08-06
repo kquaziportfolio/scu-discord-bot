@@ -1,10 +1,11 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports = {
 	name: 'die-roll',
-	description: 'die-roll!',
+    description: 'Roll two dice to attempt to get snake eyes!',
+    usage: `${prefix}die-roll`,
     async execute(message, args) {  
         const dice = [1, 2, 3, 4, 5, 6];
         const first_die = dice[Math.floor(Math.random()*dice.length)];

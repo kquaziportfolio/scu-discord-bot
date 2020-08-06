@@ -1,20 +1,19 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports = {
 	name: 'ban',
-    description: 'ban!',
+    description: 'Ban a member!',
+    usage: `${prefix}ban [user mention] [reason]`,
+    guildOnly: true,
 	async execute(message, args) {   
         if(message.member.hasPermission("BAN_MEMBERS")) {
             // the ban code here
 
             const ban_Instructions = new Discord.MessageEmbed()
                 .setColor(10231598)
-                .setTitle("Ban Command")
-                .addField("Description:", `Ban a member`, true)
-                .addField("Usage:", "`>ban [user mention] [reason]`", true)
-                .addField("Example:", ">ban <@401542675423035392> Being Admin")
+                .addField("Here's an example:", "&ban <@401542675423035392> Being Admin")
                 .setTimestamp()
 
             const member = message.mentions.members.first();

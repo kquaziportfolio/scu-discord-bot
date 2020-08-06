@@ -1,10 +1,12 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`);
 const superagent = require(`superagent`);
+const { prefix } = require('../config.json');
 
 module.exports = { 
     name: 'dog',
-	description: 'dog!',
+    description: 'Get dog pictures here!',
+    usage: `${prefix}dog`,
 	async execute (message, args) {
         let {body} = await superagent 
         .get("https://dog.ceo/api/breeds/image/random")

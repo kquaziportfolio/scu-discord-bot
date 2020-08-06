@@ -1,10 +1,11 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports = { 
     name: 'set-nick',
-	description: 'set nickname!',
+    description: 'set nickname!',
+    usage: `${prefix}set-nick [user mention]`,
 	async execute(message, args) {
         try {
             if (!args.length) return message.channel.send({embed: { description: `Enter a nickname!`, color: 10231598}})

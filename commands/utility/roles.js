@@ -1,11 +1,13 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
+const { prefix } = require('../config.json');
 
 module.exports = {
-	name: 'roles-list',
-    description: 'roles!',
+	name: 'roles',
+    description: 'Get a list of all the roles!',
+    usage: `${prefix}roles`,
 		async execute (message, args) {
-                const rolesEmbed1 = new Discord.MessageEmbed()
+                const rolesEmbed1 = new MessageEmbed()
                 .setTitle("Server Reaction Roles List")
                 .setDescription(`
             **⟪1 - Undergraduate Majors⟫**\n
@@ -22,7 +24,7 @@ module.exports = {
                 `)
                 .setColor(10231598)
             message.channel.send(rolesEmbed1);
-                const rolesEmbed2 = new Discord.MessageEmbed()
+                const rolesEmbed2 = new MessageEmbed()
                 .setColor(10231598)
                 .setTimestamp()
                 .setDescription(`
@@ -39,7 +41,7 @@ module.exports = {
                  ❓ Undeclared - Business\n
                 `)
             message.channel.send(rolesEmbed2);
-                const rolesEmbed3 = new Discord.MessageEmbed()
+                const rolesEmbed3 = new MessageEmbed()
                 .setColor(10231598)
                 .setTimestamp()
                 .setDescription(`
@@ -66,7 +68,7 @@ module.exports = {
             ‌‌ ✝️ Latin Language and Literature\n
                 `)
             message.channel.send(rolesEmbed3);
-            const rolesEmbed4 = new Discord.MessageEmbed()
+            const rolesEmbed4 = new MessageEmbed()
             .setColor(10231598)
             .setTimestamp()
             .setDescription(`
@@ -93,7 +95,7 @@ module.exports = {
              🤷 Undeclared - Arts and Sciences\n
             `)
             message.channel.send(rolesEmbed4);
-            const rolesEmbed5 = new Discord.MessageEmbed()
+            const rolesEmbed5 = new MessageEmbed()
             .setColor(10231598)
             .setTimestamp()
             .setDescription(`

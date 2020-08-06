@@ -3,12 +3,14 @@ const Discord = require(`discord.js`)
 const client = new Discord.Client();
 const toTitleCase = require(`to-title-case`);
 const moment = require('moment'); //here is a change in the file
+const { prefix } = require('../config.json');
 
 module.exports = {
 	name: 'weather', //project adapted from https://github.com/ShadeBot/ShadeBot-Discord-Bot/blob/master/commands/weather.js
-	description: 'weather api',
+    description: 'Get your daily weather statistics here!',
+    usage: `${prefix}weather [city name], [country name]`,
 	async execute(message, args) {
-        if(!args[0]) return message.channel.send({embed: {description: "Please enter a name of a city like this: `>weather [city], [country]`", color: 10231598}});
+        if(!args[0]) return message.channel.send({embed: {description: `Please enter a name of a city like this: ${prefix}weather [city], [country]`, color: 10231598}});
         
         let location = args.join('%20');
         request(`http://api.openweathermap.org/data/2.5/weather?appid=83a6f430e7eaf7703e2f97127dd4d729&q=${location}`, (error, response, body) => {
@@ -51,7 +53,7 @@ module.exports = {
                 .setFooter(`Created by the server lords!`)
                 .setTimestamp();
 
-            message.channel.send(weatherEmbed)
+            message.channel.send(weatherEmbed);
         });
     }
 }

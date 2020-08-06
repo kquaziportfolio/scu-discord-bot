@@ -1,18 +1,17 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports = {
 	name: 'purge',
-	description: 'purge!',
+    description: 'Delete recent messages using this command!',
+    usage: `${prefix}purge [number of messages]`,
+    guildOnly: true,
     async execute(message, args) {   
 
         const purgeInstructions = new Discord.MessageEmbed()
         .setColor(10231598)
-        .setTitle("Purge Command")
-        .addField("Description:", `Please provide a number between 1 and 100 for the number of messages to delete`, true)
-        .addField("Usage:", "`>purge [number of messages]`", true)
-        .addField("Example:", "`>purge 10`")
+        .addField("Here's an example:", "`>purge 10`")
         .setTimestamp()
 
         const deleteCount = parseInt(args[0], 10);

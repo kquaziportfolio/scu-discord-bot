@@ -1,11 +1,13 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 const fetch = require('node-fetch');
 
 module.exports = {
 	name: 'unmute',
-    description: 'unmute!',
+    description: 'To unmute members!',
+    usage: `${prefix}unmute [user mention]`,
+    guildOnly: true,
     async execute(message, args) {  
         if(message.member.hasPermission("MUTE_MEMBERS")) {
             let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])

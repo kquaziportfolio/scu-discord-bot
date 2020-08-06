@@ -10,11 +10,11 @@ module.exports = {
         .setColor(10231598)
         .setTitle(`Fun Commands`)
         .setDescription(
-        "- Animals: `>bird`, `>cat`, `>dog`, `>fox`,  `>koala`, `>panda`, `>pikachu`\n" +
-        "- Cute: `>hug`, `>pat`, `>wink`\n" +
-        "- Cool: `>8ball`, `>advice`, `>compliment`, `>die-roll`, `>joke`, `>foo`, `>lottery`, `>meme-api`, `>pokedex`, `>quote`, `>random-color`, `>rps`, `>table-flip`\n"
+        "- Animals: `&bird`, `&cat`, `&dog`, `&fox`,  `&koala`, `&panda`, `&pikachu`\n" +
+        "- Cute: `&hug`, `&pat`, `&wink`\n" +
+        "- Cool: `&8ball`, `&advice`, `&compliment`, `&die-roll`, `&joke`, `&foo`, `&lottery`, `&meme-api`, `&pokedex`, `&quote`, `&random-color`, `&rps`, `&table-flip`\n"
         )
-        .setFooter("Use `>` before each command!")
+        .setFooter("Use `&` before each command!")
         message.channel.send(embed);
     }
 }

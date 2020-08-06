@@ -1,14 +1,17 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
 const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports = {
 	name: 'server-info',
-    description: 'server-info!',
+    description: 'Get general server information here!',
+    usage: `${prefix}server-info`,
 		async execute(message, args) { 
-            if ((message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
+            if ((message.member.roles.cache.has('710593727864897646', '709118762707845211'))) {
             let authorTag = message.author.id; 
             let serverIcon = message.guild.iconURL({ dynamic: true });
+
             const serverEmbed = new Discord.MessageEmbed()
                 .setTitle("**Server Information**")
                 .setThumbnail(`${serverIcon}`)
@@ -17,9 +20,9 @@ module.exports = {
                 ` look at <#722494512420618370> \n\nStudent Organizations with a sizeable` +
                 ` populous within the server may request their own channel.\n\n__**Permanent Invite Link**__\n[SCU 🐎💨 | #BroncoUp](https://discord.gg/YusWdfu)` +
                 `\n\n__**Questions / Concerns / Inquiries**__\nMessage <@${authorTag}>/<@403377362730876928> or ping away in <#709119726344732754>\n` +
-                `\n__**SCU Social Networking**__\n- [FaceBook](https://www.facebook.com/SantaClaraUniversity/)\n- [LinkedIn](https://www.linkedin.com/school/santa-clara-university/)\n- [Twitter](https://www.facebook.com/SantaClaraUniversity/)\n- [Instagram](https://instagram.com/santaclarauniversity/)\n- [YouTube](https://www.youtube.com/santaclarauniversity)`)
+                `\n__**SCU Social Networking**__\n- [FaceBook](https://www.facebook.com/SantaClaraUniversity/)\n- [Instagram](https://instagram.com/santaclarauniversity/)\n- [LinkedIn](https://www.linkedin.com/school/santa-clara-university/)\n- [Reddit](https://reddit.com/r/SCU)\n- [Twitter](https://www.facebook.com/SantaClaraUniversity/)\n- [YouTube](https://www.youtube.com/santaclarauniversity)`)
                 .setColor(10231598)
-            message.channel.send(serverEmbed);
+
             const resourcesEmbed = new Discord.MessageEmbed()
                 .setTitle("**Server Information**")
                 .setColor(10231598)
@@ -51,12 +54,14 @@ module.exports = {
                 .setImage('attachment://scu-seal.jpg')
                 .setTimestamp()
                 .setFooter('Brought to you by the creators of this Discord server.')
+
+            message.channel.send({embed: serverEmbed});
             message.channel.send({embed: resourcesEmbed});
         } else {
         const permission_embed = new Discord.MessageEmbed()
             .setColor(10231598)
             .setTitle(`Oops, an error happened...`)
-            .setDescription("You must have the following roles: " + "`Admin`, `Mod`")
+            .setDescription("You must have the following roles: " + "`Admin`, `Mod`, `admins`")
             .attachFiles(`./assets/no_perm.gif`)
             .setImage(`attachment://no_perm.gif`)
             .setThumbnail(`${serverIcon}`)

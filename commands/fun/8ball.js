@@ -1,21 +1,17 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports = {
 	name: '8ball',
-	description: '8ball!',
+    description: 'Please enter a full question with 3 or more words to get an 8-ball answer!',
+    usage: `${prefix}8ball [question]?`,
 		async execute(message, args) { 
             const prompt = args.join(' ');
 
             if(!prompt[3] || !(prompt.includes("?"))) 
                 return message.reply({embed: {
-                        title: "8Ball Command",
-                        description: "**Description:**\nPlease enter a full question with 3 or more words!",
-                        fields: [
-                            { name: "Usage:", value: "`8ball [question]`", inline: true },
-                            { name: "Example:", value: "`>8ball Will I be admin someday?`", inline: true}
-                        ],
+                        description: "Please enter a full question with 3 or more words!",
                         color: 10231598,
                         timestamp: new Date(),
                         footer: "Created by the server lords"

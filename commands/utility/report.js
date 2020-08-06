@@ -1,11 +1,12 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed, Collection } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 const config = require(`../config.json`)
 
 module.exports = {
 	name: 'report',
-    description: 'report users!',
+    description: 'Report naughty users!',
+    usage: `${prefix}report [user mention]`,
 		async execute(message, args) { 
             let target = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
             let reason = args.slice(1).join(' ');

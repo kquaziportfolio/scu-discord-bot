@@ -1,11 +1,12 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 const memes = require(`random-puppy`); //for memes
 
 module.exports = { 
     name: 'dankmemes',
-	description: 'dankmemes',
+    description: 'Get dank memes from subreddits!',
+    usage: `${prefix}dankmemes`,
 	async execute(message, args) {
         let reddit = ["meme", "memes", "dankmemes", "dankchristianmemes", "funny", "pewdiepiesubmissions"];
         let subreddit = reddit[Math.floor(Math.random() * reddit.length)];

@@ -1,11 +1,13 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 const ms = require('ms');
 
 module.exports = {
 	name: 'mute',
-    description: 'mute!',
+    description: 'Mute members!',
+    usage: `${prefix}mute <@user> | [insert reason]`,
+    guildOnly: true,
     async execute(message, args) {   
         if(message.member.hasPermission("MUTE_MEMBERS")) {
             // the mute code here
@@ -13,11 +15,7 @@ module.exports = {
             if(!user) return message.channel.send({embed: { 
                 color: 10231598,
                 title: "Mute Command",
-                fields: [
-                    {name: "Description:", value: `Mute users!`, inline: true},
-                    {name: "Usage:", value: "`>mute <@user> | [insert reason]`", inline: true},
-                    {name: "Example:", value: ">mute <@DiHydrogenMonoxide | Being Admin`", inline: true},
-                ],
+                description: `Here's an example: ${prefix}mute <@DiHydrogenMonoxide | Being Admin`,
                 timestamp: new Date(),
             }});
     

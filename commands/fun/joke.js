@@ -1,13 +1,14 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 const JOKES = require(`./jokes.json`); //for jokes
 const jokes_list = JOKES.jokes;
 
 module.exports = {
     name: 'joke',
-    description: 'joke!',
-    execute(message, args) { 
+    description: 'Get a random joke here!',
+    usage: `${prefix}joke`,
+    async execute(message, args) { 
         function randomJoke() {
             return jokes_list[Math.floor(Math.random() * jokes_list.length)];
         }

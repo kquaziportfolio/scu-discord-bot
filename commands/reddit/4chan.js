@@ -2,10 +2,12 @@ const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
 const emojiCharacters = require(`../emoji-characters`); //for emojis
 const memes = require(`random-puppy`); //for memes
+const { prefix } = require('../config.json');
 
 module.exports = { 
     name: '4chan',
-	description: '4chan',
+    description: 'Get your 4Chan memes from subreddits!',
+    usage: `${prefix}4chan`,
 	async execute(message, args) {
         let reddit = ["4chan", "4chanmeta", "4chanexploitables", "classic4chan", "bannedfrom4chan", "greentext"];
         let subreddit = reddit[Math.floor(Math.random() * reddit.length)];
@@ -40,7 +42,7 @@ module.exports = {
                     .setTitle(`Oops, wait 5 seconds...`)
                     .setImage(`https://pics.me.me/thumb_you-wanna-have-a-bad-time-memegenerator-net-you-wanna-have-a-53294110.png`)
                     .setTimestamp()
-                    .setFooter("Use `>` before each command!")
+                    .setFooter("Use `&` before each command!")
                     message.channel.send(embed);
                     console.log(err);
                 });

@@ -1,17 +1,18 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const { prefix } = require('../config.json');
 
 module.exports  = {
     name: 'dm',
     description: 'direct message!',   
+    guildOnly: true,
     async execute(message, args) {
         const dmInstructions = new Discord.MessageEmbed()
         .setColor(10231598)
         .setTitle("Single Direct Message Command")
         .addField("Description:", `Single direct messaging`, true)
-        .addField("Usage:", "`>dm [single user mention] | [message]`", true)
-        .addField("Example:", ">dm @DiHydrogenMonoxide | [message]!")
+        .addField("Usage:", "`&dm [single user mention] | [message]`", true)
+        .addField("Example:", "&dm @DiHydrogenMonoxide | [message]!")
         .setTimestamp()
 
         const mentionedUser = message.mentions.members.first();
@@ -22,11 +23,11 @@ module.exports  = {
         .then(console.log(`Message sent to ${mentionedUser}`))
         .catch(err => `Error: ${err}`)
     
-        if (!(message.member.roles.cache.some(role => role.name == ['Admin' || 'Mod']))) {
+        if ((!message.member.roles.cache.has('710593727864897646', '709118762707845211'))) {
             const permission_embed = new Discord.MessageEmbed()
             .setColor(10231598)
             .setTitle(`Oops, an error happened...`)
-            .setDescription("You must have the following roles: " + "`Admin`, `Mod`")
+            .setDescription("You must have the following roles: " + "`Admin`, `Mod`, `admins`")
             .setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
             .setTimestamp()
             message.channel.send(permission_embed)

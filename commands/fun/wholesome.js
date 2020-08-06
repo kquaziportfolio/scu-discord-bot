@@ -1,11 +1,12 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
 const memes = require(`random-puppy`); //for memes
+const { prefix } = require('../config.json');
 
 module.exports = { 
     name: 'wholesome',
-	description: 'wholesome',
+    description: 'Get your wholesome memes from subreddits here!',
+    usage: `${prefix}wholesome`,
 	async execute(message, args) {
         let reddit = ["wholesome", "wholesomegifs", "unexpectedlywholesome", "wholesomeyuri", 
         "wholesomebpt", "wholesomegreentext", "wholesomecomics", "wholesomememes", 

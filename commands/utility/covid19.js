@@ -1,19 +1,14 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fetch = require(`node-fetch`);
+const { prefix } = require('../config.json');
 
 module.exports = {
     name: 'covid19', //forked from Raptor SA
-    description: 'coronavirus tracker api command', //here is a change in the file
+    description: 'Get daily and instant COVID-19 data here!', //here is a change in the file
+    usage: `${prefix}covid19 global __**OR**__ ${prefix}covid19 [state abbreviation] __**OR**__ ${prefix}covid19 county`,
+    guildOnly: true,
         async execute (message, args) {
-
-            const covid19Instructions = new Discord.MessageEmbed()
-            .setColor(10231598)
-            .setTitle("COVID-19 Command")
-            .addField("Description:", `Get daily and instant COVID-19 data with the prompting of a command`, true)
-            .addField("Usage:", "`>covid19 global | >covid19 (state abbreviation) | >covid19 county`", true)
-            .addField("Example:", ">covid19 ca")
-            .setTimestamp()
 
             let covid19Channel = message.guild.channels.cache.find(channel => channel.name === "covid-19");
 
@@ -74,18 +69,17 @@ module.exports = {
 
             const COVID_EMBED3 = new Discord.MessageEmbed() 
             COVID_EMBED3.setTitle(`__**Santa Clara County, CA's COVID-19 Status Tracker**__`)
-            COVID_EMBED3.setDescription(`Here is ${data3.message[68].county_name} County, ${data3.message[68].state_name}'s data as of today.`)
-            COVID_EMBED3.addField(`Confirmed Cases: `, data3.message[68].confirmed, true)
-            COVID_EMBED3.addField(`New Cases: `, data3.message[68].new, true)
-            COVID_EMBED3.addField(`Death Cases: `, data3.message[68].death, true)
-            COVID_EMBED3.addField(`New Deaths: `, data3.message[68].new_death, true)
-            COVID_EMBED3.addField(`Fatality Rate: `, data3.message[68].fatality_rate, true)
+            COVID_EMBED3.setDescription(`Here is ${data3.message[10].county_name} County, ${data3.message[10].state_name}'s data as of today.`)
+            COVID_EMBED3.addField(`Confirmed Cases: `, data3.message[10].confirmed, true)
+            COVID_EMBED3.addField(`New Cases: `, data3.message[10].new, true)
+            COVID_EMBED3.addField(`Death Cases: `, data3.message[10].death, true)
+            COVID_EMBED3.addField(`New Deaths: `, data3.message[10].new_death, true)
+            COVID_EMBED3.addField(`Fatality Rate: `, data3.message[10].fatality_rate, true)
             COVID_EMBED3.addField(`\u200B`, `\u200B`, true)
             COVID_EMBED3.setFooter(`Brought to you by the server lords on ${targetDate}`)
             COVID_EMBED3.setTimestamp()
             COVID_EMBED3.setColor(10231598)
             
-            if (!args[0]) return message.channel.send(covid19Instructions).catch(err => `Error: ${err}`)
             if (args[0] === "global") return covid19Channel.send(COVID_EMBED1).catch(err => `Error: ${err}`)
             if (args[0].length == 2) { 
                 covid19Channel.send(COVID_EMBED2).catch(err => `Error: ${err}`)
