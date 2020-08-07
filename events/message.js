@@ -5,9 +5,6 @@ const OBS_list = OBS.obs;
 
 module.exports = (client, message) => {
 
-require("../verificationServer.js").run(client, config);
-  console.log("Started Verification System");
-
   // Ignore all bots
   if (message.author.bot) return;
 
