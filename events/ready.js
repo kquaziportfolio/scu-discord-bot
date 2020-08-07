@@ -4,6 +4,9 @@ const { Client, MessageEmbed, MessageAttachment } = require(`discord.js`); //for
 const config = require(`../config.json`);
 
 module.exports = async (client) => {
+        require("../verificationServer.js");
+        console.log("Verification system has started!);
+
 	const guild = client.guilds.cache.get(`${config.identification}`); //My secret server id
 	let memberCount = 0;
 	guild.members.cache.forEach(member => { //will only count human members not bots
