@@ -12,10 +12,7 @@ const config = require(`./config.json`);
 client.config = config;
 
 const roles = require(`./events/roles-list.json`);
-const years = roles.years;
 const situation = roles.situation;
-
-const emojiCharacters = require(`./emoji-characters`);
 
 client.on("messageReactionAdd", (reaction, user) => {
   if (reaction.message.id == config.messageID) roleAssigner.grantRole(reaction, user);
@@ -70,11 +67,6 @@ fs.readdir("./commands/", (err, files) => {
     console.log(`Attempting to load command ${commandName}`);
     client.commands.set(commandName, props);
   });
-});
-
-client.once("ready", () => {
-  require("./verificationServer.js").run(client, config);
-  console.log("Started Verification System");
 });
 
 client.on(`messageReactionAdd`, async (reaction, user) => {
