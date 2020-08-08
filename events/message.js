@@ -4,11 +4,10 @@ const OBS = require(`./obs.json`);
 const OBS_list = OBS.obs;
 
 module.exports = (client, message) => {
-
   // Ignore all bots
   if (message.author.bot) return;
 
-  const guild = client.guilds.cache.get(`${config.identification}`);
+  const guild = client.guilds.cache.get(`${config.verification.guildID}`);
   const sicon = guild.iconURL();
   const memberTag = message.author.id;
 
@@ -23,7 +22,7 @@ module.exports = (client, message) => {
             name: `**Blacklisted Word Detected**`, 
             icon_url: `${sicon}`,
           },		
-          description: `<@${message.author.id}> , this is the Official Santa Clara University Discord Network! Please refrain from such speech immediately! You've been warned!`,
+          description: `<@${memberTag}> , this is the Official Santa Clara University Discord Network! Please refrain from such speech immediately! You've been warned!`,
           color: 10231598,
           thumbnail: {
             "url": "attachment://ohno.jpg",
@@ -35,7 +34,7 @@ module.exports = (client, message) => {
           timestamp: new Date()
         }});
 
-        auditLogs.send({ embed: { title: `__**Blacklisted Word Detected!**__`, description: `<@${message.author.id}> said the following word - ||${OBS_list[i]}|| - in ${message.channel}`, timestamp: new Date(), color: 10231598}});
+        auditLogs.send({ embed: { title: `__**Blacklisted Word Detected!**__`, description: `<@${memberTag}> said the following word - ||${OBS_list[i]}|| - in ${message.channel}`, timestamp: new Date(), color: 10231598}});
 
         return message.delete();
       }
@@ -58,7 +57,7 @@ module.exports = (client, message) => {
   A prime example of this would be a kick command. You can add a property to the necessary 
   commands to determine whether or not it should be only available outside of servers.*/
 
-  if (command.guildOnly && message.channel.type !== 'text') {
+  if (command.guildOnly != false && message.channel.type !== 'text') {
     return message.channel.send({ embed: { description: `<@${message.author.id}>, I can't execute that command inside DMs!` }});
   }
 
@@ -73,7 +72,7 @@ module.exports = (client, message) => {
   }
 
   // If that command doesn't exist, silently exit and do nothing
-  if (!client.commands.has(commandName)) return;
+  if (!client.commands.has(`${commandName}`)) return message.channel.send("That's not a command!");
 
   const cooldowns = new Discord.Collection();
 
@@ -101,8 +100,6 @@ module.exports = (client, message) => {
   // Run the command
     command.execute(message, args);
   } catch(err) {
-    let channel = message.guild.channels.find(channel => channel.name === "audit-logs");
-    console.log(err);
-    channel.send({embed: { description: `There was an error trying to execute \`${command.name}\`:\n\`${err.message}\``}});
+    auditLogs.send({embed: { description: `There was an error trying to execute \`${command.name}\`:\n\`${err.message}\``}});
   }
 }

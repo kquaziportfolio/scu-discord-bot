@@ -5,7 +5,7 @@ module.exports = async (error, message) => {
     
     // Only log the error if it is not an Unknown Message error
 	if (error.code === 10008) {
-		auditLogs.error({ embed: { description: `Failed to delete the message: ${error}`}});
+		auditLogs.send({ embed: { description: `Failed to delete the message: ${error}`}});
 	} else if (error.code === 50034) {
         auditLogs.send({ embed: { description: `A message provided was too old to bulk delete: ${error}` }});
     } else if (error.code === 50035) {

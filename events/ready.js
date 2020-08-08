@@ -5,7 +5,10 @@ module.exports = async (client) => {
 	console.log("Verification system has started!");
 
 	const guild = client.guilds.cache.get(`${config.verification.guildID}`); //My secret server id
+<<<<<<< HEAD
 
+=======
+>>>>>>> f0aec52... UPDATED
 	let memberCount = 0;
 	guild.members.cache.forEach(member => { //will only count human members not bots
 		if(!member.user.bot) memberCount++;
