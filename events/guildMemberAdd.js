@@ -9,11 +9,9 @@ module.exports = async (client, member, message) => {
   await member.roles.add(role).catch((err) => console.log((err) => `Error: ${err}`));
 
   auditLogs.send({ embed: { description: `The **Unverified** role has been given to **${member.user.tag}** by **${client.user.tag}**!` } });
-<<<<<<< HEAD
-  const guild = client.guilds.cache.get(`${config.identification}`);
-=======
+
   const guild = client.guilds.cache.get(`${config.verification.guildID}`);
->>>>>>> 1273054... UPDATED - 8/8/20
+
   let memberCount = 0;
   guild.members.cache.forEach((member) => {
     //will only count human members not bots
@@ -55,8 +53,4 @@ module.exports = async (client, member, message) => {
   member.send(welcome_Embed); //send private DM to new user
 
   auditLogs.send({ embed: { description: `${memberTag} is the ${memberCount}th member to join ${guild.name}!` } });
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 1273054... UPDATED - 8/8/20
