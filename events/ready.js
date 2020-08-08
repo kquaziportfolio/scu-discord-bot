@@ -1,13 +1,17 @@
-const Discord = require(`discord.js`); //requires Discord.js integration package
-const client = new Discord.Client();
-const { Client, MessageEmbed, MessageAttachment } = require(`discord.js`); //for embed functionality
 const config = require(`../config.json`);
 
 module.exports = async (client) => {
+<<<<<<< HEAD
         require("../verificationServer.js");
         console.log("Verification system has started!);
 
 	const guild = client.guilds.cache.get(`${config.identification}`); //My secret server id
+=======
+	require("../serverVerification.js");
+	console.log("Verification system has started!");
+
+	const guild = client.guilds.cache.get(`${config.verification.guildID}`); //My secret server id
+>>>>>>> 1273054... UPDATED - 8/8/20
 	let memberCount = 0;
 	guild.members.cache.forEach(member => { //will only count human members not bots
 		if(!member.user.bot) memberCount++;
