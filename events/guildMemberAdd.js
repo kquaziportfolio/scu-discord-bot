@@ -21,6 +21,8 @@ module.exports = async (client, member) => {
 
   const sicon = guild.iconURL();
 
+  if(member.user.bot) return;
+
   const welcome_Embed1 = new MessageEmbed() // triggers when new users joins to specific channel in server
   .setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor.
   .setDescription(`<@${memberTag}> has joined **${guild.name}**! ` + `Be sure to follow instructions in the DM! Go Broncos!`) //Setting embed description
