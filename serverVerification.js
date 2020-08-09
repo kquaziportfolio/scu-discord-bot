@@ -36,8 +36,8 @@ module.exports.run = (client, config) => {
     app.use(cors());
     app.use(helmet());
     //This will start on port 2000, if this collides with another service you may change it
-    app.listen(5534, () => {
-      console.log("Verification listening at port 5534");
+    app.listen(2000, () => {
+      console.log("Verification listening at port 2000");
     });
     app.all("/", (req, res) => {
       res.status(200).send({ error: "Invalid Path" });
