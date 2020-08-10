@@ -1,14 +1,19 @@
 const config = require(`../config.json`);
 
 module.exports = async (client) => {
-	require("../serverVerification.js").run(client, config);
-	console.log("Verification system has started!");
+	const guild = client.guilds.cache.get(config.verification.guildID);
 
-	const guild = client.guilds.cache.get(`${config.verification.guildID}`); //My secret server id
-<<<<<<< HEAD
+	require("../serverVerification.js").run(client, config); //start server verification file in ready event
+	
+	let auditLogs = guild.channels.cache.find(channel => channel.name === "audit-logs");
+	const verifyMSG = {
+		title: "This also works! Hurray!",
+		description: "Verification system has started! ✅",
+		color: "GREEN"
+	};
+	console.log(verifyMSG.description);
+	auditLogs.send({ embed: verifyMSG});
 
-=======
->>>>>>> afd3483... UPDATED 8/9/2020
 	let memberCount = 0;
 	guild.members.cache.forEach(member => { //will only count human members not bots
 		if(!member.user.bot) memberCount++;
