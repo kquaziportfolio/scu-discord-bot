@@ -56,13 +56,12 @@ module.exports.run = (client, config) => {
       //data in body checker
     } else if (Object.keys(req.body).length > 0) {
       res.status(200).send({ status: "Successful" });
-      sendMessage(client, "audit-logs", { embed: { title: `Verification Alert!`, description: `✅ Verification: New data from **${req.body.discord}** (**${req.body.name}**)`, color: Z}});
+      sendMessage(client, "audit-logs", { embed: { title: `__**Verification Alert!**__`, description: `✅ Verification: New data from **${req.body.discord}** (**${req.body.name}**)`, color: 10231598}});
       //find member in guild
       let member = guild.members.cache.find((member) => member.user.tag == req.body.discord);
       //if the member isnt in the guild return an error in console
       if (member == null) {
-        console.log(`Verification ${req.body.discord} returned ${member}`);
-        sendMessage(client, "audit-logs", { embed: { description: `__ ❌ SCU Discord Network Verification__\n> **${req.body.discord}** returned ${member}\n> Contact an <@&709118762707845211> or <@&710593727864897646> to fix`, color: 10231598}});
+        member.send({ embed: { description: `__ ❌ SCU Discord Network Verification__\n> **${req.body.discord}** returned ${member}\n> Contact an **ADMIN** or **MOD** to fix`, color: 10231598}});
         return;
       }
       //if the member already has the join role that means they are already verified so.. tell them that someone is about to hacks them!!
@@ -70,7 +69,7 @@ module.exports.run = (client, config) => {
         return member.send({
           embed: {
             description: "❌ Someone tried to verify their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an <@&709118762707845211> or <@&710593727864897646>!",
-            color: 2582446,
+            color: 10231598,
             footer: {
               text: "SCU Discord Network Verification",
             },
@@ -91,6 +90,7 @@ module.exports.run = (client, config) => {
       //send them a confirmation
       member.send({
         embed: {
+          title: `__**Successful Verification**__`,
           description: `✅ You have been verified successfully in the **${guild.name}** Discord server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#709118412542050368> for more information!`,
           color: 10231598,
           footer: {
@@ -123,8 +123,8 @@ module.exports.run = (client, config) => {
           ],
         },
       });
-      sendMessage(client, "welcome", { embed: { title: `__**NEW VERIFIED MEMBER!**__`, description: `✅ **<@${member.user.id}>** is now verified, everyone welcome ${req.body.name} to the server!`, color: 10231598}});
-      sendMessage(client, "verification-logs", { embed: { description: `**__New Verified User! ✅__**\n**Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Class:** ${req.body.class}\n**Discord:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: 10231598}});
+      guild.channels.cache.get(config.welcomeChannelID).send({ embed: { title: `__**NEW VERIFIED MEMBER!**__`, description: `✅ **<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: 10231598}});
+      sendMessage(client, "verification-logs", { embed: { description: `**__New Verified User! ✅__**\n**Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Class:** ${req.body.class}\n**Discord Tag:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: 10231598}});
     } else {
         //if no body.. return this
         res.status(401).send({ error: "No data found" });
