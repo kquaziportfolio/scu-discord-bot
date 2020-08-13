@@ -17,5 +17,4 @@
 
 ## Creator(s):
 - Jason Vu = Discord server admin, moderator, and back-end
-- Bennett Nguyen = Discord server admin and moderator
 - Samuel Stephen = Discord server moderator and back-end
