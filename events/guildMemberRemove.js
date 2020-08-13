@@ -15,7 +15,7 @@ module.exports = async (client, member) => {
 	let leaveEmbed = new MessageEmbed() // Creating instance of Discord.MessageEmbed()
 		.setDescription(`<@${memberTag}> has left **${guild.name}** which now has ${memberCount} members!`) //Setting embed description
 		.setTimestamp() // Sets a timestamp at the end of the embed
-		.setColor(10231598)
+		.setColor(config.school_color)
 	
 	auditLogs.send(leaveEmbed);
 }

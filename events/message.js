@@ -23,7 +23,7 @@ module.exports = (client, message) => {
             icon_url: `${sicon}`,
           },		
           description: `<@${memberTag}> , this is the Official Santa Clara University Discord Network! Please refrain from such speech immediately! You've been warned!`,
-          color: 10231598,
+          color: config.school_color,
           thumbnail: {
             "url": "attachment://ohno.jpg",
           },

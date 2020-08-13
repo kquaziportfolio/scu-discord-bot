@@ -1,215 +1,4 @@
 {	
-      "message_channel_id": "722494512420618370",
-
-      "soe_majors": [
-       {
-        "Bioengineering": "710973616518594691"
-       },
-       {
-        "Computer_Science_and_Engineering_SOE": "710973812690255884"
-       },
-       {
-        "Civil_Engineering": "710974078839816294"
-       },
-       {
-        "Electrical_Engineering": "710974214718488648"
-       },
-       {
-        "Electrical_and_Computer_Engineering": "710974232498274355"
-       },
-       {
-        "General_Engineering": "710974256460333197"
-       },
-       {
-        "Mechanical_Engineering": "710974287208644669"
-       },
-       {
-        "Web_Design_and_Engineering": "710974309027282975"
-       },
-       {
-        "Undeclared_Engineering": "712342011792982047"
-       }
-      ],
-      "lsb_majors": [
-       {
-        "Accounting": "710976099206692865"
-       },
-       {
-        "Accounting_and_Information_Systems": "710976124338962462"
-       },
-       {
-        "Economics_LSB": "710976143930687598"
-       },
-       {
-        "Finance": "710976154948993054"
-       },
-       {
-        "Individual_Studies_LSB": "710976196300767353"
-       },
-       {
-        "Management": "712003699014238278"
-       },
-       {
-        "Management_and_Entrepreneurship": "710976224662519959"
-       },
-       {
-        "Management_Information_Systems": "710976291599286394"
-       },
-       {
-        "Marketing": "710976306132549694"
-       },
-       {
-        "Undeclared_Business": "712341874303565975"
-       }
-      ],
-      "cas_majors": [
-       {
-        "Anthropology": "710977674172170330"
-       },
-       {
-        "Art_History": "710977706522574960"
-       },
-       {
-        "Biochemistry": "710977740404293713"
-       },
-       {
-        "Biology": "710977750881796157"
-       },
-       {
-        "Chemistry": "710977765733564498"
-       },
-       {
-        "Child_Studies": "710977782250733585"
-       },
-       {
-        "Classical_Studies": "710977800911192074"
-       },
-       {
-        "Communication": "710977826148319252"
-       },
-       {
-        "Computer_Science_CAS": "710977990238142484"
-       },
-       {
-        "Economics_CAS": "710978049214120027"
-       },
-       {
-        "Engineering_Physics": "710978077278208020"
-       },
-       {
-        "English": "710978091140251669"
-       },
-       {
-        "Environmental_Science": "710978120026554398"
-       },
-       {
-        "Environmental_Studies": "710978134287188101"
-       },
-       {
-        "Ethnic_Studies": "710978157070516367"
-       },
-       {
-        "Greek_Language_and_Literature": "710978198938321007"
-       },
-       {
-        "History": "710978212611620985"
-       },
-       {
-        "Individual_Studies_CAS": "710978254193819709"
-       },
-       {
-        "Latin_and_Greek": "710978302654808134"
-       },
-       {
-        "Latin_Language_and_Literature": "710978329028591707"
-       },
-       {
-        "Mathematics": "710978362595868724"
-       },
-       {
-        "Military_Science": "710978393130401863"
-       },
-       {
-        "MLAL_Arabic": "711281540277207042"
-       },
-       {
-        "MLAL_Chinese": "711277904847306843"
-       },
-       {
-        "MLAL_French": "711277934643773590"
-       },
-       {
-        "MLAL_German": "711278137521995796"
-       },
-       {
-        "MLAL_Italian": "711278027538956298"
-       },
-       {
-        "MLAL_Japanese": "711278065220845619"
-       },
-       {
-        "MLAL_Spanish": "711278091724521472"
-       },
-       {
-        "Music": "710978437606670407"
-       },
-       {
-        "Neuroscience": "710978457055526915"
-       },
-       {
-        "Philosophy": "710978474453631018"
-       },
-       {
-        "Physics": "710978494108270653"
-       },
-       {
-        "Political_Science": "710978514287067205"
-       },
-       {
-        "Psychology": "710978526152491098"
-       },
-       {
-        "Religious_Studies": "710978596067475456"
-       },
-       {
-        "Sociology": "710978608746856469"
-       },
-       {
-        "Studio_Art": "710978624500662353"
-       },
-       {
-        "Theatre_and_Dance": "710978663041990706"
-       },
-       {
-        "Womens_and_Gender_Studies": "710978692540792862"
-       },
-       {
-        "Undeclared_Arts_and_Sciences": "712342112775045150"
-       }
-      ],
-      "years": [
-       {
-        "Alumni": "710681043799113819"
-       },
-       {
-        "Grad_Student": "710681055438569574"
-       },
-       {
-        "twenty": "710753571104358442"
-       },
-       {
-        "twenty_one": "710753535851233351"
-       },
-       {
-        "twenty_two": "710753277892886640"
-       },
-       {
-        "twenty_three": "710753229973094450"
-       },
-       {
-        "twenty_four": "710753200810229800"
-       }
-      ],
       "situation": [
        {
         "Commuter": "710680935854506113"
@@ -232,9 +21,27 @@
         "LEAD": "730196218902479011"
        }
       ],
-      "fun": [
-      {
-      "Gamer": "710680888354275378"
-      }
+      "hobbies": [
+            {
+            "Art": "743295951887663156"
+            },
+            { 
+            "Cars": "743296265600893018"
+            },
+            {
+                  "Fitness_and_Sports": "743296096876625982"
+            },
+            {
+                  "Gamer": "710680888354275378"
+            },
+            {
+                  "Music": "743296591393325117"
+            },
+            {
+                  "Pets": "743296364640862219"
+            },
+            {
+                  "Tech": "743296489023078400"
+            }
       ]
 }
