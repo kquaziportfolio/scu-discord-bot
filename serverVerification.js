@@ -27,32 +27,30 @@ module.exports.run = (client, config) => {
         "major": "Current Major",
         "class": "Graduating class year",
         "discord": "Discord Username with Tag"
-    }
-  */
-
+    }*/
   //define guild from ID in config
   const guild = client.guilds.cache.get(config.verification.guildID);
   app.use(express.json());
   app.use(cors());
   app.use(helmet());
   //This will start on port 2000, if this collides with another service you may change it
-  app.listen(5354, () => {
+  app.listen(3000, () => {
     const verifyMSG = {
       title: "It works!",
-      description: "Verification listening at port 5354! ✅",
+      description: "Verification listening at port 3000! ✅",
       color: "GREEN"
     }
     console.log(verifyMSG.description);
     sendMessage(client, "audit-logs", { embed: verifyMSG});
   });
   app.all("/", (req, res) => {
-    res.status(200).send({ error: "Invalid Path ❌" });
+    res.status(200).send({ error: "❌ Invalid Path" });
   });
   app.post("/verify", (req, res) => {
     //some basic auth
     if (req.headers["key"] != config.verification.key) {
       //api key checker
-      res.status(401).send({ error: "Invalid API Key ❌" });
+      res.status(401).send({ error: "❌ Invalid API Key" });
       //data in body checker
     } else if (Object.keys(req.body).length > 0) {
       res.status(200).send({ status: "Successful" });
@@ -61,8 +59,7 @@ module.exports.run = (client, config) => {
       let member = guild.members.cache.find((member) => member.user.tag == req.body.discord);
       //if the member isnt in the guild return an error in console
       if (member == null) {
-        member.send({ embed: { description: `__ ❌ SCU Discord Network Verification__\n> **${req.body.discord}** returned ${member}\n> Contact an **ADMIN** or **MOD** to fix`, color: config.school_color}});
-        return;
+        member.send({ embed: { title: `__**❌ SCU Discord Network Verification**__`, description: `**${req.body.discord}** returned ${member}\n> Contact an **ADMIN** or **MOD** to fix`, color: config.school_color}});
       }
       //if the member already has the join role that means they are already verified so.. tell them that someone is about to hacks them!!
       if (member.roles.cache.has(guild.roles.cache.find((role) => role.id == config.server_roles.verified_student).id))
@@ -123,11 +120,12 @@ module.exports.run = (client, config) => {
           ],
         },
       });
-      guild.channels.cache.get(config.welcomeChannelID).send({ embed: { title: `__**NEW VERIFIED MEMBER!**__`, description: `✅ **<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: config.school_color}});
-      sendMessage(client, "verification-logs", { embed: { description: `**__New Verified User! ✅__**\n**Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Class:** ${req.body.class}\n**Discord Tag:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: config.school_color}});
+      guild.channels.cache.get(config.welcomeChannelID).send({ embed: { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `**<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: config.school_color}});
+      let verifyChannel = guild.channels.cache.find(channel => channel.name === "verification-logs");
+      verifyChannel.send({ embed: { description: `**__✅ New Verified User!__**\n**Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Class:** ${req.body.class}\n**Discord Tag:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: config.school_color}}).then(m => m.react('👍'));
     } else {
         //if no body.. return this
         res.status(401).send({ error: "No data found" });
     }
   });
-};
+}; 

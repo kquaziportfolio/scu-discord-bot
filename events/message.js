@@ -7,12 +7,12 @@ module.exports = (client, message) => {
   // Ignore all bots
   if (message.author.bot) return;
 
-  const guild = client.guilds.cache.get(`${config.verification.guildID}`);
-  const sicon = guild.iconURL();
+  //const guild = client.guilds.cache.get(config.verification.guildID);
+  //const sicon = guild.iconURL();
   const memberTag = message.author.id;
 
   let word = message.content.toLowerCase().split(" ");
-  let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
+  //let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
 
   try {
     for (let i = 0; i < OBS_list.length; i++) {
@@ -34,13 +34,13 @@ module.exports = (client, message) => {
           timestamp: new Date()
         }});
 
-        auditLogs.send({ embed: { title: `__**Blacklisted Word Detected!**__`, description: `<@${memberTag}> said the following word - ||${OBS_list[i]}|| - in ${message.channel}`, timestamp: new Date(), color: 10231598}});
+        message.channel.send({ embed: { title: `__**Blacklisted Word Detected!**__`, description: `<@${memberTag}> said the following word - ||${OBS_list[i]}|| - in ${message.channel}`, timestamp: new Date(), color: 10231598}});
 
         return message.delete();
       }
     }
   } catch (e) {
-      auditLogs.send({ embed: { description: `There was an error: ${e}`}});
+      console.log(err);
   }
 
   // Ignore messages not starting with the prefix (in config.json)

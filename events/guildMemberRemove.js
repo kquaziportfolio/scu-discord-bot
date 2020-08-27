@@ -2,7 +2,7 @@ const { MessageEmbed } = require(`discord.js`);
 const config = require(`../config.json`);
 
 module.exports = async (client, member) => {
-    const guild = client.guilds.cache.get(`${config.verification.guildID}`);
+    const guild = client.guilds.cache.get(config.verification.guildID);
 	let memberCount = 0;
 	guild.members.cache.forEach(member => {  //counts total human members at that point in time
 		if(!member.user.bot) memberCount++;

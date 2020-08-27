@@ -1,5 +1,4 @@
-const Discord = require(`discord.js`); //requires Discord.js integration package
-const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
+const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require('../config.json');
 
 module.exports = { 

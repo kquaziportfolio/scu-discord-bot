@@ -1,7 +1,7 @@
-const config = require(`../config.json`);
+//const config = require(`../config.json`);
 
 module.exports = async (client) => {
-	const guild = client.guilds.cache.get(config.verification.guildID);
+	/*const guild = client.guilds.cache.get(config.verification.guildID);
 
 	require("../serverVerification.js").run(client, config); //start server verification file in ready event
 	
@@ -18,14 +18,9 @@ module.exports = async (client) => {
 	guild.members.cache.forEach(member => { //will only count human members not bots
 		if(!member.user.bot) memberCount++;
 		return memberCount;
-	});
-
-	const avatar = "https://thehoya.com/wp-content/uploads/2019/04/19.03.26_FrKevinOBrien_SantaClaraUniversity.png";
-	client.user.setAvatar(avatar);
+	}); */
 
 	let statuses = [
-		`Preaching to ${memberCount} members in the ${guild.name} server!`, 
-		`Reflecting in silence with ${memberCount} members in the ${guild.name} server!`,
 		`Welcome to Santa Clara University in heart of the Silicon Valley — the world’s most innovative and entrepreneurial region!`,
 		`A Catholic and Jesuit university is a place of encounter: where the university encounters the world.`,
 		`I'm the 29th President of Santa Clara University!`,
