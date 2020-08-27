@@ -25,7 +25,7 @@ module.exports = async (client, member) => {
 
   const welcome_Embed1 = new MessageEmbed() // triggers when new users joins to specific channel in server
   .setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor.
-  .setDescription(`<@${memberTag}> has joined **${guild.name}**! ` + `Be sure to follow instructions in <#722494512420618370>! Go Broncos!`) //Setting embed description
+  .setDescription(`<@${memberTag}> has joined **${guild.name}**! ` + `Be sure to follow instructions from Father O'Brien! Go Broncos!`) //Setting embed description
   .setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!
   .setTimestamp() // Sets a timestamp at the end of the embed
   .attachFiles([`./assets/scu-background.png`])
