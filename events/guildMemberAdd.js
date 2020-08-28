@@ -5,7 +5,7 @@ const emojiCharacters = require(`../emoji-characters.js`);
 module.exports = async (client, member) => {
   let auditLogs = member.guild.channels.cache.find(channel => channel.name === "audit-logs");
 
-  let role = member.guild.roles.cache.find((role) => role.name === "Unverified");
+  let role = member.guild.roles.cache.find((role) => role.id == config.serverRoles.unverifiedStudent);
   await member.roles.add(role);
 
   const memberTag = member.user.id;
@@ -25,7 +25,11 @@ module.exports = async (client, member) => {
 
   const welcome_Embed1 = new MessageEmbed() // triggers when new users joins to specific channel in server
   .setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor.
+<<<<<<< HEAD
   .setDescription(`<@${memberTag}> has joined **${guild.name}**! ` + `Be sure to follow instructions from Father O'Brien! Go Broncos!`) //Setting embed description
+=======
+  .setDescription(`<@${memberTag}> has joined **${guild.name}**! ` + `Be sure to follow instructions in the DM! Go Broncos!`) //Setting embed description
+>>>>>>> 5eac61f... UPDATED 8/28/2020
   .setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!
   .setTimestamp() // Sets a timestamp at the end of the embed
   .attachFiles([`./assets/scu-background.png`])
@@ -39,10 +43,10 @@ module.exports = async (client, member) => {
     .setTitle(`Invent the life you want to lead at Santa Clara University.`)
     .setDescription(
       `${emojiCharacters.one} If you are new to Discord, this short [tutorial](https://youtu.be/KfaLP44-ISE) can help you get started! \n\n` +
-      `${emojiCharacters.two} __**Please**__ fill out the Google Form :clipboard: in the <#722494512420618370> to __**immediately**__ verify yourself and get roles in the SCU server! It'll only take a couple seconds! Note: If you're a guest or alumni, you are exempted from this requirement. \n\n` +
-      `${emojiCharacters.three} Read the <#709118412542050368> channel and introduce yourself :wave: in the <#709119648368427018> channel! \n\n` +
-      `${emojiCharacters.four} Check out SCU updates :mega: in <#725419734010691685> and keep your eyes peeled for cool servers :cool: in <#741509470190043188>! \n\n` +
-      `${emojiCharacters.five} If you have any technical issues :computer:, feel free to contact **ADMIN** or **MOD** for quick and speedy aid!\n\n` +
+      `${emojiCharacters.two} __**Please**__ fill out the Google Form :clipboard: in the <#${config.rolesChannelID}> to __**immediately**__ verify yourself and get roles in the SCU server! It'll only take a couple seconds! Note: If you're a guest, you are exempted from this requirement. \n\n` +
+      `${emojiCharacters.three} Read the <#${config.infoChannelID}> channel and introduce yourself :wave: in the <#${config.introsChannelID}> channel! \n\n` +
+      `${emojiCharacters.four} Check out SCU updates :mega: in <#${config.updatesChannelID}> and keep your eyes peeled for cool servers :cool: in <#${config.discordPromosChannelID}>! \n\n` +
+      `${emojiCharacters.five} If you have any technical issues :computer:, feel free to contact **<@&${config.serverRoles.admin}>** or **<@&${config.serverRoles.mod}>** for quick and speedy aid!\n\n` +
       `Thank you for your cooperation and Go Broncos! :racehorse:`
     )
     .setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!

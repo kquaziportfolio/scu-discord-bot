@@ -95,7 +95,11 @@ module.exports.run = (client, config) => {
       member.send({
         embed: {
           title: `__**Successful Verification**__`,
+<<<<<<< HEAD
           description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **<@&${config.serverRoles.admin}>** or **<@${config.serverRoles.mod}>** to quickly adjust your roles! Remember to read <#${config.infoChannelID}> for more information!`,
+=======
+          description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.infoChannelID}> for more information!`,
+>>>>>>> 5eac61f... UPDATED 8/28/2020
           color: config.school_color,
           footer: {
             text: "SCU Discord Network Verification",
@@ -107,6 +111,7 @@ module.exports.run = (client, config) => {
           image: {
             url: guild.splashURL(),
           },
+          timestamp: new Date(),
           fields: [
             {
               name: "Full Name",
@@ -127,12 +132,22 @@ module.exports.run = (client, config) => {
           ],
         },
       });
+<<<<<<< HEAD
       guild.channels.cache.get(config.welcomeChannelID).send({ embed: { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `✅ **<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: config.school_color}}).then(m => m.react('👋'));
       let verificationChannel = guild.channels.cache.find(channel => channel.name === "verification-logs");
       verificationChannel.send({ embed: { description: `**__✅ New Verified User! __**\n**Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Member Status:** ${req.body.status}\n**Discord Tag:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: config.school_color}}).then(m => m.react('👍'));
+=======
+      guild.channels.cache.get(config.welcomeChannelID).send({ embed: { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `✅ **<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👋'));
+      let verificationChannel = guild.channels.cache.find(channel => channel.name === "verification-logs");
+      verificationChannel.send({ embed: { description: `**__✅ New Verified User! __**\n**Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Member Status:** ${req.body.status}\n**Discord Tag:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👍'));
+>>>>>>> 5eac61f... UPDATED 8/28/2020
     } else {
         //if no body.. return this
         res.status(401).send({ error: "No data found" });
     }
   });
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 5eac61f... UPDATED 8/28/2020
