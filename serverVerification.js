@@ -76,16 +76,18 @@ module.exports.run = (client, config) => {
         });
       } 
       //if the member isn't in the guild return an error in console
-      if (member == null || member == "DiscordTag#0000") {
+      if (member == null) {
         sendMessage(client, "audit-logs", { embed: { title: `__**❌ SCU Discord Network Verification**__`, description: `> **${req.body.discord}** returned **${member}**\n> Please contact them to fix it!`, color: config.school_color, timestamp: new Date()}});
       } else {
         sendMessage(client, "audit-logs", { embed: { title: `__**✅ Verification Alert!**__`, description: `Verification: New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
       }
-      if (req.body.status != ["SCU Faculty", "Prospective Student"]) {
-        //give member the verified role
-        member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
-        //give member their major role
-        member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
+      if (req.body.status === "SCU Faculty" || req.body.status === "Prospective Student" || req.body.status === "Guest") {
+        //does nothing but skip onwards to grant status role and remove Unverified role
+      } else {
+          //give member the verified role
+          member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
+          //give member their major role
+          member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
       }
       //give member their status role
       member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
@@ -130,7 +132,7 @@ module.exports.run = (client, config) => {
       });
       guild.channels.cache.get(config.welcomeChannelID).send({ embed: { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `✅ **<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👋'));
       let verificationChannel = guild.channels.cache.find(channel => channel.name === "verification-logs");
-      verificationChannel.send({ embed: { description: `**__✅ New Verified User! __**\n**Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Member Status:** ${req.body.status}\n**Discord Tag:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👍'));
+      verificationChannel.send({ embed: { description: `**__✅ New Verified User! __**\n**Full Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Member Status:** ${req.body.status}\n**Discord Tag:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👍'));
     } else {
         //if no body.. return this
         res.status(401).send({ error: "No data found" });
