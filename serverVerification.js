@@ -88,7 +88,13 @@ module.exports.run = (client, config) => {
             //give member their major role
             member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
             //set their nickname like this: [First Name] || [Major]
-            member.setNickname(`${req.body.name} || ${req.body.major}`);
+            //also, if nickname is over 32 characters, catch error and log it in #audit-logs 
+            try {
+              let nickname = `${req.body.name} || ${req.body.major}`;
+              member.setNickname(`${nickname}`);
+            } catch (err) {
+              sendMessage(client, "audit-logs", { embed: { title: `__**❌ Nickname is over 32 characters!**__`, description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, color: config.school_color, timestamp: new Date()}});
+            }
         }
         //give member their status role
         member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
