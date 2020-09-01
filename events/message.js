@@ -43,6 +43,14 @@ module.exports = (client, message) => {
       auditLogs.send({ embed: { description: `There was an error: ${e}`}});
   }
 
+  if (message.channel.name === "suggestions") {
+    message.react('✅').then(() => message.react('❌'))
+  }
+
+  if (message.channel.name === "server-updates") {
+    message.react('😄').then(() => message.react('👍'));
+  }
+
   // Ignore messages not starting with the prefix (in config.json)
   if (message.content.indexOf(config.prefix) !== 0) return;
 
@@ -53,7 +61,7 @@ module.exports = (client, message) => {
   // Grab the command data from the client.commands Enmap
   const command = client.commands.get(commandName);
 
-    /*Some commands are meant to be used only inside servers and won't work whatsoever in DMs. 
+  /*Some commands are meant to be used only inside servers and won't work whatsoever in DMs. 
   A prime example of this would be a kick command. You can add a property to the necessary 
   commands to determine whether or not it should be only available outside of servers.*/
 
