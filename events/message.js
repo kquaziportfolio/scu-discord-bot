@@ -12,7 +12,7 @@ module.exports = (client, message) => {
   const memberTag = message.author.id;
 
   let word = message.content.toLowerCase().split(" ");
-  let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
+  let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 
   try {
     for (let i = 0; i < OBS_list.length; i++) {
@@ -43,13 +43,15 @@ module.exports = (client, message) => {
       auditLogs.send({ embed: { description: `There was an error: ${e}`}});
   }
 
-  if (message.channel.name === "suggestions") {
-    message.react('✅').then(() => message.react('❌'))
-  }
+  if (!message.channel.id) return;
 
-  if (message.channel.name === "server-updates") {
-    message.react('😄').then(() => message.react('👍'));
-  }
+  if (message.channel.id === config.channels.classifieds) {
+    message.react('✅').then(() => message.react('❌'));
+  } else if (message.channel.id === config.channels.updates) {
+      message.react("😄").then(() => message.react("👍")); 
+  } else {
+      return;
+  } 
 
   // Ignore messages not starting with the prefix (in config.json)
   if (message.content.indexOf(config.prefix) !== 0) return;
