@@ -84,35 +84,35 @@ module.exports.run = (client, config) => {
           //changes nickname but skip onwards to grant status role and remove Unverified role
           member.setNickname(req.body.name);
         } else {
-          //give member the verified role
+          //give student member the verified role
           member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
-          //give member their major role
+          //give student member their major role
           member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
+        }
 
-          //set their nickname like this: [First Name] || [Major]
-          //also, if nickname is over 32 characters, DM user about their invalid nickname and catch error and log it in #audit-logs 
-          try {
-              let nickname = `${req.body.name} [${req.body.major}]`;
-              member.setNickname(`${nickname}`);
-          } catch (err) {
-              const nicknameError = { 
-                  title: `__**❌ <@${member.user.id}>, your nickname is over 32 characters!**__`, 
-                  description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, 
-                  color: config.school_color, 
-                  timestamp: new Date(),
-                  author: {
-                    name: "Nickname Notice",
-                    icon_url: client.user.avatarURL(),
-                  },
-                  footer: {
-                    text: "SCU Discord Network",
-                  },
-              }
-              member.send(nicknameError);
-              sendMessage(client, "audit-logs", { embed: nicknameError});
-          }
-      }
-
+        //set their nickname like this: [First Name] || [Major]
+        //also, if nickname is over 32 characters, DM user about their invalid nickname and catch error and log it in #audit-logs 
+        try {
+            let nickname = `${req.body.name} [${req.body.major}]`;
+            member.setNickname(`${nickname}`);
+        } catch (err) {
+            const nicknameError = { 
+                title: `__**❌ <@${member.user.id}>, your nickname is over 32 characters!**__`, 
+                description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, 
+                color: config.school_color, 
+                timestamp: new Date(),
+                author: {
+                  name: "Nickname Notice",
+                  icon_url: client.user.avatarURL(),
+                },
+                footer: {
+                  text: "SCU Discord Network",
+                },
+            }
+            member.send(nicknameError);
+            sendMessage(client, "audit-logs", { embed: nicknameError});
+        }
+ 
         //give member their status role
         member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
         //remove Unverified role from member
