@@ -62,39 +62,38 @@ module.exports.run = (client, config) => {
       //if the member isn't in the guild return an error in console
       if (member == null) {
         sendMessage(client, "audit-logs", { embed: { title: `__**❌ SCU Discord Network Verification**__`, description: `> **${req.body.discord}** returned **${member}**\n> Please contact them to fix it!`, color: config.school_color, timestamp: new Date()}});
+      } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.name === "Student ✅"))) {
+        //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
+          member.send({
+            embed: {
+              description: `❌ Someone tried to verify their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
+              color: config.school_color,
+              footer: {
+                text: "SCU Discord Network Verification",
+              },
+              author: {
+                name: "Verification Notice",
+                icon_url: client.user.avatarURL(),
+              },
+            },
+          });
       } else {
         sendMessage(client, "audit-logs", { embed: { title: `__**✅ Verification Alert!**__`, description: `Verification: New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
-      }
-      //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
-      if (member.roles.cache.has(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent))) 
-        return member.send({
-          embed: {
-            description: `❌ Someone tried to verify their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
-            color: config.school_color,
-            footer: {
-              text: "SCU Discord Network Verification",
-            },
-            author: {
-              name: "Verification Notice",
-              icon_url: client.user.avatarURL(),
-            },
-          },
-        });
         if (req.body.status === "SCU Faculty" || req.body.status === "Prospective Student" || req.body.status === "Guest") {
           //does nothing but skip onwards to grant status role and remove Unverified role
         } else {
             //give member the verified role
             member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
-            //give member their major role
-            member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
-            //set their nickname like this: [First Name] || [Major]
-            //also, if nickname is over 32 characters, catch error and log it in #audit-logs 
-            try {
-              let nickname = `${req.body.name} || ${req.body.major}`;
-              member.setNickname(`${nickname}`);
-            } catch (err) {
-              sendMessage(client, "audit-logs", { embed: { title: `__**❌ Nickname is over 32 characters!**__`, description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, color: config.school_color, timestamp: new Date()}});
-            }
+        }
+        //give member their major role
+        member.roles.add(guild.roles.cache.find((role) => role.name ? req.body.major : req.body.major == "none"));
+        //set their nickname like this: [First Name] || [Major]
+        //also, if nickname is over 32 characters, catch error and log it in #audit-logs 
+        try {
+          let nickname = `${req.body.name} [${req.body.major}]`;
+          member.setNickname(`${nickname}`);
+        } catch (err) {
+          sendMessage(client, "audit-logs", { embed: { title: `__**❌ Nickname is over 32 characters!**__`, description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, color: config.school_color, timestamp: new Date()}});
         }
         //give member their status role
         member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
@@ -140,9 +139,10 @@ module.exports.run = (client, config) => {
         guild.channels.cache.get(config.welcomeChannelID).send({ embed: { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `✅ **<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👋'));
         let verificationChannel = guild.channels.cache.find(channel => channel.name === "verification-logs");
         verificationChannel.send({ embed: { description: `**__✅ New Verified User! __**\n**First Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Member Status:** ${req.body.status}\n**Discord Tag:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👍'));
+      }
     } else {
-        //if no body.. return this
-        res.status(401).send({ error: "No data found" });
+      //if no body.. return this
+      res.status(401).send({ error: "No data found" });
     }
   });
 };
