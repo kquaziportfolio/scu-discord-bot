@@ -84,9 +84,9 @@ module.exports.run = (client, config) => {
           //changes nickname but skip onwards to grant status role and remove Unverified role
           member.setNickname(req.body.name);
         } else {
-          //give student member the verified role
+          //give member the verified role
           member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
-          //give student member their major role
+          //give member their major role
           member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
         }
 
@@ -100,19 +100,12 @@ module.exports.run = (client, config) => {
                 title: `__**❌ <@${member.user.id}>, your nickname is over 32 characters!**__`, 
                 description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, 
                 color: config.school_color, 
-                timestamp: new Date(),
-                author: {
-                  name: "Nickname Notice",
-                  icon_url: client.user.avatarURL(),
-                },
-                footer: {
-                  text: "SCU Discord Network",
-                },
+                timestamp: new Date()
             }
             member.send(nicknameError);
             sendMessage(client, "audit-logs", { embed: nicknameError});
         }
- 
+
         //give member their status role
         member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
         //remove Unverified role from member
@@ -154,7 +147,7 @@ module.exports.run = (client, config) => {
             ],
           },
         });
-        guild.channels.cache.get(config.channels.welcome).send({ embed: { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `**<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👋'));
+        guild.channels.cache.get(config.channels.welcome).send({ embed: { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `✅ **<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👋'));
         let verificationChannel = guild.channels.cache.find(channel => channel.id === config.channels.verificationlogs);
         verificationChannel.send({ embed: { description: `**__✅ New Verified User! __**\n**First Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Member Status:** ${req.body.status}\n**Discord Tag:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👍'));
       }
