@@ -79,22 +79,25 @@ module.exports.run = (client, config) => {
           });
       } else {
         sendMessage(client, "audit-logs", { embed: { title: `__**✅ Verification Alert!**__`, description: `Verification: New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
-        if (req.body.status === "SCU Faculty" || req.body.status === "Prospective Student" || req.body.status === "Guest") {
-          //does nothing but skip onwards to grant status role and remove Unverified role
+        if (req.body.status === "SCU Faculty" && req.body.major === “undefined”) {
+          //changes nickname but skip onwards to grant status role and remove Unverified role
+        member.setNickname(req.body.name);
         } else {
             //give member the verified role
             member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
+            //give member their major role
+            member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
+
+            //set their nickname like this: [First Name] || [Major]
+            //also, if nickname is over 32 characters, catch error and log it in #audit-logs 
+            try {
+                let nickname = `${req.body.name} [${req.body.major}]`;
+                member.setNickname(`${nickname}`);
+            } catch (err) {
+                sendMessage(client, "audit-logs", { embed: { title: `__**❌ Nickname is over 32 characters!**__`, description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, color: config.school_color, timestamp: new Date()}});
+            }
         }
-        //give member their major role
-        member.roles.add(guild.roles.cache.find((role) => role.name ? req.body.major : req.body.major == "none"));
-        //set their nickname like this: [First Name] || [Major]
-        //also, if nickname is over 32 characters, catch error and log it in #audit-logs 
-        try {
-          let nickname = `${req.body.name} [${req.body.major}]`;
-          member.setNickname(`${nickname}`);
-        } catch (err) {
-          sendMessage(client, "audit-logs", { embed: { title: `__**❌ Nickname is over 32 characters!**__`, description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, color: config.school_color, timestamp: new Date()}});
-        }
+   
         //give member their status role
         member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
         //remove Unverified role from member
@@ -136,8 +139,8 @@ module.exports.run = (client, config) => {
             ],
           },
         });
-        guild.channels.cache.get(config.welcomeChannelID).send({ embed: { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `✅ **<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👋'));
-        let verificationChannel = guild.channels.cache.find(channel => channel.name === "verification-logs");
+        guild.channels.cache.get(config.channels.welcome).send({ embed: { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `✅ **<@${member.user.id}>** is now verified, everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👋'));
+        let verificationChannel = guild.channels.cache.find(channel => channel.id === config.channels.verificationlogs");
         verificationChannel.send({ embed: { description: `**__✅ New Verified User! __**\n**First Name:** ${req.body.name}\n**Major:** ${req.body.major}\n**Member Status:** ${req.body.status}\n**Discord Tag:** ${member}`, thumbnail: { url: `https://jasonanhvu.github.io/assets/img/logo-pic.png` }, color: config.school_color, timestamp: new Date()}}).then(m => m.react('👍'));
       }
     } else {
