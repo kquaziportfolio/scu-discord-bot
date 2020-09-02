@@ -9,19 +9,18 @@ module.exports = {
 		async execute(message, args) { 
             message.delete();
 
-            if ((message.member.roles.cache.has(config.server_roles.admin, config.server_roles.mod))) {
-            let authorTag = message.author.id; 
+            if ((message.member.roles.cache.has(config.serverRoles.admin, config.serverRoles.mod))) {
             let serverIcon = message.guild.iconURL({ dynamic: true });
 
             const serverEmbed = new MessageEmbed()
                 .setTitle("**Server Information**")
                 .setThumbnail(`${serverIcon}`)
                 .setDescription(`__**Discord Etiquette**__\n-To notify only the members of a specific majors use @ followed by the name` +
-                ` of the major. Read Discord's Terms of Service [here](https://discord.com/terms).\n\n__**Roles**__\nTo give yourself reaction roles,` +
-                ` look at <#722494512420618370> \n\nStudent Organizations with a sizeable` +
-                ` populous within the server may request their own channel.\n\n__**Permanent Invite Link**__\n[SCU 🐎💨 | #BroncoUp](https://discord.gg/YusWdfu)` +
-                `\n\n__**Questions / Concerns / Inquiries**__\nMessage <@${authorTag}>/<@580987726581596172> or ping away in <#740808362341564420>\n` +
-                `\n__**CSULB Social Networking**__\n- [FaceBook](https://www.facebook.com/SantaClaraUniversity/)\n- [Instagram](https://instagram.com/santaclarauniversity/)\n- [LinkedIn](https://www.linkedin.com/school/santa-clara-university/)\n- [Reddit](https://reddit.com/r/SCU)\n- [Twitter](https://www.facebook.com/SantaClaraUniversity/)\n- [YouTube](https://www.youtube.com/santaclarauniversity)`)
+                ` of the major. Read Discord's Terms of Service [here](https://discord.com/terms).\n\n__**Roles**__\nTo give yourself roles,` +
+                ` look at <#${config.rolesChannelID}> \n\nStudent Organizations with a sizeable` +
+                ` populous within the server may request their own channel.\n\n__**Permanent Invite Link**__\n[SCU Discord Network](https://discord.gg/YusWdfu)` +
+                `\n\n__**Questions / Concerns / Inquiries**__\nMessage <@&${config.serverRoles.admin}>/<@&${config.serverRoles.mod}> or ping away in <#${config.suggestionsChannelID}>\n` +
+                `\n__**SCU Social Networking**__\n- [FaceBook](https://www.facebook.com/SantaClaraUniversity/)\n- [Instagram](https://instagram.com/santaclarauniversity/)\n- [LinkedIn](https://www.linkedin.com/school/santa-clara-university/)\n- [Reddit](https://reddit.com/r/SCU)\n- [Twitter](https://www.twitter.com/SantaClaraUniv/)\n- [YouTube](https://www.youtube.com/santaclarauniversity)`)
                 .setColor(10231598)
 
             const resourcesEmbed = new MessageEmbed()
@@ -51,8 +50,8 @@ module.exports = {
                     {name: `**${emojiCharacters.book} Guadalupe Hall Services**`, value: "[Link](https://www.scu.edu/ecp/current-students/guadalupe-hall-resources/)", inline: true},
                     {name: `**${emojiCharacters.book} Office of Accessible Education**`, value: "[Link](https://www.scu.edu/ecp/current-students/disability-resources/)", inline: true},
                 )
-                .attachFiles([`./assets/csulb-seal.jpg`])
-                .setImage('attachment://csulb-seal.jpg')
+                .attachFiles([`./assets/scu-seal.jpg`])
+                .setImage('attachment://scu-seal.jpg')
                 .setTimestamp()
                 .setFooter('Brought to you by the creators of this Discord server.')
 

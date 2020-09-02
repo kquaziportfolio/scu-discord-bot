@@ -11,15 +11,15 @@ module.exports = {
 
         if(message.member.hasPermission("MUTE_MEMBERS")) {
             let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-            if(!user) return message.channel.send({embed: {description: "Please mention someone to unmute", color: 10231598}})
+            if(!user) return message.channel.send({embed: {description: "Please mention someone to unmute", color: config.school_color}})
 
             let Reason = args.slice(1).join(" ")
             if (!Reason) Reason = "No reason given!"
 
             let muterole = message.guild.roles.cache.find(x => x.name === "Muted");
-            if(!muterole) return message.channel.send({embed:{ description: "Couldn't find the **Muted** role.", color: 10231598}});
+            if(!muterole) return message.channel.send({embed:{ description: "Couldn't find the **Muted** role.", color: config.school_color}});
 
-            if (!user.roles.cache.find(x => x.name === "Muted")) return message.channel.send({embed: { description: "The user is not muted.", color: 10231598}})
+            if (!user.roles.cache.find(x => x.name === "Muted")) return message.channel.send({embed: { description: "The user is not muted.", color: config.school_color}})
 
             await user.roles.remove(muterole.id).catch(err => console.log(`Error ${err}`));
             await clearTimeout(client.mute.get(message.author.id));
@@ -32,7 +32,7 @@ module.exports = {
                 message.channel.send(Embed)
             })
         } else {
-            const permission_embed = new Discord.MessageEmbed()
+            const permission_embed = new MessageEmbed()
             .setColor(config.school_color)
             .setTitle(`Oops, an error happened...`)
             .setDescription(`You must have the following permission(s): ` + "`MUTE MEMBERS`")

@@ -7,9 +7,9 @@ module.exports = {
 	usage: `${config.prefix}reload [command name]`,
 	async execute(message, args) {
 		message.delete();
-		if ((message.member.roles.cache.has(config.server_roles.admin, config.server_roles.mod))) {
+		if ((message.member.roles.cache.has(config.serverRoles.admin, config.serverRoles.mod))) {
 
-			let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
+			let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 
 			if (!args.length) return auditLogs.send({ embed: { description: `❌ You didn't pass any command to reload, <@${message.author.id}>!`}});
 			const commandName = args[0].toLowerCase();

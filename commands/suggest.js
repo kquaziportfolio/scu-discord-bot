@@ -17,8 +17,8 @@ module.exports = {
         const prompt = args.join(' ').split(' | ');
         if(!prompt[1]) return message.channel.send(announceInstructions);
 
-        let suggestChannel = message.guild.channels.cache.find(channel => channel.name === "suggestions");
-        let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
+        let suggestChannel = message.guild.channels.cache.find(channel => channel.id === config.channels.suggestions);
+        let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
         auditLogs.send({embed: { title: `__**SUGGESTION SENT!**__`}, description: `<@${message.author.id}> recently made a suggestion! Check it out!`})
         
         suggestChannel.send(`<@&709118762707845211> <@&710593727864897646>`,{embed : {color: config.school_color, title: `${prompt[0]}`, description: `${prompt[1]}`}});

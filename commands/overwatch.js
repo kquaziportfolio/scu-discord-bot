@@ -13,7 +13,7 @@ module.exports = {
 
         if(!args[0] || !args[1] || (args[1] && !["pc", "xb1", "psn"].includes(args[1]))) return message.channel.send({embed: {
             title: `Overwatch Command`, 
-            description: `Here's an example: ${config.prefix}overwatch Pogchamp#8888 pc`,
+            description: `Here's an example: ${prefix}overwatch Pogchamp#8888 pc`,
             color: config.school_color,
             timestamp: new Date(),
             footer: `Brought to you by the server lords!`

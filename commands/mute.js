@@ -13,13 +13,13 @@ module.exports = {
 
         if(message.member.hasPermission("MUTE_MEMBERS")) {
             // the mute code here
-            let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
+            let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 
             let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
             if(!user) return message.channel.send({embed: { 
                 color: 10231598,
                 title: "Mute Command",
-                description: `Here's an example: ${prefix}mute <@DiHydrogenMonoxide | Being Admin`,
+                description: `Here's an example: ${config.prefix}mute <@DiHydrogenMonoxide | Being Admin`,
                 timestamp: new Date(),
             }});
     

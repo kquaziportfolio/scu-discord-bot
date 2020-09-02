@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, args) {
         message.delete();
 
-        let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
+        let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
         try {
             if (!args.length) return message.channel.send({embed: { description: `Enter a nickname!`, color: config.school_color}})
             const prompt = args.join(" ").trim().split(" ~ ");

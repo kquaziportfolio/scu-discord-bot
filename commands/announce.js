@@ -1,4 +1,5 @@
-const { MessageEmbed } = require(`discord.js`); //for embed functionality
+const Discord = require(`discord.js`); //requires Discord.js integration package
+const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require('../config.json');
 
 module.exports = { 
@@ -9,7 +10,7 @@ module.exports = {
     async execute(message, args) {
         message.delete();
         
-        if ((message.member.roles.cache.has(config.server_roles.admin, config.server_roles.mod))) {
+        if ((message.member.roles.cache.has(config.serverRoles.admin, config.serverRoles.mod))) {
             const announceInstructions = new MessageEmbed()
                 .setColor(config.school_color)
                 .addField(`Here's an example: ${prefix} announce  726585970799149149 ~ <@Role1> <@User1> ~ Hi! ~ Welcome to the server! ~ https://jasonanhvu.github.io/assets/img/logo-pic.png`)

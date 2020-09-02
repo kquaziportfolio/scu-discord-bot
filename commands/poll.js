@@ -9,7 +9,7 @@ module.exports = {
     guildOnly: true,
 		async execute(message, args) { 
             message.delete();
-            if ((!message.member.roles.cache.has(config.server_roles.admin, config.server_roles.mod))) {
+            if ((!message.member.roles.cache.has(config.serverRoles.admin, config.serverRoles.mod))) {
                 const permission_embed = new MessageEmbed()
                 .setColor(config.school_color)
                 .setTitle(`Oops, an error happened...`)
@@ -23,7 +23,7 @@ module.exports = {
                 .catch(err => console.log(`Error: ${err}`));
             } 
 
-            const prompt = args.join(' ').split(' | ');
+            const prompt = args.join(' ').split(' ~ ');
 
             if(!prompt[1]) return message.channel.send({embed: {description: "Make a poll with two options!", color: config.school_color}});
             if(!message.content.includes("?")) return message.channel.send({embed: {description: "Include a `?` in your vote question!", color: config.school_color}})
@@ -31,8 +31,8 @@ module.exports = {
             const embed = new MessageEmbed()
             .setColor(config.school_color)
             .setFooter('React to vote!')
-            .setTitle(`📋 ${prompt[1]}`) 
-            .setDescription(`- ${emojiCharacters.one} ${prompt[2]}\n- ${emojiCharacters.two} ${prompt[3]}`)
+            .setTitle(`📋 ${prompt[0]}`) 
+            .setDescription(`- ${emojiCharacters.one} ${prompt[1]}\n- ${emojiCharacters.two} ${prompt[2]}`)
             
             const msg = await message.channel.send(embed).catch(err => `Error: ${err}`)
 

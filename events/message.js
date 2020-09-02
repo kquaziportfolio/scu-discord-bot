@@ -43,14 +43,8 @@ module.exports = (client, message) => {
       auditLogs.send({ embed: { description: `There was an error: ${e}`}});
   }
 
-  if (!message.channel.id) return;
-
-  if (message.channel.id === config.channels.classifieds) {
-    message.react('✅').then(() => message.react('❌'));
-  } else if (message.channel.id === config.channels.updates) {
-      message.react("😄").then(() => message.react("👍")); 
-  } else {
-      return;
+  if (message.channel.id === config.channels.updates) {
+    message.react("👍");
   } 
 
   // Ignore messages not starting with the prefix (in config.json)

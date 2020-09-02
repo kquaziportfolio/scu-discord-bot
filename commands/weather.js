@@ -2,6 +2,7 @@ const request = require(`request`)
 const toTitleCase = require(`to-title-case`);
 const moment = require('moment'); //here is a change in the file
 const config = require('../config.json');
+const { MessageEmbed } = require(`discord.js`);
 
 module.exports = {
 	name: 'weather', //project adapted from https://github.com/ShadeBot/ShadeBot-Discord-Bot/blob/master/commands/weather.js
@@ -10,13 +11,13 @@ module.exports = {
 	async execute(message, args) {
         message.delete(); 
         
-        if(!args[0]) return message.channel.send({embed: {description: `Please enter a name of a city like this: ${prefix}weather [city], [country]`, color: 10231598}});
+        if(!args[0]) return message.channel.send({embed: {description: `Please enter a name of a city like this: ${config.prefix}weather [city], [country]`, color: config.school_color}});
         
         let location = args.join('%20');
         request(`http://api.openweathermap.org/data/2.5/weather?appid=83a6f430e7eaf7703e2f97127dd4d729&q=${location}`, (error, response, body) => {
             const json = JSON.parse(body);
 
-            if (json.cod && json.cod == 404) return message.channel.send({embed: {description: "City not found!", color: 10231598}})
+            if (json.cod && json.cod == 404) return message.channel.send({embed: {description: "City not found!", color: config.school_color}})
             
             if (json.wind.deg) {
                 let angle = json.wind.deg
@@ -34,7 +35,7 @@ module.exports = {
             } 
             else json.wind.speed += "m/s";
 
-            let weatherEmbed = new Discord.MessageEmbed()
+            let weatherEmbed = new MessageEmbed()
                 .setColor(config.school_color)
                 .setTitle(`:flag_${json.sys.country.toLowerCase()}: ${json.name}, ${json.sys.country}`)
                 .setURL(`https://openweathermap.org/city/${json.id}`)

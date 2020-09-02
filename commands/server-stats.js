@@ -8,7 +8,7 @@ module.exports = {
 		async execute(message, args) {
             message.delete();
 
-            if ((!message.member.roles.cache.has(config.server_roles.admin, config.server_roles.mod))) { 
+            if ((!message.member.roles.cache.has(config.serverRoles.admin, config.serverRoles.mod))) { 
                 const embed = new MessageEmbed()
                 .setColor(config.school_color)
                 .setTitle(`Oops, an error happened...`)
@@ -24,7 +24,7 @@ module.exports = {
             
             message.delete();
 
-            let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
+            let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 
             function checkBots(guild) {
                 let botCount = 0;

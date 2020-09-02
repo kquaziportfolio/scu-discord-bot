@@ -9,7 +9,7 @@ module.exports = {
 
             const ChannelID = message.content.split(' ');
 
-            let auditLogs = message.guild.channels.find(channel => channel.name === "audit-logs");
+            let auditLogs = message.guild.channels.find(channel => channel.id === config.channels.auditlogs);
 
             try {
                 message.guild.channels.cache.get(ChannelID[1]).createInvite().then(invite =>

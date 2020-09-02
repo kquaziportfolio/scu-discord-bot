@@ -17,7 +17,7 @@ module.exports = {
 			const helpEmbed = new MessageEmbed()
 				.setTitle(`Here\'s a list of all my commands:\n`)
 				.setDescription(commandMap)
-				.setFooter(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`)
+				.setFooter(`\nYou can send \`${config.prefix}help [command name]\` to get info on a specific command!`)
 				.setColor(config.school_color)
 				.setThumbnail(`https://jasonanhvu.github.io/assets/img/logo-pic.png`)
 

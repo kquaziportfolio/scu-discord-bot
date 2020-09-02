@@ -10,8 +10,6 @@ module.exports = {
         async execute (message, args) {
             message.delete();
 
-            let covid19Channel = message.guild.channels.cache.find(channel => channel.name === "covid-19");
-
             let state = message.content.toLowerCase().split(" ")[1];
             
             const BASE_URLS = ["https://api.covid19api.com/summary", `https://covidtracking.com/api/v1/states/${state}/current.json`, `https://covid19-us-api.herokuapp.com/county`];
@@ -79,12 +77,12 @@ module.exports = {
             COVID_EMBED3.setFooter(`Brought to you by the server lords on ${targetDate}`)
             COVID_EMBED3.setColor(school_color)
             
-            if (args[0] === "global") return covid19Channel.send(COVID_EMBED1).catch(err => `Error: ${err}`)
-            if (args[0].length == 2) { 
-                covid19Channel.send(COVID_EMBED2).catch(err => `Error: ${err}`)
+            if (args[0] === "global") return message.channel.send(COVID_EMBED1).catch(err => `Error: ${err}`)
+            if (args[0].length >= 2) { 
+                message.channel.send(COVID_EMBED2).catch(err => `Error: ${err}`)
             } else if (args[0].length < 2) {
                 message.channel.send({embed: { description: "That was not a state abbreviation. Please try again!", color: 10231598}})
             }
-            if (args[0] === "county") return covid19Channel.send(COVID_EMBED3).catch(err => `Error: ${err}`)
+            if (args[0] === "county") return message.channel.send(COVID_EMBED3).catch(err => `Error: ${err}`)
         }
 }

@@ -5,20 +5,21 @@ module.exports = {
     name: 'other-discords',
     description: 'For outputting other Discord server embeds!',  
     usage: `${config.prefix}other-discords [title] | [description] | [image url]`,
+    guildOnly: true,
     async execute(message, args) {
         message.delete();
 
-        if ((message.member.roles.cache.has(config.server_roles.admin, config.server_roles.mod))) {
+        if ((message.member.roles.cache.has(config.serverRoles.admin, config.serverRoles.mod))) {
 
             const discordInstructions = new MessageEmbed()
                 .setColor(config.school_color)
-                .addField("Here's an example:", `${prefix}other-discords General SCU Server | [Join!](https://discord.gg/YusWdfu) | https://jasonanhvu.github.io/assets/img/logo-pic.png`)
+                .addField("Here's an example:", `${config.prefix}other-discords General SCU Server | [Join!](https://discord.gg/YusWdfu) | https://jasonanhvu.github.io/assets/img/logo-pic.png`)
                 .setTimestamp();
 
             const prompt = args.join(' ').split('|');
             if(!prompt[2]) await message.channel.send(discordInstructions);
                   
-            const channel = message.guild.channels.cache.find(channel => channel.name === "discord-promos")
+            const channel = message.guild.channels.cache.find(channel => channel.id === config.channels.discordPromos)
             channel.send({embed : {color: config.school_color, title: `${prompt[0]}`, description: `${prompt[1]}`, thumbnail: {url: `${prompt[2]}`}}});
         
             if(prompt[2]) {

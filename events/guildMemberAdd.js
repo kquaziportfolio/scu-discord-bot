@@ -38,8 +38,8 @@ module.exports = async (client, member) => {
   const welcome_Embed2 = new MessageEmbed() //personal message to new user
     .setTitle(`Invent the life you want to lead at Santa Clara University.`)
     .setDescription(
-      `${emojiCharacters.one} If you are new to Discord, this short [tutorial](https://youtu.be/KfaLP44-ISE) can help you get started! \n\n` +
-      `${emojiCharacters.two} __**Please**__ fill out the Google Form :clipboard: in the <#${config.rolesChannelID}> to __**immediately**__ verify yourself and get roles in the SCU server! It'll only take a couple seconds! Note: If you're a guest, you are exempted from this requirement. \n\n` +
+      `${emojiCharacters.one} If you are new to Discord, this short [tutorial](https://youtu.be/rnYGrq95ezA) can help you get started! \n\n` +
+      `${emojiCharacters.two} __**Please**__ fill out the Google Form :clipboard: in the <#${config.rolesChannelID}> to __**immediately**__ verify yourself and get roles in the SCU server! It'll only take a couple seconds! Note: If you're a **Guest** or **Prospective Student**, you are exempted from this requirement. \n\n` +
       `${emojiCharacters.three} Read the <#${config.infoChannelID}> channel and introduce yourself :wave: in the <#${config.introsChannelID}> channel! \n\n` +
       `${emojiCharacters.four} Check out SCU updates :mega: in <#${config.updatesChannelID}> and keep your eyes peeled for cool servers :cool: in <#${config.discordPromosChannelID}>! \n\n` +
       `${emojiCharacters.five} If you have any technical issues :computer:, feel free to contact **<@&${config.serverRoles.admin}>** or **<@&${config.serverRoles.mod}>** for quick and speedy aid!\n\n` +

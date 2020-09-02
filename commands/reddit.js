@@ -13,7 +13,7 @@ module.exports = {
 
             if (subreddit.length < 1) return message.channel.send({ embed: { description: `Here's an example ${config.prefix}reddit SCU`}});
             
-            got(`https://www.reddit.com/r/${subreddit}/hotzz`).then(response => {
+            got(`https://www.reddit.com/r/${subreddit}/hot/.json`).then(response => {
                 let content = JSON.parse(response.body);
                 const title = content[0].data.children[0].data.title;
                 const image = content[0].data.children[0].data.url;

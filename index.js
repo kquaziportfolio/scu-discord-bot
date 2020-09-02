@@ -1,12 +1,9 @@
-// 1. Edit code and save (CTRL+S)!
-// 2. Run `cmd` -> Type `cd Documents/GitHub_Repos/scu-discord-bot/ ->  Type `pm2 start index.js / `pm2 restart index.js`
-// 3. Bot is hosted 24/7 on Raspberry Pi 4 for free!
-
-const Discord = require(`discord.js`); //requires Discord.js integration package
+// ASSIGN VARIABLES
+const Discord = require('discord.js');
+const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
+const config = require('./config.json');
 const Enmap = require("enmap");
 const fs = require("fs");
-const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"]});
-const config = require(`./config.json`);
 // We also need to make sure we're attaching the config to the CLIENT so it's accessible everywhere!
 client.config = config;
 
@@ -34,4 +31,5 @@ fs.readdir("./commands/", (err, files) => {
   });
 });
 
-client.login(config.token) // Replace XXXXX with your bot token
+// BOT TOKEN
+client.login(config.token);

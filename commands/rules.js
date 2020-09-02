@@ -9,7 +9,7 @@ module.exports = {
 		async execute(message, args) { 
             message.delete();
 
-            if ((message.member.roles.cache.has(config.server_roles.admin, config.server_roles.mod))) {
+            if ((message.member.roles.cache.has(config.serverRoles.admin, config.serverRoles.mod))) {
 
                 const rules_embed = new MessageEmbed() 
                 .setColor(config.school_color)
@@ -27,10 +27,10 @@ module.exports = {
                 `${emojiCharacters.ten} No usage of any usernames/nicknames that violate the aforementioned rules. Moderators reserve the right to change nicknames without warning if they are in violation of the rules, or if they are not easily pingable with an @ mention.\n\n` +
                 `${emojiCharacters.one}${emojiCharacters.one} Dispersing misinformation and trolling is not allowed. Anyone suspected of trolling or abetting the efforts of a troll will be punished.\n\n` +
                 `${emojiCharacters.one}${emojiCharacters.two} Please keep discussion to English.\n\n` +
-                `${emojiCharacters.one}${emojiCharacters.three} Contact an <@&740808362144301138> or <@&740808362144301137> before advertising anything.\n\n` +
+                `${emojiCharacters.one}${emojiCharacters.three} Contact an <@&${config.serverRoles.admin}> or <@&${config.serverRoles.mod}> before advertising anything.\n\n` +
                 `${emojiCharacters.one}${emojiCharacters.four} Do not ping any roles unnecessarily for strange reasons.`)
-                .attachFiles([`./assets/csulb-background.png`])
-                .setImage(`attachment://csulb-background.png`)
+                .attachFiles([`./assets/scu-background.png`])
+                .setImage(`attachment://scu-background.png`)
                 .setTimestamp()
                 .setFooter("Brought to you by the creators of this Discord server.")
                 message.channel.send(rules_embed);
