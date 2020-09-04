@@ -4,6 +4,7 @@ module.exports = async (client) => {
 	const guild = client.guilds.cache.get(config.verification.guildID);
 
 	require("../serverVerification.js").run(client, config); //start server verification file in ready event
+	require("../serverInput.js").run(client, config);
 	
 	let auditLogs = guild.channels.cache.find(channel => channel.name === "audit-logs");
 	const verifyMSG = {
@@ -29,7 +30,7 @@ module.exports = async (client) => {
 		`Reflecting in silence with ${memberCount} members in the ${guild.name} server!`,
 		`Welcome to Santa Clara University in heart of the Silicon Valley — the world’s most innovative and entrepreneurial region!`,
 		`A Catholic and Jesuit university is a place of encounter: where the university encounters the world.`,
-		`I'm the 29th President of Santa Clara University!`,
+		`I'm the mascot of Santa Clara University!`,
 		`It is a great privilege to share in the dream of Santa Clara University.`,
 		`I am deeply humbled to be asked to take the helm of Santa Clara University and to build upon what others have accomplished over the last decade.`,
 		`Invent the life you want to lead at Santa Clara University.`,
