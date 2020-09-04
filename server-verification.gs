@@ -6,23 +6,21 @@ function onSubmit(e) {
     var latestResponse = allResponses[allResponses.length - 1];
     var response = latestResponse.getItemResponses();
     var items = {};
-  for (i in response){   
-    if (response[i].getItem().getTitle() === "First and Last Name") {
-      items['name'] = response[i].getResponse()
-    }
-    if (response[i].getItem().getTitle() === "Email Address") {
-      items['email'] = response[i].getResponse()
-    }
-    if (response[i].getItem().getTitle() === "Current Major") {
-      items['major'] = response[i].getResponse()
-    }
-    if (response[i].getItem().getTitle() === "Graduating Year") {
-      items['class'] = response[i].getResponse()
-    }
-    if (response[i].getItem().getTitle() === "Discord Tag") {
-      items['discord'] = response[i].getResponse()
-    }
-  }
+    
+      for (i in response){   
+        if (response[i].getItem().getTitle() === "First Name") {
+          items['name'] = response[i].getResponse()
+        }
+        if (response[i].getItem().getTitle() === "Current Major") {
+          items['major'] = response[i].getResponse()
+        }
+        if (response[i].getItem().getTitle() === "Member Status") {
+          items['status'] = response[i].getResponse()
+        }
+        if (response[i].getItem().getTitle() === "Discord Tag <-- (DiscordName#0000)") {
+          items['discord'] = response[i].getResponse()
+        }
+      }
   
   Logger.log(JSON.stringify(items));
   
