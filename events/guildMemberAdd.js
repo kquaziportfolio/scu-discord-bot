@@ -3,7 +3,7 @@ const config = require(`../config.json`);
 const emojiCharacters = require(`../emoji-characters.js`);
 
 module.exports = async (client, member) => {
-  let auditLogs = member.guild.channels.cache.find(channel => channel.name === "audit-logs");
+  let auditLogs = member.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 
   let role = member.guild.roles.cache.find((role) => role.id == config.serverRoles.unverifiedStudent);
   await member.roles.add(role);
