@@ -10,7 +10,7 @@ module.exports = async (client, member) => {
 	});
 	const memberTag = member.user.id; 
 
-	let auditLogs = member.guild.channels.cache.find(channel => channel.name === "audit-logs");
+	let auditLogs = member.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 
 	let leaveEmbed = new MessageEmbed() // Creating instance of Discord.MessageEmbed()
 		.setDescription(`<@${memberTag}> has left **${guild.name}** which now has ${memberCount} members!`) //Setting embed description
