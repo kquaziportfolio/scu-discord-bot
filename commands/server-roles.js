@@ -8,7 +8,7 @@ module.exports = {
     guildOnly: true,
 		async execute (message, args) {
       message.delete();
-
+      
       const serverRolesEmbed = new MessageEmbed()
       .setTitle("__**SERVER ROLES!**__")
       .setColor(config.school_color)

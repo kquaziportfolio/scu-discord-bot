@@ -34,7 +34,7 @@ module.exports = {
                         name: `no_perm.gif`
                     }],
                 }
-            }).then(msg => msg.delete({timeout: 2000}))
+            }).then(msg => msg.delete({timeout: 5000}))
         }
     }
 }
