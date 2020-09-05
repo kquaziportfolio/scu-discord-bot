@@ -8,6 +8,11 @@ module.exports = (client, message) => {
   // Ignore all bots
   if (message.author.bot) return;
 
+  // Ignore messages not starting with the prefix (in config.json)
+  if (message.content.indexOf(config.prefix)) return;
+
+  if (message.channel.type != "dm") return;
+
   const guild = client.guilds.cache.get(`${config.verification.guildID}`);
   const sicon = guild.iconURL();
   const memberTag = message.author.id;
@@ -47,11 +52,6 @@ module.exports = (client, message) => {
   if (message.channel.id === config.channels.updates) {
     message.react("👍");
   } 
-
-  // Ignore messages not starting with the prefix (in config.json)
-  if (message.content.indexOf(config.prefix)) return;
-
-  if (message.channel.type == "dm") return message.delete();
 
   // Our standard argument/command name definition.
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
@@ -96,6 +96,6 @@ module.exports = (client, message) => {
   // Run the command
     command.execute(message, args);
   } catch(err) {
-    auditLogs.send({embed: { description: `There was an error trying to execute \`${command.name}\`:\n\`${err.message}\``}});
+    console.log(`There was an error trying to run ${command.name} due the error: ${err.message}`);
   }
 }
