@@ -11,7 +11,7 @@ module.exports = (client, message) => {
   // Ignore messages not starting with the prefix (in config.json)
   if (message.content.indexOf(config.prefix)) return;
 
-  if (message.channel.type != "dm") return;
+  if (message.channel.type == "dm") return;
 
   const guild = client.guilds.cache.get(`${config.verification.guildID}`);
   const sicon = guild.iconURL();
