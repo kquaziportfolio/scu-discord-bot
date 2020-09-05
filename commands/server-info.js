@@ -16,12 +16,11 @@ module.exports = {
                 .setTitle("**Server Information**")
                 .setThumbnail(`${serverIcon}`)
                 .setDescription(`__**Discord Etiquette**__\n-To notify only the members of a specific majors use @ followed by the name` +
-                ` of the major. Read Discord's Terms of Service [here](https://discord.com/terms).\n\n__**Roles**__\nTo give yourself roles,` +
-                ` look at <#${config.rolesChannelID}> \n\nStudent Organizations with a sizeable` +
-                ` populous within the server may request their own channel.\n\n__**Permanent Invite Link**__\n[SCU Discord Network](https://discord.gg/YusWdfu)` +
-                `\n\n__**Questions / Concerns / Inquiries**__\nMessage <@&${config.serverRoles.admin}>/<@&${config.serverRoles.mod}> or ping away in <#${config.suggestionsChannelID}>\n` +
-                `\n__**SCU Social Networking**__\n- [FaceBook](https://www.facebook.com/SantaClaraUniversity/)\n- [Instagram](https://instagram.com/santaclarauniversity/)\n- [LinkedIn](https://www.linkedin.com/school/santa-clara-university/)\n- [Reddit](https://reddit.com/r/SCU)\n- [Twitter](https://www.twitter.com/SantaClaraUniv/)\n- [YouTube](https://www.youtube.com/santaclarauniversity)`)
-                .setColor(10231598)
+                ` of the major. Read Discord's Terms of Service [here](https://discord.com/terms).\n\n` +
+                `**Permanent Invite Link**\n[SCU Discord Network](https://discord.gg/YusWdfu)` +
+                `\n\n**Questions / Concerns / Inquiries**\nMessage <@&${config.serverRoles.admin}>/<@&${config.serverRoles.mod}> or ping away in <#${config.channels.suggestions}>\n` +
+                `\n**SCU Social Networking**\n- [FaceBook](https://www.facebook.com/SantaClaraUniversity/)\n- [Instagram](https://instagram.com/santaclarauniversity/)\n- [LinkedIn](https://www.linkedin.com/school/santa-clara-university/)\n- [Reddit](https://reddit.com/r/SCU)\n- [Twitter](https://www.twitter.com/SantaClaraUniv/)\n- [YouTube](https://www.youtube.com/santaclarauniversity)`)
+                .setColor(config.school_color)
 
             const resourcesEmbed = new MessageEmbed()
                 .setTitle("**Server Information**")
