@@ -1,12 +1,19 @@
 const config = require(`../config.json`);
 
 module.exports = async (client) => {
-	const guild = client.guilds.cache.get(config.verification.guildID);
 
+<<<<<<< HEAD
 	require("../serverVerification.js").run(client, config); //start server verification file in ready event
 	require("../serverInput.js").run(client, config);
 	
 	let auditLogs = guild.channels.cache.find(channel => channel.name === "audit-logs");
+=======
+	require("../google-form-functions/serverVerification.js").run(client, config); //start server verification file in ready event
+	require("../google-form-functions/inputValidation.js").run(client, config); // start server input 
+
+	const guild = client.guilds.cache.get(config.verification.guildID);
+	let auditLogs = guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
+>>>>>>> 4e78664... UPDATED 9/4/2020: updated google form functions , removed useless commands, and tidied up code for new stuff :)
 	const verifyMSG = {
 		title: "Hurray!",
 		description: "All commands and events work! ✅",
@@ -22,11 +29,8 @@ module.exports = async (client) => {
 		return memberCount;
 	});
 
-	const avatar = "https://thehoya.com/wp-content/uploads/2019/04/19.03.26_FrKevinOBrien_SantaClaraUniversity.png";
-	client.user.setAvatar(avatar);
-
 	let statuses = [
-		`Preaching to ${memberCount} members in the ${guild.name} server!`, 
+		`Hanging out with ${memberCount} members in the ${guild.name} server!`, 
 		`Reflecting in silence with ${memberCount} members in the ${guild.name} server!`,
 		`Welcome to Santa Clara University in heart of the Silicon Valley — the world’s most innovative and entrepreneurial region!`,
 		`A Catholic and Jesuit university is a place of encounter: where the university encounters the world.`,
@@ -34,6 +38,7 @@ module.exports = async (client) => {
 		`It is a great privilege to share in the dream of Santa Clara University.`,
 		`I am deeply humbled to be asked to take the helm of Santa Clara University and to build upon what others have accomplished over the last decade.`,
 		`Invent the life you want to lead at Santa Clara University.`,
+		`📸 Follow our Instagram: @scudiscordnetwork`,
 		`🔥 Go forth and set the world on fire!`,
 		`94% First-year retention rate | 11:1 Student-to-faculty ratio | 85% Four-year graduation rate | 300+ days of sunshine`,
 		`At Santa Clara University, we are committed to creating a community of generous encounter, a place where all feel respected, welcomed, and safe.`,

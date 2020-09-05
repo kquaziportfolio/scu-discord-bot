@@ -2,6 +2,7 @@ const Discord = require(`discord.js`); //requires Discord.js integration package
 const config = require(`../config.json`);
 const OBS = require(`./obs.json`);
 const OBS_list = OBS.obs;
+const fs = require(`fs`);
 
 module.exports = (client, message) => {
   // Ignore all bots
@@ -22,7 +23,7 @@ module.exports = (client, message) => {
             name: `**Blacklisted Word Detected**`, 
             icon_url: `${sicon}`,
           },		
-          description: `<@${memberTag}> , this is the Official Santa Clara University Discord Network! Please refrain from such speech immediately! You've been warned!`,
+          description: `<@${memberTag}> , this is the Santa Clara University Discord Network! Please refrain from such speech immediately! You've been warned!`,
           color: config.school_color,
           thumbnail: {
             "url": "attachment://ohno.jpg",
@@ -40,7 +41,7 @@ module.exports = (client, message) => {
       }
     }
   } catch (e) {
-      auditLogs.send({ embed: { description: `There was an error: ${e}`}});
+      console.log(err);
   }
 
   if (message.channel.id === config.channels.updates) {
@@ -48,7 +49,9 @@ module.exports = (client, message) => {
   } 
 
   // Ignore messages not starting with the prefix (in config.json)
-  if (message.content.indexOf(config.prefix) !== 0) return;
+  if (message.content.indexOf(config.prefix)) return;
+
+  if (message.channel.type == "dm") return message.delete();
 
   // Our standard argument/command name definition.
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
@@ -61,22 +64,11 @@ module.exports = (client, message) => {
   A prime example of this would be a kick command. You can add a property to the necessary 
   commands to determine whether or not it should be only available outside of servers.*/
 
-  if (command.guildOnly != false && message.channel.type !== 'text') {
+  if (message.channel.type !== 'text') 
     return message.channel.send({ embed: { description: `<@${message.author.id}>, I can't execute that command inside DMs!` }});
-  }
-
-  if (command.args && !args.length) {
-    let reply = `You didn't provide any arguments, ${message.author}!`;
-
-    if (command.usage) {
-      reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}`;
-    }
-
-    return message.channel.send({embed: { description: reply }});
-  }
 
   // If that command doesn't exist, silently exit and do nothing
-  if (!client.commands.has(`${commandName}`)) return message.channel.send("That's not a command!");
+  if (!client.commands.has(`${commandName}`)) return message.channel.send(`<@${message.author.id}>`, { embed: { description: `That's not a command!`, color: config.school_color}});
 
   const cooldowns = new Discord.Collection();
 
@@ -93,7 +85,7 @@ module.exports = (client, message) => {
 
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+      return message.reply({ embed: { description: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, color: config.school_color}});
     }
 
     timestamps.set(message.author.id, now);

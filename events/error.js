@@ -1,5 +1,7 @@
+const config = require(`../config.json`);
+
 module.exports = async (error, message) => {
-    let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
+    let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 
     auditLogs.send({ embed: { description: `Unhandled promise rejection: ${error}`}});
     
