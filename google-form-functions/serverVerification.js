@@ -112,7 +112,7 @@ module.exports.run = (client, config) => {
           //send them a confirmation
           const verifyConfirmation = {
             title: `__**Successful Verification**__`,
-            description: `✅ <@${member.user.id}>, you have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.infoChannelID}> for more information!`,
+            description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.infoChannelID}> for more information!`,
             color: config.school_color,
             footer: {
               text: "SCU Discord Network Verification",
@@ -144,11 +144,14 @@ module.exports.run = (client, config) => {
               },
             ],
           };
-          member.send({ embed: verifyConfirmation});
+          member.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation});
           const verifyEmbed = { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `You are now verified! Everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()};
-          let verificationChannel = guild.channels.cache.find(channel => channel.id === config.channels.verificationlogs);
-          verificationChannel.send({ embed: verifyConfirmation}).then(m => m.react('👍'));
-          guild.channels.cache.get(config.channels.welcome).send(`**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
+          
+          let verificationChannel = guild.channels.cache.get(config.channels.verificationlogs);
+          verificationChannel.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation}).then(m => m.react('👍'));
+            
+          let welcomeChannel = guild.channels.cache.get(config.channels.welcome);
+          welcomeChannel.send(`**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
         }
       } else {
         //if no body.. return this
