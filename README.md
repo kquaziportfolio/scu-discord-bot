@@ -9,7 +9,7 @@
 
   - Utilized the Google Scripts API to log user suggestions/constructive feedback inside channels from an external form input.
 
-  - Will be open to making this an official student-run online network if possible.
+  - Will be open to promote this server as a student-run online network if possible by institutional measures.
 
 ![SCU Discord Network Banner](https://github.com/jasonanhvu/scu-discord-bot/blob/master/assets/scu_banner.jpg?raw=true)
 
