@@ -2,18 +2,11 @@ const config = require(`../config.json`);
 
 module.exports = async (client) => {
 
-<<<<<<< HEAD
-	require("../serverVerification.js").run(client, config); //start server verification file in ready event
-	require("../serverInput.js").run(client, config);
-	
-	let auditLogs = guild.channels.cache.find(channel => channel.name === "audit-logs");
-=======
 	require("../google-form-functions/serverVerification.js").run(client, config); //start server verification file in ready event
 	require("../google-form-functions/inputValidation.js").run(client, config); // start server input 
 
 	const guild = client.guilds.cache.get(config.verification.guildID);
 	let auditLogs = guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
->>>>>>> 4e78664... UPDATED 9/4/2020: updated google form functions , removed useless commands, and tidied up code for new stuff :)
 	const verifyMSG = {
 		title: "Hurray!",
 		description: "All commands and events work! ✅",

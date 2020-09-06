@@ -23,7 +23,7 @@ module.exports = async (client, member) => {
 
   const welcome_Embed1 = new MessageEmbed() // triggers when new users joins to specific channel in server
   .setTitle(`Welcome to the **${guild.name}**!`) // Calling method setTitle on constructor.
-  .setDescription(`<@${memberTag}> has joined **${guild.name}**! ` + `Be sure to follow instructions in your DM's! Go Broncos!`) //Setting embed description
+  .setDescription(`We're glad to have you here! Follow instructions in your DM's and Go Broncos!`) //Setting embed description
   .setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!
   .setTimestamp() // Sets a timestamp at the end of the embed
   .attachFiles([`./assets/scu-background.png`])
@@ -31,7 +31,7 @@ module.exports = async (client, member) => {
   .setColor(config.school_color)
   .setFooter(`Brought to you by the creators of this Discord server.`)
 
-  guild.systemChannel.send(welcome_Embed1);
+  guild.systemChannel.send(`<@${memberTag}>\n${welcome_Embed1}`);
 
   try {
     if(!member.user.bot) {

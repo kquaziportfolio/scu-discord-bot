@@ -2,17 +2,14 @@ const Discord = require(`discord.js`); //requires Discord.js integration package
 const config = require(`../config.json`);
 const OBS = require(`./obs.json`);
 const OBS_list = OBS.obs;
-const fs = require(`fs`);
 
 module.exports = (client, message) => {
   // Ignore all bots
-  if (message.author.bot) return;
+  if (message.author.bot || !message.guild) return;
 
   // Ignore messages not starting with the prefix (in config.json)
   if (message.content.indexOf(config.prefix)) return;
-
-  if (message.channel.type == "dm") return;
-
+  
   const guild = client.guilds.cache.get(`${config.verification.guildID}`);
   const sicon = guild.iconURL();
   const memberTag = message.author.id;
@@ -67,7 +64,9 @@ module.exports = (client, message) => {
   if (message.channel.type !== 'text') 
     return message.channel.send({ embed: { description: `<@${message.author.id}>, I can't execute that command inside DMs!` }});
 
-  // If that command doesn't exist, silently exit and do nothing
+  if (message.channel.type == "dm") return;
+
+  // If that command doesn't exist, say that's not a command 
   if (!client.commands.has(`${commandName}`)) return message.channel.send(`<@${message.author.id}>`, { embed: { description: `That's not a command!`, color: config.school_color}});
 
   const cooldowns = new Discord.Collection();
