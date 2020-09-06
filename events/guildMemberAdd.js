@@ -31,7 +31,7 @@ module.exports = async (client, member) => {
   .setColor(config.school_color)
   .setFooter(`Brought to you by the creators of this Discord server.`)
 
-  guild.systemChannel.send(`<@${memberTag}>\n${welcome_Embed1}`);
+  guild.systemChannel.send(`<@${memberTag}>, { embed: welcome_Embed1}`);
 
   try {
     if(!member.user.bot) {
