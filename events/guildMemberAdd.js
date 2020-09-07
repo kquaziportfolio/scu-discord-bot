@@ -26,8 +26,8 @@ module.exports = async (client, member) => {
   .setDescription(`We're glad to have you here! Follow instructions in your DM's and Go Broncos!`) //Setting embed description
   .setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!
   .setTimestamp() // Sets a timestamp at the end of the embed
-  .attachFiles([`./assets/scu-background.png`])
-  .setImage(`attachment://scu-background.png`)
+  .attachFiles([`./assets/scu_banner.png`])
+  .setImage(`attachment://scu_banner.png`)
   .setColor(config.school_color)
   .setFooter(`Brought to you by the creators of this Discord server.`)
 
