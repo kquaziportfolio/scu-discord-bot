@@ -20,12 +20,12 @@ module.exports = (client, message) => {
   try {
     for (let i = 0; i < OBS_list.length; i++) {
       if (word.includes(OBS_list[i])) {
-        message.author.send({embed: {
+        message.author.send(`<@${memberTag}>`, {embed: {
           author: {
             name: `**Blacklisted Word Detected**`, 
             icon_url: `${sicon}`,
           },		
-          description: `<@${memberTag}> , this is the Santa Clara University Discord Network! Please refrain from such speech immediately! You've been warned!`,
+          description: `This is the Santa Clara University Discord Network! Please refrain from such speech immediately! You've been warned!`,
           color: config.school_color,
           thumbnail: {
             "url": "attachment://ohno.jpg",
