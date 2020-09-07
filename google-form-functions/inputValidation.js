@@ -50,11 +50,10 @@ module.exports.run = (client, config) => {
     
           for (let i = 0; i < OBS_list.length; i++) {   
             if (req.body.input.includes(OBS_list[i].toLowerCase())) {
-                let muteRole = "Muted";
-                member.roles.add(guild.roles.cache.find((role) => role.name == muteRole));
+                member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.muted));
                 member.roles.remove(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent));
                 //send them a confirmation
-                member.send({
+                member.send(`<@${member.user.id}>`, {
                         embed: {
                         title: `__**Mute Notification**__`,
                         description: `You have violated the server rules. You'll be muted for one day.`,
@@ -78,7 +77,7 @@ module.exports.run = (client, config) => {
                         ],
                         },
                     });
-                    sendMessage(client, config.channels.auditlogs, { embed: { title: `Obscene Input!`, title: `**USER MUTED**`, description: `- **${req.body.discord}** said ||${req.body.input}||`, color: config.school_color}});
+                    sendMessage(client, config.channels.auditlogs, `<@${member.user.id}>`, { embed: { title: `Obscene Input!`, title: `**USER MUTED**`, description: `- **${req.body.discord}** said ||${req.body.input}||`, color: config.school_color}});
                     setTimeout(() => {member.roles.remove(muteRole);}, 3600 * 1000).then(m => m.send('User has been unmuted.')) // <- sets a timeout to unmute the user.
             } else { 
                 return sendMessage(client, config.channels.input, { embed: { title: `Questions/Suggestions?`, description: "```" + `${req.body.input}` + "```", thumbnail: { url: "https://jasonanhvu.github.io/assets/img/logo-pic.png"}, footer: { text: "Brought to you from Google forms!"}, timestamp: new Date(), color: config.school_color}});
