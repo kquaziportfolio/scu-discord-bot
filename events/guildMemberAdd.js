@@ -31,7 +31,7 @@ module.exports = async (client, member) => {
   .setColor(config.school_color)
   .setFooter(`Brought to you by the creators of this Discord server.`)
 
-  guild.systemChannel.send(`<@${memberTag}>, { welcome_Embed1 });
+  guild.systemChannel.send(`<@${memberTag}>`, { embed: welcome_Embed1 });
 
   try {
     if(!member.user.bot) {
@@ -42,7 +42,7 @@ module.exports = async (client, member) => {
           `${emojiCharacters.two} __**Please**__ fill out the Google Form :clipboard: in the <#${config.channels.roles}> to __**immediately**__ verify yourself and get roles in the SCU server! It'll only take a couple seconds! Note: If you're a **Guest** or **Prospective Student**, you are exempted from this requirement. \n\n` +
           `${emojiCharacters.three} Read the <#${config.channels.info}> channel and introduce yourself :wave: in the <#${config.channels.intros}> channel! \n\n` +
           `${emojiCharacters.four} Check out SCU updates :mega: in <#${config.channels.updates}> and keep your eyes peeled for cool servers :cool: in <#${config.channels.discordPromos}>! \n\n` +
-          `${emojiCharacters.five} If you have any technical issues :computer:, feel free to contact <@&${config.serverRoles.admin}> or <@&${config.serverRoles.mod}> for quick and speedy aid!\n\n` +
+          `${emojiCharacters.five} If you have any technical issues :computer:, feel free to contact **ADMIN** or **MOD** for quick and speedy aid!\n\n` +
           `Thank you for your cooperation and Go Broncos! :racehorse:`
         )
         .setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!
