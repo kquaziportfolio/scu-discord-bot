@@ -112,7 +112,7 @@ module.exports.run = (client, config) => {
           //send them a confirmation
           const verifyConfirmation = {
             title: `__**Successful Verification**__`,
-            description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.infoChannelID}> for more information!`,
+            description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
             color: config.school_color,
             footer: {
               text: "SCU Discord Network Verification",
