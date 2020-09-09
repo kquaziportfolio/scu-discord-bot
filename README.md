@@ -1,5 +1,7 @@
 # SCU DISCORD NETWORK
 
+![SCU Discord Network Banner](https://github.com/jasonanhvu/scu-discord-bot/blob/master/assets/scu_banner.png?raw=true)
+
 ## Discord.JS BOT
 - This is a 24/7 bot that I made for my [**SCU Discord Network**](https://invite.gg/gobroncos) to provide a comprehensive and effective social media platform for Santa Clara University students to utilize especially in the midst of the worldwide COVID-19 pandemic.
 
@@ -11,8 +13,6 @@
 
   - Will be open to promote this server as a student-run online network if possible by institutional measures.
 
-![SCU Discord Network Banner](https://github.com/jasonanhvu/scu-discord-bot/blob/master/assets/scu_banner.png?raw=true)
-
 ## Server Logo
 ![SCU Discord Network Logo](https://github.com/jasonanhvu/scu-discord-bot/blob/master/assets/logo-pic.png?raw=true)
 
@@ -22,4 +22,3 @@
 ## Creator(s):
 - Jason Vu = Discord server admin, moderator, and back-end
 - Samuel Stephen = Discord server moderator and back-end
-  
