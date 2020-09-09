@@ -85,9 +85,9 @@ module.exports.run = (client, config) => {
           }
   
           //set their nickname like this: [First Name] || [Major]
-          //also, if nickname is over 32 characters, DM user about their invalid nickname and catch error and log it in #audit-logs 
+          //also, if nickname is over 32 characters, DM user about their invalid nickname and catch error and log it in #audit-logs so we could manually adjust it
           try {
-              let nickname = `${req.body.name} [${req.body.major}]`;
+              let nickname = `${req.body.name} || ${req.body.major}`;
               member.setNickname(`${nickname}`);
           } catch (err) {
               const nicknameError = { 
