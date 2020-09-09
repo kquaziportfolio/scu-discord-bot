@@ -16,9 +16,9 @@
 ## Server Logo
 ![SCU Discord Network Logo](https://github.com/jasonanhvu/scu-discord-bot/blob/master/assets/logo-pic.png?raw=true)
 
-## Commands:
+## Commands
 - Check them out [here!](https://github.com/jasonanhvu/scu-discord-bot/tree/master/commands)
 
-## Creator(s):
+## Creator(s)
 - Jason Vu = Discord server admin, moderator, and back-end
 - Samuel Stephen = Discord server moderator and back-end
