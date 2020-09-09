@@ -16,14 +16,13 @@ module.exports.run = (client, config) => {
       {
           verification: {
               "guildID": "string of guild enabled in",
-              "key": "string for basically a password to authenticate requests", //get sa string of some sort?
+              "key": "string for basically a password to authenticate requests", //basically a string of some sort?
               ""
           }
       }
       INCOMING OBJECT FROM GOOGLE FORMS
       {
           "name": "First/Last name",
-          "email": "Student's email for backup"
           "major": "Current Major",
           "status": "Member Status",
           "discord": "Discord Username with Tag"
@@ -68,13 +67,8 @@ module.exports.run = (client, config) => {
               embed: {
                 description: `❌ Someone tried to verify their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
                 color: config.school_color,
-                footer: {
-                  text: "SCU Discord Network Verification",
-                },
-                author: {
-                  name: "Verification Notice",
-                  icon_url: client.user.avatarURL(),
-                },
+                footer: { text: "SCU Discord Network Verification", },
+                author: { name: "Verification Notice", icon_url: client.user.avatarURL(), },
                 timestamp: new Date()
               },
             });
@@ -114,34 +108,15 @@ module.exports.run = (client, config) => {
             title: `__**Successful Verification**__`,
             description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
             color: config.school_color,
-            footer: {
-              text: "SCU Discord Network Verification",
-            },
-            author: {
-              name: "Verification Confirmation",
-              icon_url: client.user.avatarURL(),
-            },
-            image: {
-              url: guild.splashURL(),
-            },
+            footer: { text: "SCU Discord Network Verification", },
+            author: { name: "Verification Confirmation", icon_url: client.user.avatarURL(), },
+            image: { url: guild.splashURL(), },
             timestamp: new Date(),
             fields: [
-              {
-                name: "First Name",
-                value: req.body.name,
-              },
-              {
-                name: "Current Major",
-                value: req.body.major,
-              },
-              {
-                name: "Member Status",
-                value: req.body.status,
-              },
-              {
-                name: "Discord Tag <-- (DiscordName#0000)",
-                value: req.body.discord,
-              },
+              { name: "First Name", value: req.body.name, },
+              { name: "Current Major", value: req.body.major, },
+              { name: "Member Status", value: req.body.status, },
+              { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
             ],
           };
           member.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation});
