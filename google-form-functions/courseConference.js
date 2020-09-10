@@ -154,7 +154,7 @@ module.exports.run = (client, config) => {
                   allow: ['VIEW_CHANNEL'],
                 }
               ],
-            })
+            }).then(m => m.setParent(config.category.classes);
           }
   
           let voiceChannel = guild.channels.cache.find(ch => ch.name == course);
@@ -171,7 +171,7 @@ module.exports.run = (client, config) => {
                   allow: ['VIEW_CHANNEL'],
                 }
               ],
-            })
+            }) .then(m => m.setParent(config.category.classes);
           }
         });
         
