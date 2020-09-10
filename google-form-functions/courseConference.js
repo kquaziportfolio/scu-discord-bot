@@ -23,12 +23,12 @@
 */
 
 /*
-1) Give them base class conference role in order to access their desired course channels nested in the **Classes** category 
-2) Loop thru the courses they ticked in the form and give them those roles, otherwise create new ones if they hadn't already existed
-3) Every role created from the form will have the following permissions written in lines 117-118
-4) For each new channel, iterate thru all of them to create text channels with the specific course names
-5) Set text and voice to sync with the category permissions (so basically all students with base "class conference" role will only see the channels)
-6) Send them confirmation with their courses and Discord tag for confirmation
+- Give them base class conference role
+- Loop thru the courses they ticked in the form and give them those roles, otherwise create new ones if they hadn't already existed
+- Every role created from the form will have the following permissions stated in lines 110-111
+- For each new channel, iterate thru all of them to create text channels with the specific course names
+- Set text and voice to sync with the category permissions (so basically all students with base "class conference" role will only see the channels)
+- send them confirmation -> the end lol
 */
 
 module.exports.run = (client, config) => {
@@ -56,7 +56,7 @@ module.exports.run = (client, config) => {
     INCOMING OBJECT FROM GOOGLE FORMS
     {
         "name": "First/Last name",
-        "courses": "List of courses",
+        "course": "List of courses",
         "discord": "Discord Username with Tag"
     }
   */
@@ -93,89 +93,121 @@ module.exports.run = (client, config) => {
       //if the member isn't in the guild return an error in console
       if (member == null) {
         sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Course Conference**__`, description: `> **${req.body.discord}** returned **${member}**\n> Please contact them to fix it!`, color: config.school_color, timestamp: new Date()}});
+      } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.id === config.serverRoles.courseConference))) {
+        //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
+          member.send({
+            embed: {
+              description: `❌ Someone tried to obtain a Course Conference role on their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
+              color: config.school_color,
+              footer: {
+                text: "SCU Discord Network Course Conference",
+              },
+              author: {
+                name: "Alert Notice",
+                icon_url: client.user.avatarURL(),
+              },
+              timestamp: new Date()
+            },
+          });
       } else {
         sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ New Course Conference Alert!**__`, description: `Course Conference: New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
         //when user fills in the checkbox options, it will give them roles for their selected courses
 
         //give member their base Class Conference role
-        member.roles.add(guild.roles.cache.find((role) => role.id === config.serverRoles.classConference));
+        member.roles.add(guild.roles.cache.find((role) => role.id === config.serverRoles.courseConference));
 
         const random_hex_color_code = () => { //random hex generator to keep role colors interesting
           let n = (Math.random() * 0xfffff * 1000000).toString(16);
           return '#' + n.slice(0, 6);
         };
 
-        // basically loops to carry out subsequential functions long as there is a response 
-        // assigns roles with proper permissions to user then creates a guild with the role name
-        // if the role doesn't exist and user provides a new one, a new role will be created along with text/voice channels link to that specific course role
+        //give member their specific course role and assign it to them
+        //if not, then create new role then assign it to them
+        req.body.courses.forEach(course => {
+          let role = guild.roles.cache.find(ch => ch.name == course);
         
-        if (req.body.courses != null ) { //if user makes another option , therefore not null, create new role that opens up a text/voice channel beneath the Classes category
-          for (let i = 0; i < req.body.courses; i++) {
-            //give member their specific course role
-            member.roles.add(guild.roles.cache.find((role) => role.name == req.body.courses));
-
+          if(role) {
+            member.roles.add(role.id);
+          } else {
             guild.roles.create({
               data: {
-                  name: req.body.courses || [req.body.courses], 
-                  color: random_hex_color_code(), //generates random hex color for roles
-                  permissions: ['ADD_REACTIONS', 'STREAM', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES',
-                  'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS', 'CONNECT', 'SPEAK', 'USE_VAD', 'CHANGE_NICKNAME']
+                name: course, 
+                color: random_hex_color_code(), //generates random hex color for roles
+                permissions: ['ADD_REACTIONS', 'STREAM', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', //Give them these following permissions 
+                'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS', 'CONNECT', 'SPEAK', 'USE_VAD', 'CHANGE_NICKNAME']
               }
-            })
-
-            guild.channels.create(req.body.courses, { // name text channel after name of course
+            }).then(r => { member.roles.add(r.id)});
+          }
+        
+          let textChannel = guild.channels.cache.find(ch => ch.name == course);
+          if(!textChannel) {
+            //create category then in a promise create a text/voice channel I didn't show the full thing but you kno how to do it
+            guild.channels.create(course, {
               type: 'text',
               permissionOverwrites: [
                 {
-                    id: config.serverRoles.everyone, //@everyone can't view channel
-                    deny: ['VIEW_CHANNEL'],
+                  id: config.serverRoles.everyone, //@everyone can't view channel
+                  deny: ['VIEW_CHANNEL'],
                 },
                 {
-                    id: config.serverRoles.classConference, //having the base role "Class Conference" will allow the following permissions below
-                    allow: ['ADD_REACTIONS', 'STREAM', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'STREAM',
-                    'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS', 'CONNECT', 'SPEAK', 'USE_VAD', 'CHANGE_NICKNAME'],
-                    deny: ['CREATE_INSTANT_INVITE', 'MANAGE_MESSAGES', 'MANAGE_CHANNELS', 'MANAGE_WEBHOOKS', 'MANAGE PERMISSIONS', 'SEND_TTS_MESSAGES']
+                  id: course.id,
+                  allow: ['VIEW_CHANNEL'],
                 }
               ],
-            }).then(m => {
-                m.setParent(config.category.classes); //sync text channel to category permissions
-            });
-
-            guild.channels.create(req.body.courses, { // name voice channel after name of course
+            })
+          }
+  
+          let voiceChannel = guild.channels.cache.find(ch => ch.name == course);
+          if(!voiceChannel) {
+            guild.channels.create(course, { // name voice channel after name of course
               type: 'voice',
               permissionOverwrites: [
                 {
-                    id: config.serverRoles.everyone, //@everyone can't view channel
-                    deny: ['VIEW_CHANNEL'],
+                  id: config.serverRoles.everyone, //@everyone can't view channel
+                  deny: ['VIEW_CHANNEL'],
                 },
                 {
-                    id: config.serverRoles.classConference, //having the base role "Class Conference" will allow the following permissions below
-                    allow: ['CONNECT', 'SPEAK', 'VIDEO'],
+                  id: course.id,  
+                  allow: ['VIEW_CHANNEL'],
                 }
               ],
-            }).then(m => {
-                m.setParent(config.category.classes); //sync voice channel to category permissions
-            });
+            })
           }
-        }
-
+        });
+        
         //send them a confirmation
         const courseConfirmation = {
           title: `__**Successful Courses Added**__`,
           description: `✅ You have filled out the course conference form successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
           color: config.school_color,
-          footer: { text: "SCU Discord Network Course Conference Confirmation", },
-          author: { name: "Course Conference Confirmation", icon_url: client.user.avatarURL(), },
-          image: { url: guild.splashURL(), },
+          footer: {
+            text: "SCU Discord Network Course Conference Confirmation",
+          },
+          author: {
+            name: "Course Conference Confirmation",
+            icon_url: client.user.avatarURL(),
+          },
+          image: {
+            url: guild.splashURL(),
+          },
           timestamp: new Date(),
           fields: [
-            { name: "First Name", value: req.body.name, },
-            { name: "Courses", value: req.body.courses, },
-            { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
+            {
+              name: "First Name",
+              value: req.body.name,
+            },
+            {
+              name: "Courses",
+              value: req.body.courses,
+            },
+            {
+              name: "Discord Tag <-- (DiscordName#0000)",
+              value: req.body.discord,
+            },
           ],
         };
         member.send(`**<@${member.user.id}>**`, { embed: courseConfirmation});
-
+ 
         let verificationChannel = guild.channels.cache.get(config.channels.verificationlogs);
         verificationChannel.send(`**<@${member.user.id}>**`, { embed: courseConfirmation}).then(m => m.react('👍'));
       }
