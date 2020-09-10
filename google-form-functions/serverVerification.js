@@ -25,6 +25,7 @@ module.exports.run = (client, config) => {
           "name": "First/Last name",
           "major": "Current Major",
           "status": "Member Status",
+          "rlc": "Name of your RLC",
           "discord": "Discord Username with Tag"
       }
     */
@@ -82,6 +83,8 @@ module.exports.run = (client, config) => {
             member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
             //give member their major role
             member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
+            //give member their RLC role
+            member.roles.add(guild.roles.cache.find((role) => role.name == req.body.rlc));
           }
   
           //set their nickname like this: [First Name] || [Major]
@@ -116,6 +119,7 @@ module.exports.run = (client, config) => {
               { name: "First Name", value: req.body.name, },
               { name: "Current Major", value: req.body.major, },
               { name: "Member Status", value: req.body.status, },
+              { name: "Residential Learning Community", value: req.body.rlc },
               { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
             ],
           };
