@@ -7,7 +7,7 @@
 
   - Utilized the Node.js environment and Node module Discord.js to deploy a bot that greets/sends direct messages, interacts with over 500 students, and performs an assortment of automated tasks to better the server experience. 
 
-  - Programmed Express.js servers to run a **(1)** *server (guild) verification system* which automatically gives graduating year, college major, and verified roles to SCU students and **(2)** *class cooperation system* that places students into text/voice channels aligned with their current General Education classes to talk with peers. Both of these processes grant different server roles based on the user's responses. 
+  - Programmed Express.js servers to run a **(1)** *server (guild) verification system* which automatically gives graduating year, college major, and verified roles to SCU students and **(2)** *class cooperation system* that places students into text/voice channels aligned with their current General Education classes to talk with peers. Both of these processes grant different server roles based on form responses. 
 
   - Logged suggestions and constructive feedback from users to better the server's general UI/UX. 
 
