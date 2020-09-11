@@ -41,7 +41,7 @@ module.exports.run = (client, config) => {
     INCOMING OBJECT FROM GOOGLE FORMS
     {
         "name": "First name",
-        "course": "List of courses",
+        "courses": "List of courses",
         "discord": "Discord Username with Tag"
     }
   */
@@ -84,13 +84,8 @@ module.exports.run = (client, config) => {
             embed: {
               description: `❌ Someone tried to obtain a **Class Co-op** role on their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
               color: config.school_color,
-              footer: {
-                text: "SCU Discord Network Class Co-op",
-              },
-              author: {
-                name: "Alert Notice",
-                icon_url: client.user.avatarURL(),
-              },
+              footer: { text: "SCU Discord Network Class Co-op", },
+              author: { name: "Alert Notice", icon_url: client.user.avatarURL(), },
               timestamp: new Date()
             },
           });
@@ -130,10 +125,7 @@ module.exports.run = (client, config) => {
             guild.channels.create(course, {
               type: 'text',
               permissionOverwrites: [
-                {
-                  id: config.serverRoles.everyone, //@everyone can't view channel
-                  deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS']
-                },
+                { id: config.serverRoles.everyone, /*@everyone can't view channel*/ deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS'] },
               ],
             }).then(m => {
                 m.setParent(config.category.classes); //sync text channel to category permissions
@@ -145,10 +137,7 @@ module.exports.run = (client, config) => {
             guild.channels.create(course, { // name voice channel after name of course
               type: 'voice',
               permissionOverwrites: [
-                {
-                  id: config.serverRoles.everyone, //@everyone can't view channel
-                  deny: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK', 'USE_VAD', 'STREAM'],
-                },
+                { id: config.serverRoles.everyone, /*@everyone can't view channel*/ deny: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK', 'USE_VAD', 'STREAM'], },
               ],
             }).then(m => {
                 m.setParent(config.category.classes); //sync voice channel to category permissions
@@ -161,30 +150,14 @@ module.exports.run = (client, config) => {
           title: `__**Successful Courses Added**__`,
           description: `✅ You have filled out the class co-op form successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
           color: config.school_color,
-          footer: {
-            text: "SCU Discord Network Class Co-op Confirmation",
-          },
-          author: {
-            name: "Class Co-op Confirmation",
-            icon_url: client.user.avatarURL(),
-          },
-          image: {
-            url: guild.splashURL(),
-          },
+          footer: { text: "SCU Discord Network Class Co-op Confirmation", },
+          author: { name: "Class Co-op Confirmation",   icon_url: client.user.avatarURL(), },
+          image: { url: guild.splashURL(), },
           timestamp: new Date(),
           fields: [
-            {
-              name: "First Name",
-              value: req.body.name,
-            },
-            {
-              name: "Courses",
-              value: req.body.courses,
-            },
-            {
-              name: "Discord Tag <-- (DiscordName#0000)",
-              value: req.body.discord,
-            },
+            { name: "First Name", value: req.body.name, },
+            { name: "Courses", value: req.body.courses, },
+            { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
           ],
         };
         member.send(`**<@${member.user.id}>**`, { embed: courseConfirmation});
@@ -197,8 +170,8 @@ module.exports.run = (client, config) => {
         classCoopChannel.send(`**<@${member.user.id}>**`, { embed: classCoopEmbed}).then(m => m.react('👋'));
       }
     } else {
-      //if no body.. return this
-      res.status(401).send({ error: "No data found" });
+        //if no body.. return this
+        res.status(401).send({ error: "No data found" });
     }
   });
 };
