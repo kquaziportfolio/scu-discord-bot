@@ -3,7 +3,7 @@ const config = require(`../config.json`);
 module.exports = async (client) => {
 
 	require("../google-form-functions/serverVerification.js").run(client, config); //start server verification file in ready event
-	require("../google-form-functions/inputValidation.js").run(client, config); // start server input 
+	require("../google-form-functions/classCoop.js").run(client, config); // start class co-op server 
 
 	const guild = client.guilds.cache.get(config.verification.guildID);
 	let auditLogs = guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
