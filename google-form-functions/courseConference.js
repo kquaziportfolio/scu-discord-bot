@@ -1,28 +1,13 @@
 /*
 
-░██╗░░░░░░░██╗██╗██████╗░  ░█████╗░██╗░░░░░░█████╗░░██████╗░██████╗
-░██║░░██╗░░██║██║██╔══██╗  ██╔══██╗██║░░░░░██╔══██╗██╔════╝██╔════╝
-░╚██╗████╗██╔╝██║██████╔╝  ██║░░╚═╝██║░░░░░███████║╚█████╗░╚█████╗░
-░░████╔═████║░██║██╔═══╝░  ██║░░██╗██║░░░░░██╔══██║░╚═══██╗░╚═══██╗
-░░╚██╔╝░╚██╔╝░██║██║░░░░░  ╚█████╔╝███████╗██║░░██║██████╔╝██████╔╝
-░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░░░░  ░╚════╝░╚══════╝╚═╝░░╚═╝╚═════╝░╚═════╝░
-
-░█████╗░░█████╗░███╗░░██╗███████╗███████╗██████╗░███████╗███╗░░██╗░█████╗░███████╗
-██╔══██╗██╔══██╗████╗░██║██╔════╝██╔════╝██╔══██╗██╔════╝████╗░██║██╔══██╗██╔════╝
-██║░░╚═╝██║░░██║██╔██╗██║█████╗░░█████╗░░██████╔╝█████╗░░██╔██╗██║██║░░╚═╝█████╗░░
-██║░░██╗██║░░██║██║╚████║██╔══╝░░██╔══╝░░██╔══██╗██╔══╝░░██║╚████║██║░░██╗██╔══╝░░
-╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░███████╗██║░░██║███████╗██║░╚███║╚█████╔╝███████╗
-░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚══════╝╚═╝░░╚══╝░╚════╝░╚══════╝
-
-░██████╗██╗░░░██╗░██████╗████████╗███████╗███╗░░░███╗
-██╔════╝╚██╗░██╔╝██╔════╝╚══██╔══╝██╔════╝████╗░████║
-╚█████╗░░╚████╔╝░╚█████╗░░░░██║░░░█████╗░░██╔████╔██║
-░╚═══██╗░░╚██╔╝░░░╚═══██╗░░░██║░░░██╔══╝░░██║╚██╔╝██║
-██████╔╝░░░██║░░░██████╔╝░░░██║░░░███████╗██║░╚═╝░██║
-╚═════╝░░░░╚═╝░░░╚═════╝░░░░╚═╝░░░╚══════╝╚═╝░░░░░╚═╝ 
-*/
-
+  _____ _                _____ _____    _____ ____          ____  _____     _______     _______ _______ ______ __  __ _ 
+ / ____| |        /\    / ____/ ____|  / ____/ __ \        / __ \|  __ \   / ____\ \   / / ____|__   __|  ____|  \/  | |
+| |    | |       /  \  | (___| (___   | |   | |  | |______| |  | | |__) | | (___  \ \_/ / (___    | |  | |__  | \  / | |
+| |    | |      / /\ \  \___ \\___ \  | |   | |  | |______| |  | |  ___/   \___ \  \   / \___ \   | |  |  __| | |\/| | |
+| |____| |____ / ____ \ ____) |___) | | |___| |__| |      | |__| | |       ____) |  | |  ____) |  | |  | |____| |  | |_|
+ \_____|______/_/    \_\_____/_____/   \_____\____/        \____/|_|      |_____/   |_| |_____/   |_|  |______|_|  |_(_)
 /*
+
 - Give them base class conference role
 - Loop thru the courses they ticked in the form and give them those roles, otherwise create new ones if they hadn't already existed
 - Every role created from the form will have the following permissions stated in lines 110-111
@@ -67,18 +52,18 @@ module.exports.run = (client, config) => {
   app.use(cors());
   app.use(helmet());
   //This will start on port 2000, if this collides with another service you may change it
-  const verifyMSG = {
+  const sysMsg = {
     title: "✅ SCU DISCORD NETWORK EXPRESS.JS COURSE CONFERENCE SERVER",
     description: `Verification listening at port 2000 [here](${config.verification.inputURL})! ✅`,
     color: "GREEN", 
     timestamp: new Date()
   }
   app.listen(2000, () => {
-    console.log(verifyMSG.description);
-    sendMessage(client, config.channels.auditlogs, { embed: verifyMSG});
+    console.log(sysMsg.description);
+    sendMessage(client, config.channels.auditlogs, { embed: sysMsg});
   });
   app.all("/", (req, res) => {
-    res.status(200).send(`${verifyMSG.title} was deployed on ${verifyMSG.timestamp}`);
+    res.status(200).send(`${sysMsg.title} was deployed on ${sysMsg.timestamp}`);
   });
   app.post("/getCourse", (req, res) => {
     //some basic auth
@@ -93,23 +78,28 @@ module.exports.run = (client, config) => {
       //if the member isn't in the guild return an error in console
       if (member == null) {
         sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Course Conference**__`, description: `> **${req.body.discord}** returned **${member}**\n> Please contact them to fix it!`, color: config.school_color, timestamp: new Date()}});
-      } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.id === config.serverRoles.courseConference))) {
+      } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.id === config.serverRoles.classCoop))) {
         //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
           member.send({
             embed: {
-              description: `❌ Someone tried to obtain a Course Conference role on their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
+              description: `❌ Someone tried to obtain a **Class Co-op** role on their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
               color: config.school_color,
-              footer: { text: "SCU Discord Network Course Conference", },
-              author: { name: "Alert Notice", icon_url: client.user.avatarURL(), },
+              footer: {
+                text: "SCU Discord Network Class Co-op",
+              },
+              author: {
+                name: "Alert Notice",
+                icon_url: client.user.avatarURL(),
+              },
               timestamp: new Date()
             },
           });
       } else {
-        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ New Course Conference Alert!**__`, description: `Course Conference: New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
+        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ New Class Co-op Alert!**__`, description: `Course Conference: New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
         //when user fills in the checkbox options, it will give them roles for their selected courses
 
         //give member their base Class Conference role
-        member.roles.add(guild.roles.cache.find((role) => role.id === config.serverRoles.courseConference));
+        member.roles.add(guild.roles.cache.find((role) => role.id === config.serverRoles.classCoop));
 
         const random_hex_color_code = () => { //random hex generator to keep role colors interesting
           let n = (Math.random() * 0xfffff * 1000000).toString(16);
@@ -140,10 +130,14 @@ module.exports.run = (client, config) => {
             guild.channels.create(course, {
               type: 'text',
               permissionOverwrites: [
-                { id: config.serverRoles.everyone, /*@everyone can't view channel*/ deny: ['VIEW_CHANNEL'], },
-                { id: course.id /* maybe [course.id] ? */, allow: ['VIEW_CHANNEL'], }
+                {
+                  id: config.serverRoles.everyone, //@everyone can't view channel
+                  deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS']
+                },
               ],
-            }).then(m => m.setParent(config.category.classes);
+            }).then(m => {
+                m.setParent(config.category.classes); //sync text channel to category permissions
+            });
           }
   
           let voiceChannel = guild.channels.cache.find(ch => ch.name == course);
@@ -151,32 +145,56 @@ module.exports.run = (client, config) => {
             guild.channels.create(course, { // name voice channel after name of course
               type: 'voice',
               permissionOverwrites: [
-                { id: config.serverRoles.everyone, /*@everyone can't view channel*/ deny: ['VIEW_CHANNEL'], },
-                { id: course.id /* maybe [course.id] ? */, allow: ['VIEW_CHANNEL'], }
+                {
+                  id: config.serverRoles.everyone, //@everyone can't view channel
+                  deny: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK', 'USE_VAD', 'STREAM'],
+                },
               ],
-            }) .then(m => m.setParent(config.category.classes);
+            }).then(m => {
+                m.setParent(config.category.classes); //sync voice channel to category permissions
+            });
           }
         });
         
         //send them a confirmation
         const courseConfirmation = {
           title: `__**Successful Courses Added**__`,
-          description: `✅ You have filled out the course conference form successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
+          description: `✅ You have filled out the class co-op form successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
           color: config.school_color,
-          footer: { text: "SCU Discord Network Course Conference Confirmation", },
-          author: { name: "Course Conference Confirmation", icon_url: client.user.avatarURL(), },
-          image: { url: guild.splashURL(), },
+          footer: {
+            text: "SCU Discord Network Class Co-op Confirmation",
+          },
+          author: {
+            name: "Class Co-op Confirmation",
+            icon_url: client.user.avatarURL(),
+          },
+          image: {
+            url: guild.splashURL(),
+          },
           timestamp: new Date(),
           fields: [
-            { name: "First Name", value: req.body.name, },
-            { name: "Courses", value: req.body.courses, },
-            { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
+            {
+              name: "First Name",
+              value: req.body.name,
+            },
+            {
+              name: "Courses",
+              value: req.body.courses,
+            },
+            {
+              name: "Discord Tag <-- (DiscordName#0000)",
+              value: req.body.discord,
+            },
           ],
         };
         member.send(`**<@${member.user.id}>**`, { embed: courseConfirmation});
  
         let verificationChannel = guild.channels.cache.get(config.channels.verificationlogs);
         verificationChannel.send(`**<@${member.user.id}>**`, { embed: courseConfirmation}).then(m => m.react('👍'));
+      
+        const classCoopEmbed = { title: `__**✅ WELCOME NEW CLASS CO-OP MEMBER!**__`, description: `Everyone please welcome **${req.body.name}** to the <#${config.channels.classCoop}> channel!`, color: config.school_color, timestamp: new Date()};
+        let classCoopChannel = guild.channels.cache.get(config.channels.classCoop);
+        classCoopChannel.send(`**<@${member.user.id}>**`, { embed: classCoopEmbed}).then(m => m.react('👋'));
       }
     } else {
       //if no body.. return this
