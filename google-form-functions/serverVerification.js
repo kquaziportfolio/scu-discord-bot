@@ -70,7 +70,7 @@ module.exports.run = (client, config) => {
       let member = guild.members.cache.find((member) => member.user.tag == req.body.discord);
       //if the member isn't in the guild return an error in console
       if (member == null) {
-        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Verification**__`, description: `> **${req.body.discord}** returned **${member}**\n> Please contact them to fix it!`, color: config.school_color, timestamp: new Date()}});
+        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Verification**__`, description: `> **${req.body.name}** returned **${req.body.discord}**, which is **${member}** in the server!\n> Please remove their response from the [form](https://docs.google.com/forms/d/1O4iazeB8sDlTPYLLgTF9IhndV0ZJv-ulvFJyqFkTMO4/edit)!`, color: config.school_color, timestamp: new Date()}});
       } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.name === "Student ✅"))) {
         //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
           member.send({
