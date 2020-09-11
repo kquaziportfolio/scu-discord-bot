@@ -9,9 +9,9 @@
 
   - Programmed Express.js servers to run a **(1)** *server (guild) verification system* which automatically gives graduating year, college major, and verified roles to SCU students and **(2)** *class cooperation system* that places students into text/voice channels aligned with their current General Education classes to talk with peers. Both of these processes grant different server roles based on form responses. 
 
-  - Logged suggestions and constructive feedback from users to better the server's general UI/UX. 
+  - Logged user suggestions to better the server's general UI/UX. 
 
-  - Will be open to promote this student-run online network if possible by institutional measures.
+  - Open to promote this student-run online network if possible by institutional measures.
 
 ## Server Logo
 ![SCU Discord Network Logo](https://github.com/jasonanhvu/scu-discord-bot/blob/master/assets/logo-pic.png?raw=true)
@@ -20,5 +20,5 @@
 - Check them out [here!](https://github.com/jasonanhvu/scu-discord-bot/tree/master/commands)
 
 ## Creator(s)
-- Jason Vu = Discord server admin, moderator, and back-end
+- Jason Vu = Discord server owner, admin, and back-end
 - Samuel Stephen = Discord server moderator and back-end
