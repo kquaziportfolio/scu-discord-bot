@@ -40,7 +40,7 @@ module.exports.run = (client, config) => {
     }
     INCOMING OBJECT FROM GOOGLE FORMS
     {
-        "name": "First/Last name",
+        "name": "First name",
         "course": "List of courses",
         "discord": "Discord Username with Tag"
     }
@@ -77,7 +77,7 @@ module.exports.run = (client, config) => {
       let member = guild.members.cache.find((member) => member.user.tag == req.body.discord);
       //if the member isn't in the guild return an error in console
       if (member == null) {
-        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Course Conference**__`, description: `> **${req.body.discord}** returned **${member}**\n> Please contact them to fix it!`, color: config.school_color, timestamp: new Date()}});
+        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Course Conference**__`, description: `> **${req.body.name}** returned **${req.body.discord}**, which is **${member}** in the server!\n> Please remove their response from the [form](https://docs.google.com/forms/d/1UVrIzT88ux6ZOgakUfiLQuSYvbS60MtNnuoI6i02MO8/edit)!`, color: config.school_color, timestamp: new Date()}});
       } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.id === config.serverRoles.classCoop))) {
         //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
           member.send({
@@ -95,7 +95,7 @@ module.exports.run = (client, config) => {
             },
           });
       } else {
-        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ New Class Co-op Alert!**__`, description: `Course Conference: New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
+        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ New Class Co-op Alert!**__`, description: `New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
         //when user fills in the checkbox options, it will give them roles for their selected courses
 
         //give member their base Class Conference role
