@@ -26,7 +26,6 @@ module.exports.run = (client, config) => {
         verification: {
             "guildID": "string of guild enabled in",
             "key": "string for basically a password to authenticate requests", //basically a string of some sort?
-            ""
         }
     }
     INCOMING OBJECT FROM GOOGLE FORMS
@@ -34,7 +33,7 @@ module.exports.run = (client, config) => {
         "name": "First/Last name",
         "major": "Current Major",
         "status": "Member Status",
-        "rlc": "Name of your RLC",
+        "rlc": "RLC Name",
         "discord": "Discord Username with Tag"
     }
   */
