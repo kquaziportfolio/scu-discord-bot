@@ -1,5 +1,4 @@
 /*
-
   _____ _                _____ _____    _____ ____          ____  _____     _______     _______ _______ ______ __  __ _ 
  / ____| |        /\    / ____/ ____|  / ____/ __ \        / __ \|  __ \   / ____\ \   / / ____|__   __|  ____|  \/  | |
 | |    | |       /  \  | (___| (___   | |   | |  | |______| |  | | |__) | | (___  \ \_/ / (___    | |  | |__  | \  / | |
@@ -7,12 +6,10 @@
 | |____| |____ / ____ \ ____) |___) | | |___| |__| |      | |__| | |       ____) |  | |  ____) |  | |  | |____| |  | |_|
  \_____|______/_/    \_\_____/_____/   \_____\____/        \____/|_|      |_____/   |_| |_____/   |_|  |______|_|  |_(_)
 /*
-
 - Give them base class conference role
 - Loop thru the courses they ticked in the form and give them those roles, otherwise create new ones if they hadn't already existed
 - Every role created from the form will have the following permissions stated in lines 110-111
-- For each new channel, iterate thru all of them to create text channels with the specific course names
-- Set text and voice to sync with the category permissions (so basically all students with base "class conference" role will only see the channels)
+- Set text and voice to sync with the category permissions (so basically all students with base "class conference" role will see the #class-landing channel)
 - send them confirmation -> the end lol
 */
 
@@ -35,13 +32,13 @@ module.exports.run = (client, config) => {
         verification: {
             "guildID": "string of guild enabled in",
             "key": "string for basically a password to authenticate requests", //get a random string of some sort?
-            ""
         }
     }
     INCOMING OBJECT FROM GOOGLE FORMS
     {
         "name": "First name",
         "courses": "List of courses",
+        "college": "Either CAS Help, LSB Help, or SOE Help",
         "discord": "Discord Username with Tag"
     }
   */
@@ -118,33 +115,11 @@ module.exports.run = (client, config) => {
               }
             }).then(r => { member.roles.add(r.id)});
           }
-        
-          let textChannel = guild.channels.cache.find(ch => ch.name == course);
-          if(!textChannel) {
-            //create category then in a promise create a text/voice channel I didn't show the full thing but you kno how to do it
-            guild.channels.create(course, {
-              type: 'text',
-              permissionOverwrites: [
-                { id: config.serverRoles.everyone, /*@everyone can't view channel*/ deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS'] },
-              ],
-            }).then(m => {
-                m.setParent(config.category.classes); //sync text channel to category permissions
-            });
-          }
-  
-          let voiceChannel = guild.channels.cache.find(ch => ch.name == course);
-          if(!voiceChannel) {
-            guild.channels.create(course, { // name voice channel after name of course
-              type: 'voice',
-              permissionOverwrites: [
-                { id: config.serverRoles.everyone, /*@everyone can't view channel*/ deny: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK', 'USE_VAD', 'STREAM'], },
-              ],
-            }).then(m => {
-                m.setParent(config.category.classes); //sync voice channel to category permissions
-            });
-          }
         });
-        
+
+        //give user their SCU college role (e.g. CAS Help, LSB Help, or SOE Help)
+        member.roles.add(guild.roles.cache.find((role) => role.name == req.body.college));
+          
         //send them a confirmation
         const courseConfirmation = {
           title: `__**Successful Courses Added**__`,
