@@ -1,56 +1,12 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const config = require(`../config.json`);
-const OBS = require(`./obs.json`);
-const OBS_list = OBS.obs;
 
 module.exports = (client, message) => {
-  // Checks if we're on DMs, or the Author is a Bot, or the Author is our Bot, or the message isn't from the guild, ignore it.
-  if (message.author.bot || !message.guild || message.channel.type == "dm"|| message.author === bot.user) return;
+  // Checks if we're on DMs, or the Author is a Bot, or the message isn't from the guild, ignore it.
+  if (message.author.bot || !message.guild || message.channel.type == "dm") return;
 
   // Ignore messages not starting with the prefix (in config.json)
   if (message.content.indexOf(config.prefix)) return;
-  
-  const guild = client.guilds.cache.get(`${config.verification.guildID}`);
-  const sicon = guild.iconURL();
-  const memberTag = message.author.id;
-
-  let word = message.content.toLowerCase().split(" "); //doesn't scan for substrings but rather normal words with one space
-  let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs); //basically sends a log to the #audit-logs channel to know who said what
-
-  //obscenities filter which I need to improve on. Need to add function to remove or add certain words from the obs.json list via bot commands
-  try {
-    for (let i = 0; i < OBS_list.length; i++) {
-      if (word.includes(OBS_list[i])) {
-        message.author.send(`<@${memberTag}>`, {embed: { //sends message author who said the word a warning -- might make them temporarily muted for 10 minutes 
-          author: {
-            name: `**Blacklisted Word Detected**`, 
-            icon_url: `${sicon}`,
-          },		
-          description: `This is the Santa Clara University Discord Network! Please refrain from such speech immediately! You've been warned!`,
-          color: config.school_color,
-          thumbnail: {
-            "url": "attachment://ohno.jpg",
-          },
-          files: [{
-            attachment:'./assets/ohno.jpg',
-            name:'ohno.jpg'
-          }],
-          timestamp: new Date()
-        }});
-
-        auditLogs.send({ embed: { title: `__**Blacklisted Word Detected!**__`, description: `<@${memberTag}> said the following word - ||${OBS_list[i]}|| - in ${message.channel}`, timestamp: new Date(), color: config.school_color}});
-        //the word has a spoiler and viewer discretion is advised
-        
-        return message.delete(); //instantly deletes user's message without hesistation or question as long as there is "one" obscenity in their text
-      }
-    }
-  } catch (e) {
-      console.log(err);
-  }
-
-  if (message.channel.id === config.channels.updates) { //Sends reaction every time something is manually written in #server-updates
-    message.react("👍");
-  } 
 
   // Our standard argument/command name definition.
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
@@ -95,6 +51,6 @@ module.exports = (client, message) => {
   // Run the command as long as it has these two parameters
     command.execute(message, args);
   } catch(err) {
-    console.log(`There was an error trying to run ${command.name} due the error: ${err.message}`);
+      console.log(`There was an error trying to run ${command.name} due the error: ${err.message}`);
   }
 }
