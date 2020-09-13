@@ -74,7 +74,7 @@ module.exports.run = (client, config) => {
       let member = guild.members.cache.find((member) => member.user.tag == req.body.discord);
       //if the member isn't in the guild return an error in console
       if (member == null) {
-        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Course Conference**__`, description: `> **${req.body.name}** returned **${req.body.discord}**, which is **${member}** in the server!\n> Please remove their response from the [form](https://docs.google.com/forms/d/1UVrIzT88ux6ZOgakUfiLQuSYvbS60MtNnuoI6i02MO8/edit)!`, color: config.school_color, timestamp: new Date()}});
+        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Class Co-op**__`, description: `> **${req.body.name}** returned **${req.body.discord}**, which is **${member}** in the server!\n> Please remove their response from the [form](https://docs.google.com/forms/d/1UVrIzT88ux6ZOgakUfiLQuSYvbS60MtNnuoI6i02MO8/edit)!`, color: config.school_color, timestamp: new Date()}});
       } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.id === config.serverRoles.classCoop))) {
         //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
           member.send({
@@ -122,7 +122,7 @@ module.exports.run = (client, config) => {
           
         //send them a confirmation
         const courseConfirmation = {
-          title: `__**Successful Courses Added**__`,
+          title: `__**Successful Course(s) Added**__`,
           description: `✅ You have filled out the class co-op form successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
           color: config.school_color,
           footer: { text: "SCU Discord Network Class Co-op Confirmation", },
@@ -130,9 +130,10 @@ module.exports.run = (client, config) => {
           image: { url: guild.splashURL(), },
           timestamp: new Date(),
           fields: [
-            { name: "First Name", value: req.body.name, },
-            { name: "Courses", value: req.body.courses, },
-            { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
+            { name: "First Name", value: req.body.name },
+            { name: "Courses", value: req.body.courses },
+            { name: "SCU College", value: req.body.college },
+            { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord }
           ],
         };
         member.send(`**<@${member.user.id}>**`, { embed: courseConfirmation});

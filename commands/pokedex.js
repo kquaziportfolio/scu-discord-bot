@@ -15,7 +15,7 @@ module.exports = {
 			return await response.json();
 		}
 		
-		const pokemonInstructions = new Discord.MessageEmbed()
+		const pokemonInstructions = new MessageEmbed()
 		.setColor(config.school_color)
 		.setTitle("__**Pokedex Command**__")
 		.setDescription("Here's an example:", ">pokedex Pikachu", true)
