@@ -8,14 +8,12 @@ module.exports = async (client, member) => {
 	
 	let auditLogs = member.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 
-	let leaveEmbed = new MessageEmbed() // Creating instance of Discord.MessageEmbed()
+	if(!member.user.bot) {
+		let leaveEmbed = new MessageEmbed() // Creating instance of Discord.MessageEmbed()
 		.setDescription(`<@${member.user.id}> has left **${guild.name}** which now has ${memberCount} members!`) //Setting embed description
 		.setTimestamp() // Sets a timestamp at the end of the embed
 		.setColor(config.school_color)
-	
-	if(!member.user.bot) return;
-	
-	auditLogs.send(leaveEmbed);
 
-	process.exit();
+		auditLogs.send(leaveEmbed);
+	}
 }
