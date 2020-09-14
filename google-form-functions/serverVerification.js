@@ -33,7 +33,7 @@ module.exports.run = (client, config) => {
         "name": "First/Last name",
         "major": "Current Major",
         "status": "Member Status",
-        "rlc": "RLC Name",
+        "rlc": "Name of your RLC", //optional by the way and not required
         "discord": "Discord Username with Tag"
     }
   */
@@ -70,7 +70,7 @@ module.exports.run = (client, config) => {
       //if the member isn't in the guild return an error in console
       if (member == null) {
         sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Verification**__`, description: `> **${req.body.name}** returned **${req.body.discord}**, which is **${member}** in the server!\n> Please remove their response from the [form](https://docs.google.com/forms/d/1O4iazeB8sDlTPYLLgTF9IhndV0ZJv-ulvFJyqFkTMO4/edit)!`, color: config.school_color, timestamp: new Date()}});
-      } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.name === "Student ✅"))) {
+      } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent))) {
         //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
           member.send({
             embed: {
@@ -82,16 +82,16 @@ module.exports.run = (client, config) => {
             },
           });
       } else {
-        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ Verification Alert!**__`, description: `Verification: New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
-        if (req.body.status === "SCU Faculty" && req.body.major === "undefined") {
-          //changes nickname but skip onwards to grant status role and remove Unverified role
+        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ Verification Alert!**__`, description: `New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
+        if (req.body.status === "SCU Faculty") {
+          //changes nickname but skip onwards to grant status roles and remove Unverified role, but won't receive RLC, major, and verified Student roles
           member.setNickname(req.body.name);
         } else {
           //give member the verified role
           member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
           //give member their major role
           member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
-          //give member their RLC role
+          //give member their RLC role (if applicable) and if they are still undergraduates
           member.roles.add(guild.roles.cache.find((role) => role.name == req.body.rlc));
         }
 
@@ -125,9 +125,9 @@ module.exports.run = (client, config) => {
           timestamp: new Date(),
           fields: [
             { name: "First Name", value: req.body.name, },
-            { name: "Current Major", value: req.body.major, },
+            { name: "Current Major", value: (req.body.major || 'none'), }, //will output none if no major is inputted
             { name: "Member Status", value: req.body.status, },
-            { name: "Residential Learning Community", value: req.body.rlc },
+            { name: "Residential Learning Community", value: (req.body.rlc || 'none'), }, //will output none if no RLC is inputted
             { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
           ],
         };

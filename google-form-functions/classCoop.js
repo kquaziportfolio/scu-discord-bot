@@ -9,7 +9,8 @@
 - Give them base class conference role
 - Loop thru the courses they ticked in the form and give them those roles, otherwise create new ones if they hadn't already existed
 - Every role created from the form will have the following permissions stated in lines 110-111
-- Set text and voice to sync with the category permissions (so basically all students with base "class conference" role will see the #class-landing channel)
+- For each new channel, iterate thru all of them to create text channels with the specific course names
+- Set text and voice to sync with the category permissions (so basically all students with base "class conference" role will only see the channels)
 - send them confirmation -> the end lol
 */
 
@@ -32,13 +33,14 @@ module.exports.run = (client, config) => {
         verification: {
             "guildID": "string of guild enabled in",
             "key": "string for basically a password to authenticate requests", //get a random string of some sort?
+            ""
         }
     }
     INCOMING OBJECT FROM GOOGLE FORMS
     {
         "name": "First name",
-        "courses": "List of courses",
-        "college": "Either CAS Help, LSB Help, or SOE Help",
+        "courses": "List of general ED courses",
+        "college": "Your SCU college",
         "discord": "Discord Username with Tag"
     }
   */
@@ -74,7 +76,7 @@ module.exports.run = (client, config) => {
       let member = guild.members.cache.find((member) => member.user.tag == req.body.discord);
       //if the member isn't in the guild return an error in console
       if (member == null) {
-        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Class Co-op**__`, description: `> **${req.body.name}** returned **${req.body.discord}**, which is **${member}** in the server!\n> Please remove their response from the [form](https://docs.google.com/forms/d/1UVrIzT88ux6ZOgakUfiLQuSYvbS60MtNnuoI6i02MO8/edit)!`, color: config.school_color, timestamp: new Date()}});
+        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Course Conference**__`, description: `> **${req.body.name}** returned **${req.body.discord}**, which is **${member}** in the server!\n> Please remove their response from the [form](https://docs.google.com/forms/d/1UVrIzT88ux6ZOgakUfiLQuSYvbS60MtNnuoI6i02MO8/edit)!`, color: config.school_color, timestamp: new Date()}});
       } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.id === config.serverRoles.classCoop))) {
         //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
           member.send({
@@ -117,12 +119,12 @@ module.exports.run = (client, config) => {
           }
         });
 
-        //give user their SCU college role (e.g. CAS Help, LSB Help, or SOE Help)
-        member.roles.add(guild.roles.cache.find((role) => role.name == req.body.college));
-          
+        //give member their department role
+        member.roles.add(guild.roles.cache.find((role) => role.name == req.body.department));
+        
         //send them a confirmation
         const courseConfirmation = {
-          title: `__**Successful Course(s) Added**__`,
+          title: `__**Successful Courses Added**__`,
           description: `✅ You have filled out the class co-op form successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
           color: config.school_color,
           footer: { text: "SCU Discord Network Class Co-op Confirmation", },
@@ -130,10 +132,9 @@ module.exports.run = (client, config) => {
           image: { url: guild.splashURL(), },
           timestamp: new Date(),
           fields: [
-            { name: "First Name", value: req.body.name },
-            { name: "Courses", value: req.body.courses },
-            { name: "SCU College", value: req.body.college },
-            { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord }
+            { name: "First Name", value: req.body.name, },
+            { name: "Courses", value: req.body.courses, },
+            { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
           ],
         };
         member.send(`**<@${member.user.id}>**`, { embed: courseConfirmation});
