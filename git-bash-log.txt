@@ -1,85 +1,1541 @@
 jvu40@Jason-AL061NR MINGW64 /c/users/jvu40/documents/github_repos/scu-discord-bot (master)
 $ git log
-commit 66c851d (HEAD -> master, origin/master, origin/HEAD)
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+commit b8879cf (HEAD -> master, origin/master, origin/HEAD)
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 14 08:58:32 2020 -0700
+
+    Delete scu_schedules.jpg
+
+commit e2cd5ce
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 14 08:57:14 2020 -0700
+
+    Delete scu_stem_help.jpg
+
+commit 9d90de9
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 14 08:57:00 2020 -0700
+
+    Delete scu_humanities_help.jpg
+
+commit 7c57385
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 14 08:56:31 2020 -0700
+
+    Delete scu-mission.png
+
+commit 2ef29c2
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 14 08:56:20 2020 -0700
+
+    Delete scu-history.jpg
+
+commit e80d11a
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 14 08:56:04 2020 -0700
+
+    Delete jesuit-tradition.jpg
+
+commit 7f8abe5
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 14 08:55:22 2020 -0700
+
+    Update dm.js
+
+commit 7ee5759
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 14 07:49:24 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit 548fb85
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 14 07:49:06 2020 -0700
+
+    Update guildMemberRemove.js
+
+commit f2855d4
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 13 22:12:03 2020 -0700
+
+    UPDATED
+
+commit c535f2b
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 13 20:10:03 2020 -0700
+
+    UPDATED
+
+commit f47c999
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 13 19:22:30 2020 -0700
+
+    UPDATED 9/13/2020
+
+commit 1382c81
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 13 17:01:35 2020 -0700
+
+    UPDATED
+
+commit 70a92d6
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 13 10:37:12 2020 -0700
+
+    Update and rename dm-all.js to dm.js
+
+commit b468053
+Author: Jason <jvu@scu.edu>
+Date:   Sat Sep 12 22:40:29 2020 -0700
+
+    UPDATED
+
+commit 89554a9
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Sep 12 22:39:55 2020 -0700
+
+    Update and rename dm.js to dm-all.js
+
+commit c03ed2c
+Author: Jason <jvu@scu.edu>
+Date:   Sat Sep 12 11:34:48 2020 -0700
+
+    UPDATED
+
+commit 671a112
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Sep 12 11:35:46 2020 -0700
+
+    Update classCoop.js
+
+commit ffac2b1
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Sep 12 11:33:26 2020 -0700
+
+    Update serverVerification.js
+
+commit d839a03
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Sep 12 11:32:25 2020 -0700
+
+    Update message.js
+
+commit 69d02f5
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 11 10:17:28 2020 -0700
+
+    Update README.md
+
+commit f3ff8f6
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 11 10:14:55 2020 -0700
+
+    Update classCoop.js
+
+commit 0fb0713
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 11 10:12:27 2020 -0700
+
+    Update serverVerification.js
+
+commit 957a84e
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 11 10:08:19 2020 -0700
+
+    Update package.json
+
+commit f4b8ddf
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 11 09:51:44 2020 -0700
+
+    Update README.md
+
+commit 40ace07
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 11 09:50:44 2020 -0700
+
+    Update README.md
+
+commit 7d2a490
+Author: Jason <jvu@scu.edu>
+Date:   Fri Sep 11 09:42:38 2020 -0700
+
+    UPDATED README.md
+
+commit 46f4665
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 11 09:28:49 2020 -0700
+
+    Update classCoop.js
+
+commit 2a58ca0
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 11 00:53:49 2020 -0700
+
+    Update ready.js
+
+commit 1cb053d
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Sep 10 23:57:43 2020 -0700
+
+    Rename courseConference.js to classCoop.js
+
+commit 4a4642d
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Sep 10 23:55:11 2020 -0700
+
+    Update serverVerification.js
+
+commit d102d7e
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Sep 10 23:53:30 2020 -0700
+
+    Update courseConference.js
+
+commit d61fef5
+Merge: f9e979c 17e3214
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Sep 10 14:36:53 2020 -0700
+
+    Merge pull request #4 from jasonanhvu/dependabot/npm_and_yarn/node-fetch-2.6.1
+
+    Bump node-fetch from 2.6.0 to 2.6.1
+
+commit 17e3214
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Thu Sep 10 20:55:19 2020 +0000
+
+    Bump node-fetch from 2.6.0 to 2.6.1
+
+    Bumps [node-fetch](https://github.com/bitinn/node-fetch) from 2.6.0 to 2.6.1.
+    - [Release notes](https://github.com/bitinn/node-fetch/releases)
+    - [Changelog](https://github.com/node-fetch/node-fetch/blob/master/docs/CHANGELOG.md)
+    - [Commits](https://github.com/bitinn/node-fetch/compare/v2.6.0...v2.6.1)
+
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit f9e979c
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Sep 10 13:54:21 2020 -0700
+
+    Added "residential learning community" object value
+
+    Yes the title is correct according to my own perspective.
+
+commit ac13975
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Sep 10 10:21:35 2020 -0700
+
+    Update courseConference.js
+
+commit a826b70
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 23:43:32 2020 -0700
+
+    Update courseConference.js
+
+commit bfc963b
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 22:43:03 2020 -0700
+
+    Update courseConference.js
+
+commit 70f2edd
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 15:51:07 2020 -0700
+
+    Changed nickname format from ```( name [major])``` back to ```(name || major)``` to keep it more UI-UX lol
+
+commit 95c91d7
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 12:11:17 2020 -0700
+
+    Update README.md
+
+commit 6c74eec
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 11:58:45 2020 -0700
+
+    Update README.md
+
+commit 76a3397
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 11:56:35 2020 -0700
+
+    Set theme jekyll-theme-leap-day
+
+commit fb2911d
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 11:43:51 2020 -0700
+
+    Set theme jekyll-theme-midnight
+
+commit 5d5ca38
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 10:11:03 2020 -0700
+
+    Update message.js
+
+commit a56f9e1
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 10:01:48 2020 -0700
+
+    Update serverVerification.js
+
+commit eb2fd9c
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 10:00:03 2020 -0700
+
+    Updated WIP courseConference.js Google Form function
+
+    1) Give them base class conference role in order to access their desired course channels nested in the **Classes** category
+    2) Loop thru the courses they ticked in the form and give them those roles, otherwise create new ones if they hadn't already existed
+    3) Every role created from the form will have the following permissions written in lines 117-118
+    4) For each new channel, iterate thru all of them to create text channels with the specific course names
+    5) Set text and voice to sync with the category permissions (so basically all students with base "class conference" role will only see the channels)
+    6) Send them confirmation with their courses and Discord tag for confirmation
+
+commit 8a6219c
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 9 09:43:31 2020 -0700
+
+    Delete inputValidation.js
+
+commit 645211d
+Author: Jason <jvu@scu.edu>
+Date:   Tue Sep 8 20:37:26 2020 -0700
+
+    ADDED WIP CLASS CONFERENCE SYSTEM WITH GOOGLE FORM
+
+commit 0f4c34f
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 7 15:19:19 2020 -0700
+
+    Update message.js
+
+commit 2c0fdfa
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 7 14:40:05 2020 -0700
+
+    Adjusted inputValidation.js
+
+commit 08aad5b
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 7 14:30:12 2020 -0700
+
+    Update serverVerification.js
+
+commit fa3c2d3
+Author: Jason <jvu@scu.edu>
+Date:   Mon Sep 7 14:03:02 2020 -0700
+
+    UPDATED
+
+commit 71e11cd
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Sep 7 09:46:39 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit fa47984
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 6 23:05:32 2020 -0700
+
+    UPDATED
+
+commit 6984ab1
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 19:14:24 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit b3ad27a
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 6 15:53:08 2020 -0700
+
+    UPDATED
+
+commit 5a0ca31
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 6 15:28:55 2020 -0700
+
+    UPDATED
+
+commit d0a7e03
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 6 15:22:53 2020 -0700
+
+    UPDATED BACKGROUND BANNER - 9/6/2020
+
+commit 0121d0e
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 6 15:20:02 2020 -0700
+
+    UPDATED BACKGROUND BANNER!
+
+commit 3b8baea
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 6 14:56:51 2020 -0700
+
+    UPDATED
+
+commit d3d7b66
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 12:53:30 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit 66b0d1f
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 12:43:00 2020 -0700
+
+    Update serverVerification.js
+
+commit c94d89b
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 12:39:26 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit 6a09aef
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 12:28:33 2020 -0700
+
+    Update README.md
+
+commit 754245d
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 12:28:10 2020 -0700
+
+    Add files via upload
+
+commit 41fa6d4
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 12:25:55 2020 -0700
+
+    Delete scu_banner.jpg
+
+commit bd694c5
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 12:06:16 2020 -0700
+
+    Add files via upload
+
+commit 52f23c6
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 12:05:33 2020 -0700
+
+    Delete scu_banner.jpg
+
+commit 09c43d3
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 10:51:51 2020 -0700
+
+    Add files via upload
+
+commit bd3442b
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 10:51:26 2020 -0700
+
+    Delete scu_banner.jpg
+
+commit abd0af0
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 10:36:57 2020 -0700
+
+    Update index.js
+
+commit b8cfcff
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 07:34:47 2020 -0700
+
+    Update README.md
+
+commit b2911c3
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 07:31:11 2020 -0700
+
+    Add files via upload
+
+commit a9dd46d
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Sep 6 07:30:58 2020 -0700
+
+    Delete logo-pic.png
+
+commit 0aa8872
+Author: Jason <jvu@scu.edu>
+Date:   Sun Sep 6 07:26:58 2020 -0700
+
+    UPDATED 9/6/2020
+
+commit 8b1eeba
+Author: Jason <jvu@scu.edu>
+Date:   Sat Sep 5 10:26:02 2020 -0700
+
+    UPDATED 9/5/2020
+
+commit 6f0dcb0
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Sep 5 10:24:04 2020 -0700
+
+    Update server-info.js
+
+commit e671328
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Sep 5 10:13:24 2020 -0700
+
+    Update message.js
+
+commit 84373a3
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 4 22:15:42 2020 -0700
+
+    Update message.js
+
+commit 69be45e
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 4 22:05:53 2020 -0700
+
+    Delete serverVerification.js
+
+commit fdcd564
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 4 22:05:42 2020 -0700
+
+    Delete serverInput.js
+
+commit e94d88e
+Author: Jason <jvu@scu.edu>
+Date:   Fri Sep 4 22:00:24 2020 -0700
+
+    UPDATED 9/4/2020
+
+commit 5cbd8cc
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 4 15:53:19 2020 -0700
+
+    Update server-verification.gs
+
+commit 03bb676
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 4 07:36:45 2020 -0700
+
+    Update ready.js
+
+commit 161ce76
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 4 07:36:16 2020 -0700
+
+    Delete serverVerification.js
+
+commit ae121e6
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 4 07:36:05 2020 -0700
+
+    Add files via upload
+
+commit b3f2ba3
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 4 07:35:58 2020 -0700
+
+    Add files via upload
+
+commit 8e90964
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Sep 4 07:35:32 2020 -0700
+
+    Create serverInput.js
+
+commit c2677fd
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Sep 3 17:07:10 2020 -0700
+
+    Update guildMemberRemove.js
+
+commit 53a1f54
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Sep 3 17:06:48 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit 13834e3
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Sep 3 17:06:06 2020 -0700
+
+    Update package.json
+
+commit 6570143
+Merge: 58e3334 653049f
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 2 11:00:19 2020 -0700
+
+    Merge pull request #2 from jasonanhvu/dependabot/npm_and_yarn/bl-4.0.3
+
+    Bump bl from 4.0.2 to 4.0.3
+
+commit 653049f
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Wed Sep 2 17:58:53 2020 +0000
+
+    Bump bl from 4.0.2 to 4.0.3
+
+    Bumps [bl](https://github.com/rvagg/bl) from 4.0.2 to 4.0.3.
+    - [Release notes](https://github.com/rvagg/bl/releases)
+    - [Commits](https://github.com/rvagg/bl/compare/v4.0.2...v4.0.3)
+
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit 58e3334
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 2 10:33:17 2020 -0700
+
+    Update README.md
+
+commit 7f1a789
+Author: Jason <jvu@scu.edu>
+Date:   Wed Sep 2 09:39:39 2020 -0700
+
+    UPDATED LOGO - 9/2/2020
+
+commit ff5784e
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 2 09:36:01 2020 -0700
+
+    Delete scu-logo.gif
+
+commit 9c052b2
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 2 09:35:48 2020 -0700
+
+    Delete logo-pic.png
+
+commit 37fe1e3
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 2 09:35:33 2020 -0700
+
+    Delete attention-scu-students.png
+
+commit a7f3679
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 2 07:13:35 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit 553f0d9
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Sep 2 07:10:55 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit 575e504
+Author: Jason <jvu@scu.edu>
+Date:   Wed Sep 2 06:57:31 2020 -0700
+
+    UPDATED 9/2/2020
+
+commit 3813820
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Sep 1 07:27:47 2020 -0700
+
+    Update serverVerification.js
+
+commit 9c75a58
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Sep 1 07:25:25 2020 -0700
+
+    Update serverVerification.js
+
+commit b58a3b8
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Sep 1 07:23:50 2020 -0700
+
+    Update serverVerification.js
+
+commit fddfcef
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Sep 1 07:21:06 2020 -0700
+
+    Update message.js
+
+commit c303092
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Sep 1 07:20:37 2020 -0700
+
+    Update serverVerification.js
+
+commit e1f7585
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Sep 1 00:05:02 2020 -0700
+
+    Update serverVerification.js
+
+commit f415f32
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Aug 31 20:02:12 2020 -0700
+
+    Update message.js
+
+commit 736abf2
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Aug 31 20:01:44 2020 -0700
+
+    Update serverVerification.js
+
+commit 3fa3096
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Aug 31 11:57:52 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit 69a81a0
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Aug 30 15:44:00 2020 -0700
+
+    Update serverVerification.js
+
+commit 5a6a146
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Aug 30 15:28:50 2020 -0700
+
+    Update README.md
+
+commit eee6676
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Aug 30 15:18:27 2020 -0700
+
+    Update serverVerification.js
+
+commit 49bc752
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Aug 29 22:45:25 2020 -0700
+
+    Update serverVerification.js
+
+commit 5123d90
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 28 06:59:18 2020 -0700
+
+    Update serverVerification.js
+
+commit 82959cc
+Author: Jason <jvu@scu.edu>
+Date:   Fri Aug 28 06:54:35 2020 -0700
+
+    UPDATED 8/28/2020
+
+commit 1aae192
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Aug 27 22:26:38 2020 -0700
+
+    Update serverVerification.js
+
+commit 8f62bd8
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Aug 27 11:31:56 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit 50fb51b
+Author: Jason <jvu@scu.edu>
+Date:   Thu Aug 27 10:35:18 2020 -0700
+
+    updated guildMemberAdd.js
+
+commit 5c46be5
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Aug 27 10:22:21 2020 -0700
+
+    Remove role stuff
+
+commit 9641dae
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Aug 26 21:59:54 2020 -0700
+
+    Delete roles.json
+
+commit 97d3151
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Aug 13 15:28:11 2020 -0700
+
+    Update README.md
+
+commit 350df02
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Aug 13 15:25:58 2020 -0700
+
+    Update index.js
+
+commit e485ce0
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Aug 13 15:24:34 2020 -0700
+
+    Update serverVerification.js
+
+commit ddcb531
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Aug 13 15:19:28 2020 -0700
+
+    Update README.md
+
+commit b87cf3e
+Author: Jason <jvu@scu.edu>
+Date:   Thu Aug 13 15:12:52 2020 -0700
+
+    UPDATED FILES - 8/13/2020
+
+commit 139b04f
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Aug 11 13:20:28 2020 -0700
+
+    Update serverVerification.js
+
+commit 3d49841
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Aug 11 13:20:08 2020 -0700
+
+    Update server-verification.gs
+
+commit e1533bd
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Aug 10 09:47:06 2020 -0700
+
+    UPDATED 8/10/2020 - fixed events too!
+
+commit fac63fd
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Aug 10 09:46:21 2020 -0700
+
+    UPDATED 8-10-2020 , fixed verification system which works 100%!
+
+commit bb10beb
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sun Aug 9 10:18:55 2020 -0700
+
+    UPDATED 8/9/2020
+
+commit ba25dcb
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Aug 8 18:25:37 2020 -0700
+
+    Update ready.js
+
+commit edaf39e
+Author: Samstep <24730717+Saamstep@users.noreply.github.com>
+Date:   Sat Aug 8 17:01:18 2020 -0700
+
+    Port updated to 2000
+
+commit e47e849
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Aug 8 16:36:24 2020 -0700
+
+    UPDATED
+
+commit 85da484
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Aug 8 09:56:43 2020 -0700
+
+    Delete verificationServer.js
+
+commit 096619d
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Aug 8 09:56:07 2020 -0700
+
+    Update ready.js
+
+commit fc690a8
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Aug 8 09:44:20 2020 -0700
+
+    Update guildMemberAdd.js
+
+commit 5bf8a29
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Aug 8 09:42:55 2020 -0700
+
+    UPDATED error.js event
+
+commit 8cd0438
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Aug 8 09:40:27 2020 -0700
+
+    UPDATED 8/8/2020
+
+commit 2e977c2
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:37:45 2020 -0700
+
+    Update ready.js
+
+commit ae6f666
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:36:09 2020 -0700
+
+    Update message.js
+
+commit dad5c1c
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:35:38 2020 -0700
+
+    Update message.js
+
+commit 0b213ce
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:34:42 2020 -0700
+
+    Update index.js
+
+commit 5a368da
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:33:22 2020 -0700
+
+    Delete nicene-creed.jpg
+
+commit 6810dc2
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:33:11 2020 -0700
+
+    Delete hail-mary.jpg
+
+commit 6bcc93c
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:33:02 2020 -0700
+
+    Delete glory-be.png
+
+commit be16981
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:32:52 2020 -0700
+
+    Delete act-of-contrition.jpg
+
+commit 8128971
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:32:42 2020 -0700
+
+    Delete apostles-creed.png
+
+commit 74b1a1a
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:32:31 2020 -0700
+
+    Delete our-father.jpg
+
+commit fb69a28
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Fri Aug 7 06:30:10 2020 -0700
+
+    Update index.js
+
+commit d7bed3e
+Merge: 301b20b 3dec0aa
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Aug 6 22:38:23 2020 -0700
+
+    Merge pull request #1 from jasonanhvu/verificationSystem
+
+    On the way to revamp the SCU Discord bot .... pog oh and Verification System in general :)
+
+commit 3dec0aa (origin/verificationSystem)
+Author: Samstep <samstep@mbp-16.local>
+Date:   Thu Aug 6 22:33:00 2020 -0700
+
+    verification files modified
+
+commit 301b20b
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Thu Aug 6 16:16:06 2020 -0700
+
+    UPDATED - 8/6/2020
+
+commit 4641b49
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Thu Aug 6 16:12:16 2020 -0700
+
+    UPDATED 8/6/2020 - Fixed reload, help, and message OBS event
+
+commit aff8a1c
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Aug 3 09:56:12 2020 -0700
+
+    UPDATED 8/3/2020
+
+commit 549cade
+Merge: ea948f8 23e8fae
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Jul 20 10:05:04 2020 -0700
+
+    UPDATED
+
+commit ea948f8
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Jul 20 09:58:07 2020 -0700
+
+    Updated README.md
+
+commit 250e8ba
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Jul 20 09:49:27 2020 -0700
+
+    UPDATED LOGO - 7/20/2020
+
+commit 7357ebc
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jul 18 08:55:05 2020 -0700
+
+    UPDATED 7/18/2020
+
+commit 631fff3
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jul 18 08:53:56 2020 -0700
+
+    UPDATED - 7/18/2020
+
+commit 7526064
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jul 18 08:50:09 2020 -0700
+
+    UPDATED - 7/18/2020
+
+commit 9bbfdf3
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jul 18 08:48:47 2020 -0700
+
+    UPDATED - 7/18/2020
+
+commit 2b7f4e5
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jul 18 08:48:18 2020 -0700
+
+    UPDATED - 7/18/2020
+
+commit 50b9dd6
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Jul 18 08:47:10 2020 -0700
+
+    Delete .gitignore.txt
+
+commit 8888f67
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jul 18 08:46:42 2020 -0700
+
+    UPDATED - 7/18/2020
+
+commit ae1ddc4
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Jul 18 08:39:37 2020 -0700
+
+    Created SECURITY.md - 7/18/2020
+
+commit 23e8fae (upstream/master)
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Jul 18 08:39:37 2020 -0700
+
+    Created SECURITY.md - 7/18/2020
+
+commit bbb1bd0
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Fri Jul 17 20:28:15 2020 -0700
+
+    UPDATED 7/17/2020
+
+commit a6cf2f3
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Tue Jul 14 08:53:52 2020 -0700
+
+    UPDATED 7/14/2020
+
+commit 2aab800
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Tue Jul 14 08:52:07 2020 -0700
+
+    UPDATED COMMANDS - 7/14/2020
+
+commit ebe2ec9
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Jul 14 08:47:29 2020 -0700
+
+    Re-add and commit command files
+
+commit 79fb285
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Jul 14 08:45:37 2020 -0700
+
+    Create hello.txt
+
+commit 9ad2be9
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Tue Jul 14 08:41:40 2020 -0700
+
+    UPDATED 7/14/2020
+
+commit e422aad
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Tue Jul 14 08:14:26 2020 -0700
+
+    UPDATED 7/14/2020
+
+commit 349ba25
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Jul 14 08:28:21 2020 -0700
+
+    Delete test
+
+commit 613019c
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Jul 14 08:28:12 2020 -0700
+
+    Delete test
+
+commit 5745d89
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Jul 14 08:18:43 2020 -0700
+
+    Create test
+
+commit de02804
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Tue Jul 14 08:18:32 2020 -0700
+
+    test
+
+commit 0a5f219
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Jul 13 22:22:56 2020 -0700
+
+    Delete asdfasd
+
+commit 1ce6a11
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Jul 13 22:21:58 2020 -0700
+
+    dsadfasd
+
+    ddafdsfa
+
+commit 9a1b18c
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Jul 13 22:19:03 2020 -0700
+
+    UPDATED 7/13/2020
+
+commit f336887
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Jul 13 09:52:03 2020 -0700
+
+    UPDATED 7/13/2020
+
+commit 45a5d0a
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Tue Jul 7 12:30:17 2020 -0700
+
+    UPDATED
+
+commit ef987ec
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Jul 6 14:04:15 2020 -0700
+
+    UPDATED 7/6/20
+
+commit 1637073
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Jul 5 21:00:03 2020 -0700
+
+    Delete youtube-play.js
+
+commit ae8aa3f
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Jul 5 20:59:54 2020 -0700
+
+    Delete youtube-search.js
+
+commit ac83026
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Jul 5 20:59:39 2020 -0700
+
+    Delete zoom.js
+
+commit 13a5bdb
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Jul 5 20:59:13 2020 -0700
+
+    Add files via upload
+
+commit 61751e9
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sun Jul 5 20:57:39 2020 -0700
+
+    Add files via upload
+
+commit 7857b8b
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sun Jul 5 20:11:55 2020 -0700
+
+    UPDATED WITH NEW COMMANDS
+
+commit 5be429f
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jul 4 15:05:57 2020 -0700
+
+    SORRY GUYS, I GET THAT MY COMMITS ARE ANNOYING! pog
+
+commit 2a63072
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Jul 4 14:42:08 2020 -0700
+
+    Delete weather.js
+
+commit 8bd5f5a
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Jul 4 14:39:33 2020 -0700
+
+    Added new commands
+
+commit d7ba6fb
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jul 4 09:26:41 2020 -0700
+
+    UPDATED
+
+commit c847fb5
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jul 4 09:15:15 2020 -0700
+
+    UPDATED COMMANDS - overwatch, remind, weather, compliment, lottery, game-roles, tableflip, and advice for SCU DISCORD BOT...also boosted server too!
+
+commit 339cfcc
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Fri Jul 3 11:43:31 2020 -0700
+
+    UPDATED with simple poll command, game reaction roles (WIP), and other assorted commands
+
+commit 6110fb1
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Mon Jun 29 17:48:49 2020 -0700
+
+    Update README.md
+
+commit df41b85
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sun Jun 28 19:34:25 2020 -0700
+
+    UPDATED
+
+commit 61e718e
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 27 22:09:45 2020 -0700
+
+    UPDATED
+
+commit 6defbf8
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Thu Jun 25 12:23:51 2020 -0700
+
+    UPDATED
+
+commit b31daf5
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Wed Jun 24 17:33:30 2020 -0700
+
+    UPDATED
+
+commit 8ef8933
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Jun 22 22:17:48 2020 -0700
+
+    UPDATED
+
+commit 7fc02cd
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Jun 22 21:36:19 2020 -0700
+
+    UPDATED 6/22/2020
+
+commit f770db9
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Mon Jun 22 21:29:45 2020 -0700
+
+    Added events modules and reaction roles sytem
+
+commit eec3837
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sun Jun 21 08:02:06 2020 -0700
+
+    UPDATED
+
+commit 09a1d7a
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:51:00 2020 -0700
+
+    UPDATED
+
+commit 6d60014
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Jun 20 20:42:23 2020 -0700
+
+    Delete obs.json
+
+commit d31272e
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:37:57 2020 -0700
+
+    UPDATED
+
+commit b1b7430
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:36:21 2020 -0700
+
+    UPDATED
+
+commit 50c317c
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:27:21 2020 -0700
+
+    UPDATED
+
+commit 3c733da
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:25:24 2020 -0700
+
+    UPDATED
+
+commit eb83b94
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:24:05 2020 -0700
+
+    UPDATED
+
+commit 40a7555
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:19:49 2020 -0700
+
+    UPDATED GITIGNORE
+
+commit 0f8981e
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:16:52 2020 -0700
+
+    UPDATED GITIGNORE
+
+commit 8d75456
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:16:07 2020 -0700
+
+    UPDATED GITIGNORE
+
+commit 1a89e9c
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:12:30 2020 -0700
+
+    UPDATED
+
+commit 32e7020
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Jun 20 20:12:13 2020 -0700
+
+    Delete config.json
+
+commit 104ffa9
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 20:10:16 2020 -0700
+
+    UPDATED
+
+commit 2661158
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 17:35:32 2020 -0700
+
+    UPDATED
+
+commit cf5dc84
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 17:34:41 2020 -0700
+
+    UPDATED
+
+commit 2f391d2
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 17:30:52 2020 -0700
+
+    UPDATED
+
+commit e67ebf1
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 17:28:40 2020 -0700
+
+    UPDATED
+
+commit 898853a
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 17:27:49 2020 -0700
+
+    UPDATED
+
+commit ddc7712
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 17:25:53 2020 -0700
+
+    UPDATED
+
+commit 6f9234d
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 17:23:43 2020 -0700
+
+    UPDATED
+
+commit 62fa615
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Sat Jun 20 17:12:51 2020 -0700
+
+    Delete config.json
+
+commit 3f81c07
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 17:11:57 2020 -0700
+
+    Gitignore stuff
+
+commit d06d064
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Sat Jun 20 17:06:49 2020 -0700
+
+    UPDATED ROLE SYSTEM AND OBS LIST
+
+commit fdd3699
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Fri Jun 19 17:08:57 2020 -0700
+
+    UPDATED OBS FILTER
+
+commit 0298ab2
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Fri Jun 19 11:23:41 2020 -0700
+
+    ADDED LEVEL FUNCTION
+
+commit 49cad62
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Jun 18 22:44:05 2020 -0700
+
+    Update server-verification.txt
+
+commit 8914b07
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Thu Jun 18 22:39:27 2020 -0700
+
+    dMade bot give Unverified roles to new users on join
+
+commit c68ae23
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Thu Jun 18 22:40:20 2020 -0700
+
+    UPDATED
+
+commit c21361b
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Thu Jun 18 12:45:38 2020 -0700
+
+    Update server-verification.txt
+
+commit 1dcd974
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Thu Jun 18 12:19:06 2020 -0700
+
+    UPDATED 6/18/2020
+
+commit 994b51e
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
+Date:   Wed Jun 17 13:25:58 2020 -0700
+
+    FIXED NEW USER WELCOME
+
+commit 64b9039
+Author: Jason Anh Vu <jvu@scu.edu>
+Date:   Wed Jun 17 12:20:31 2020 -0700
+
+    Updated 6/17/2020
+
+commit 66c851d
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Wed Jun 17 12:18:32 2020 -0700
 
     Still need to fix music commands...
 
 commit 0d34646
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Tue Jun 16 13:05:18 2020 -0700
 
     UPDATED 6/16/20
 
 commit b7d5d39
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Tue Jun 16 13:04:10 2020 -0700
 
     UPDATED 6/16/2020
 
 commit 43a8b9e
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Mon Jun 15 21:15:31 2020 -0700
 
     UPDATED TODAY
 
 commit 4236edb
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Sun Jun 14 22:31:35 2020 -0700
 
     UPDATED 6/14/20
 
 commit ec8a5f1
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Sat Jun 13 09:41:23 2020 -0700
 
     UPDATED
 
 commit 507accb
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Fri Jun 12 22:32:09 2020 -0700
 
     UPDATED
 
 commit 1e30131
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Fri Jun 12 21:46:59 2020 -0700
 
     UPDATED
 
 commit a010563
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Fri Jun 12 14:48:31 2020 -0700
 
     UPDATED 6/12/20
 
 commit 0066abb
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Thu Jun 11 22:09:03 2020 -0700
 
     UPDATED
 
 commit 12e8420
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Thu Jun 11 16:14:54 2020 -0700
 
     UPDATED
 
 commit 853642d
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Thu Jun 11 15:19:05 2020 -0700
 
     UPDATED 6/11/2020
 
 commit c77f288
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Wed Jun 10 18:54:44 2020 -0700
 
     UPDATED
 
 commit 9c6ae94
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Wed Jun 10 12:50:14 2020 -0700
 
     UPDATED
@@ -91,67 +1547,67 @@ Date:   Mon Jun 8 16:55:22 2020 -0700
     Update README.md
 
 commit 3dfeb64
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Mon Jun 8 16:41:16 2020 -0700
 
     UPDATED
 
 commit 5108b22
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Mon Jun 8 16:20:59 2020 -0700
 
     UPDATED
 
 commit 77b0855
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Mon Jun 8 14:00:45 2020 -0700
 
     UPDATED
 
 commit 08829db
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Thu Jun 4 18:16:39 2020 -0700
 
     UPDATED
 
 commit 079cd9a
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Thu Jun 4 16:58:04 2020 -0700
 
     UPDATED
 
 commit 1044b59
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Thu Jun 4 16:30:19 2020 -0700
 
     UPDATED
 
 commit bd04d0d
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Thu Jun 4 12:46:17 2020 -0700
 
     UPDATED
 
 commit 461b9e9
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Thu Jun 4 07:59:12 2020 -0700
 
     UPDATED
 
 commit 1e7ff02
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Wed Jun 3 14:25:42 2020 -0700
 
     UPDATED
 
 commit d0f9119
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Tue Jun 2 21:43:25 2020 -0700
 
     UPDATED
 
 commit 42f8fd3
-Author: J8S( ͡° ͜ʖ ͡°)N VU <javu404@gmail.com>
+Author: J8S( ═í┬░ ═£╩û ═í┬░)N VU <javu404@gmail.com>
 Date:   Tue Jun 2 21:25:28 2020 -0700
 
     UPDATED 6/2/2020
