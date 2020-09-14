@@ -16,11 +16,10 @@ module.exports = async (client) => {
 	console.log(verifyMSG.description);
 	auditLogs.send({ embed: verifyMSG});
 
-	let memberCount = 0;
-	guild.members.cache.forEach(member => { //will only count human members not bots
-		if(!member.user.bot) memberCount++;
-		return memberCount;
-	});
+	let memberCount = guild.members.cache.filter(member => !member.user.bot).size;
+	
+	let liveCount = guild.channels.cache.find(channel => channel.id === config.channels.liveCount);
+	liveCount.setName(`👥 Members: ${memberCount}`);
 
 	let statuses = [
 		`Hanging out with ${memberCount} members in the ${guild.name} server!`, 

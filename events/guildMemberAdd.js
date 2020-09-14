@@ -5,19 +5,9 @@ const emojiCharacters = require(`../emoji-characters.js`);
 module.exports = async (client, member) => {
   let auditLogs = member.guild.channels.cache.find(channel => channel.id == config.channels.auditlogs);
 
-  let role = member.guild.roles.cache.find((role) => role.id == config.serverRoles.unverifiedStudent);
-  await member.roles.add(role);
-
-  const memberTag = member.user.id;
-
-  auditLogs.send({ embed: { description: `The **Unverified** role has been given to **<@${memberTag}>** by **<@${client.user.id}>**!` } });
   const guild = client.guilds.cache.get(`${config.verification.guildID}`);
-  let memberCount = 0;
-  guild.members.cache.forEach((member) => {
-    //will only count human members not bots
-    if (!member.user.bot) memberCount++;
-    return memberCount;
-  });
+  
+	let memberCount = guild.members.cache.filter(member => !member.user.bot).size;
 
   const sicon = guild.iconURL();
 
@@ -31,10 +21,15 @@ module.exports = async (client, member) => {
   .setColor(config.school_color)
   .setFooter(`Brought to you by the creators of this Discord server.`)
 
-  guild.systemChannel.send(`<@${memberTag}>`, { embed: welcome_Embed1 });
+  guild.systemChannel.send(`<@${member.user.id}>`, { embed: welcome_Embed1 });
 
   try {
     if(!member.user.bot) {
+      let role = member.guild.roles.cache.find((role) => role.id == config.serverRoles.unverifiedStudent);
+      await member.roles.add(role);
+
+      auditLogs.send({ embed: { description: `The **Unverified** role has been given to **<@${member.user.id}>** by **<@${client.user.id}>**!` } });
+      
       const welcome_Embed2 = new MessageEmbed() //personal message to new user
         .setTitle(`Invent the life you want to lead at Santa Clara University.`)
         .setDescription(
@@ -56,5 +51,7 @@ module.exports = async (client, member) => {
         console.log(err);
   }
 
-  auditLogs.send({ embed: { description: `<@${memberTag}> is the ${memberCount}th member to join ${guild.name}!`, color: config.school_color, timestamp: new Date() } });
+  auditLogs.send({ embed: { description: `<@${member.user.id}> is the ${memberCount}th member to join ${guild.name}!`, color: config.school_color, timestamp: new Date() } });
+
+  process.exit();
 };
