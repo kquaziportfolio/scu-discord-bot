@@ -5,6 +5,8 @@ module.exports = async (client, member) => {
     const guild = client.guilds.cache.get(`${config.verification.guildID}`);
 	
 	let memberCount = guild.members.cache.filter(member => !member.user.bot).size;
+
+	if(member.user.bot) return; //ignore members who are bot users
 	
 	let liveCount = guild.channels.cache.find(channel => channel.id === config.channels.liveCount);
 	liveCount.setName(`👥 Members: ${memberCount}`);

@@ -82,33 +82,33 @@ module.exports.run = (client, config) => {
             },
           });
       } else {
-        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ Verification Alert!**__`, description: `New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
-        if (req.body.status === "SCU Faculty") {
-          //changes nickname but skip onwards to grant status roles and remove Unverified role, but won't receive RLC, major, and verified Student roles
-          member.setNickname(req.body.name);
-        } else {
-          //give member the verified role
-          member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
-          //give member their major role
-          member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
-          //give member their RLC role (if applicable) and if they are still undergraduates
-          member.roles.add(guild.roles.cache.find((role) => role.name == req.body.rlc));
-        }
-
-        //set their nickname like this: [First Name] || [Major]
-        //also, if nickname is over 32 characters, DM user about their invalid nickname and catch error and log it in #audit-logs so we could manually adjust it
-        try {
-            let nickname = `${req.body.name} || ${req.body.major}`;
-            member.setNickname(`${nickname}`);
-        } catch (err) {
-            const nicknameError = { 
-                title: `__**❌ <@${member.user.id}>'s nickname is over 32 characters!**__`, 
-                description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, 
-                color: config.school_color, 
-                timestamp: new Date()
-            }
-            sendMessage(client, config.channels.auditlogs, { embed: nicknameError});
-        }
+          sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ Verification Alert!**__`, description: `New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
+          if (req.body.status === "SCU Faculty") {
+            //changes nickname but skip onwards to grant status roles and remove Unverified role, but won't receive RLC, major, and verified Student roles
+            member.setNickname(req.body.name);
+          } else {
+              //give member the verified role
+              member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
+              //give member their major role
+              member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
+              //give member their RLC role (if applicable) and if they are still undergraduates
+              member.roles.add(guild.roles.cache.find((role) => role.name == req.body.rlc));
+          
+              //set their nickname like this: [First Name] || [Major]
+              //also, if nickname is over 32 characters, DM user about their invalid nickname and catch error and log it in #audit-logs so we could manually adjust it
+              try {
+                  let nickname = `${req.body.name} || ${req.body.major}`;
+                  member.setNickname(`${nickname}`);
+              } catch (err) {
+                  const nicknameError = { 
+                      title: `__**❌ <@${member.user.id}>'s nickname is over 32 characters!**__`, 
+                      description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, 
+                      color: config.school_color, 
+                      timestamp: new Date()
+                  }
+                  sendMessage(client, config.channels.auditlogs, { embed: nicknameError});
+              }
+          }
 
         //give member their status role
         member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
