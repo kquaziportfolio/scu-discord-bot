@@ -6,6 +6,9 @@ module.exports = async (client, member) => {
 	
 	let memberCount = guild.members.cache.filter(member => !member.user.bot).size;
 	
+	let liveCount = guild.channels.cache.find(channel => channel.id === config.channels.liveCount);
+	liveCount.setName(`👥 Members: ${memberCount}`);
+	
 	let auditLogs = member.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 
 	if(!member.user.bot) {
