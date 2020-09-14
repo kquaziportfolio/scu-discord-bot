@@ -10,6 +10,8 @@ module.exports = async (client, member) => {
 	let memberCount = guild.members.cache.filter(member => !member.user.bot).size;
 
   const sicon = guild.iconURL();
+	
+    if(member.user.bot) return; //ignore members who are bot users
 
     if(!member.user.bot) {
 
