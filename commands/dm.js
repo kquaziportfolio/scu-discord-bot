@@ -8,21 +8,34 @@ module.exports  = {
     async execute(message, args) {
         message.delete();
         
-        let title = message.content.split("|")[1];
-        let description = message.content.split("|")[2];
+        const dmInstructions = new MessageEmbed()
+        .setColor(config.school_color)
+        .setTitle("Single Direct Message Command")
+        .addField("Description:", `Single direct messaging`, true)
+        .addField("Usage:", "`&dm [single user mention] | [message]`", true)
+        .addField("Example:", "&dm @DiHydrogenMonoxide | [message]!")
+        .setTimestamp()
 
-        if (!title || !description) return message.reply(`Enter something like this: \`${config.prefix}dm | [title] | [description] |\` `);
-
-        let undelivered = 0;
-
-        const memberList = message.guild.members.cache.filter(m => !m.user.bot).array(); // Filter out bots.
-
-        memberList.forEach(member => {
-            member.send(`${member}`, { embed: { title: title, description: description, color: config.school_color}})
-            .catch(() => undelivered++)
-        });
-
-        message.author.send({ embed: { description: `Messages have been sent, yet ${undelivered} members couldn't receive it due to probably turning their DMs off.`, color: config.school_color}})
-        .catch(console.error);   
+        const mentionedUser = message.mentions.members.first();
+        const messageUser = args.slice(1).join(" ").split("|");
+        if(!mentionedUser) return message.channel.send(dmInstructions).then(msg => msg.delete({timeout: 10000}))
+        if(!messageUser) return message.channel.send(dmInstructions).then(msg => msg.delete({timeout: 10000}))
+        mentionedUser.send(`${messageUser}`)
+        .then(console.log(`Message sent to ${mentionedUser}`))
+        .catch(err => `Error: ${err}`)
+    
+        if ((!message.member.roles.cache.has(config.serverRoles.admin, config.serverRoles.mod))) {
+            const permission_embed = new MessageEmbed()
+            .setColor(config.school_color)
+            .setTitle(`Oops, an error happened...`)
+            .setDescription("You must have the following roles: " + "`Admin`, `Mod`")
+            .setImage(`https://media1.tenor.com/images/9277c9be9e3d7a953bb19bfacf8c1abf/tenor.gif?itemid=12620128`)
+            .setTimestamp()
+            message.channel.send(permission_embed)
+            .then(msg => {
+                msg.delete({ timeout: 2000 })
+            })
+            .catch(err => console.log(`Error: ${err}`));
+        } 
     }
 }
