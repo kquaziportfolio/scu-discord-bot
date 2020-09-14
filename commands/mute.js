@@ -1,4 +1,5 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
+const client = new Discord.Client();
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require('../config.json');
 const ms = require('ms');

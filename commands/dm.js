@@ -38,4 +38,8 @@ module.exports  = {
             .catch(err => console.log(`Error: ${err}`));
         } 
     }
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 9e0da89... UPDATED

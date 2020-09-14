@@ -18,7 +18,7 @@ module.exports = {
 		const pokemonInstructions = new MessageEmbed()
 		.setColor(config.school_color)
 		.setTitle("__**Pokedex Command**__")
-		.setDescription("Here's an example:", ">pokedex Pikachu", true)
+        .setDescription(`Here's an example: \`\`\`${config.prefix}pokedex Pikachu\`\`\``)
 		.setTimestamp()
 
 		if(!args.length || !args[0]) return message.channel.send(pokemonInstructions)
