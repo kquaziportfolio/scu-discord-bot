@@ -1,4 +1,5 @@
 const config = require('../config.json');
+let sendMessage = require('../google-form-functions/sendMessage');
 
 module.exports = { 
     name: 'set-nick',
@@ -7,7 +8,6 @@ module.exports = {
 	async execute(message, args) {
         message.delete();
 
-        let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
         try {
             if (!args.length) return message.channel.send({embed: { description: `Enter a nickname!`, color: config.school_color}})
             const prompt = args.join(" ").trim().split(" ~ ");
@@ -23,9 +23,9 @@ module.exports = {
             };
 
             message.channel.send({ embed: nicknameEmbed});
-            auditLogs.send({ embed: nicknameEmbed});
+            sendMessage(client, config.channels.auditlogs, { embed: nicknameEmbed});
         } catch (e) {
-            auditLogs.send(`Error: ${e}`); // It's always useful to log your errors.
+            sendMessage(client, config.channels.auditlogs, `Error: ${e}`); // It's always useful to log your errors.
        }
     }
 }

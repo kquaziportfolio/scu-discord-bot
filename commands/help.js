@@ -10,8 +10,6 @@ module.exports = {
 		
 		const { commands } = message.client;
 
-		let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
-
 		if (!args.length) {
 			const commandMap = commands.map(command => command.name).join(', ');
 			const helpEmbed = new MessageEmbed()
@@ -27,7 +25,7 @@ module.exports = {
                     message.channel.send({ embed: { description: `I've sent you a DM with all my commands!`, color: config.school_color}});
                 })
                 .catch(error => {
-                    auditLogs.channel.send({ embed: { description: `<@${message.author.id}, it seems like I can't DM you! Do you have your DMs disabled!`, color: config.school_color}});
+                    sendMessage(client, config.channels.auditlogs, { embed: { description: `It seems like I can't DM <@${message.author.id}> due to an error ${error}`, color: config.school_color}});
                 });
         } else {
 			const name = args[0];

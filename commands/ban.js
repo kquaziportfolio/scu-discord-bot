@@ -1,6 +1,6 @@
-const Discord = require(`discord.js`); //requires Discord.js integration package
-const { Client, MessageEmbed } = require(`discord.js`); //for embed functionality
+const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require('../config.json');
+let sendMessage = require(`../google-form-functions/sendMessage.js`);
 
 module.exports = {
 	name: 'ban',
@@ -59,9 +59,7 @@ module.exports = {
                    .addField("Reason", reason)
                    .setTimestamp()
    
-               let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
-   
-               auditLogs.send(ban_card);
+               sendMessage(client, config.channels.auditlogs, ban_card);
             }
         } else {
             return message.channel.send({embed: {

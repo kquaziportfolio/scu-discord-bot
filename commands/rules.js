@@ -1,6 +1,7 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const emojiCharacters = require(`../emoji-characters`); //for emojis
 const config = require('../config.json');
+let isAdmin = require(`../modules/isAdmin.js`);
 
 module.exports = {
 	name: 'rules',
@@ -9,8 +10,7 @@ module.exports = {
 		async execute(message, args) { 
             message.delete();
 
-            if ((message.member.roles.cache.has(config.serverRoles.admin, config.serverRoles.mod))) {
-
+            if (isAdmin(message.author, message)) {
                 const rules_embed = new MessageEmbed() 
                 .setColor(config.school_color)
                 .setTitle("Server Rules:")
@@ -34,19 +34,6 @@ module.exports = {
                 .setTimestamp()
                 .setFooter("Brought to you by the creators of this Discord server.")
                 message.channel.send(rules_embed);
-            } else {
-                const embed = new MessageEmbed()
-                .setColor(config.school_color)
-                .setTitle(`Oops, an error happened...`)
-                .setDescription("You must have the following roles: " + "`Admin`, `Mod`")
-                .attachFiles([`./assets/no_perm.gif`])
-                .setImage(`attachment://no_perm.gif`)
-                .setTimestamp()
-                message.channel.send(embed)
-                .then(msg => {
-                    msg.delete({ timeout: 2000 })
-                })
-                .catch(err => console.log(`Error: ${err}`));
             }
         }
 }

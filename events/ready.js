@@ -1,4 +1,5 @@
 const config = require(`../config.json`);
+let sendMessage = require(`../google-form-functions/sendMessage.js`);
 
 module.exports = async (client) => {
 
@@ -6,7 +7,6 @@ module.exports = async (client) => {
 	require("../google-form-functions/classCoop.js").run(client, config); // start class co-op server 
 
 	const guild = client.guilds.cache.get(config.verification.guildID);
-	let auditLogs = guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 	const verifyMSG = {
 		title: "Hurray!",
 		description: "All commands and events work! ✅",
@@ -14,7 +14,7 @@ module.exports = async (client) => {
 		timestamp: new Date()
 	};
 	console.log(verifyMSG.description);
-	auditLogs.send({ embed: verifyMSG});
+	sendMessage(client, config.channels.auditlogs, { embed: verifyMSG});
 
 	let memberCount = guild.members.cache.filter(member => !member.user.bot).size;
 	

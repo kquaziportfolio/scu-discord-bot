@@ -52,8 +52,6 @@ module.exports = {
             await member.kick(reason)
             .catch(err => console.log(`Error: ${err}`))
 
-            let auditLogs = message.guild.channels.cache.find(channel => channel.name === "audit-logs");
-
             const kick_card = MessageEmbed()
                 .setColor(config.school_color)
                 .setTitle(`Kick | ${member.user.tag}`)
@@ -62,7 +60,7 @@ module.exports = {
                 .addField("Reason", reason_card)
                 .setTimestamp()
 
-            auditLogs.send(kick_card);
+            sendMessage(client, config.channels.auditlogs, kick_card);
         } else {
             return message.channel.send({embed: {
                 description: `You must have the following permission(s): ` + "`KICK MEMBERS`",
