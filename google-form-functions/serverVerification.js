@@ -12,15 +12,8 @@ module.exports.run = (client, config) => {
   const cors = require("cors");
   const helmet = require("helmet");
   var app = express();
-  function sendMessage(client, channel, content) {
-    client.guilds.cache.map((g) => {
-      try {
-        g.channels.cache.find((ch) => ch.id == channel).send(content);
-      } catch (e) {
-        return;
-      }
-    });
-  }
+  const sendMessage = require(`./sendMessage.js`);
+
   /* ADD THIS OBJECT TO YOUR CONFIG FILE (or move the properties somewhere else)
     {
         verification: {
@@ -31,9 +24,9 @@ module.exports.run = (client, config) => {
     INCOMING OBJECT FROM GOOGLE FORMS
     {
         "name": "First/Last name",
-        "major": "Current Major",
+        "major": "Current Major", //defaults to 'none' for SCU Faculty
         "status": "Member Status",
-        "rlc": "Name of your RLC", //optional by the way and not required
+        "rlc": "Name of your RLC", //optional by the way and not required, and defaults to 'none' assuming that the member didn't select it
         "discord": "Discord Username with Tag"
     }
   */
@@ -74,7 +67,7 @@ module.exports.run = (client, config) => {
         //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
           member.send({
             embed: {
-              description: `❌ Someone tried to verify their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
+              description: `❌ Someone tried to verify their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an <@&${config.serverRoles.admin}> or <@&${config.serverRoles.mod}> immediately!`,
               color: config.school_color,
               footer: { text: "SCU Discord Network Verification", },
               author: { name: "Verification Notice", icon_url: client.user.avatarURL(), },
@@ -83,14 +76,21 @@ module.exports.run = (client, config) => {
           });
       } else {
           sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ Verification Alert!**__`, description: `New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
+          if (!req.body.rlc) return; //if user doesn't provide a RLC (which is optional) ignore that
           if (req.body.status === "SCU Faculty") {
             //changes nickname but skip onwards to grant status roles and remove Unverified role, but won't receive RLC, major, and verified Student roles
             member.setNickname(req.body.name);
           } else {
               //give member the verified role
               member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
-              //give member their major role
-              member.roles.add(guild.roles.cache.find((role) => role.name == req.body.major));
+              
+              req.body.courses.forEach(major => {
+                //loops thru members' inputted major role(s) from the checklist 
+                // works for double and triple majors and also for one major [given that they're honest :) ]
+                let majorRole = guild.roles.cache.find(ch => ch.name == major);
+                member.roles.add(majorRole);
+              });
+
               //give member their RLC role (if applicable) and if they are still undergraduates
               member.roles.add(guild.roles.cache.find((role) => role.name == req.body.rlc));
           
@@ -117,7 +117,7 @@ module.exports.run = (client, config) => {
         //send them a confirmation
         const verifyConfirmation = {
           title: `__**Successful Verification**__`,
-          description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
+          description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact <@&${config.serverRoles.admin}> or <@&${config.serverRoles.mod}> to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!\n`,
           color: config.school_color,
           footer: { text: "SCU Discord Network Verification", },
           author: { name: "Verification Confirmation", icon_url: client.user.avatarURL(), },
@@ -129,6 +129,7 @@ module.exports.run = (client, config) => {
             { name: "Member Status", value: req.body.status, },
             { name: "Residential Learning Community", value: (req.body.rlc || 'none'), }, //will output none if no RLC is inputted
             { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
+            { name: `\u200B`, value: `\u200B`}
           ],
         };
         member.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation});
