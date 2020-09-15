@@ -25,12 +25,12 @@
 
 module.exports = function isAdmin(message, msg) {
     const config = require("../config.json");
-    let admin = message.member.roles.cache.find(role => role.id == config.serverRoles.admin);
+    let admin = message.member.roles.cache.find(role => role.name == "Admin");
     //for some reason, can't read property of "roles" on line 3 which is considered undefined
 
     let error = require("../events/error.js");
     try {
-      if (message.member.roles.cache.has(config.serverRoles.admin)) {
+      if (message.member.roles.cache.has(admin.id)) {
         return true;
       } else {
         return false;
