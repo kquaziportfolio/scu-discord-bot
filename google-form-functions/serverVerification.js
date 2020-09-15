@@ -67,7 +67,7 @@ module.exports.run = (client, config) => {
         //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
           member.send({
             embed: {
-              description: `❌ Someone tried to verify their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an <@&${config.serverRoles.admin}> or <@&${config.serverRoles.mod}> immediately!`,
+              description: `❌ Someone tried to verify their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
               color: config.school_color,
               footer: { text: "SCU Discord Network Verification", },
               author: { name: "Verification Notice", icon_url: client.user.avatarURL(), },
@@ -84,7 +84,7 @@ module.exports.run = (client, config) => {
               //give member the verified role
               member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
               
-              req.body.courses.forEach(major => {
+              req.body.major.forEach(major => {
                 //loops thru members' inputted major role(s) from the checklist 
                 // works for double and triple majors and also for one major [given that they're honest :) ]
                 let majorRole = guild.roles.cache.find(ch => ch.name == major);
@@ -117,7 +117,7 @@ module.exports.run = (client, config) => {
         //send them a confirmation
         const verifyConfirmation = {
           title: `__**Successful Verification**__`,
-          description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact <@&${config.serverRoles.admin}> or <@&${config.serverRoles.mod}> to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!\n`,
+          description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
           color: config.school_color,
           footer: { text: "SCU Discord Network Verification", },
           author: { name: "Verification Confirmation", icon_url: client.user.avatarURL(), },
@@ -129,7 +129,6 @@ module.exports.run = (client, config) => {
             { name: "Member Status", value: req.body.status, },
             { name: "Residential Learning Community", value: (req.body.rlc || 'none'), }, //will output none if no RLC is inputted
             { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
-            { name: `\u200B`, value: `\u200B`}
           ],
         };
         member.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation});
