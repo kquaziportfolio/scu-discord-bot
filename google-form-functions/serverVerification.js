@@ -76,7 +76,6 @@ module.exports.run = (client, config) => {
           });
       } else {
           sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ Verification Alert!**__`, description: `New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
-          if (!req.body.rlc) return; //if user doesn't provide a RLC (which is optional) ignore that
           if (req.body.status === "SCU Faculty") {
             //changes nickname but skip onwards to grant status roles and remove Unverified role, but won't receive RLC, major, and verified Student roles
             member.setNickname(req.body.name);
