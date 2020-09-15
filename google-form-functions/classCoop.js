@@ -124,10 +124,9 @@ module.exports.run = (client, config) => {
           image: { url: guild.splashURL(), },
           timestamp: new Date(),
           fields: [
-            { name: "First Name", value: req.body.name, inline: true },
-            { name: "Courses", value: req.body.courses, inline: true },
-            { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, inline: true},
-            { name: `\u200B`, value: `\u200B`, inline: true}
+            { name: "First Name", value: req.body.name },
+            { name: "Courses", value: req.body.courses },
+            { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord }
           ],
         };
         member.send(`**<@${member.user.id}>**`, { embed: courseConfirmation});
