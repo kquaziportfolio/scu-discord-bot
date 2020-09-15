@@ -19,21 +19,13 @@ module.exports.run = (client, config) => {
   const cors = require("cors");
   const helmet = require("helmet");
   var app = express();
-  function sendMessage(client, channel, content) {
-    client.guilds.cache.map((g) => {
-      try {
-        g.channels.cache.find((ch) => ch.id == channel).send(content);
-      } catch (e) {
-        return;
-      }
-    });
-  }
+  const sendMessage = require(`./sendMessage.js`);
+  
   /* ADD THIS OBJECT TO YOUR CONFIG FILE (or move the properties somewhere else)
     {
         verification: {
             "guildID": "string of guild enabled in",
             "key": "string for basically a password to authenticate requests", //get a random string of some sort?
-            ""
         }
     }
     INCOMING OBJECT FROM GOOGLE FORMS
@@ -81,7 +73,7 @@ module.exports.run = (client, config) => {
         //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
           member.send({
             embed: {
-              description: `❌ Someone tried to obtain a **Class Co-op** role on their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
+              description: `❌ Someone tried to obtain a **Class Co-op** role on their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an <@&${config.serverRoles.admin}> or <@&${config.serverRoles.mod}> immediately!`,
               color: config.school_color,
               footer: { text: "SCU Discord Network Class Co-op", },
               author: { name: "Alert Notice", icon_url: client.user.avatarURL(), },
@@ -125,7 +117,7 @@ module.exports.run = (client, config) => {
         //send them a confirmation
         const courseConfirmation = {
           title: `__**Successful Courses Added**__`,
-          description: `✅ You have filled out the class co-op form successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
+          description: `✅ You have filled out the class co-op form successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact <@&${config.serverRoles.admin}> or <@&${config.serverRoles.mod}> to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
           color: config.school_color,
           footer: { text: "SCU Discord Network Class Co-op Confirmation", },
           author: { name: "Class Co-op Confirmation",   icon_url: client.user.avatarURL(), },
@@ -135,6 +127,7 @@ module.exports.run = (client, config) => {
             { name: "First Name", value: req.body.name, },
             { name: "Courses", value: req.body.courses, },
             { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
+            { name: `\u200B`, value: `\u200B`}
           ],
         };
         member.send(`**<@${member.user.id}>**`, { embed: courseConfirmation});
