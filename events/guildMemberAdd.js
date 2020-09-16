@@ -47,7 +47,7 @@ module.exports = async (client, member) => {
       .setColor(config.school_color)
       .setFooter(`Brought to you by the creators of this Discord server.`);
 
-    member.send(welcome_Embed2).then(auditLogs.send({embed: { description: `:white_check_mark: Private DM has been sent to new user: <@${member.user.id}>`}})); //send private DM to new user
-
-    sendMessage(client, config.channels.auditlogs, { embed: { description: `<@${member.user.id}> is the ${memberCount}th member to join ${guild.name}!`, color: config.school_color, timestamp: new Date() } });
+    member.send(welcome_Embed2);
+    
+    sendMessage(client, config.channels.auditlogs, { embed: { description: `:white_check_mark: Private DM has been sent to new user: <@${member.user.id}>`}}); //send private DM to new user
 }
