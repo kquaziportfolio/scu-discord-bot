@@ -90,8 +90,10 @@ module.exports.run = (client, config) => {
                 member.roles.add(majorRole);
               });
 
-              //give member their RLC role (if applicable) and if they are still undergraduates
-              member.roles.add(guild.roles.cache.find((role) => role.name == req.body.rlc));
+              if (req.body.rlc > 0) { //only fires if user selects an a RLC option 
+                //give member their RLC role (if applicable) and if they are still undergraduates
+                member.roles.add(guild.roles.cache.find((role) => role.name == req.body.rlc));
+              }
           
               //set their nickname like this: [First Name] || [Major]
               //also, if nickname is over 32 characters, DM user about their invalid nickname and catch error and log it in #audit-logs so we could manually adjust it
