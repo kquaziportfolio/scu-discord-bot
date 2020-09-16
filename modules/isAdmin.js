@@ -10,39 +10,19 @@
 | |              | || |              | || |              | || |              | || |              | |                    
 | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |                    
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'                     
- .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
-| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
-| | ____    ____ | || |     ____     | || |  ________    | || | _____  _____ | || |   _____      | || |  _________   | |
-| ||_   \  /   _|| || |   .'    `.   | || | |_   ___ `.  | || ||_   _||_   _|| || |  |_   _|     | || | |_   ___  |  | |
-| |  |   \/   |  | || |  /  .--.  \  | || |   | |   `. \ | || |  | |    | |  | || |    | |       | || |   | |_  \_|  | |
-| |  | |\  /| |  | || |  | |    | |  | || |   | |    | | | || |  | '    ' |  | || |    | |   _   | || |   |  _|  _   | |
-| | _| |_\/_| |_ | || |  \  `--'  /  | || |  _| |___.' / | || |   \ `--' /   | || |   _| |__/ |  | || |  _| |___/ |  | |
-| ||_____||_____|| || |   `.____.'   | || | |________.'  | || |    `.__.'    | || |  |________|  | || | |_________|  | |
-| |              | || |              | || |              | || |              | || |              | || |              | |
-| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
- '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
-*/
+ */
 
 module.exports = function isAdmin(message, msg) {
     const config = require("../config.json");
-    let admin = message.member.roles.cache.find(role => role.name == "Admin");
-    //for some reason, can't read property of "roles" on line 3 which is considered undefined
-
+    
     let error = require("../events/error.js");
-    try {
-      if (message.member.roles.cache.has(admin.id)) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch {
-      if (message.author.id == config.serverRoles.admin) {
-        return true;
-      } else {
-        let role = config.serverRoles.admin;
-        if (msg == true) {
-          error(`You are missing the \`${role}\` permission role.`, message);
-        }
+    
+    if (message.author.id == config.serverRoles.admin) {
+      return true;
+    } else {
+      let role = config.serverRoles.admin;
+      if (msg == true) {
+        error(`You are missing the <@&${role}> permission role.`, message);
       }
     }
-  };
+};

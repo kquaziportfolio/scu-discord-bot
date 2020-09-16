@@ -1,5 +1,6 @@
 const config = require(`../config.json`);
 let sendMessage = require(`../google-form-functions/sendMessage.js`);
+const fetch = require(`node-fetch`);
 
 module.exports = async (client) => {
 
@@ -8,7 +9,7 @@ module.exports = async (client) => {
 
 	const guild = client.guilds.cache.get(config.verification.guildID);
 	const verifyMSG = {
-		title: "Hurray!",
+		title: "HURRAY!",
 		description: "All commands and events work! ✅",
 		color: "GREEN",
 		timestamp: new Date()
@@ -16,14 +17,21 @@ module.exports = async (client) => {
 	console.log(verifyMSG.description);
 	sendMessage(client, config.channels.auditlogs, { embed: verifyMSG});
 
-	let memberCount = guild.members.cache.filter(member => !member.user.bot).size;
+	let inviteDisplay = guild.channels.cache.find(channel => channel.id === config.channels.invite);
+	inviteDisplay.setName(`🔗 ${config.verification.inviteLink}`);	
 	
-	let liveCount = guild.channels.cache.find(channel => channel.id === config.channels.liveCount);
-	liveCount.setName(`👥 Members: ${memberCount}`);
+	let memberCount = guild.members.cache.filter(member => !member.user.bot).size;	
+	let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === config.serverRoles.verifiedStudent)).size
+
+	let liveCount = guild.channels.cache.find(channel => channel.id === config.channels.memberCount);
+	liveCount.setName(`👥 ${memberCount} Members`);
+
+	let studentCount = guild.channels.cache.find(channel => channel.id === config.channels.verifiedCount);
+	studentCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
 
 	let statuses = [
 		`Hanging out with ${memberCount} members in the ${guild.name} server!`, 
-		`Reflecting in silence with ${memberCount} members in the ${guild.name} server!`,
+		`Reflecting in silence with ${verifiedCount} students in the ${guild.name} server!`,
 		`Welcome to Santa Clara University in heart of the Silicon Valley — the world’s most innovative and entrepreneurial region!`,
 		`A Catholic and Jesuit university is a place of encounter: where the university encounters the world.`,
 		`I'm the mascot of Santa Clara University!`,
@@ -47,8 +55,20 @@ module.exports = async (client) => {
 		client.user.setPresence({activity: { name: status }, status: 'online'})
 	}, 5000);
 	
-	//specific guild
-	// Alternatively, you can set the activity to any of the following:
-    // PLAYING, STREAMING, LISTENING, WATCHING
-	// For example: client.user.setActivity(`TV`, {type: `WATCHING`})
+	/* DISCORD STATUS CHECKER */
+	const url = "https://srhpyqt94yxb.statuspage.io/api/v2/status.json/";
+
+	const response = await fetch(url);
+
+	const body = await response.json();
+
+	if (!response.ok) {
+		throw Error("Error: DISCORD_STATUS_REQUEST. Please tell the bot author.");
+	}
+
+	if (body.status.description == "All Systems Operational") {
+		sendMessage(client, config.channels.auditlogs, { embed: { title: ":white_check_mark: ALL DISCORD SYSTEMS UP!", description: "Check the status [here](https://discordstatus.com/)! :white_check_mark:", color: "GREEN"}});
+	} else {
+		sendMessage(client, config.channels.auditlogs, { embed: { title: ":x: DISCORD SYSTEMS DOWN!", description: "There seems to be an error with some of the Discord servers. Double check [here](https://status.discordapp.com/)! :x:", color: "RED"}});
+	}
 }

@@ -38,7 +38,7 @@ module.exports.run = (client, config) => {
   app.use(helmet());
   //This will start on port 2000, if this collides with another service you may change it
   const verifyMSG = {
-    title: "✅ SCU DISCORD NETWORK EXPRESS.JS VERIFICATION SERVER",
+    title: "✅ VERIFICATION SERVER",
     description: `Verification listening at port 5354 [here](${config.verification.verifyURL})! ✅`,
     color: "GREEN", 
     timestamp: new Date()
@@ -138,6 +138,10 @@ module.exports.run = (client, config) => {
           
         let welcomeChannel = guild.channels.cache.get(config.channels.welcome);
         welcomeChannel.send(`**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
+                
+	      let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === config.serverRoles.verifiedStudent)).size
+        let studentCount = guild.channels.cache.find(channel => channel.id === config.channels.verifiedCount);
+        studentCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
       }
     } else {
       //if no body.. return this

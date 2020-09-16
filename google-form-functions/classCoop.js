@@ -44,7 +44,7 @@ module.exports.run = (client, config) => {
   app.use(helmet());
   //This will start on port 2000, if this collides with another service you may change it
   const sysMsg = {
-    title: "✅ SCU DISCORD NETWORK EXPRESS.JS COURSE CONFERENCE SERVER",
+    title: "✅ CLASS CO-OP SERVER",
     description: `Verification listening at port 2000 [here](${config.verification.inputURL})! ✅`,
     color: "GREEN", 
     timestamp: new Date()
