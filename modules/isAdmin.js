@@ -12,17 +12,25 @@
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'                     
  */
 
-module.exports = function isAdmin(message, msg) {
-    const config = require("../config.json");
-    
-    let error = require("../events/error.js");
-    
-    if (message.author.id == config.serverRoles.admin) {
+module.exports = function isAdmin(user, message, msg) {
+  const config = require("../config.json");
+  let admin = message.member.roles.cache.find(role => role.id == config.serverRoles.admin);
+
+  let error = require("../events/error.js");
+  try {
+    if (message.member.roles.has(admin)) {
       return true;
     } else {
-      let role = config.serverRoles.admin;
+      return false;
+    }
+  } catch {
+    if (message.author.id == admin) {
+      return true;
+    } else {
+      let role = config.serverRoles.admin
       if (msg == true) {
         error(`You are missing the <@&${role}> permission role.`, message);
       }
     }
+  }
 };
