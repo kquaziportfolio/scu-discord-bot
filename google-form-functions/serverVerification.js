@@ -90,8 +90,8 @@ module.exports.run = (client, config) => {
                 member.roles.add(majorRole);
               });
 
-              if (req.body.rlc > 0) { //only fires if user selects an a RLC option 
-                //give member their RLC role (if applicable) and if they are still undergraduates
+              if (req.body.rlc.length > 0) { 
+                //give member their RLC role (if applicable) and if they are still undergraduates	
                 member.roles.add(guild.roles.cache.find((role) => role.name == req.body.rlc));
               }
           
@@ -99,7 +99,7 @@ module.exports.run = (client, config) => {
               //also, if nickname is over 32 characters, DM user about their invalid nickname and catch error and log it in #audit-logs so we could manually adjust it
               try {
                   let nickname = `${req.body.name} || ${req.body.major}`;
-                  member.setNickname(`${nickname}`);
+                  member.setNickname(`${nickname}`
               } catch (err) {
                   const nicknameError = { 
                       title: `__**❌ <@${member.user.id}>'s nickname is over 32 characters!**__`, 
@@ -141,7 +141,7 @@ module.exports.run = (client, config) => {
         let welcomeChannel = guild.channels.cache.get(config.channels.welcome);
         welcomeChannel.send(`**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
                 
-	      let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === config.serverRoles.verifiedStudent)).size
+	let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === config.serverRoles.verifiedStudent)).size
         let studentCount = guild.channels.cache.find(channel => channel.id === config.channels.verifiedCount);
         studentCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
       }
