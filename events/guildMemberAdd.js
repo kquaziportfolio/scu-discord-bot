@@ -9,13 +9,13 @@ module.exports = async (client, member) => {
   const guild = client.guilds.cache.get(`${config.verification.guildID}`);
   
   let memberCount = guild.members.cache.filter(member => !member.user.bot).size;	
-	let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === config.serverRoles.verifiedStudent)).size
+  let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === config.serverRoles.verifiedStudent)).size
 
-	let studentCount = guild.channels.cache.find(channel => channel.id === config.channels.memberCount);
-	studentCount.setName(`👥 ${memberCount} Members`);
+  let studentCount = guild.channels.cache.find(channel => channel.id === config.channels.memberCount);
+  studentCount.setName(`👥 ${memberCount} Members`);
 
-	let liveCount = guild.channels.cache.find(channel => channel.id === config.channels.verifiedCount);
-	liveCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
+  let liveCount = guild.channels.cache.find(channel => channel.id === config.channels.verifiedCount);
+  liveCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
 
   const sicon = guild.iconURL();
 	
@@ -53,7 +53,6 @@ module.exports = async (client, member) => {
 
   member.send(welcome_Embed2);
   
-<<<<<<< HEAD
     guild.systemChannel.send(`<@${member.user.id}>`, { embed: welcome_Embed1 });
 
     const welcome_Embed2 = new MessageEmbed() //personal message to new user
@@ -75,7 +74,3 @@ module.exports = async (client, member) => {
     
     sendMessage(client, config.channels.auditlogs, { embed: { description: `:white_check_mark: Private DM has been sent to new user: <@${member.user.id}>`}}); //send private DM to new user
 }
-=======
-  sendMessage(client, config.channels.auditlogs, { embed: { description: `:white_check_mark: Private DM has been sent to new user: <@${member.user.id}>`}}); //send private DM to new user
-}
->>>>>>> e903e01... UPDATED A LOT OF STUFFgit add . :)
