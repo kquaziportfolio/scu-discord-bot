@@ -1,5 +1,6 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require('../config.json');
+let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = {
 	name: 'kick',
@@ -9,7 +10,9 @@ module.exports = {
 	async execute(message, args) {   
         message.delete();
 
-        if(message.member.hasPermission("KICK_MEMBERS")) {
+        let isAdmin = require(`../modules/isAdmin.js`);
+
+        if(isAdmin(message, false)) {
             // the kick code here
 
             const kickInstructions = new MessageEmbed()
@@ -61,19 +64,6 @@ module.exports = {
                 .setTimestamp()
 
             sendMessage(client, config.channels.auditlogs, kick_card);
-        } else {
-            return message.channel.send({embed: {
-                description: `You must have the following permission(s): ` + "`KICK MEMBERS`",
-                color: config.school_color,
-                image: {
-                    url: `attachment://no_perm.gif`,
-                },
-                files: [{
-                    attachment: `./assets/no_perm.gif`,
-                    name: `no_perm.gif`
-                }],
-                }
-            }).then(msg => msg.delete({timeout: 2000}))
-        }
+        } 
     }
 }

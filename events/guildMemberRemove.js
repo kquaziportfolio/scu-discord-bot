@@ -1,7 +1,7 @@
 const { MessageEmbed } = require(`discord.js`);
 const config = require(`../config.json`);
 
-let sendMessage = require(`../google-form-functions/sendMessage.js`);
+let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = async (client, member) => {
 	if(member.user.bot) return; //ignore members who are bot users

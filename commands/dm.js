@@ -1,6 +1,4 @@
 const config = require('../config.json');
-let isAdmin = require("../modules/isAdmin.js");
-let sendMessage = require(`../google-form-functions/sendMessage.js`);
 
 module.exports  = {
     name: 'dm',
@@ -9,8 +7,9 @@ module.exports  = {
     async execute(message, args) {
         message.delete();
 
+        let isAdmin = require(`../modules/isAdmin.js`);
         
-        if (isAdmin(message.author, message)) {
+        if(isAdmin(message, false)) {
                 
             let title = message.content.split("|")[1];
             let description = message.content.split("|")[2];
@@ -26,7 +25,7 @@ module.exports  = {
                 .catch(() => undelivered++)
             });
 
-            sendMessage(client, config.channels.auditlogs, { embed: { description: `Messages have been sent, yet ${undelivered} members couldn't receive it due to probably turning their DMs off.`, color: config.school_color}})
+            message.author.send({ embed: { description: `Messages have been sent, yet ${undelivered} members couldn't receive it due to probably turning their DMs off.`, color: config.school_color}})
             .catch(console.error); 
         }  
     }

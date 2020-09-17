@@ -1,7 +1,6 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require('../config.json');
-let isAdmin = require(`../modules/isAdmin.js`);
-let sendMessage = require(`../google-form-functions/sendMessage.js`);
+let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = {
 	name: 'server-stats',
@@ -10,7 +9,10 @@ module.exports = {
 		async execute(message, args) {
             message.delete();
 
-            if (isAdmin(message.author, message)) { 
+            let isAdmin = require(`../modules/isAdmin.js`);
+
+            if(isAdmin(message, false)) {
+                message.delete();
 
                 function checkBots(guild) {
                     let botCount = 0;

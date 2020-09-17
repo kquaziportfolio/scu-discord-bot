@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require('../config.json');
 const ms = require('ms');
-let sendMessage = require(`../google-form-functions/sendMessage.js`);
+let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = {
 	name: 'mute',
@@ -13,8 +13,12 @@ module.exports = {
     async execute(message, args) {   
         message.delete();
 
-        if(message.member.hasPermission("MUTE_MEMBERS")) {
+        let isAdmin = require(`../modules/isAdmin.js`);
+
+        if(isAdmin(message, false)) {
             // the mute code here
+            let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
+
             let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
             if(!user) return message.channel.send({embed: { 
                 color: 10231598,
@@ -54,7 +58,7 @@ module.exports = {
                 //return message.channel.send(`${user.user.tag} is now muted.`);
                 const muteEmbed = new MessageEmbed()
                 .setTitle(`You have muted the user ${user.user.username}!`)
-                sendMessage(client, config.channels.auditlogs, muteEmbed);
+                endMessage(client, config.channels.auditlogs, muteEmbed);
     
             } else {
                 if (user.roles.cache.has(muterole.id)) return message.channel.send({embed: {description: `${user.user.username} still muted.`, color: 10231598}})
@@ -64,35 +68,23 @@ module.exports = {
                     user.roles.remove(muterole.id).catch(err => console.log(`Error: ${err}`));
                     const unmuteEmbed = new MessageEmbed()
                     .setTitle(`${user.user.username} is now unmuted!`)
-                    sendMessage(client, config.channels.auditlogs, unmuteEmbed);
+                    endMessage(client, config.channels.auditlogs, unmuteEmbed);
                 }, ms(time))
     
                 client.mute.set(message.author.id, timer);
                 const auditEmbed = new MessageEmbed()
                 .setTitle(`You have muted the user ${user.user.username}!`)
                 .setDescription(`Time: ${ms(ms(time), {long: true})}`)
-                sendMessage(client, config.channels.auditlogs, auditEmbed)       
+                sendMessage(client, config.channels.auditlogs, auditEmbed);   
             }
   
-            /*mute.roles.add(muterole).then(()=> {
+            /*mutee.roles.add(muterole).then(()=> {
                 //message.delete()
                 const Embed = new MessageEmbed()
                 .setTitle(`You have muted the user ${mutee.user.username}!`)
                 .setDescription(`Reason: ${Reason} \nTime: ${Time}`)
                 message.channel.send(Embed)
             })*/
-        } else {
-            const permission_embed = new MessageEmbed()
-            .setColor(config.school_color)
-            .setTitle(`Oops, an error happened...`)
-            .setDescription(`You must have the following permission(s): ` + "`MUTE MEMBERS`")
-            .attachFiles([`./assets/no_perm.gif`])
-            .setImage(`attachment://no_perm.gif`)
-            message.channel.send(permission_embed)
-            .then(msg => {
-                msg.delete({ timeout: 2000 })
-            })
-            .catch(err => console.log(`Error: ${err}`));
-        } 
+        }
     }
 }

@@ -1,5 +1,5 @@
 const config = require('../config.json');
-let sendMessage = require('../google-form-functions/sendMessage');
+let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = { 
     name: 'set-nick',
@@ -25,7 +25,7 @@ module.exports = {
             message.channel.send({ embed: nicknameEmbed});
             sendMessage(client, config.channels.auditlogs, { embed: nicknameEmbed});
         } catch (e) {
-            sendMessage(client, config.channels.auditlogs, `Error: ${e}`); // It's always useful to log your errors.
+            sendMessgae(client, config.channels.auditlogs, `Error: ${e}`); // It's always useful to log your errors.
        }
     }
 }

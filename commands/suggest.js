@@ -1,6 +1,5 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require(`../config.json`);
-let sendMessage = require(`../google-form-functions/sendMessage.js`);
 
 module.exports = { 
     name: 'suggest',
@@ -18,8 +17,10 @@ module.exports = {
         const prompt = args.join(' ').split(' | ');
         if(!prompt[1]) return message.channel.send(announceInstructions);
 
-        sendMessage(client, config.channels.auditlogs, {embed: { title: `__**SUGGESTION SENT!**__`}, description: `<@${message.author.id}> recently made a suggestion! Check it out!`})
+        let suggestChannel = message.guild.channels.cache.find(channel => channel.id === config.channels.suggestions);
+        let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
+        auditLogs.send({embed: { title: `__**SUGGESTION SENT!**__`}, description: `<@${message.author.id}> recently made a suggestion! Check it out!`})
         
-        sendMessage(client, config.channels.suggestions, `<@&709118762707845211> <@&710593727864897646>`,{embed : {color: config.school_color, title: `${prompt[0]}`, description: `${prompt[1]}`}});
+        suggestChannel.send(`<@&709118762707845211> <@&710593727864897646>`,{embed : {color: config.school_color, title: `${prompt[0]}`, description: `${prompt[1]}`}});
     }          
 }

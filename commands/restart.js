@@ -1,18 +1,18 @@
-const config = require('../config.json');
-let isAdmin = require(`../modules/isAdmin.js`);
+const config = require('../config.json');        
 
 module.exports =  {  
 	name: 'restart',
     description: 'Restart the bot!',
     usage: `${config.prefix}restart`,
 	async execute(message, args) {
-        message.delete();
+        message.delete(); 
 
-        if(isAdmin(message.author, message)) {
+        let isAdmin = require(`../modules/isAdmin.js`);        
+
+        if(isAdmin(message, false)) {
+
             try {
                 const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
-
-                if(!config.serverRoles.owner) return message.channel.send("You don't have permissions!");
 
                 const msg = await message.channel.send(`Restarting the bot...`);
                 

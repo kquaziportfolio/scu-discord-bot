@@ -3,8 +3,8 @@ const client = new Discord.Client();
 const config = require(`../config.json`);
 
 module.exports = (client, message) => {
-  // Checks if we're on DMs, or the Author is a Bot, or the message isn't from the guild, ignore it.
-  if (message.author.bot || !message.guild || message.channel.type == "dm") return;
+  // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
+  if (message.author.bot || !message.guild) return;
 
   // Ignore messages not starting with the prefix (in config.json)
   if (message.content.indexOf(config.prefix)) return;

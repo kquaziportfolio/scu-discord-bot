@@ -1,11 +1,11 @@
 const config = require(`../config.json`);
-let sendMessage = require(`../google-form-functions/sendMessage.js`);
+let sendMessage = require(`../modules/sendMessage.js`);
 const fetch = require(`node-fetch`);
 
 module.exports = async (client) => {
 
-	require("../google-form-functions/serverVerification.js").run(client, config); //start server verification file in ready event
-	require("../google-form-functions/classCoop.js").run(client, config); // start class co-op server 
+	require("../modules/serverVerification.js").run(client, config); //start server verification file in ready event
+	require("../modules/classCoop.js").run(client, config); // start class co-op server 
 
 	const guild = client.guilds.cache.get(config.verification.guildID);
 	const verifyMSG = {

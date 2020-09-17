@@ -1,7 +1,6 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const emojiCharacters = require(`../emoji-characters`); //for emojis
 const config = require('../config.json');
-let isAdmin = require(`../modules/isAdmin.js`);
 
 module.exports = {
 	name: 'rules',
@@ -10,7 +9,9 @@ module.exports = {
 		async execute(message, args) { 
             message.delete();
 
-            if (isAdmin(message.author, message)) {
+            let isAdmin = require(`../modules/isAdmin.js`);
+
+            if(isAdmin(message, false)) {
                 const rules_embed = new MessageEmbed() 
                 .setColor(config.school_color)
                 .setTitle("Server Rules:")

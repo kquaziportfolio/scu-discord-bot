@@ -1,14 +1,17 @@
 const Discord = require(`discord.js`);
 const client = new Discord.Client();
 const config = require('../config.json');
-let isAdmin = require(`../modules/isAdmin.js`);
 
 module.exports =  {  
 	name: 'shutdown',
     description: 'Shut down the bot!',
     usage: `${config.prefix}restart`,
         async execute(message, args) {
-            if (isAdmin(message.author, message)) {
+            message.delete();
+
+            let isAdmin = require(`../modules/isAdmin.js`);
+            
+            if (isAdmin(message, false)) {
                 try {
                     const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
 
@@ -26,7 +29,12 @@ module.exports =  {
                 } catch (err) {
                     console.log(err.message);
                 } finally {
-                    client.destroy();
+                    client.destroy(err => {
+                        console.log("====================");
+                        console.log("Command: [!@shutdown] run by " + message.author.username);
+                        console.log("====================");
+                        console.log(err);
+                    });
                 }
             }
         }

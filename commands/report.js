@@ -1,6 +1,6 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require(`../config.json`)
-let sendMessage = require(`../google-form-functions/sendMessage.js`);
+let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = {
 	name: 'report',
@@ -11,7 +11,7 @@ module.exports = {
             
             let target = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
             let reason = args.slice(1).join(' ');
-
+          
             if (!target) return message.channel.send({embed: {description: 'Please specify a member to report!', color: config.school_color}});
             if (!reason) return message.channel.send({embed: {description: 'Please specify a reason for this report!', color: config.school_color}});
             

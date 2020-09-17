@@ -1,6 +1,5 @@
 const config = require(`../config.json`);
 let isAdmin = require(`../modules/isAdmin.js`);
-let sendMessage = require(`../google-form-functions/sendMessage.js`);
 
 module.exports = {
 	name: 'reload',
@@ -9,7 +8,9 @@ module.exports = {
 	async execute(message, args) {
 		message.delete();
 
-		if(isAdmin(message.author, message)) {
+		if(isAdmin(message, false)) {
+			let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
+
 			if (!args.length) return auditLogs.send({ embed: { description: `❌ You didn't pass any command to reload, <@${message.author.id}>!`}});
 			const commandName = args[0].toLowerCase();
 			const command = message.client.commands.get(commandName);
@@ -20,7 +21,7 @@ module.exports = {
 
 			const newCommand = require(`./${command.name}.js`);
 			message.client.commands.set(newCommand.name, newCommand);
-			sendMessage(client, config.channels.auditlogs, { embed: { description: `Command \`${command.name}\` was reloaded! ✅`, color: config.school_color}});
+			auditLogs.send({ embed: { description: `Command \`${command.name}\` was reloaded! ✅`, color: config.school_color}});
 		} 
 	}
 }

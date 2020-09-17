@@ -1,6 +1,6 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require('../config.json');
-let sendMessage = require(`../google-form-functions/sendMessage.js`);
+let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = {
 	name: 'ban',
@@ -9,8 +9,10 @@ module.exports = {
     guildOnly: true,
 	async execute(message, args) {   
         message.delete();
+
+        let isAdmin = require(`../modules/isAdmin.js`);
         
-        if(message.member.hasPermission("BAN_MEMBERS")) {
+        if(isAdmin(message, false)) {
             // the ban code here
 
             const ban_Instructions = new MessageEmbed()
@@ -61,20 +63,6 @@ module.exports = {
    
                sendMessage(client, config.channels.auditlogs, ban_card);
             }
-        } else {
-            return message.channel.send({embed: {
-                description: `You must have the following permission(s): ` + "`BAN MEMBERS`",
-                color: config.school_color,
-                image: {
-                    url: `attachment://no_perm.gif`,
-                },
-                files: [{
-                    attachment: `./assets/no_perm.gif`,
-                    name: `no_perm.gif`
-                }],
-                }
-            }).then(msg => msg.delete({timeout: 2000}))
-            .catch(err => console.log(`Error: ${err}`))
-        }
+        } 
     }
 }
