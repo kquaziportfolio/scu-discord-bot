@@ -98,17 +98,12 @@ module.exports.run = (client, config) => {
               //set their nickname like this: [First Name] || [Major]
               //also, if nickname is over 32 characters, DM user about their invalid nickname and catch error and log it in #audit-logs so we could manually adjust it
               try {
-                  let nickname = `${req.body.name} || ${req.body.major}`;
-                  //if member has double/triple major, make sure to join with ` & ` to show both on their nickname!
-                  if ((req.body.major.length) > 1) {
-                    member.setNickname(nickname).join(` & `);
-                  }
-
-                  member.setNickname(`${nickname}`);
+                  const nickname = `${req.body.name} || ${req.body.major}`
+                  member.setNickname(nickname);
               } catch (err) {
                   const nicknameError = { 
-                      title: `__**❌ <@${member.user.id}>'s nickname is over 32 characters!**__`, 
-                      description: `> **${req.body.discord}** returned **${nickname}**\n> Here is the error: ${err}!`, 
+                      title: `__**❌ <@${req.body.name}>'s nickname is over 32 characters!**__`, 
+                      description: `> **${member.user.id}** returned **${nickname}**\n> Here is the error: ${err}!`, 
                       color: config.school_color, 
                       timestamp: new Date()
                   }
