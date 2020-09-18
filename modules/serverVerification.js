@@ -76,19 +76,23 @@ module.exports.run = (client, config) => {
           });
       } else {
           sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ Verification Alert!**__`, description: `New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
-          if (req.body.status === "SCU Faculty") {
+          if (req.body.status == "SCU Faculty/Staff") {
             //changes nickname but skip onwards to grant status roles and remove Unverified role, but won't receive RLC, major, and verified Student roles
             member.setNickname(req.body.name);
+            member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedPersonnel)); //the SC  role
           } else {
               //give member the verified role
-              member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
               
-              req.body.major.forEach(major => {
-                //loops thru members' inputted major role(s) from the checklist 
-                // works for double and triple majors and also for one major [given that they're honest :) ]
-                let majorRole = guild.roles.cache.find(ch => ch.name == major);
-                member.roles.add(majorRole);
-              });
+              member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
+
+              if (req.body.major != null) {
+                req.body.major.forEach(major => {
+                  //loops thru members' inputted major role(s) from the checklist 
+                  // works for double and triple majors and also for one major [given that they're honest :) ]
+                  let majorRole = guild.roles.cache.find(ch => ch.name == major);
+                  member.roles.add(majorRole);
+                });
+              }
 
               if (req.body.rlc != null) { //only fires if user selects an a RLC option 
                 //give member their RLC role (if applicable) and if they are still undergraduates
@@ -111,13 +115,13 @@ module.exports.run = (client, config) => {
               }
               
               member.setNickname(nickname);
-          
-          //remove Unverified role from member
+
+          //give student member their status role
+          member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
+        }       
+          //remove Unverified role from member in all conditions
           member.roles.remove(guild.roles.cache.find((role) => role.id == config.serverRoles.unverifiedStudent));
 
-          //give member their status role
-          member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
-        
           //send them a confirmation
           const verifyConfirmation = {
             title: `__**Successful Verification**__`,
@@ -147,7 +151,7 @@ module.exports.run = (client, config) => {
           let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === config.serverRoles.verifiedStudent)).size
           let studentCount = guild.channels.cache.find(channel => channel.id === config.channels.verifiedCount);
           studentCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
-        }
+        
       }
     } else {
       //if no body.. return this
