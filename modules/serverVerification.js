@@ -116,7 +116,7 @@ module.exports.run = (client, config) => {
               }
               
               member.setNickname(nickname);
-              member.roles.add(guild.roles.cache.find((role) => role.id == req.body.status));
+              member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
         }       
           //remove Unverified role from member in all conditions
           member.roles.remove(guild.roles.cache.find((role) => role.id == config.serverRoles.unverifiedStudent));
