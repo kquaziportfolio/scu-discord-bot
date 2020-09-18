@@ -1,6 +1,7 @@
 const config = require(`../config.json`);
 let sendMessage = require(`../modules/sendMessage.js`);
 const fetch = require(`node-fetch`);
+let status = require(`../modules/status.js`);
 
 module.exports = async (client) => {
 
@@ -29,37 +30,13 @@ module.exports = async (client) => {
 	let studentCount = guild.channels.cache.find(channel => channel.id === config.channels.verifiedCount);
 	studentCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
 
-	let statuses = [
-		`Hanging out with ${memberCount} members in the ${guild.name} server!`, 
-		`Reflecting in silence with ${verifiedCount} students in the ${guild.name} server!`,
-		`Welcome to Santa Clara University in heart of the Silicon Valley — the world’s most innovative and entrepreneurial region!`,
-		`A Catholic and Jesuit university is a place of encounter: where the university encounters the world.`,
-		`I'm the mascot of Santa Clara University!`,
-		`It is a great privilege to share in the dream of Santa Clara University.`,
-		`I am deeply humbled to be asked to take the helm of Santa Clara University and to build upon what others have accomplished over the last decade.`,
-		`Invent the life you want to lead at Santa Clara University.`,
-		`📸 Follow our Instagram: @scudiscordnetwork`,
-		`🔥 Go forth and set the world on fire!`,
-		`94% First-year retention rate | 11:1 Student-to-faculty ratio | 85% Four-year graduation rate | 300+ days of sunshine`,
-		`At Santa Clara University, we are committed to creating a community of generous encounter, a place where all feel respected, welcomed, and safe.`,
-		`The path to transformation begins in the human heart.`,
-		`I urge you to listen and learn, and then add your voice.`,
-		`Violence in any form has no place in the beloved community we want to build. Nor does silence in the face of injustice.`,
-		`Education brings light. Faith brings light. Community brings light. These are our strengths as a Jesuit university.`,
-		`Through the efforts of Santa Clara students, staff, faculty, and alumni over the years, we have become a better university. But there is more work to do.`,
-		`Let us pray for strength and wisdom for our journey ahead.`,
-		`People of all backgrounds flourish here. One thing they have in common? They want to make a difference. Santa Clara students are driven to build a better, kinder, more humane, more sustainable planet. `
-	];
 	setInterval(function() {
-		let status = statuses[Math.floor(Math.random() * statuses.length)];
-		client.user.setPresence({activity: { name: status }, status: 'online'})
-	}, 5000);
+		client.user.setPresence({activity: { name: status.getStatus() }, status: 'online'})
+	}, 20000); //change status every 20 seconds to avoid API abuse :)
 	
 	/* DISCORD STATUS CHECKER */
 	const url = "https://srhpyqt94yxb.statuspage.io/api/v2/status.json/";
-
 	const response = await fetch(url);
-
 	const body = await response.json();
 
 	if (!response.ok) {
