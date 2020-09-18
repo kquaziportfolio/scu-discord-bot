@@ -80,7 +80,7 @@ module.exports.run = (client, config) => {
           if (req.body.status == "SCU Faculty/Staff") {
             //changes nickname and grants verified personnel role but skips onwards to remove Unverified role, but won't receive RLC, major, and verified Student roles
             member.setNickname(req.body.name);
-            member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedPersonnel)); //the SC  role
+            member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedPersonnel)); //the SCU Faculty/Staff role
           } else {
               //gives member the verified student role
               
