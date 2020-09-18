@@ -90,60 +90,65 @@ module.exports.run = (client, config) => {
                 member.roles.add(majorRole);
               });
 
-              if ((req.body.rlc.length) > 0) { //only fires if user selects an a RLC option 
+              if (req.body.rlc != null) { //only fires if user selects an a RLC option 
                 //give member their RLC role (if applicable) and if they are still undergraduates
                 member.roles.add(guild.roles.cache.find((role) => role.name == req.body.rlc));
               }
           
               //set their nickname like this: [First Name] || [Major]
-              //also, if nickname is over 32 characters, DM user about their invalid nickname and catch error and log it in #audit-logs so we could manually adjust it
-              try {
-                  const nickname = `${req.body.name} || ${req.body.major}`
-                  member.setNickname(nickname);
-              } catch (err) {
-                  const nicknameError = { 
-                      title: `__**❌ <@${req.body.name}>'s nickname is over 32 characters!**__`, 
-                      description: `> **${member.user.id}** returned **${nickname}**\n> Here is the error: ${err}!`, 
-                      color: config.school_color, 
-                      timestamp: new Date()
-                  }
-                  sendMessage(client, config.channels.auditlogs, { embed: nicknameError});
+              //also, if nickname is over 32 characters, catch error and log it in #audit-logs so we could manually adjust it
+             
+              const nickname = `${req.body.name} || ${req.body.major}`; 
+              
+              if (nickname.length > 32) {
+                const nicknameError = { 
+                  title: `__**❌ <@${req.body.name}>'s nickname is over 32 characters!**__`, 
+                  description: `> <@${member.user.id}> returned **${nickname}**\n> Here is the error: ${err}!`, 
+                  color: config.school_color, 
+                  timestamp: new Date()
+                }
+                sendMessage(client, config.channels.auditlogs, { embed: nicknameError});
               }
-          }
-
-        //give member their status role
-        member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
-        //remove Unverified role from member
-        member.roles.remove(guild.roles.cache.find((role) => role.id == config.serverRoles.unverifiedStudent));
-        //send them a confirmation
-        const verifyConfirmation = {
-          title: `__**Successful Verification**__`,
-          description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
-          color: config.school_color,
-          footer: { text: "SCU Discord Network Verification", },
-          author: { name: "Verification Confirmation", icon_url: client.user.avatarURL(), },
-          image: { url: guild.splashURL(), },
-          timestamp: new Date(),
-          fields: [
-            { name: "First Name", value: req.body.name, },
-            { name: "Current Major", value: (req.body.major || 'none'), }, //will output none if no major is inputted
-            { name: "Member Status", value: req.body.status, },
-            { name: "Residential Learning Community", value: (req.body.rlc || 'none'), }, //will output none if no RLC is inputted
-            { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
-          ],
-        };
-        member.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation});
-        const verifyEmbed = { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `You are now verified! Everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()};
-        
-        let verificationChannel = guild.channels.cache.get(config.channels.verificationlogs);
-        verificationChannel.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation}).then(m => m.react('👍'));
+              
+              member.setNickname(nickname);
           
-        let welcomeChannel = guild.channels.cache.get(config.channels.welcome);
-        welcomeChannel.send(`**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
-                
-	      let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === config.serverRoles.verifiedStudent)).size
-        let studentCount = guild.channels.cache.find(channel => channel.id === config.channels.verifiedCount);
-        studentCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
+          //remove Unverified role from member
+          member.roles.remove(guild.roles.cache.find((role) => role.id == config.serverRoles.unverifiedStudent));
+
+          //give member their status role
+          member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
+        
+          //send them a confirmation
+          const verifyConfirmation = {
+            title: `__**Successful Verification**__`,
+            description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
+            color: config.school_color,
+            footer: { text: "SCU Discord Network Verification", },
+            author: { name: "Verification Confirmation", icon_url: client.user.avatarURL(), },
+            image: { url: guild.splashURL(), },
+            timestamp: new Date(),
+            fields: [
+              { name: "First Name", value: req.body.name, },
+              { name: "Current Major(s)", value: (req.body.major || 'none'), }, //will output none if no major is inputted
+              { name: "Current Minor(s)", value: (req.body.minor || 'none'), }, //will output none if no minor is inputted
+              { name: "Member Status", value: req.body.status, },
+              { name: "Residential Learning Community", value: (req.body.rlc || 'none'), }, //will output none if no RLC is inputted
+              { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
+            ],
+          };
+          member.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation});
+          const verifyEmbed = { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `You are now verified! Everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()};
+          
+          let verificationChannel = guild.channels.cache.get(config.channels.verificationlogs);
+          verificationChannel.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation}).then(m => m.react('👍'));
+            
+          let welcomeChannel = guild.channels.cache.get(config.channels.welcome);
+          welcomeChannel.send(`**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
+                  
+          let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === config.serverRoles.verifiedStudent)).size
+          let studentCount = guild.channels.cache.find(channel => channel.id === config.channels.verifiedCount);
+          studentCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
+        }
       }
     } else {
       //if no body.. return this
