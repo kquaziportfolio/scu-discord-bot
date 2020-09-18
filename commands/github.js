@@ -16,6 +16,8 @@ module.exports = {
             let response = await fetch(`https://api.github.com/users/${username}`);
             let data = await response.json();
 
+            if (data.name == null) return; //returns on invalid usernames
+
             const profileEmbed = new MessageEmbed()
                 profileEmbed.setTitle(`__**${data.name}'s GitHub Profile**__`)
                 profileEmbed.setDescription(`${data.bio}`)
@@ -24,10 +26,10 @@ module.exports = {
                 profileEmbed.addField(`Company`, data.company || 'none', true)
                 profileEmbed.addField(`Blog`, `[${data.name}](${data.blog})` || 'none', true)
                 profileEmbed.addField(`Location`, data.location|| 'none', true)
-                profileEmbed.addField(`Public Repos`, data.public_repos|| 'none', true)
-                profileEmbed.addField(`Public Gists`, data.public_gists|| 'none', true)
-                profileEmbed.addField(`Followers`, data.followers|| 'none', true)
-                profileEmbed.addField(`Following`, data.following|| 'none', true)
+                profileEmbed.addField(`Public Repos`, data.public_repos || 'none', true)
+                profileEmbed.addField(`Public Gists`, data.public_gists || 'none', true)
+                profileEmbed.addField(`Followers`, data.followers || 'none', true)
+                profileEmbed.addField(`Following`, data.following || 'none', true)
                 profileEmbed.addField(`\u200B`, `\u200B`, true)
                 profileEmbed.setColor(config.school_color)
                 profileEmbed.setURL(data.html_url)
@@ -35,7 +37,7 @@ module.exports = {
             message.channel.send(profileEmbed);
         } catch(err) {
             sendMessage(client, config.channels.auditlogs, {embed: {description: `The following user - ${username} - does not exist.`, color: config.school_color}})
-			.catch(err => `Error: ${err}`)
+            console.log(err => `Error: ${err}`)
         }
     }
 }
