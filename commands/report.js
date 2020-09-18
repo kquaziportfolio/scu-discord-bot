@@ -5,16 +5,14 @@ let sendMessage = require(`../modules/sendMessage.js`);
 module.exports = {
 	name: 'report',
     description: 'Report naughty users!',
-    usage: `${config.prefix}report [user mention]`,
+    args: true,
+    usage: `[@user mention] [reason]`,
 		async execute(message, args) { 
             message.delete();
             
             let target = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
             let reason = args.slice(1).join(' ');
-          
-            if (!target) return message.channel.send({embed: {description: 'Please specify a member to report!', color: config.school_color}});
-            if (!reason) return message.channel.send({embed: {description: 'Please specify a reason for this report!', color: config.school_color}});
-            
+
             let embed = new MessageEmbed()
                 .setColor(config.school_color)
                 .setThumbnail(target.user.avatarURL())

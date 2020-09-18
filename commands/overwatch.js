@@ -1,3 +1,4 @@
+const { MessageEmbed } = require(`discord.js`); 
 const config = require(`../config.json`);
 const overwatch = require(`overwatch-api`);
 const {stripIndents} = require(`common-tags`);
@@ -5,19 +6,12 @@ const {stripIndents} = require(`common-tags`);
 module.exports = { 
     name: 'overwatch', //here is a change in the file
     description: 'Get your Overwatch statistics!',   
-    usage: `${config.prefix}overwatch [username] [platform]`,
+    args: true,
+    usage: `[username] [pc / xb1 / psn]`,
     async execute( message, args) {
         message.delete();
         
         args = args.join(" ").split(" ");
-
-        if(!args[0] || !args[1] || (args[1] && !["pc", "xb1", "psn"].includes(args[1]))) return message.channel.send({embed: {
-            title: `Overwatch Command`, 
-            description: `Here's an example: ${prefix}overwatch Pogchamp#8888 pc`,
-            color: config.school_color,
-            timestamp: new Date(),
-            footer: `Brought to you by the server lords!`
-        }});
 
         if(args[0].includes("#")) args[0] = args[0].replace(/#/g, "-");
 
@@ -36,7 +30,7 @@ module.exports = {
                 footer: `Brought to you by the server lords!`
             }}).catch(err => `Error: ${err}`)
 
-            const embed = new Discord.MessageEmbed() 
+            const embed = new MessageEmbed() 
             .setColor(config.school_color)
             .setAuthor(`Overwatch | ${username}`, portrait)
             .setThumbnail(portrait)

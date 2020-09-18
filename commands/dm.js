@@ -3,6 +3,8 @@ const config = require('../config.json');
 module.exports  = {
     name: 'dm',
     description: 'direct message!',   
+    args: true,
+    usage: `<@user>`,
     guildOnly: true,
     async execute(message, args) {
         message.delete();

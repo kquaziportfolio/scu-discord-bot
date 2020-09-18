@@ -3,7 +3,8 @@ const config = require('../config.json');
 module.exports =  {  
 	name: 'rps',
     description: 'Play rock, paper, scissors!',
-    usage: `${config.prefix}rps [Choose rock, paper, or scissors]`,
+    args: true,
+    usage: `[Choose rock, paper, or scissors]`,
 	async execute(message, args) {
         message.delete();
         

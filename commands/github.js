@@ -1,16 +1,18 @@
 const fetch = require(`node-fetch`);
 const { MessageEmbed } = require(`discord.js`);
 const config = require('../config.json');
+let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = {
     name: "github",
     description: "Get someone's GitHub profile information!",
-    usage: `${config.prefix}github [username]`,
+    args: true,
+    usage: `[username]`,
     async execute (message, args) {
         message.delete();
 
         try {
-            const username = message.content.toLowerCase().split(" ")[1];
+            const username = args[0].toLowerCase().split(" ");
             let response = await fetch(`https://api.github.com/users/${username}`);
             let data = await response.json();
 
@@ -30,12 +32,9 @@ module.exports = {
                 profileEmbed.setColor(config.school_color)
                 profileEmbed.setURL(data.html_url)
 
-            if(!username[0]) return message.channel.send({embed: { description: "Please enter the person's username!", color: config.school_color}});
-
             message.channel.send(profileEmbed);
         } catch(err) {
-            message.channel.send({embed: {description: `User does not exist.`, color: config.school_color}})
-			.then(msg => msg.delete({timeout: 5000}))
+            sendMessage(client, config.channels.auditlogs, {embed: {description: `The following user - ${username} - does not exist.`, color: config.school_color}})
 			.catch(err => `Error: ${err}`)
         }
     }

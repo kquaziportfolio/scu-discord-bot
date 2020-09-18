@@ -7,7 +7,8 @@ const { MessageEmbed } = require(`discord.js`);
 module.exports = {
 	name: 'weather', //project adapted from https://github.com/ShadeBot/ShadeBot-Discord-Bot/blob/master/commands/weather.js
     description: 'Get your daily weather statistics here!',
-    usage: `${config.prefix}weather [city name], [country name]`,
+    args: true,
+    usage: `[city name], [country name]`,
 	async execute(message, args) {
         message.delete(); 
         

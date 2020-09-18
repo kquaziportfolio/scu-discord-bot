@@ -5,7 +5,8 @@ const config = require('../config.json');
 module.exports = {
     name: 'user-info',
     description: 'Get a user\'s Discord information here!',
-    usage: `${config.prefix}user-info [user-mention]`,
+    args: true,
+    usage: `[@user-mention]`,
     inline: true,
 	async execute (message, args) {
       message.delete();

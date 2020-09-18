@@ -6,7 +6,8 @@ const config = require('../config.json');
 module.exports = {
 	name: 'pokedex',
     description: 'Get Pokemon statistics!',
-    usage: `${config.prefix}pokedex [Pokemon name]`,
+    args: true,
+    usage: `[Pokemon name]`,
 	async execute(message, args) {
         message.delete();
         
@@ -14,17 +15,7 @@ module.exports = {
 			let response = await fetch(`${BASE_URL}/${pokemon}`);
 			return await response.json();
 		}
-		
-		const pokemonInstructions = new MessageEmbed()
-		.setColor(config.school_color)
-		.setTitle("__**Pokedex Command**__")
-        .setDescription(`Here's an example: \`\`\`${config.prefix}pokedex Pikachu\`\`\``)
-		.setTimestamp()
-
-		if(!args.length || !args[0]) return message.channel.send(pokemonInstructions)
-		.then(msg => msg.delete({timeout: 10000}))
-		.catch(err => console.log(`Error: ${err}`))
-
+	
 		const pokemon = message.content.toLowerCase().split(" ")[1];
         try {
             const pokeData = await getPokemon(pokemon);

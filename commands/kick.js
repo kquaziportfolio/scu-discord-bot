@@ -6,7 +6,8 @@ module.exports = {
 	name: 'kick',
     description: 'Kick a member!',
     guildOnly: true,
-    usage: `${config.prefix}kick [user mention] [reason]`,
+    args: true,
+    usage: `[@user mention] [reason]`,
 	async execute(message, args) {   
         message.delete();
 

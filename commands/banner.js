@@ -4,7 +4,8 @@ const config = require('../config.json');
 module.exports = {
     name: 'banner',
     description: 'Create a cool embed banner with images in my folder!',
-    usage: `${config.prefix}banner`,
+    args: true,
+    usage: `[file name and extension]`,
     guildOnly: false,
     async execute (message, args) {
 
@@ -15,8 +16,6 @@ module.exports = {
 
             try {
                 const input = args[0];
-
-                if (!input) return message.channel.send({embed: { description: "Please enter a file name like this: `wumpus.jpeg`"}});
 
                 const imageEmbed = new MessageEmbed()
                 .attachFiles([`./assets/${input}`])

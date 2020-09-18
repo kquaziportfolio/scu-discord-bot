@@ -8,7 +8,8 @@ let sendMessage = require(`../modules/sendMessage.js`);
 module.exports = {
 	name: 'mute',
     description: 'Mute members!',
-    usage: `${config.prefix}mute <@user> | [insert reason]`,
+    usage: `${config.prefix}mute [@user] | [insert time/reason]`,
+    args: true,
     guildOnly: true,
     async execute(message, args) {   
         message.delete();
@@ -17,16 +18,9 @@ module.exports = {
 
         if(isAdmin(message, false)) {
             // the mute code here
-            let auditLogs = message.guild.channels.cache.find(channel => channel.id === config.channels.auditlogs);
 
             let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-            if(!user) return message.channel.send({embed: { 
-                color: 10231598,
-                title: "Mute Command",
-                description: `Here's an example: ${config.prefix}mute <@DiHydrogenMonoxide | Being Admin`,
-                timestamp: new Date(),
-            }});
-    
+
             let Time = args.slice(1).join(" ")
             if (!Time) Reason = "No time given!"
     

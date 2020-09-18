@@ -3,7 +3,7 @@ const config = require('../config.json');
 module.exports = {
     name: 'console-clear', //forked from Raptor SA
     description: 'Clear the bot console', //here is a change in the file
-    usage: `${config.prefix}console-clear`,
+    usage: `console-clear`,
     guildOnly: true,
     async execute (message, args) {        
         const consoleMod = require("../modules/consoleMod.js");

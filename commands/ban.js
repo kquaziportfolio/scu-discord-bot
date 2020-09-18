@@ -5,7 +5,8 @@ let sendMessage = require(`../modules/sendMessage.js`);
 module.exports = {
 	name: 'ban',
     description: 'Ban a member!',
-    usage: `${config.prefix}ban [user mention] [reason]`,
+    args: true,
+    usage: `[@user mention] [reason]`,
     guildOnly: true,
 	async execute(message, args) {   
         message.delete();
@@ -15,15 +16,7 @@ module.exports = {
         if(isAdmin(message, false)) {
             // the ban code here
 
-            const ban_Instructions = new MessageEmbed()
-                .setColor(config.school_color)
-                .addField("Here's an example:", "&ban <@401542675423035392> Being Admin")
-                .setTimestamp()
-
             const member = message.mentions.members.first();
-            if(!member) return message.channel.send(ban_Instructions)
-            .then(msg => msg.delete({timeout: 10000}))
-            .catch(err => console.log(`Error: ${err}`))
 
             if(!member.bannable) return message.channel.send({embed: {
                 description: "I can't ban this user!",

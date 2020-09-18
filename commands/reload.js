@@ -4,7 +4,7 @@ let isAdmin = require(`../modules/isAdmin.js`);
 module.exports = {
 	name: 'reload',
 	description: 'Reloads a command!',
-	usage: `${config.prefix}reload [command name]`,
+	usage: `[command name]`,
 	async execute(message, args) {
 		message.delete();
 

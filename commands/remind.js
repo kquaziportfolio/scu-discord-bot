@@ -5,6 +5,7 @@ const config = require('../config.json');
 module.exports = {
 	name: 'remind',
     description: 'Set reminders!',
+    args: true,
     usage: `${config.prefix}remind [interval]`,
     async execute (message, args) {
         message.delete()

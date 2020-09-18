@@ -4,16 +4,15 @@ let sendMessage = require(`../modules/sendMessage.js`);
 module.exports = { 
     name: 'set-nick',
     description: 'set nickname!',
-    usage: `${config.prefix}set-nick [user mention] ~ [new nickname]`,
+    args: true,
+    usage: `[@user mention] ~ [new nickname]`,
 	async execute(message, args) {
         message.delete();
 
         try {
-            if (!args.length) return message.channel.send({embed: { description: `Enter a nickname!`, color: config.school_color}})
             const prompt = args.join(" ").trim().split(" ~ ");
             let member = message.mentions.members.first();
-
-            if (!member) return message.channel.send({embed: { description: `Mention a user like this: <@${message.author.id}>`, color: config.school_color}});
+            
             member = await member.setNickname(`${prompt[1]}`);
 
             const nicknameEmbed = { 

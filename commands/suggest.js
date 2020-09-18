@@ -4,7 +4,8 @@ const config = require(`../config.json`);
 module.exports = { 
     name: 'suggest',
     description: 'Public suggestions to ping server admins!',
-    usage: `${config.prefix}suggest [insert title] | [insert description]`,
+    args: true,
+    usage: `[insert title] | [insert description]`,
     guildOnly: true,   
     async execute(message, args) {
         message.delete();

@@ -4,7 +4,8 @@ const config = require('../config.json');
 module.exports = {
 	name: 'unmute',
     description: 'To unmute members!',
-    usage: `${config.prefix}unmute [user mention]`,
+    args: true,
+    usage: `[@user mention] [reason]`,
     guildOnly: true,
     async execute(message, args) {  
         message.delete();
@@ -14,10 +15,8 @@ module.exports = {
 
         if(isAdmin(message, false)) {
             let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-            if(!user) return message.channel.send({embed: {description: "Please mention someone to unmute", color: config.school_color}})
 
             let Reason = args.slice(1).join(" ")
-            if (!Reason) Reason = "No reason given!"
 
             let muterole = message.guild.roles.cache.find(x => x.name === "Muted");
             if(!muterole) return message.channel.send({embed:{ description: "Couldn't find the **Muted** role.", color: config.school_color}});
