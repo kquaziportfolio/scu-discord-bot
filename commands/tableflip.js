@@ -4,22 +4,20 @@ const frames = [
 	'(╯°□°)╯  ︵  ┻━┻',
 	'(╯°□°)╯       [',
     '(╯°□°)╯           ┬─┬',
-    '                  ┬─┬◡ﾉ(° -°ﾉ)',
 ];
 const config = require('../config.json');
 
 module.exports = {
-	name: 'table-flip',
+	name: 'tableflip',
     description: 'For flipping tables!',
-    usage: `${config.prefix}table-flip`,
+    usage: `${config.prefix}tableflip`,
     async execute(message, args) { 
         message.delete();
         
         const msg = await message.channel.send('(\\\\°□°)\\\\  ┬─┬');
         for (const frame of frames) {
-            setTimeout(() => {}, 4000);
+            setTimeout(() => {}, 5000);
             await msg.edit(frame);
         }
-        return message;
     }
 }

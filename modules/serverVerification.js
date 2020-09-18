@@ -130,7 +130,6 @@ module.exports.run = (client, config) => {
             fields: [
               { name: "First Name", value: req.body.name, },
               { name: "Current Major(s)", value: (req.body.major || 'none'), }, //will output none if no major is inputted
-              { name: "Current Minor(s)", value: (req.body.minor || 'none'), }, //will output none if no minor is inputted
               { name: "Member Status", value: req.body.status, },
               { name: "Residential Learning Community", value: (req.body.rlc || 'none'), }, //will output none if no RLC is inputted
               { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },

@@ -16,7 +16,7 @@
 module.exports = function isAdmin(message, msg) {
   const config = require(`../config.json`);
 
-  let error = require("../modules/error.js");
+  let error = require("./errorMod.js");
     if (message.member.roles.cache.has(config.serverRoles.admin) || message.member.roles.cache.has(config.serverRoles.mod)) {
       return true; 
     } else {

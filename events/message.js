@@ -1,14 +1,3 @@
-/*
- __  __                                  ______               _   
-|  \/  |                                |  ____|             | |  
-| \  / | ___  ___ ___  __ _  __ _  ___  | |____   _____ _ __ | |_ 
-| |\/| |/ _ \/ __/ __|/ _` |/ _` |/ _ \ |  __\ \ / / _ \ '_ \| __|
-| |  | |  __/\__ \__ \ (_| | (_| |  __/ | |___\ V /  __/ | | | |_ 
-|_|  |_|\___||___/___/\__,_|\__, |\___| |______\_/ \___|_| |_|\__|
-                             __/ |                                
-                            |___/                                 
-*/
-
 const Discord = require(`discord.js`); //requires Discord.js integration package
 const client = new Discord.Client();
 const config = require(`../config.json`);
