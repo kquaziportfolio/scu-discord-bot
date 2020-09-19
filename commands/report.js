@@ -7,6 +7,7 @@ module.exports = {
     description: 'Report naughty users!',
     args: true,
     usage: `[@user mention] [reason]`,
+    guildOnly: true,
 		async execute(message, args) { 
             message.delete();
             

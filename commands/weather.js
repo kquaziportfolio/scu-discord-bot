@@ -9,6 +9,7 @@ module.exports = {
     description: 'Get your daily weather statistics here!',
     args: true,
     usage: `[city name], [country name]`,
+    guildOnly: false,
 	async execute(message, args) {
         message.delete(); 
         

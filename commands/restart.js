@@ -4,6 +4,7 @@ module.exports =  {
 	name: 'restart',
     description: 'Restart the bot!',
     usage: `restart`,
+    guildOnly: false,
 	async execute(message, args) {
         message.delete(); 
 

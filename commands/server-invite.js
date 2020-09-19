@@ -4,6 +4,7 @@ module.exports = {
     name: 'server-invite', //forked from Raptor SA
     description: `Generate temporary server invite for the channel you're in!`,  
     usage: `${config.prefix}server-invite`,
+    guildOnly: false,
 		async execute (message, args) {
             message.delete();
 

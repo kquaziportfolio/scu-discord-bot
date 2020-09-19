@@ -7,6 +7,7 @@ module.exports = {
 	name: 'compliment',
     description: 'Complient another user in the server!',
     usage: `[@user mention]`,
+    guildOnly: true,
     async execute(message, args) { 
         message.delete();
         

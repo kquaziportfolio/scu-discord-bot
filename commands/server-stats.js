@@ -6,6 +6,7 @@ module.exports = {
 	name: 'server-stats',
     description: 'Get general server statistics!',
     usage: `${config.prefix}server-stats`,
+    guildOnly: true,
 		async execute(message, args) {
             message.delete();
 

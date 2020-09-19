@@ -6,6 +6,7 @@ module.exports = {
 	name: 'quote',
 	description: 'Get random quotes!',
 	usage: `${config.prefix}quote`,
+	guildOnly: false,
 	async execute(message, args) {
 		message.delete();
         

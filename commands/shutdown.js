@@ -5,7 +5,8 @@ const config = require('../config.json');
 module.exports =  {  
 	name: 'shutdown',
     description: 'Shut down the bot!',
-    usage: `${config.prefix}restart`,
+    usage: `${config.prefix}shutdown`,
+    guildOnly: false,
         async execute(message, args) {
             message.delete();
 

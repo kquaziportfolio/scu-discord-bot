@@ -6,7 +6,7 @@ module.exports = {
     name: 'covid19', //forked from Raptor SA
     description: 'Get daily and instant COVID-19 data here!', //here is a change in the file
     usage: `${prefix}covid19 global __**OR**__ ${prefix}covid19 [state abbreviation] __**OR**__ ${prefix}covid19 county`,
-    guildOnly: true,
+    guildOnly: false,
         async execute (message, args) {
             message.delete();
 

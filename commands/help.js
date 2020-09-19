@@ -7,6 +7,7 @@ module.exports = {
 	description: 'List of all of my commands or info about a specific command.',
 	args: `true`,
 	usage: `${config.prefix}[command name]`,
+	guildOnly: false,
 	async execute(message, args) {
 		message.delete();
 		

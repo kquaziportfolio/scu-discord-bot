@@ -5,6 +5,7 @@ module.exports =  { // >ping
 	description: 'Get the bot\'s ping latency and response!',
 	usage: `${config.prefix}ping`,
 	cooldown: 5,
+	guildOnly: false,
 	async execute(message, args) {
 		message.delete();
 		

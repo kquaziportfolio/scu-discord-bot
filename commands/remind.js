@@ -7,6 +7,7 @@ module.exports = {
     description: 'Set reminders!',
     args: true,
     usage: `${config.prefix}remind [interval]`,
+    guildOnly: false,
     async execute (message, args) {
         message.delete()
         

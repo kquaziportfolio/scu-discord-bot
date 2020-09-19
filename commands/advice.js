@@ -5,6 +5,7 @@ module.exports = {
 	name: 'advice',
     description: 'Get advice here!',
     usage: `advice`,
+    guildOnly: false,
     async execute(message, args) { 
         message.delete();
         

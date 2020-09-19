@@ -1,11 +1,12 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
-const emojiCharacters = require(`../emoji-characters`); //for emojis
+const emojiCharacters = require(`../modules/emoji-characters`); //for emojis
 const config = require('../config.json');
 
 module.exports = {
 	name: 'rules',
     description: 'Here are the server rules!',
     usage: `rules`,
+    guildOnly: true,
 		async execute(message, args) { 
             message.delete();
 

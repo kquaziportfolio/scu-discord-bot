@@ -5,6 +5,7 @@ module.exports = {
 	name: 'reload',
 	description: 'Reloads a command!',
 	usage: `[command name]`,
+	guildOnly: false,
 	async execute(message, args) {
 		message.delete();
 

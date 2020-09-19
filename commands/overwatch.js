@@ -7,6 +7,7 @@ module.exports = {
     name: 'overwatch', //here is a change in the file
     description: 'Get your Overwatch statistics!',   
     args: true,
+    guildOnly: false,
     usage: `[username] [pc / xb1 / psn]`,
     async execute( message, args) {
         message.delete();

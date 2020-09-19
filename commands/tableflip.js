@@ -11,6 +11,7 @@ module.exports = {
 	name: 'tableflip',
     description: 'For flipping tables!',
     usage: `${config.prefix}tableflip`,
+    guildOnly: false,
     async execute(message, args) { 
         message.delete();
         

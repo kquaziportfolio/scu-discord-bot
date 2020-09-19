@@ -8,6 +8,7 @@ module.exports = {
     description: "Get someone's GitHub profile information!",
     args: true,
     usage: `[username]`,
+    guildOnly: false,
     async execute (message, args) {
         message.delete();
 

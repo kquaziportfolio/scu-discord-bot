@@ -6,6 +6,7 @@ module.exports = {
 	name: '8ball',
     description: 'Please enter a full question with 3 or more words to get an 8-ball answer!',
     args: true,
+    guildOnly: false,
     usage: `[question?]`,
 		async execute(message, args) { 
             message.delete();

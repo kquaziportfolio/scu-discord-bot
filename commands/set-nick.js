@@ -6,6 +6,7 @@ module.exports = {
     description: 'set nickname!',
     args: true,
     usage: `[@user mention] ~ [new nickname]`,
+    guildOnly: true,
 	async execute(message, args) {
         message.delete();
 

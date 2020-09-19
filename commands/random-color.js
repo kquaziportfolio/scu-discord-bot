@@ -5,6 +5,7 @@ module.exports = {
     name: 'random-color', //forked from Raptor SA
     description: 'Generate a random color!', //here is a change in the file
     usage: `${config.prefix}random-color`,
+    guildOnly: false,
         async execute (message, args) {
             message.delete();
         

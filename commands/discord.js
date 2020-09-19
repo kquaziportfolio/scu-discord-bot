@@ -3,7 +3,7 @@ const fetch = require(`node-fetch`);
 module.exports  = {
     name: 'discord',
     description: 'Checks Discord\'s status!',   
-    guildOnly: true,
+    guildOnly: false,
     async execute(message, args) {
         message.delete();
 

@@ -1,5 +1,5 @@
 const config = require(`../config.json`)
-const emojiCharacters = require(`../emoji-characters.js`);
+const emojiCharacters = require(`../modules/emoji-characters.js`);
 
 module.exports = {
 	name: 'poll',

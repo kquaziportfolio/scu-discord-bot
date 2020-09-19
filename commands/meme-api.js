@@ -6,6 +6,7 @@ module.exports = {
     name: 'meme-api',
     description: 'Get memes from an API!',
     usage: `${config.prefix}meme-api`,
+    guildOnly: false,
 	async execute (message, args) {
         message.delete();
         
