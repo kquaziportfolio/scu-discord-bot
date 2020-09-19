@@ -42,7 +42,7 @@ module.exports = {
                 let aqiEmbed = new MessageEmbed()
                     .setColor(config.school_color)
                     .setURL(`${baseURL}`)
-                    .setTitle(`AQI Status for ${json.city_name}`)
+                    .setTitle(`AQI Status for ${json.city_name}, ${json.state_code}, ${json.country_code}`)
                     .addField("AQI Levels for Health Concern", `${level} (${json.data[0].aqi})`)
                     .addField("Meaning", result)
                     .setFooter(`Referenced from the SciJinks website.`)
