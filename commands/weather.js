@@ -6,20 +6,18 @@ const { MessageEmbed } = require(`discord.js`);
 
 module.exports = {
 	name: 'weather', //project adapted from https://github.com/ShadeBot/ShadeBot-Discord-Bot/blob/master/commands/weather.js
-    description: 'Get your daily weather statistics here!',
+    description: 'Get your daily weather statistics here depending on your zip code!',
     args: true,
-    usage: `[city name], [country name]`,
+    usage: `[zip code, country abbreviation]`,
     guildOnly: false,
 	async execute(message, args) {
         message.delete(); 
-        
-        if(!args[0]) return message.channel.send({embed: {description: `Please enter a name of a city like this: ${config.prefix}weather [city], [country]`, color: config.school_color}});
-        
-        let location = args.join('%20');
-        request(`http://api.openweathermap.org/data/2.5/weather?appid=83a6f430e7eaf7703e2f97127dd4d729&q=${location}`, (error, response, body) => {
+      
+        let zipCode = args[0];
+        request(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=83a6f430e7eaf7703e2f97127dd4d729`, (error, response, body) => {
             const json = JSON.parse(body);
 
-            if (json.cod && json.cod == 404) return message.channel.send({embed: {description: "City not found!", color: config.school_color}})
+            if (json.cod && json.cod == 404) return message.channel.send({embed: {description: "Zip code not found!", color: config.school_color}})
             
             if (json.wind.deg) {
                 let angle = json.wind.deg
