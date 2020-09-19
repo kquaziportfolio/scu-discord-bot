@@ -4,7 +4,7 @@ const { MessageEmbed } = require(`discord.js`);
 
 module.exports = {
 	name: 'aqi', //project adapted from https://github.com/ShadeBot/ShadeBot-Discord-Bot/blob/master/commands/weather.js
-    description: 'Get the Air Quality Index (AQI) for your city!',
+    description: 'Get the Air Quality Index (AQI) for your city in America!',
     args: true,
     usage: `[city name]`,
 	async execute(message, args) {
@@ -12,8 +12,7 @@ module.exports = {
       
         try {
             let cityName = args.join("%20");
-            let baseURL = `https://api.weatherbit.io/v2.0/current/airquality?city=${cityName},US&key=fef1625e5fee4203b47ecd7c47870d5d`
-            request(`${baseURL}`, (error, response, body) => {
+            request(`https://api.weatherbit.io/v2.0/current/airquality?city=${cityName},US&key=fef1625e5fee4203b47ecd7c47870d5d`, (error, response, body) => {
                 const json = JSON.parse(body);
     
                 let result = "[SUBJECT TO CHANGE]";
@@ -41,9 +40,8 @@ module.exports = {
     
                 let aqiEmbed = new MessageEmbed()
                     .setColor(config.school_color)
-                    .setURL(`${baseURL}`)
                     .setTitle(`AQI Status for ${json.city_name}, ${json.state_code}, ${json.country_code}`)
-                    .addField("AQI Levels for Health Concern", `${level} (${json.data[0].aqi})`)
+                    .addField("Level for Health Concern", `${level} (${json.data[0].aqi})`)
                     .addField("Meaning", result)
                     .setFooter(`Referenced from the SciJinks website.`)
                     .setTimestamp();
