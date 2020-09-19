@@ -44,8 +44,8 @@ module.exports = async (client) => {
 	}
 
 	if (body.status.description == "All Systems Operational") {
-		sendMessage(client, config.channels.auditlogs, { embed: { title: ":white_check_mark: ALL DISCORD SYSTEMS UP!", description: "Check the status [here](https://discordstatus.com/)! :white_check_mark:", color: "GREEN"}});
+		sendMessage(client, config.channels.auditlogs, { embed: { title: `:white_check_mark: ${body.status.description}`, description: "Check the status [here](https://discordstatus.com/)! :white_check_mark:", color: "GREEN", timestamp: new Date()}});
 	} else {
-		sendMessage(client, config.channels.auditlogs, { embed: { title: ":x: DISCORD SYSTEMS DOWN!", description: "There seems to be an error with some of the Discord servers. Double check [here](https://status.discordapp.com/)! :x:", color: "RED"}});
+		sendMessage(client, config.channels.auditlogs, { embed: { title: `:x: ${body.status.description}`, description: "There seems to be an error with some of the Discord servers. Double check [here](https://status.discordapp.com/)! :x:", color: "RED", timestamp: new Date()}});
 	}
 }

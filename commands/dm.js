@@ -2,7 +2,7 @@ const config = require('../config.json');
 
 module.exports  = {
     name: 'dm',
-    description: 'direct message!',   
+    description: 'Direct message!',   
     args: true,
     usage: `<@user>`,
     guildOnly: true,
