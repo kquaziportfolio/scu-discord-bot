@@ -1,7 +1,7 @@
 # Pull Request Template
 
 First of all, before I begin, thank you for taking interest in this project! If you are part of SCU, consider applying for the Discord mod 
-team, and you may become a contributor for this project!
+team, and you may become a contributor for this project!https://github.com/jasonanhvu/scu-discord-bot/tree/master/.github/PULL_REQUEST_TEMPLATE
 
 Alright, let us begin (when submitting, you might want to remove the previous section)
 
