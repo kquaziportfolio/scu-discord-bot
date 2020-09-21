@@ -8,6 +8,7 @@ module.exports = {
     guildOnly: true,
     args: true,
     usage: `[@user mention] [reason]`,
+    category: 'Admin',  
 	async execute(message, args) {   
         message.delete();
 

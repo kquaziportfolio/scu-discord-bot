@@ -2,8 +2,8 @@ const config = require('../../config.json');
 
 module.exports = {
     name: 'server-invite', //forked from Raptor SA
-    description: `Generate temporary server invite for the channel you're in!`,  
-    usage: `${config.prefix}server-invite`, 
+    description: `Generate temporary server invite for the channel you're in!`,
+    category: 'Utility',
 		async execute (message, args) {
             message.delete();
 

@@ -25,11 +25,31 @@ fs.readdir("./events/", (err, files) => {
 
 client.commands = new Enmap();
 
-fs.readdir("./commands/", (err, files) => {
+fs.readdir("./commands/admin", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
     if (!file.endsWith(".js")) return;
-    let props = require(`./commands/${file}`);
+    let props = require(`./commands/admin/${file}`);
+    let commandName = file.split(".")[0];
+    client.commands.set(commandName, props);
+  });
+});
+
+fs.readdir("./commands/utility", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/utility/${file}`);
+    let commandName = file.split(".")[0];
+    client.commands.set(commandName, props);
+  });
+});
+
+fs.readdir("./commands/fun", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/fun/${file}`);
     let commandName = file.split(".")[0];
     client.commands.set(commandName, props);
   });

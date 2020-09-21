@@ -5,6 +5,7 @@ module.exports =  {
     description: 'Play rock, paper, scissors!',
     args: true,
     usage: `[Choose rock, paper, or scissors]`, 
+    category: 'Fun',
 	async execute(message, args) {
         message.delete();
         

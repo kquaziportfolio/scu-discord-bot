@@ -5,6 +5,7 @@ module.exports = {
     description: 'For outputting other Discord server embeds!',  
     args: true,
     usage: `[title] | [description] | [image url]`, 
+    category: 'Admin',  
     async execute(message, args) {
         message.delete();
        

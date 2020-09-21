@@ -8,6 +8,7 @@ module.exports = {
     args: true,
     usage: `[@user-mention]`,
     inline: true, 
+    category: 'Utility',
 	async execute (message, args) {
       message.delete();
 

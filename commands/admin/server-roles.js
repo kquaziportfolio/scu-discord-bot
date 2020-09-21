@@ -4,7 +4,7 @@ const config = require('../../config.json');
 module.exports = {
 	name: 'server-roles',
     description: 'Get the server-roles embed!',
-    usage: `${config.prefix}server-roles`, 
+    category: 'Admin',  
 		async execute (message, args) {
       message.delete();
 

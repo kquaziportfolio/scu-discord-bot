@@ -1,10 +1,10 @@
 const config = require('../../config.json');
 
-module.exports =  { // >ping
+module.exports =  { 
 	name: 'ping',
 	description: 'Get the bot\'s ping latency and response!',
-	usage: `${config.prefix}ping`,
 	cooldown: 5,
+	category: 'Utility',
 	async execute(message, args) {
 		message.delete();
 		

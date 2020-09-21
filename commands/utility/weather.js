@@ -9,12 +9,12 @@ module.exports = {
     description: 'Get your daily weather statistics here depending on your zip code!',
     args: true,
     usage: `[zip code, country abbreviation]`,
-    guildOnly: false,
+    category: 'utility',
 	async execute(message, args) {
         message.delete(); 
       
         let zipCode = args[0];
-        request(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=83a6f430e7eaf7703e2f97127dd4d729`, (error, response, body) => {
+        request(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${config.api.weather}`, (error, response, body) => {
             const json = JSON.parse(body);
 
             if (json.cod && json.cod == 404) return message.channel.send({embed: {description: "Zip code not found!", color: config.school_color}})

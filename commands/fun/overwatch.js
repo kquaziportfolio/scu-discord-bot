@@ -8,6 +8,7 @@ module.exports = {
     description: 'Get your Overwatch statistics!',   
     args: true,
     usage: `[username] [pc / xb1 / psn]`,
+    category: 'Fun',
     async execute( message, args) {
         message.delete();
         

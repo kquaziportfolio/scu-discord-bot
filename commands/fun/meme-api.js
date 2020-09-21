@@ -5,7 +5,7 @@ const config = require('../../config.json');
 module.exports = { 
     name: 'meme-api',
     description: 'Get memes from an API!',
-    usage: `${config.prefix}meme-api`,
+    category: 'Fun',
 	async execute (message, args) {
         message.delete();
         

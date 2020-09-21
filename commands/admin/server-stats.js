@@ -5,7 +5,7 @@ let sendMessage = require(`../../modules/sendMessage.js`);
 module.exports = {
 	name: 'server-stats',
     description: 'Get general server statistics!',
-    usage: `${config.prefix}server-stats`, 
+    category: 'Admin',  
 		async execute(message, args) {
             message.delete();
 

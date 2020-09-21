@@ -1,8 +1,10 @@
 const fetch = require(`node-fetch`);
+const config = require(`../../config.json`);
 
 module.exports  = {
     name: 'discord',
     description: 'Checks Discord\'s status!',
+    category: 'Utility',
     async execute(message, args) {
         message.delete();
 
@@ -10,7 +12,7 @@ module.exports  = {
         
         if(isAdmin(message, false)) {
             /* DISCORD STATUS CHECKER */
-            const url = "https://srhpyqt94yxb.statuspage.io/api/v2/status.json/";
+            const url = config.verification.status;
             const response = await fetch(url);
             const body = await response.json();
 

@@ -5,7 +5,7 @@ const quotes = require(`inspirational-quotes`); //for quotes
 module.exports = {
 	name: 'quote',
 	description: 'Get random quotes!',
-	usage: `${config.prefix}quote`, 
+	category: 'Fun',
 	async execute(message, args) {
 		message.delete();
         

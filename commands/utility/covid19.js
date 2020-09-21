@@ -6,6 +6,7 @@ module.exports = {
     name: 'covid19', //forked from Raptor SA
     description: 'Get daily and instant COVID-19 data here!', //here is a change in the file
     args: true,
+    category: 'Utility',
     usage: `global / ${config.prefix}covid19 [state abbreviation] / ${config.prefix}covid19 county`, 
         async execute (message, args) {
             message.delete();

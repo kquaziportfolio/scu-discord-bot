@@ -3,7 +3,7 @@ const config = require('../../config.json');
 module.exports =  {  
 	name: 'restart',
     description: 'Restart the bot!',
-    usage: `restart`, 
+    category: 'Admin',  
 	async execute(message, args) {
         message.delete(); 
 

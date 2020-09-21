@@ -7,12 +7,13 @@ module.exports = {
     description: 'Get the Air Quality Index (AQI) for your city!',
     args: true,
     usage: `[city name, state abbreviation]`,
+    category: 'Utility',
 	async execute(message, args) {
         message.delete(); 
         
         let cityName = args.join("%20");
         let country = "US";
-        const aqi = await fetch(`https://api.weatherbit.io/v2.0/current/airquality?city=${cityName},${country}&key=fef1625e5fee4203b47ecd7c47870d5d`);
+        const aqi = await fetch(`https://api.weatherbit.io/v2.0/current/airquality?city=${cityName},${country}&key=${config.api.aqi}`);
         const aqiResult = await aqi.json();
       
         try {

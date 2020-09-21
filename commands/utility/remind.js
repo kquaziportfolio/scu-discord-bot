@@ -6,7 +6,8 @@ module.exports = {
 	name: 'remind',
     description: 'Set reminders!',
     args: true,
-    usage: `${config.prefix}remind [interval]`, 
+    usage: `[interval in ms]`, 
+    category: 'Utility',
     async execute (message, args) {
         message.delete()
         

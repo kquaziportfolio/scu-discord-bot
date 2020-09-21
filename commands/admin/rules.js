@@ -4,8 +4,8 @@ const config = require('../../config.json');
 
 module.exports = {
 	name: 'rules',
-    description: 'Here are the server rules!',
-    usage: `rules`, 
+    description: 'Here are the server rules!', 
+    category: 'Admin',  
 		async execute(message, args) { 
             message.delete();
 

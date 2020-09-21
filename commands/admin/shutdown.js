@@ -5,7 +5,7 @@ const config = require('../../config.json');
 module.exports =  {  
 	name: 'shutdown',
     description: 'Shut down the bot!',
-    usage: `${config.prefix}shutdown`, 
+    category: 'Admin',  
         async execute(message, args) {
             message.delete();
 

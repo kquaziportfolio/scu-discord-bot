@@ -6,6 +6,7 @@ module.exports = {
     name: 'dankmemes',
     description: 'Get dank memes from subreddits!',
     usage: `${config.prefix}dankmemes`,
+    category: 'Fun',
 	async execute(message, args) {
         message.delete();
         

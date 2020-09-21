@@ -5,6 +5,7 @@ module.exports = {
 	name: 'die-roll',
     description: 'Roll two dice to attempt to get snake eyes!',
     usage: `${config.prefix}die-roll`, 
+    category: 'Fun',
     async execute(message, args) {  
         message.delete();
 

@@ -4,7 +4,8 @@ module.exports  = {
     name: 'dm',
     description: 'Direct message!',   
     args: true,
-    usage: `<@user>`, 
+    usage: `[@user]`, 
+    category: 'Admin',  
     async execute(message, args) {
         message.delete();
 

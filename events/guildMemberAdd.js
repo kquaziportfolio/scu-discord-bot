@@ -1,6 +1,6 @@
 const { MessageEmbed } = require(`discord.js`);
 const config = require(`../config.json`);
-const emojiCharacters = require(`../emoji-characters.js`);
+const emojiCharacters = require(`../modules/emoji-characters.js`);
 let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = async (client, member) => {

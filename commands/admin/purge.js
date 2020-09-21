@@ -2,7 +2,8 @@ module.exports = {
 	name: 'purge',
     description: 'Delete recent messages using this command!',
     args: true,
-    usage: `[number of messages]`, 
+    usage: `[# of messages]`, 
+    category: 'Admin',  
     async execute(message, args) {   
         message.delete();
 

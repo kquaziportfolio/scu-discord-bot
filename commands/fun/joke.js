@@ -6,7 +6,7 @@ const jokes_list = JOKES.jokes;
 module.exports = {
     name: 'joke',
     description: 'Get a random joke here!',
-    usage: `${config.prefix}joke`,
+    category: 'Fun',
     async execute(message, args) { 
         message.delete();
 

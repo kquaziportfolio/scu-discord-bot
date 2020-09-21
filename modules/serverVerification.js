@@ -153,8 +153,8 @@ module.exports.run = (client, config) => {
         
       }
     } else {
-      //if no body.. return this
-      res.status(401).send({ error: "No data found" });
+        //if no body.. return this
+        res.status(401).send({ error: "No data found" });
     }
   });
 };

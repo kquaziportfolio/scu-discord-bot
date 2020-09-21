@@ -5,6 +5,7 @@ module.exports = {
     description: 'Set nickname!',
     args: true,
     usage: `[@user mention] ~ [new nickname]`, 
+    category: 'Utility',
 	async execute(message, args) {
         message.delete();
 

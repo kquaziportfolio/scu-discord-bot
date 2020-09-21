@@ -17,9 +17,9 @@ module.exports = function isAdmin(message, msg) {
   const config = require(`../config.json`);
 
   let error = require("./errorMod.js");
-    if (message.member.roles.cache.has(config.serverRoles.admin) || message.member.roles.cache.has(config.serverRoles.mod)) {
+    if (message.member.roles.cache.has(config.serverRoles.admin) || message.member.roles.cache.has(config.serverRoles.mod) || message.member.roles.cache.has(config.serverRoles.owner)) {
       return true; 
     } else {
-        error(`You are missing the **ADMIN** or **MOD** permission roles.`, message);
+        error(`You are missing the **OWNER**, **ADMIN**, or **MOD** permission roles.`, message);
     }
 };

@@ -6,6 +6,7 @@ module.exports = {
     description: 'Create a cool embed banner with images in my folder!',
     args: true,
     usage: `[file name and extension]`, 
+    category: 'Admin',  
     async execute (message, args) {
 
         let isAdmin = require(`../modules/isAdmin.js`);

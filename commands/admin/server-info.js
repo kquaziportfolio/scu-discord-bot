@@ -5,7 +5,7 @@ const config = require('../../config.json');
 module.exports = {
 	name: 'server-info',
     description: 'Get general server information here!',
-    usage: `${config.prefix}server-info`, 
+    category: 'Admin',  
 		async execute(message, args) { 
             message.delete();
 

@@ -7,6 +7,7 @@ module.exports = {
     description: 'Ban a member!',
     args: true,
     usage: `[@user mention] [reason]`, 
+    category: 'Admin',  
 	async execute(message, args) {   
         message.delete();
 

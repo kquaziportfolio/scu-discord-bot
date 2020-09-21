@@ -8,8 +8,9 @@ let sendMessage = require(`../../modules/sendMessage.js`);
 module.exports = {
 	name: 'mute',
     description: 'Mute members!',
-    usage: `${config.prefix}mute [@user] | [insert time/reason]`,
+    usage: `[@user] | [insert time/reason]`,
     args: true, 
+    category: 'Admin',  
     async execute(message, args) {   
         message.delete();
 

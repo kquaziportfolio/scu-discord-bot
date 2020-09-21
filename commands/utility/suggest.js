@@ -6,6 +6,7 @@ module.exports = {
     description: 'Public suggestions to ping server admins!',
     args: true,
     usage: `[insert title] | [insert description]`, 
+    category: 'Utility',
     async execute(message, args) {
         message.delete();
         

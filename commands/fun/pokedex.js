@@ -8,6 +8,7 @@ module.exports = {
     description: 'Get Pokemon statistics!',
     args: true,
     usage: `[Pokemon name]`,
+    category: 'Fun',
 	async execute(message, args) {
         message.delete();
         

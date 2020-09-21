@@ -7,6 +7,7 @@ module.exports = {
     description: 'Please enter a full question with 3 or more words to get an 8-ball answer!',
     args: true, 
     usage: `[question?]`,
+    category: 'utility',
 		async execute(message, args) { 
             message.delete();
         

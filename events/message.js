@@ -1,6 +1,6 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
-const client = new Discord.Client();
 const config = require(`../config.json`);
+let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
@@ -20,11 +20,18 @@ module.exports = (client, message) => {
   A prime example of this would be a kick command. You can add a property to the necessary 
   commands to determine whether or not it should be only available outside of servers.*/
 
-  if (message.channel.type !== 'text') 
-    return message.channel.send({ embed: { description: `<@${message.author.id}>, I can't execute that command inside DMs!` }});
+  // If that command doesn't exist, return nothing
+  if (!client.commands.has(`${commandName}`)) return;
 
-  // If that command doesn't exist, say that's not a command 
-  if (!client.commands.has(`${commandName}`)) return message.channel.send(`<@${message.author.id}>`, { embed: { description: `That's not a command!`, color: config.school_color}});
+  if (command.args && !args.length) {
+    let reply = `You didn't provide any arguments, <@${message.author.id}>!`;
+    
+    if (command.usage) {
+      reply += `\nThe proper usage would be: \`${config.prefix}${command.name} ${command.usage}\``;
+    }
+    
+    return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: config.school_color}});
+  }
 
   const cooldowns = new Discord.Collection();
 
@@ -52,6 +59,7 @@ module.exports = (client, message) => {
   // Run the command as long as it has these two parameters
     command.execute(message, args);
   } catch(err) {
-      console.log(`There was an error trying to run ${command.name} due the error: ${err.message}`);
+      message.channel.send({ embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
+      return console.log(err.stack || err);
   }
 }

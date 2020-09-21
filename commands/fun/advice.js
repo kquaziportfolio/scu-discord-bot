@@ -4,6 +4,7 @@ const config = require('../../config.json');
 module.exports = {
 	name: 'advice',
     description: 'Get advice here!',
+    category: 'Fun',
     async execute(message, args) { 
         message.delete();
         
