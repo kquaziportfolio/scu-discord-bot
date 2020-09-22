@@ -108,7 +108,7 @@ module.exports.run = (client, config) => {
               if (nickname.length > 32) {
                 const nicknameError = { 
                   title: `__**❌ <@${req.body.name}>'s nickname is over 32 characters!**__`, 
-                  description: `> <@${member.user.id}> returned **${nickname}**\n> Here is the error: ${err}!`, 
+                  description: `> <@${member.user.id}> returned **${nickname}**\n>`, 
                   color: config.school_color, 
                   timestamp: new Date()
                 }
@@ -134,7 +134,6 @@ module.exports.run = (client, config) => {
               { name: "First Name", value: req.body.name, },
               { name: "Current Major(s)", value: (req.body.major || 'none'), }, //will output none if no major is inputted
               { name: "Member Status", value: req.body.status, },
-              { name: "Residential Learning Community", value: (req.body.rlc || 'none'), }, //will output none if no RLC is inputted
               { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
             ],
           };

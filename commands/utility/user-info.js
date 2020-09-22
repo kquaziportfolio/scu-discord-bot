@@ -26,11 +26,6 @@ module.exports = {
         return game; 
       }
       
-      let x = Date.now() - user.createdAt; 
-      let y = Date.now() - message.guild.members.cache.get(user.id).joinedAt; 
-      let created = Math.floor(x / 86400000);
-      let joined = Math.floor(y / 86400000);
-      
       const member = message.guild.member(user);
       let nickname = member.nickname !== undefined && member.nickname !== null ? member.nickname : "None"; 
       let createdate = moment.utc(user.createdAt).format("dddd, MMMM Do YYYY, HH:mm:ss"); 

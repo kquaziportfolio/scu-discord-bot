@@ -8,7 +8,7 @@ module.exports  = {
     async execute(message, args) {
         message.delete();
 
-        let isAdmin = require(`../modules/isAdmin.js`);
+        let isAdmin = require(`../../modules/isAdmin.js`);
         
         if(isAdmin(message, false)) {
             /* DISCORD STATUS CHECKER */

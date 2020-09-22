@@ -2,6 +2,7 @@ const config = require(`../../config.json`);
 let isAdmin = require(`../../modules/isAdmin.js`);
 const { readdirSync } = require("fs");
 const { join } = require("path");
+
 module.exports = {
 	name: 'reload',
 	description: 'Reloads a command!',

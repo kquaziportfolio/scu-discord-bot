@@ -87,30 +87,6 @@ module.exports.run = (client, config) => {
         //give member their base Class Conference role
         member.roles.add(guild.roles.cache.find((role) => role.id === config.serverRoles.classCoop));
 
-        const random_hex_color_code = () => { //random hex generator to keep role colors interesting
-          let n = (Math.random() * 0xfffff * 1000000).toString(16);
-          return '#' + n.slice(0, 6);
-        };
-
-        //give member their specific course role and assign it to them
-        //if not, then create new role then assign it to them
-        req.body.courses.forEach(course => {
-          let role = guild.roles.cache.find(ch => ch.name == course);
-        
-          if(role) {
-            member.roles.add(role.id);
-          } else {
-            guild.roles.create({
-              data: {
-                name: course, 
-                color: random_hex_color_code(), //generates random hex color for roles
-                permissions: ['ADD_REACTIONS', 'STREAM', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', //Give them these following permissions 
-                'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS', 'CONNECT', 'SPEAK', 'USE_VAD', 'CHANGE_NICKNAME']
-              }
-            }).then(r => { member.roles.add(r.id)});
-          }
-        });
-
         //give member one of three "college" roles, e.g. CAS, LSB, or SOE at SCU
         member.roles.add(guild.roles.cache.find((role) => role.name == req.body.college));
         
@@ -125,7 +101,7 @@ module.exports.run = (client, config) => {
           timestamp: new Date(),
           fields: [
             { name: "First Name", value: req.body.name },
-            { name: "Courses", value: req.body.courses },
+            { name: "College", value: req.body.college },
             { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord }
           ],
         };
