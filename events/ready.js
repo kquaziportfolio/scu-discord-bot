@@ -6,7 +6,6 @@ let status = require(`../modules/status.js`);
 module.exports = async (client) => {
 
 	require("../modules/serverVerification.js").run(client, config); //start server verification file in ready event
-	require("../modules/classCoop.js").run(client, config); // start class co-op server 
 
 	const guild = client.guilds.cache.get(config.verification.guildID);
 	const verifyMSG = {
