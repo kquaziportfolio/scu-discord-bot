@@ -26,7 +26,6 @@ module.exports.run = (client, config) => {
         "name": "First/Last name",
         "major": "Current Major", //defaults to 'none' for SCU Faculty
         "status": "Member Status",
-        "rlc": "Name of your RLC", //optional by the way and not required, and defaults to 'none' assuming that the member didn't select it
         "discord": "Discord Username with Tag"
     }
   */
