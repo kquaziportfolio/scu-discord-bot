@@ -140,7 +140,7 @@ module.exports.run = (client, config) => {
           member.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation});
           const verifyEmbed = { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `You are now verified! Everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()};
           
-          let verificationChannel = guild.channels.cache.get(config.channels.verificationlogs);
+          let verificationChannel = guild.channels.cache.get(config.channels.verifylogs);
           verificationChannel.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation}).then(m => m.react('👍'));
             
           let welcomeChannel = guild.channels.cache.get(config.channels.welcome);
