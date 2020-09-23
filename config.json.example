@@ -23,13 +23,13 @@
 	},
 	"school_color": "[insert random hex color here for preferred embed colors]",
 	"serverRoles": {
-		"admin": "[inserta admin role id here]",
-		"mod": "[inserta admin role id here]"",
-		"owner": "[inserta admin role id here]"",
-		"clubLeader": "[inserta admin role id here]"",
+		"admin": "[insert admin role id here]",
+		"mod": "[insert mod role id here]"",
+		"owner": "[insert owner role id here]"",
+		"clubLeader": "[insert club leader role id here]"",
 		"verifiedStudent": "[insert verified member role id here]"",
-		"unverifiedStudent": "[inserta unverified member role id here]"",
-		"muted": "[inserta admin role id here]"",
-		"bot": "[inserta admin role id here]""
+		"unverifiedStudent": "[insert unverified member role id here]"",
+		"muted": "[insert admin role id here]"",
+		"bot": "[insert admin role id here]""
 	},
 }
