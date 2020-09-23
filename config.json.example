@@ -29,7 +29,7 @@
 		"clubLeader": "[insert club leader role id here]"",
 		"verifiedStudent": "[insert verified member role id here]"",
 		"unverifiedStudent": "[insert unverified member role id here]"",
-		"muted": "[insert admin role id here]"",
-		"bot": "[insert admin role id here]""
+		"muted": "[insert muted role id here]"",
+		"bot": "[insert bot role id here]""
 	},
 }
