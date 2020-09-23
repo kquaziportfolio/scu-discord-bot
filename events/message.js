@@ -59,7 +59,7 @@ module.exports = (client, message) => {
   // Run the command as long as it has these two parameters
     command.execute(message, args);
   } catch(err) {
-      message.channel.send({ embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
+      sendMessage(client, config.channels.auditlogs, { embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
       return console.log(err.stack || err);
   }
 }

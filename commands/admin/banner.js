@@ -9,7 +9,7 @@ module.exports = {
     category: 'Admin',  
     async execute (message, args) {
 
-        let isAdmin = require(`../modules/isAdmin.js`);
+        let isAdmin = require(`../../modules/isAdmin.js`);
         
         if(isAdmin(message, false)) {
             message.delete();

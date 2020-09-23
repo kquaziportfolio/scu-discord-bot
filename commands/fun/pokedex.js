@@ -1,7 +1,7 @@
 const {  MessageEmbed } = require(`discord.js`); //for embed functionality
 const fetch = require('node-fetch');
-const BASE_URL = 'https://pokeapi.co/api/v2/pokemon';
 const config = require('../../config.json');
+const BASE_URL = config.api.pokemon;
 
 module.exports = {
 	name: 'pokedex',

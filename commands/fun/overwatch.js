@@ -17,7 +17,7 @@ module.exports = {
         if(args[0].includes("#")) args[0] = args[0].replace(/#/g, "-");
 
             overwatch.getProfile(args[1], "global", args[0], (err, json) => {
-                if(err) return message.channel.send({embed: {title: `Overwatch Command`, description: "Unable to find a player with that username!", color: 10231598, timestamp: new Date()}})
+                if(err) return message.channel.send({embed: {title: `Overwatch Command`, description: "Unable to find a player with that username!", color: config.school_color, timestamp: new Date()}})
                 message.channel.send(`Generating user stats...`).then(msg => msg.delete({timeout: 2000}).catch(err => `ERROR: ${err}`))
                 const { games, level, portrait, username, playtime: {competitive, quickplay }, private } = json;
                 const { sportsmanship, shotcaller, teammate } = json.endorsement;
