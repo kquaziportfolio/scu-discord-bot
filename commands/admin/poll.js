@@ -1,4 +1,3 @@
-const config = require(`../../config.json`);
 const { MessageEmbed } = require(`discord.js`);
 const emojiCharacters = require(`../../modules/emoji-characters.js`);
 
@@ -8,7 +7,7 @@ module.exports = {
     args: true,
     usage: `[question] ~ [choice1] ~ [choice2]`, 
     category: 'Admin',  
-		async execute(message, args) { 
+		async execute(client, message, args) { 
 
             message.delete();
 
@@ -23,10 +22,10 @@ module.exports = {
                 .setAuthor(`Server Poll`)
                 .setTitle(prompt[0])
                 .setDescription(`- ${prompt[1]}\n- ${prompt[2]}`)
-                .setColor(config.school_color)
+                .setColor(client.config.school_color)
                 .setFooter(`Poll created by the server lords!`)
 
-                if(!message.content.includes("?")) return message.channel.send({embed: {description: "Include a `?` in your vote question!", color: config.school_color}})
+                if(!message.content.includes("?")) return message.channel.send({embed: {description: "Include a `?` in your vote question!", color: client.config.school_color}})
 
                 const msg = await message.channel.send(pollEmbed).catch(err => `Error: ${err}`)
 

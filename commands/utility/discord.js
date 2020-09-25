@@ -1,5 +1,4 @@
 const fetch = require(`node-fetch`);
-const config = require(`../../config.json`);
 
 module.exports  = {
     name: 'discord',
@@ -12,7 +11,7 @@ module.exports  = {
         
         if(isAdmin(message, false)) {
             /* DISCORD STATUS CHECKER */
-            const url = config.verification.status;
+            const url = client.config.verification.status;
             const response = await fetch(url);
             const body = await response.json();
 

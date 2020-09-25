@@ -1,5 +1,4 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
-const config = require(`../../config.json`)
 let sendMessage = require(`../../modules/sendMessage.js`);
 
 module.exports = {
@@ -15,7 +14,7 @@ module.exports = {
             let reason = args.slice(1).join(' ');
 
             let embed = new MessageEmbed()
-                .setColor(config.school_color)
+                .setColor(client.config.school_color)
                 .setThumbnail(target.user.avatarURL())
                 .setTitle(`__**User Reported!**__`)
                 .addField('Reported Member', `<@${target.user.id}>`)
@@ -25,6 +24,6 @@ module.exports = {
                 .addField('Reported Reason', "```" + `${reason}` + "```")
                 .setFooter('Reported User Information', target.user.displayAvatarURL());
 
-            sendMessage(client, config.channels.auditlogs, embed);
+            sendMessage(client, client.config.channels.auditlogs, embed);
         }
 }

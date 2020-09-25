@@ -1,6 +1,5 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const emojiCharacters = require(`../../modules/emoji-characters`); //for emojis
-const config = require('../../config.json');
 
 module.exports = {
 	name: 'rules',
@@ -13,7 +12,7 @@ module.exports = {
 
             if(isAdmin(message, false)) {
                 const rules_embed = new MessageEmbed() 
-                .setColor(config.school_color)
+                .setColor(client.config.school_color)
                 .setTitle("Server Rules:")
                 .setDescription(
                 `${emojiCharacters.one} No harassment, sexual or otherwise, towards other members. Excessive use of @ mentions falls under the category of harassment.\n\n` +
@@ -28,7 +27,7 @@ module.exports = {
                 `${emojiCharacters.ten} No usage of any usernames/nicknames that violate the aforementioned rules. Moderators reserve the right to change nicknames without warning if they are in violation of the rules, or if they are not easily pingable with an @ mention.\n\n` +
                 `${emojiCharacters.one}${emojiCharacters.one} Dispersing misinformation and trolling is not allowed. Anyone suspected of trolling or abetting the efforts of a troll will be punished.\n\n` +
                 `${emojiCharacters.one}${emojiCharacters.two} Please keep discussion to English.\n\n` +
-                `${emojiCharacters.one}${emojiCharacters.three} Contact an <@&${config.serverRoles.admin}> or <@&${config.serverRoles.mod}> before advertising anything.\n\n` +
+                `${emojiCharacters.one}${emojiCharacters.three} Contact an <@&${client.config.serverRoles.admin}> or <@&${client.config.serverRoles.mod}> before advertising anything.\n\n` +
                 `${emojiCharacters.one}${emojiCharacters.four} Do not ping any roles unnecessarily for strange reasons.`)
                 .attachFiles([`./assets/scu-background.png`])
                 .setImage(`attachment://scu-background.png`)

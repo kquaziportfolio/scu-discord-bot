@@ -4,7 +4,7 @@ module.exports = {
     args: true,
     usage: `[# of messages]`, 
     category: 'Admin',  
-    async execute(message, args) {   
+    async execute(client, message, args) {   
         message.delete();
 
         let isAdmin = require(`../../modules/isAdmin.js`);

@@ -1,12 +1,8 @@
-const Discord = require(`discord.js`);
-const client = new Discord.Client();
-const config = require('../../config.json');
-
 module.exports =  {  
 	name: 'shutdown',
     description: 'Shut down the bot!',
     category: 'Admin',  
-        async execute(message, args) {
+        async execute(client, message, args) {
             message.delete();
 
             let isAdmin = require(`../../modules/isAdmin.js`);
@@ -15,13 +11,13 @@ module.exports =  {
                 try {
                     const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
 
-                    if(!config.serverRoles.owner) return message.channel.send("You don't have permissions!");
+                    if(!client.config.serverRoles.owner) return message.channel.send("You don't have permissions!");
 
                     const msg = await message.channel.send(`Shutting down the bot...`);
                     
                     for (const frame of frames) {
                         setTimeout(() => {}, 4000);
-                        await msg.edit({ embed: { description: frame, color: config.school_color}});
+                        await msg.edit({ embed: { description: frame, color: client.config.school_color}});
                     }
 
                     return message;

@@ -1,5 +1,4 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
-const config = require('../../config.json');
 
 module.exports = {
 	name: 'unmute',
@@ -7,7 +6,7 @@ module.exports = {
     args: true,
     usage: `[@user mention] [reason]`, 
     category: 'Admin',  
-        async execute(message, args) {  
+        async execute(client, message, args) {  
             message.delete();
 
             let sendMessage = require(`../../modules/sendMessage.js`);
@@ -19,9 +18,9 @@ module.exports = {
                 let Reason = args.slice(1).join(" ")
 
                 let muterole = message.guild.roles.cache.find(x => x.name === "Muted");
-                if(!muterole) return message.channel.send({embed:{ description: "Couldn't find the **Muted** role.", color: config.school_color}});
+                if(!muterole) return message.channel.send({embed:{ description: "Couldn't find the **Muted** role.", color: client.config.school_color}});
 
-                if (!user.roles.cache.find(x => x.name === "Muted")) return message.channel.send({embed: { description: "The user is not muted.", color: config.school_color}})
+                if (!user.roles.cache.find(x => x.name === "Muted")) return message.channel.send({embed: { description: "The user is not muted.", color: client.config.school_color}})
 
                 await user.roles.remove(muterole.id).catch(err => console.log(`Error ${err}`));
                 await clearTimeout(client.mute.get(message.author.id));
@@ -31,7 +30,7 @@ module.exports = {
                 .setTitle(`You have unmuted the user ${user.user.username}!`)
                 .setDescription(`Reason: ${Reason}`)
 
-                sendMessage(client, config.channels.auditlogs, Embed)
+                sendMessage(client, client.config.channels.auditlogs, Embed)
             } 
         }
 }   

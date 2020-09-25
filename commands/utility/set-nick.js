@@ -1,12 +1,10 @@
-const config = require('../../config.json');
-
 module.exports = { 
     name: 'set-nick',
     description: 'Set nickname!',
     args: true,
     usage: `[@user mention] ~ [new nickname]`, 
     category: 'Utility',
-	async execute(message, args) {
+	async execute(client, message, args) {
         message.delete();
 
         try {
@@ -19,7 +17,7 @@ module.exports = {
             const nicknameEmbed = { 
                 title: `__**Nickname Changed!**__`,
                 description: `${member.displayName} is <@${member.user.id}>'s new nickname!`, 
-                color: config.school_color
+                color: client.config.school_color
             };
 
             message.channel.send({ embed: nicknameEmbed});

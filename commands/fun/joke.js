@@ -1,5 +1,4 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
-const config = require('../../config.json');
 const JOKES = require(`./jokes.json`); //for jokes
 const jokes_list = JOKES.jokes;
 
@@ -7,7 +6,7 @@ module.exports = {
     name: 'joke',
     description: 'Get a random joke here!',
     category: 'Fun',
-    async execute(message, args) { 
+    async execute(client, message, args) { 
         message.delete();
 
         function randomJoke() {
@@ -16,7 +15,7 @@ module.exports = {
         
         const jokeEmbed = new MessageEmbed()
             .setTitle("Joke!")
-            .setColor(config.school_color)
+            .setColor(client.config.school_color)
             .setDescription(randomJoke())
             .setTimestamp()
             .setFooter("Created by the server lords!")

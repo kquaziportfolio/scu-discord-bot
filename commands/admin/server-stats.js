@@ -1,11 +1,10 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
-const config = require('../../config.json');
 
 module.exports = {
 	name: 'server-stats',
     description: 'Get general server statistics!',
     category: 'Admin',  
-		async execute(message, args) {
+		async execute(client, message, args) {
             message.delete();
 
             let isAdmin = require(`../../modules/isAdmin.js`);
@@ -33,8 +32,8 @@ module.exports = {
                 let sicon = message.guild.iconURL();
                 let serverembed = new MessageEmbed()
                     .setDescription(`__**${message.guild.name} - Statistics**__`)
-                    .setColor(config.school_color)
-                    .addField('Server Owners', `<@709550577553768468>\n<@403377362730876928>`, true)
+                    .setColor(client.config.school_color)
+                    .addField('Server Owner', `<@${config.serverRoles.owner}>`, true)
                     .addField('Server Region', message.guild.region, true)
                     .setThumbnail(sicon, true)
                     .addField("Server Name", message.guild.name, true)
@@ -46,7 +45,7 @@ module.exports = {
                     .addField('Guild Created At:', message.guild.createdAt, true)
                     .setTimestamp()
 
-                sendMessage(client, config.channels.auditlogs, serverembed);
+                sendMessage(client, client.config.channels.auditlogs, serverembed);
             }
         } 
 }

@@ -1,5 +1,3 @@
-const config = require('../../config.json');
-
 module.exports =  {  
 	name: 'rps',
     description: 'Play rock, paper, scissors!',
@@ -13,9 +11,9 @@ module.exports =  {
         const USER_PLAYER = `**${message.author}** wins this round!`;
         const COMPUTER_PLAYER = `**COMPUTER** wins this round!`;
         const TIE = `It's a tie!`;
-        if (!args[0]) return message.channel.send({ embed: {description: "Choose a move: \`\`\`rock, paper, or scissors \`\`\`", color: config.school_color}});
+        if (!args[0]) return message.channel.send({ embed: {description: "Choose a move: \`\`\`rock, paper, or scissors \`\`\`", color: client.config.school_color}});
         if (choices.indexOf(args[0]) == -1) {
-            return message.channel.send({embed: {description: "Choose a move: \`\`\`rock, paper, or scissors \`\`\`", color: config.school_color}});
+            return message.channel.send({embed: {description: "Choose a move: \`\`\`rock, paper, or scissors \`\`\`", color: client.config.school_color}});
         }
         let computer = choices[Math.floor(Math.random() * 3 + 1) - 1];
         let user = args[0];
@@ -41,7 +39,7 @@ module.exports =  {
                 value: computer,
                 },
             ],
-            color: config.school_color
+            color: client.config.school_color
         };
         message.channel.send({ embed: rpsEmbed });
     }

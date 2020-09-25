@@ -1,16 +1,15 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
-const config = require(`../config.json`);
 let sendMessage = require(`../modules/sendMessage.js`);
 
-module.exports = (client, message) => {
+module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (message.author.bot || !message.guild) return;
 
-  // Ignore messages not starting with the prefix (in config.json)
-  if (message.content.indexOf(config.prefix)) return;
+  // Ignore messages not starting with the prefix (in client.config.json)
+  if (message.content.indexOf(client.config.prefix)) return;
 
   // Our standard argument/command name definition.
-  const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
 
   // Grab the command data from the client.commands Enmap
@@ -27,10 +26,10 @@ module.exports = (client, message) => {
     let reply = `You didn't provide any arguments, <@${message.author.id}>!`;
     
     if (command.usage) {
-      reply += `\nThe proper usage would be: \`${config.prefix}${command.name} ${command.usage}\``;
+      reply += `\nThe proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``;
     }
     
-    return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: config.school_color}});
+    return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
   }
 
   const cooldowns = new Discord.Collection();
@@ -48,7 +47,7 @@ module.exports = (client, message) => {
 
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return message.reply({ embed: { description: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, color: config.school_color}});
+      return message.reply({ embed: { description: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, color: client.config.school_color}});
     }
 
     timestamps.set(message.author.id, now);
@@ -57,9 +56,9 @@ module.exports = (client, message) => {
 
   try {
   // Run the command as long as it has these two parameters
-    command.execute(message, args);
+    command.execute(client, message, args);
   } catch(err) {
-      sendMessage(client, config.channels.auditlogs, { embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
+      sendMessage(client, client.config.channels.auditlogs, { embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
       return console.log(err.stack || err);
   }
 }

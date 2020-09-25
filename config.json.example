@@ -19,7 +19,10 @@
 		"key": "[Create unique string and number password]",
 		"inviteLink": "[insert your discord server's invite link here",
 		"verifyURL": "[insert verification server's URL here]",
-		"status": "https://srhpyqt94yxb.statuspage.io/api/v2/status.json"
+		"status": "https://srhpyqt94yxb.statuspage.io/api/v2/status.json",
+		"githubLink": "[insert your bot's github repo here]",
+		"thumbnailLink": "[insert your embed thumbnail icon URL here]",
+		"googleFormLink": "[insert your Google form link connected to your server verification process]"
 	},
 	"school_color": "[insert random hex color here for preferred embed colors]",
 	"serverRoles": {

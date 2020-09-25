@@ -1,7 +1,5 @@
 const {  MessageEmbed } = require(`discord.js`); //for embed functionality
 const fetch = require('node-fetch');
-const config = require('../../config.json');
-const BASE_URL = config.api.pokemon;
 
 module.exports = {
 	name: 'pokedex',
@@ -9,8 +7,11 @@ module.exports = {
     args: true,
     usage: `[Pokemon name]`,
     category: 'Fun',
-	async execute(message, args) {
+	async execute(client, message, args) {
         message.delete();
+
+        const BASE_URL = client.config.api.pokemon;
+
         
 		async function getPokemon(pokemon) {
 			let response = await fetch(`${BASE_URL}/${pokemon}`);
@@ -38,11 +39,11 @@ module.exports = {
                 embed.addField('__**Weight**__', `${weight} lbs`, true);
                 embed.addField('__**Height**__', `${height} ft`, true);
                 embed.addField('__**Base Experience**__', `${base_experience} XP`, true);
-                embed.setColor(config.school_color);
+                embed.setColor(client.config.school_color);
             message.channel.send(embed).catch(err => `Error: ${err}`)
         }
         catch(err) {
-			message.channel.send({embed: {description: `Pokemon __**${pokemon}**__ does not exist.`, color: config.school_color}})
+			message.channel.send({embed: {description: `Pokemon __**${pokemon}**__ does not exist.`, color: client.config.school_color}})
 			.then(msg => msg.delete({timeout: 5000}))
 			.catch(err => `Error: ${err}`)
         }

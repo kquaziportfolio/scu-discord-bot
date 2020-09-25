@@ -1,20 +1,22 @@
 /*
+=============================================================================================
 __      ________ _____  _____ ________     __   _______     _______ _______ ______ __  __ _ 
 \ \    / /  ____|  __ \|_   _|  ____\ \   / /  / ____\ \   / / ____|__   __|  ____|  \/  | |
  \ \  / /| |__  | |__) | | | | |__   \ \_/ /  | (___  \ \_/ / (___    | |  | |__  | \  / | |
   \ \/ / |  __| |  _  /  | | |  __|   \   /    \___ \  \   / \___ \   | |  |  __| | |\/| | |
    \  /  | |____| | \ \ _| |_| |       | |     ____) |  | |  ____) |  | |  | |____| |  | |_|
     \/   |______|_|  \_\_____|_|       |_|    |_____/   |_| |_____/   |_|  |______|_|  |_(_)
+=============================================================================================
 */
 
-module.exports.run = (client, config) => {
+module.exports.run = (client) => {
   const express = require("express");
   const cors = require("cors");
   const helmet = require("helmet");
   var app = express();
   const sendMessage = require(`./sendMessage.js`);
 
-  /* ADD THIS OBJECT TO YOUR CONFIG FILE (or move the properties somewhere else)
+  /* ADD THIS OBJECT TO YOUR client.config FILE (or move the properties somewhere else)
     {
         verification: {
             "guildID": "string of guild enabled in",
@@ -30,28 +32,28 @@ module.exports.run = (client, config) => {
     }
   */
 
-  //define guild from ID in config
-  const guild = client.guilds.cache.get(config.verification.guildID);
+  //define guild from ID in client.config
+  const guild = client.guilds.cache.get(client.config.verification.guildID);
   app.use(express.json());
   app.use(cors());
   app.use(helmet());
   //This will start on port 2000, if this collides with another service you may change it
   const verifyMSG = {
     title: "VERIFICATION SERVER",
-    description: `Verification listening at port 5354 [here](${config.verification.verifyURL})! ✅`,
+    description: `Verification listening at port 5354 [here](${client.config.verification.verifyURL})! ✅`,
     color: "GREEN", 
     timestamp: new Date()
   }
   app.listen(5354, () => {
     console.log(verifyMSG.description);
-    sendMessage(client, config.channels.auditlogs, { embed: verifyMSG});
+    sendMessage(client, client.config.channels.auditlogs, { embed: verifyMSG});
   });
   app.all("/", (req, res) => {
     res.status(200).send(`${verifyMSG.title} was deployed on ${verifyMSG.timestamp} ✅`);
   });
   app.post("/verify", (req, res) => {
     //some basic auth
-    if (req.headers["key"] != config.verification.key) {
+    if (req.headers["key"] != client.config.verification.key) {
       //api key checker
       res.status(401).send({ error: "❌ Invalid API Key " });
       //data in body checker
@@ -61,29 +63,29 @@ module.exports.run = (client, config) => {
       let member = guild.members.cache.find((member) => member.user.tag == req.body.discord);
       //if the member isn't in the guild return an error in console
       if (member == null) {
-        sendMessage(client, config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Verification**__`, description: `> **${req.body.name}** returned **${req.body.discord}**, which is **${member}** in the server!\n> Please remove their response from the [form](https://docs.google.com/forms/d/1O4iazeB8sDlTPYLLgTF9IhndV0ZJv-ulvFJyqFkTMO4/edit)!`, color: config.school_color, timestamp: new Date()}});
-      } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent))) {
+        sendMessage(client, client.config.channels.auditlogs, { embed: { title: `__**❌ SCU Discord Network Verification**__`, description: `> **${req.body.name}** returned **${req.body.discord}**, which is **${member}** in the server!\n> Please remove their response from the [form](https://docs.google.com/forms/d/1O4iazeB8sDlTPYLLgTF9IhndV0ZJv-ulvFJyqFkTMO4/edit)!`, color: client.config.school_color, timestamp: new Date()}});
+      } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.id == client.config.serverRoles.verifiedStudent))) {
           //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
           const dangerEmbed = {
               title: `__**DANGER ALERT!**__`,
               description: `❌ Someone tried to verify their Discord account as you! If this was you, you may ignore this message. If this was not you, please immediately inform an **ADMIN** or **MOD** immediately!`,
-              color: config.school_color,
+              color: client.config.school_color,
               footer: { text: "SCU Discord Network Verification", },
               author: { name: "Verification Notice", icon_url: client.user.avatarURL(), },
               timestamp: new Date()
           };
           member.send(`<@${member.user.id}>`, {embed: dangerEmbed});
-          sendMessage(client, config.channels.auditlogs, `<@${member.user.id}>`, { embed: dangerEmbed});
+          sendMessage(client, client.config.channels.auditlogs, `<@${member.user.id}>`, { embed: dangerEmbed});
       } else {
-          sendMessage(client, config.channels.auditlogs, { embed: { title: `__**✅ Verification Alert!**__`, description: `New data from **${req.body.discord}** (**${req.body.name}**)`, color: config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
+          sendMessage(client, client.config.channels.auditlogs, { embed: { title: `__**✅ Verification Alert!**__`, description: `New data from **${req.body.discord}** (**${req.body.name}**)`, color: client.config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
           if (req.body.status == "SCU Faculty/Staff") {
             //changes nickname and grants verified personnel role but skips onwards to remove Unverified role, but won't receive RLC, major, and verified Student roles
             member.setNickname(req.body.name);
-            member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedPersonnel)); //the SCU Faculty/Staff role
+            member.roles.add(guild.roles.cache.find((role) => role.id == client.config.serverRoles.verifiedPersonnel)); //the SCU Faculty/Staff role
           } else {
               //gives member the verified student role
               
-              member.roles.add(guild.roles.cache.find((role) => role.id == config.serverRoles.verifiedStudent)); //the Student role
+              member.roles.add(guild.roles.cache.find((role) => role.id == client.config.serverRoles.verifiedStudent)); //the Student role
 
               if (req.body.major != null) {
                 req.body.major.forEach(major => {
@@ -105,22 +107,22 @@ module.exports.run = (client, config) => {
                 const nicknameError = { 
                   title: `__**❌ <@${req.body.name}>'s nickname is over 32 characters!**__`, 
                   description: `> <@${member.user.id}> returned **${nickname}**\n>`, 
-                  color: config.school_color, 
+                  color: client.config.school_color, 
                   timestamp: new Date()
                 }
-                sendMessage(client, config.channels.auditlogs, { embed: nicknameError});
+                sendMessage(client, client.config.channels.auditlogs, { embed: nicknameError});
               }
               
               member.setNickname(nickname);
         }       
           //remove Unverified role from member in all conditions
-          member.roles.remove(guild.roles.cache.find((role) => role.id == config.serverRoles.unverifiedStudent));
+          member.roles.remove(guild.roles.cache.find((role) => role.id == client.config.serverRoles.unverifiedStudent));
 
           //send them a confirmation
           const verifyConfirmation = {
             title: `__**Successful Verification**__`,
-            description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${config.channels.info}> for more information!`,
-            color: config.school_color,
+            description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${client.config.channels.info}> for more information!`,
+            color: client.config.school_color,
             footer: { text: "SCU Discord Network Verification", },
             author: { name: "Verification Confirmation", icon_url: client.user.avatarURL(), },
             image: { url: guild.splashURL(), },
@@ -133,16 +135,16 @@ module.exports.run = (client, config) => {
             ],
           };
           member.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation});
-          const verifyEmbed = { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `You are now verified! Everyone please welcome **${req.body.name}** to the server!`, color: config.school_color, timestamp: new Date()};
+          const verifyEmbed = { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `You are now verified! Everyone please welcome **${req.body.name}** to the server!`, color: client.config.school_color, timestamp: new Date()};
           
-          let verificationChannel = guild.channels.cache.get(config.channels.verifylogs);
+          let verificationChannel = guild.channels.cache.get(client.config.channels.verifylogs);
           verificationChannel.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation}).then(m => m.react('👍'));
             
-          let welcomeChannel = guild.channels.cache.get(config.channels.welcome);
+          let welcomeChannel = guild.channels.cache.get(client.config.channels.welcome);
           welcomeChannel.send(`**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
                   
-          let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === config.serverRoles.verifiedStudent)).size
-          let studentCount = guild.channels.cache.find(channel => channel.id === config.channels.verifiedCount);
+          let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === client.config.serverRoles.verifiedStudent)).size
+          let studentCount = guild.channels.cache.find(channel => channel.id === client.config.channels.verifiedCount);
           studentCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
         
       }

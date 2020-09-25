@@ -1,5 +1,3 @@
-const config = require('../../config.json');        
-
 module.exports =  {  
 	name: 'restart',
     description: 'Restart the bot!',
@@ -18,7 +16,7 @@ module.exports =  {
                 
                 for (const frame of frames) {
                     setTimeout(() => {}, 4000);
-                    await msg.edit({ embed: { description: frame, color: config.school_color}});
+                    await msg.edit({ embed: { description: frame, color: client.config.school_color}});
                 }
 
                 return message;

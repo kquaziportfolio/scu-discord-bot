@@ -1,5 +1,4 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
-const config = require('../../config.json');
 
 module.exports = {
     name: 'random-color', //forked from Raptor SA

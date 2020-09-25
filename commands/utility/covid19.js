@@ -1,14 +1,13 @@
 const { MessageEmbed } = require('discord.js');
 const fetch = require(`node-fetch`);
-const config = require('../../config.json');
 
 module.exports = {
     name: 'covid19', //forked from Raptor SA
     description: 'Get daily and instant COVID-19 data here!', //here is a change in the file
     args: true,
     category: 'Utility',
-    usage: `global / ${config.prefix}covid19 [state abbreviation] / ${config.prefix}covid19 county`, 
-        async execute (message, args) {
+    usage: `global / &covid19 [state abbreviation] / &covid19 county`, 
+        async execute (client, message, args) {
             message.delete();
 
             let state = message.content.toLowerCase().split(" ")[1];
@@ -39,7 +38,7 @@ module.exports = {
             COVID_EMBED1.setTimestamp()
             COVID_EMBED1.attachFiles(`./assets/covid-19.jpg`)
             COVID_EMBED1.setImage(`attachment://covid-19.jpg`)
-            COVID_EMBED1.setColor(config.school_color)
+            COVID_EMBED1.setColor(client.config.school_color)
 
             const COVID_EMBED2 = new MessageEmbed()
             COVID_EMBED2.setTitle(`__**USA COVID-19 Status Tracker by State:**__`)
@@ -64,7 +63,7 @@ module.exports = {
             COVID_EMBED2.addField(`Hospitalized Increase: `, `${data2.hospitalizedIncrease || 'no data found'}`, true)
             COVID_EMBED2.setFooter(`Brought to you by the server lords on ${targetDate}`)
             COVID_EMBED2.setTimestamp()
-            COVID_EMBED2.setColor(config.school_color)
+            COVID_EMBED2.setColor(client.config.school_color)
 
             const COVID_EMBED3 = new MessageEmbed() 
             COVID_EMBED3.setTitle(`__**Santa Clara County, CA's COVID-19 Status Tracker**__`)
@@ -76,7 +75,7 @@ module.exports = {
             COVID_EMBED3.addField(`Fatality Rate: `, `${data3.message[9].fatality_rate}`, true)
             COVID_EMBED3.addField(`\u200B`, `\u200B`, true)
             COVID_EMBED3.setFooter(`Brought to you by the server lords on ${targetDate}`)
-            COVID_EMBED3.setColor(config.school_color)
+            COVID_EMBED3.setColor(client.config.school_color)
             
             if (args[0] === "global") return message.channel.send(COVID_EMBED1).catch(err => `Error: ${err}`)
             if (args[0].length == 2) { 

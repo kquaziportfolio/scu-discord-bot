@@ -1,5 +1,4 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
-const config = require('../../config.json');
 
 module.exports = {
     name: 'banner',
@@ -7,7 +6,7 @@ module.exports = {
     args: true,
     usage: `[file name and extension]`, 
     category: 'Admin',  
-    async execute (message, args) {
+    async execute (client, message, args) {
 
         let isAdmin = require(`../../modules/isAdmin.js`);
         
@@ -20,7 +19,7 @@ module.exports = {
                 const imageEmbed = new MessageEmbed()
                 .attachFiles([`./assets/${input}`])
                 .setImage(`attachment://${input}`)
-                .setColor(config.school_color)
+                .setColor(client.config.school_color)
 
                 message.channel.send(imageEmbed);
             } catch (err) {

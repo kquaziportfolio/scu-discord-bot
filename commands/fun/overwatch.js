@@ -1,5 +1,4 @@
 const { MessageEmbed } = require(`discord.js`); 
-const config = require(`../../config.json`);
 const overwatch = require(`overwatch-api`);
 const {stripIndents} = require(`common-tags`);
 
@@ -9,7 +8,7 @@ module.exports = {
     args: true,
     usage: `[username] [pc / xb1 / psn]`,
     category: 'Fun',
-    async execute( message, args) {
+    async execute(client, message, args) {
         message.delete();
         
         args = args.join(" ").split(" ");
@@ -17,7 +16,7 @@ module.exports = {
         if(args[0].includes("#")) args[0] = args[0].replace(/#/g, "-");
 
             overwatch.getProfile(args[1], "global", args[0], (err, json) => {
-                if(err) return message.channel.send({embed: {title: `Overwatch Command`, description: "Unable to find a player with that username!", color: config.school_color, timestamp: new Date()}})
+                if(err) return message.channel.send({embed: {title: `Overwatch Command`, description: "Unable to find a player with that username!", color: client.config.school_color, timestamp: new Date()}})
                 message.channel.send(`Generating user stats...`).then(msg => msg.delete({timeout: 2000}).catch(err => `ERROR: ${err}`))
                 const { games, level, portrait, username, playtime: {competitive, quickplay }, private } = json;
                 const { sportsmanship, shotcaller, teammate } = json.endorsement;
@@ -26,13 +25,13 @@ module.exports = {
             if(private) return message.channel.send({embed: {
                 title: `Overwatch Command`, 
                 description: "The user's stats and can't be obtained via this command.", 
-                color: config.school_color, 
+                color: client.config.school_color, 
                 timestamp: new Date(),
                 footer: `Brought to you by the server lords!`
             }}).catch(err => `Error: ${err}`)
 
             const embed = new MessageEmbed() 
-            .setColor(config.school_color)
+            .setColor(client.config.school_color)
             .setAuthor(`Overwatch | ${username}`, portrait)
             .setThumbnail(portrait)
             .addField("General:", stripIndents` 

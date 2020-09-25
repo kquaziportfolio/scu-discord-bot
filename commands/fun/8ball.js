@@ -1,6 +1,4 @@
-const Discord = require(`discord.js`); //requires Discord.js integration package
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
-const config = require('../../config.json');
 
 module.exports = {
 	name: '8ball',
@@ -8,11 +6,11 @@ module.exports = {
     args: true, 
     usage: `[question?]`,
     category: 'utility',
-		async execute(message, args) { 
+		async execute(client, message, args) { 
             message.delete();
         
             const prompt = args.join(' ');
-            if (!prompt.endsWith("?")) return message.channel.send(`<@${message.author.id}>`, { embed: { description: "Enter a question like this: `This is a question?`", color: config.school_color}});
+            if (!prompt.endsWith("?")) return message.channel.send(`<@${message.author.id}>`, { embed: { description: "Enter a question like this: `This is a question?`", color: client.config.school_color}});
             
             const replies = ["It is certain.", "It is decidedly so.", "Without a doubt", "Yes-definitely.",
             "You may rely on it", "As I see it, yes.", "Most likely.", "Outlook good", "Yes", "Signs point to yes",
@@ -24,7 +22,7 @@ module.exports = {
 
             const ballEmbed = new MessageEmbed()
             .setTitle(`__**Your 8-ball results!**__`)
-            .setColor(config.school_color)
+            .setColor(client.config.school_color)
             .setDescription(`**Question:** ${prompt}\n**Answer:** ${replies[result]}`)
             .setFooter(`Created by the server lords!`)
             .setTimestamp()

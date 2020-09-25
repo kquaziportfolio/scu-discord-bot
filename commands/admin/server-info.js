@@ -1,12 +1,11 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const emojiCharacters = require(`../../modules/emoji-characters`); //for emojis
-const config = require('../../config.json');
 
 module.exports = {
 	name: 'server-info',
     description: 'Get general server information here!',
     category: 'Admin',  
-		async execute(message, args) { 
+		async execute(client, message, args) { 
             message.delete();
 
             let isAdmin = require(`../../modules/isAdmin.js`);
@@ -19,14 +18,14 @@ module.exports = {
                     .setThumbnail(`${serverIcon}`)
                     .setDescription(`__**Discord Etiquette**__\n-To notify only the members of a specific majors use @ followed by the name` +
                     ` of the major. Read Discord's Terms of Service [here](https://discord.com/terms).\n\n` +
-                    `**Permanent Invite Link**\n[SCU Discord Network](https://discord.gg/YusWdfu)` +
-                    `\n\n**Questions / Concerns / Inquiries**\nMessage <@&${config.serverRoles.admin}>/<@&${config.serverRoles.mod}> or ping away in <#${config.channels.suggestions}>\n` +
+                    `**Permanent Invite Link**\n[SCU Discord Network](https://${client.config.verification.inviteLink})` +
+                    `\n\n**Questions / Concerns / Inquiries**\nMessage <@&${client.config.serverRoles.admin}>/<@&${client.config.serverRoles.mod}> or ping away in <#${client.config.channels.suggestions}>\n` +
                     `\n**SCU Social Networking**\n- [FaceBook](https://www.facebook.com/SantaClaraUniversity/)\n- [Instagram](https://instagram.com/santaclarauniversity/)\n- [LinkedIn](https://www.linkedin.com/school/santa-clara-university/)\n- [Reddit](https://reddit.com/r/SCU)\n- [Twitter](https://www.twitter.com/SantaClaraUniv/)\n- [YouTube](https://www.youtube.com/santaclarauniversity)`)
-                    .setColor(config.school_color)
+                    .setColor(client.config.school_color)
 
                 const resourcesEmbed = new MessageEmbed()
                     .setTitle("**Server Information**")
-                    .setColor(config.school_color)
+                    .setColor(client.config.school_color)
                     .setDescription("__**Resources**__\n\n")
                     .addFields(
                         {name: `**${emojiCharacters.key} Access Card**`, value: "[Link](https://www.scu.edu/access/)", inline: true},

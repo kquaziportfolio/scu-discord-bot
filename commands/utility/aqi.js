@@ -1,5 +1,4 @@
 const fetch = require(`node-fetch`);
-const config = require('../../config.json');
 const { MessageEmbed } = require(`discord.js`);
 
 module.exports = {
@@ -8,12 +7,12 @@ module.exports = {
     args: true,
     usage: `[city name, state abbreviation]`,
     category: 'Utility',
-	async execute(message, args) {
+	async execute(client, message, args) {
         message.delete(); 
         
         let cityName = args.join("%20");
         let country = "US";
-        const aqi = await fetch(`https://api.weatherbit.io/v2.0/current/airquality?city=${cityName},${country}&key=${config.api.aqi}`);
+        const aqi = await fetch(`https://api.weatherbit.io/v2.0/current/airquality?city=${cityName},${country}&key=${client.config.api.aqi}`);
         const aqiResult = await aqi.json();
       
         try {
@@ -41,7 +40,7 @@ module.exports = {
             }
 
             let aqiEmbed = new MessageEmbed()
-                .setColor(config.school_color)
+                .setColor(client.config.school_color)
                 .setTitle(`AQI Status for ${aqiResult.city_name}, ${aqiResult.state_code}, ${aqiResult.country_code}`)
                 .addField("Level for Health Concern", `${level} (${aqiResult.data[0].aqi})`)
                 .addField("Meaning", result)

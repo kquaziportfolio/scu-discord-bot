@@ -1,5 +1,4 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
-const config = require('../../config.json');
 let sendMessage = require(`../../modules/sendMessage.js`);
 
 module.exports = {
@@ -8,7 +7,7 @@ module.exports = {
     args: true,
     usage: `[@user mention] [reason]`, 
     category: 'Admin',  
-	async execute(message, args) {   
+	async execute(client, message, args) {   
         message.delete();
 
         let isAdmin = require(`../../modules/isAdmin.js`);
@@ -20,20 +19,20 @@ module.exports = {
 
             if(!member.bannable) return message.channel.send({embed: {
                 description: "I can't ban this user!",
-                color: config.school_color
+                color: client.config.school_color
                 }
             }).then(msg => msg.delete(2000))
 
-            if(member.user.id === "401542675423035392" || member.user.id === "403377362730876928") 
+            if(member.user.id === client.config.serverRoles.owner) 
                 return message.channel.send({embed: {
                     description: "I can't ban my owner!",
-                    color: config.school_color
+                    color: client.config.school_color
                 }
             }).then(msg => msg.delete({timeout: 2000}))
 
             if(member.id === message.author.id) return message.channel.send({embed: {
                 description: `You can't ban yourself!`,
-                color: config.school_color
+                color: client.config.school_color
                 }
             }).then(msg => msg.delete({timeout: 2000}))
 
@@ -47,14 +46,14 @@ module.exports = {
                .catch(err => console.log(`Error: ${err}`))
    
                const ban_card = new MessageEmbed()
-                   .setColor(config.school_color)
+                   .setColor(client.config.school_color)
                    .setTitle(`Ban | ${member.user.tag}`)
                    .addField("User", member, true)
                    .addField("Moderator", message.author, true)
                    .addField("Reason", reason)
                    .setTimestamp()
    
-               sendMessage(client, config.channels.auditlogs, ban_card);
+               sendMessage(client, client.config.channels.auditlogs, ban_card);
             }
         } 
     }

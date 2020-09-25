@@ -8,7 +8,6 @@ const fs = require("fs");
 // We also need to make sure we're attaching the config to the CLIENT so it's accessible everywhere!
 client.config = require(`./config.json`);
 
-client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
 client.on("debug", (e) => console.info(e));
 

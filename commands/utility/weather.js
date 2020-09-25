@@ -1,7 +1,6 @@
 const request = require(`request`)
 const toTitleCase = require(`to-title-case`);
 const moment = require('moment'); //here is a change in the file
-const config = require('../../config.json');
 const { MessageEmbed } = require(`discord.js`);
 
 module.exports = {
@@ -10,14 +9,14 @@ module.exports = {
     args: true,
     usage: `[zip code, country abbreviation]`,
     category: 'utility',
-	async execute(message, args) {
+	async execute(client, message, args) {
         message.delete(); 
       
         let zipCode = args[0];
-        request(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${config.api.weather}`, (error, response, body) => {
+        request(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${client.config.api.weather}`, (error, response, body) => {
             const json = JSON.parse(body);
 
-            if (json.cod && json.cod == 404) return message.channel.send({embed: {description: "Zip code not found!", color: config.school_color}})
+            if (json.cod && json.cod == 404) return message.channel.send({embed: {description: "Zip code not found!", color: client.config.school_color}})
             
             if (json.wind.deg) {
                 let angle = json.wind.deg
@@ -36,7 +35,7 @@ module.exports = {
             else json.wind.speed += "m/s";
 
             let weatherEmbed = new MessageEmbed()
-                .setColor(config.school_color)
+                .setColor(client.config.school_color)
                 .setTitle(`:flag_${json.sys.country.toLowerCase()}: ${json.name}, ${json.sys.country}`)
                 .setURL(`https://openweathermap.org/city/${json.id}`)
                 .setThumbnail(`https://openweathermap.org/img/w/${json.weather[0].icon}.png`)
