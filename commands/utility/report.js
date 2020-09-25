@@ -7,7 +7,7 @@ module.exports = {
     args: true,
     usage: `[@user mention] [reason]`, 
     category: 'Utility',
-		async execute(message, args) { 
+		async execute(client, message, args) { 
             message.delete();
             
             let target = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));

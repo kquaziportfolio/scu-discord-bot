@@ -8,7 +8,7 @@ module.exports = {
     args: true,
     usage: `[username]`,
     category: 'Utility',
-    async execute (message, args) {
+    async execute (client, message, args) {
         message.delete();
 
         try {

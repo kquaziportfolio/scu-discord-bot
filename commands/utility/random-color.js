@@ -4,7 +4,7 @@ module.exports = {
     name: 'random-color', //forked from Raptor SA
     description: 'Generate a random color!', //here is a change in the file
     category: 'Utility',
-    async execute (message, args) {
+    async execute (client, message, args) {
         message.delete();
     
         const randomNumber = Math.floor(Math.random()*16777215).toString(16);

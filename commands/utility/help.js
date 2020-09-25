@@ -36,12 +36,15 @@ module.exports = {
 		}
 
 		const helpEmbed = new MessageEmbed()
-			.setTitle(`Here\'s all my commands:`)
-			.setDescription(`You can view all my commands in my [GitHub](${client.config.verification.githubLink}) or use \`${client.config.prefix}help [command name]\` to get specific command info!`)
+			.setTitle(`**SCU BOT COMMANDS**`)
+			.setDescription(`<@${client.user.id}> is the **SCU Discord Network**'s very own bot! Say hi! :robot:\n\n` +
+			 `**Commands**\nA full list of commands is available [here](${client.config.verification.githubLink}tree/master/commands) or use \`${client.config.prefix}help [command name]\` to get specific command info!\n\n` +
+			 `**Support**\n[Click here](${client.config.verification.githubLink}pulls) to talk to our support team and/or suggest new ideas!`)
 			.setFooter(`Brought to you by the server lords!`)
 			.setColor(client.config.school_color)
 			.attachFiles([`./assets/logo-pic.png`])
 			.setThumbnail(`attachment://logo-pic.png`)
+			.setTimestamp()
 
 		message.author.send(helpEmbed)
 			.then(() => {

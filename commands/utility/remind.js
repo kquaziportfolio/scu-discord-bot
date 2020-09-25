@@ -7,7 +7,7 @@ module.exports = {
     args: true,
     usage: `[interval in ms]`, 
     category: 'Utility',
-    async execute (message, args) {
+    async execute (client, message, args) {
         message.delete()
         
         let messagez = args.join(' ');
