@@ -16,8 +16,8 @@ module.exports = {
             const getStatus = await status.text();
 
             const statusEmbed = new MessageEmbed()
-            .setTitle(`:white_check_mark: VERIFICATION SERVER`)
-            .setDescription(`${getStatus} - Check the status [here](${url})!`)
+            .setTitle(` VERIFICATION SERVER`)
+            .setDescription(`${getStatus} - Check the status [here](${url})! :white_check_mark:`)
             .setColor(config.school_color)
 
             message.channel.send(statusEmbed);

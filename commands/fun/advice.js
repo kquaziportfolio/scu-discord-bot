@@ -10,7 +10,7 @@ module.exports = {
         
         try {
             const { body } = await snekfetch.get('http://api.adviceslip.com/advice');
-            message.channel.send({embed: {title: `Here's your advice`, description: JSON.parse(body.toString()).slip.advice, color: config.school_color}});
+            message.channel.send(`<@${message.author.id}>`, {embed: {title: `Here's your advice`, description: JSON.parse(body.toString()).slip.advice, color: config.school_color}});
         } catch (err) {
             message.channel.send(`An error occurred: \`${err.message}\`. Try again later!`);
         }

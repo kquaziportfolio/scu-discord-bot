@@ -14,12 +14,12 @@ module.exports = {
             return jokes_list[Math.floor(Math.random() * jokes_list.length)];
         }
         
-        const embed = new MessageEmbed()
+        const jokeEmbed = new MessageEmbed()
             .setTitle("Joke!")
             .setColor(config.school_color)
             .setDescription(randomJoke())
             .setTimestamp()
             .setFooter("Created by the server lords!")
-        message.channel.send(embed)
+        message.channel.send(`<@${message.author.id}>`, { embed: jokeEmbed })
     }
 }

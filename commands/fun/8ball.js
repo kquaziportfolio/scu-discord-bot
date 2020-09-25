@@ -12,6 +12,7 @@ module.exports = {
             message.delete();
         
             const prompt = args.join(' ');
+            if (!prompt.endsWith("?")) return message.channel.send(`<@${message.author.id}>`, { embed: { description: "Enter a question like this: `This is a question?`", color: config.school_color}});
             
             const replies = ["It is certain.", "It is decidedly so.", "Without a doubt", "Yes-definitely.",
             "You may rely on it", "As I see it, yes.", "Most likely.", "Outlook good", "Yes", "Signs point to yes",

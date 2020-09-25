@@ -20,6 +20,6 @@ module.exports = {
         .setTimestamp()
         .setFooter(`Created by the server lords!`)
 
-        message.channel.send({embed: memeEmbed});
+        message.channel.send(`<@${message.author.id}>`, {embed: memeEmbed});
     }
 }

@@ -24,7 +24,7 @@ module.exports = {
         setTimeout(() => {
             // Removes the user from the set after a minute
                 memes(subreddit).then (async url => {
-                    await message.channel.send({embed: {
+                    await message.channel.send(`<@${message.author.id}>`, {embed: {
                         color: config.school_color,
                         description: `**Here's your meme!**`,
                         footer: {

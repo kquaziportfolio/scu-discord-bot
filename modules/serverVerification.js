@@ -37,7 +37,7 @@ module.exports.run = (client, config) => {
   app.use(helmet());
   //This will start on port 2000, if this collides with another service you may change it
   const verifyMSG = {
-    title: "✅ VERIFICATION SERVER",
+    title: "VERIFICATION SERVER",
     description: `Verification listening at port 5354 [here](${config.verification.verifyURL})! ✅`,
     color: "GREEN", 
     timestamp: new Date()
@@ -47,7 +47,7 @@ module.exports.run = (client, config) => {
     sendMessage(client, config.channels.auditlogs, { embed: verifyMSG});
   });
   app.all("/", (req, res) => {
-    res.status(200).send(`${verifyMSG.title} was deployed on ${verifyMSG.timestamp}`);
+    res.status(200).send(`${verifyMSG.title} was deployed on ${verifyMSG.timestamp} ✅`);
   });
   app.post("/verify", (req, res) => {
     //some basic auth
@@ -93,11 +93,8 @@ module.exports.run = (client, config) => {
                   member.roles.add(majorRole);
                 });
               }
-
-              if (req.body.rlc != null) { //only fires if user selects an a RLC option 
-                //give member their RLC role (if applicable) and if they are still undergraduates
-                member.roles.add(guild.roles.cache.find((role) => role.name == req.body.rlc));
-              }
+              
+              member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
           
               //set their nickname like this: [First Name] || [Major]
               //also, if nickname is over 32 characters, catch error and log it in #audit-logs so we could manually adjust it
@@ -115,7 +112,6 @@ module.exports.run = (client, config) => {
               }
               
               member.setNickname(nickname);
-              member.roles.add(guild.roles.cache.find((role) => role.name == req.body.status));
         }       
           //remove Unverified role from member in all conditions
           member.roles.remove(guild.roles.cache.find((role) => role.id == config.serverRoles.unverifiedStudent));

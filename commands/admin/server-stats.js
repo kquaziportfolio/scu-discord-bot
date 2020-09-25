@@ -1,6 +1,5 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const config = require('../../config.json');
-let sendMessage = require(`../../modules/sendMessage.js`);
 
 module.exports = {
 	name: 'server-stats',
@@ -10,6 +9,7 @@ module.exports = {
             message.delete();
 
             let isAdmin = require(`../../modules/isAdmin.js`);
+            let sendMessage = require(`../../modules/sendMessage.js`);
 
             if(isAdmin(message, false)) {
                 message.delete();
