@@ -22,3 +22,6 @@
 ## Creator(s)
 - Jason Vu = Discord server owner, admin, and back-end
 - Samuel Stephen = Discord server moderator and back-end
+
+## Contributors
+- Kairan Quazi = Discord server moderator, back-end, and GitHub integrations
