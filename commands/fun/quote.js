@@ -1,11 +1,11 @@
-
+const { MessageEmbed } = require(`discord.js`);
 const quotes = require(`inspirational-quotes`); //for quotes
 
 module.exports = {
 	name: 'quote',
 	description: 'Get random quotes!',
 	category: 'Fun',
-	async execute(message, args) {
+	async execute(client, message, args) {
 		message.delete();
         
 		const quoteEmbed = new MessageEmbed()

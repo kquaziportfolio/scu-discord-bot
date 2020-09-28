@@ -2,7 +2,7 @@ module.exports =  {
 	name: 'restart',
     description: 'Restart the bot!',
     category: 'Admin',  
-	async execute(message, args) {
+	async execute(client, message, args) {
         message.delete(); 
 
         let isAdmin = require(`../../modules/isAdmin.js`);        

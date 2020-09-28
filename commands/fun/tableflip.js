@@ -10,7 +10,7 @@ module.exports = {
 	name: 'tableflip',
     description: 'For flipping tables!',
     category: 'Fun',
-    async execute(message, args) { 
+    async execute(client, message, args) { 
         message.delete();
         
         const msg = await message.channel.send('(\\\\°□°)\\\\  ┬─┬');

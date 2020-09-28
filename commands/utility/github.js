@@ -20,7 +20,7 @@ module.exports = {
 
             const profileEmbed = new MessageEmbed()
                 profileEmbed.setTitle(`__**${data.name}'s GitHub Profile**__`)
-                profileEmbed.setDescription(`${data.bio}`)
+                profileEmbed.setDescription(`${data.bio || 'none'}`)
                 profileEmbed.setThumbnail(`https://avatars3.githubusercontent.com/u/${data.id}?v=4`)
                 profileEmbed.addField(`Username`, data.login, true)
                 profileEmbed.addField(`Company`, data.company || 'none', true)

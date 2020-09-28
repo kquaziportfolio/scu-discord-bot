@@ -5,7 +5,7 @@ module.exports = {
 	name: 'rules',
     description: 'Here are the server rules!', 
     category: 'Admin',  
-		async execute(message, args) { 
+		async execute(client, message, args) { 
             message.delete();
 
             let isAdmin = require(`../../modules/isAdmin.js`);
