@@ -9,7 +9,7 @@ __      ________ _____  _____ ________     __   _______     _______ _______ ____
 =============================================================================================
 */
 
-module.exports.run = (client) => {
+module.exports.run = async (client) => {
   const express = require("express");
   const cors = require("cors");
   const helmet = require("helmet");
@@ -105,7 +105,7 @@ module.exports.run = (client) => {
               
               if (nickname.length > 32) {
                 const nicknameError = { 
-                  title: `__**❌ <@${req.body.name}>'s nickname is over 32 characters!**__`, 
+                  title: `__**❌ ${req.body.name}'s nickname is over 32 characters!**__`, 
                   description: `> <@${member.user.id}> returned **${nickname}**\n>`, 
                   color: client.config.school_color, 
                   timestamp: new Date()

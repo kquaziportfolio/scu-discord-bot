@@ -13,7 +13,7 @@ module.exports = {
 
         let isAdmin = require(`../../modules/isAdmin.js`);
 
-        if(isAdmin(message, false)) {
+        if(isAdmin(client, message, false)) {
             // the mute code here
 
             let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])

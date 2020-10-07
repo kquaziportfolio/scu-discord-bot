@@ -13,7 +13,7 @@ module.exports = {
 
             let isAdmin = require(`../../modules/isAdmin.js`);
             
-            if(isAdmin(message, false)) {
+            if(isAdmin(client, message, false)) {
                 message.delete();
 
                 const prompt = args.join(' ').split(' ~ ');

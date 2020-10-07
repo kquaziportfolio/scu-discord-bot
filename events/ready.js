@@ -1,4 +1,3 @@
-const error = require("../events/error.js");
 let sendMessage = require(`../modules/sendMessage.js`);
 const fetch = require(`node-fetch`);
 let status = require(`../modules/status.js`);
@@ -48,6 +47,6 @@ module.exports = async (client) => {
 			sendMessage(client, client.config.channels.auditlogs, { embed: { title: `:x: ${body.status.description}`, description: "There seems to be an error with some of the Discord servers. Double check [here](https://status.discordapp.com/)! :x:", color: "RED", timestamp: new Date()}});
 		}
 	} catch (err) {
-		error(err);
+		console.log(err);
 	}
 }

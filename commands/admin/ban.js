@@ -12,7 +12,7 @@ module.exports = {
 
         let isAdmin = require(`../../modules/isAdmin.js`);
         
-        if(isAdmin(message, false)) {
+        if(isAdmin(client, message, false)) {
             // the ban code here
 
             const member = message.mentions.members.first();

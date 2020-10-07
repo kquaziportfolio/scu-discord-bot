@@ -10,7 +10,7 @@ module.exports = {
             let isAdmin = require(`../../modules/isAdmin.js`);
             let sendMessage = require(`../../modules/sendMessage.js`);
 
-            if(isAdmin(message, false)) {
+            if(isAdmin(client, message, false)) {
                 message.delete();
 
                 function checkBots(guild) {
@@ -33,7 +33,7 @@ module.exports = {
                 let serverembed = new MessageEmbed()
                     .setDescription(`__**${message.guild.name} - Statistics**__`)
                     .setColor(client.config.school_color)
-                    .addField('Server Owner', `<@${config.serverRoles.owner}>`, true)
+                    .addField('Server Owner', `<@${client.config.serverRoles.owner}>`, true)
                     .addField('Server Region', message.guild.region, true)
                     .setThumbnail(sicon, true)
                     .addField("Server Name", message.guild.name, true)

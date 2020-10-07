@@ -9,7 +9,7 @@ module.exports  = {
 
         let isAdmin = require(`../../modules/isAdmin.js`);
         
-        if(isAdmin(message, false)) {
+        if(isAdmin(client, message, false)) {
             if (args[0] == null) {
                 return message.channel.send({ embed: { title: `Here's an example:`, description: `${client.config.prefix}dm [@user] [message]`, color: client.config.school_color}});
               } else {
