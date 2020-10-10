@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Admin',  
 	async execute(client, message, args) {
 
-		if(isAdmin(message, false)) {
+		if(isAdmin(client, message, false)) {
 			let auditLogs = message.guild.channels.cache.find(channel => channel.id === client.config.channels.auditlogs);
 
 			if (!args.length) return auditLogs.send({ embed: { description: `❌ You didn't pass any command to reload, <@${message.author.id}>!`}});

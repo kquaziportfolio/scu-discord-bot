@@ -11,7 +11,7 @@ module.exports = {
             let sendMessage = require(`../../modules/sendMessage.js`);
             let isAdmin = require(`../../modules/isAdmin.js`);
 
-            if(isAdmin(message, false)) {
+            if(isAdmin(client, message, false)) {
                 let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
                 let Reason = args.slice(1).join(" ")

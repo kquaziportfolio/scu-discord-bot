@@ -8,7 +8,7 @@ module.exports = {
 
         let isAdmin = require(`../../modules/isAdmin.js`);
 
-        if(isAdmin(message, false)) {
+        if(isAdmin(client, message, false)) {
             try {
                 const deleteCount = parseInt(args[0], 10);
        

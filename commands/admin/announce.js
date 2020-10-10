@@ -9,7 +9,7 @@ module.exports = {
         let isAdmin = require(`../../modules/isAdmin.js`);
         let sendMessage = require(`../../modules/sendMessage.js`);
         
-        if(isAdmin(message, false)) {
+        if(isAdmin(client, message, false)) {
             const prompt = args.join(' ').split(' ~ ');
 
             let channelID = `${prompt[0]}`;
