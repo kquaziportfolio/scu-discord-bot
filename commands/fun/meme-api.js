@@ -6,7 +6,6 @@ module.exports = {
     description: 'Get memes from an API!',
     category: 'Fun',
 	async execute (client, message, args) {
-        message.delete();
         
         let {body} = await superagent .get("https://some-random-api.ml/meme")
 

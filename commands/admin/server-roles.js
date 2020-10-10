@@ -5,11 +5,10 @@ module.exports = {
     description: 'Get the server-roles embed!',
     category: 'Admin',  
 		async execute (client, message, args) {
-      message.delete();
 
       let isAdmin = require(`../../modules/isAdmin.js`);
 
-      if(isAdmin(client, message, false)) {
+      if(isAdmin(message, false)) {
         const serverRolesEmbed = new MessageEmbed()
         .setTitle("__**SERVER ROLES!**__")
         .setColor(client.config.school_color)

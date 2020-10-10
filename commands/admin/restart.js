@@ -3,7 +3,6 @@ module.exports =  {
     description: 'Restart the bot!',
     category: 'Admin',  
 	async execute(client, message, args) {
-        message.delete(); 
 
         let isAdmin = require(`../../modules/isAdmin.js`);        
 

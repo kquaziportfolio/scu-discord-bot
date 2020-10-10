@@ -9,7 +9,6 @@ module.exports = {
     usage: `[username] [pc / xb1 / psn]`,
     category: 'Fun',
     async execute(client, message, args) {
-        message.delete();
         
         args = args.join(" ").split(" ");
 

@@ -9,8 +9,6 @@ module.exports = {
     inline: true, 
     category: 'Utility',
     async execute (client, message, args) {
-        message.delete();
-
         let user = message.mentions.users.first() || message.author;
       
         if (user.presence.status === "dnd") user.presence.status = "Do Not Disturb";

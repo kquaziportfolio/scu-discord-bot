@@ -8,7 +8,6 @@ module.exports = {
     category: 'Utility',
     usage: `global / &covid19 [state abbreviation] / &covid19 county`, 
         async execute (client, message, args) {
-            message.delete();
 
             let state = message.content.toLowerCase().split(" ")[1];
             

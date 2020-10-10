@@ -5,12 +5,11 @@ module.exports = {
     usage: `[channel id] ~ [@role mention] ~ [title] ~ [description] ~ [image url]`,  
     category: 'Admin',  
     async execute(client, message, args) {
-        message.delete();
 
         let isAdmin = require(`../../modules/isAdmin.js`);
         let sendMessage = require(`../../modules/sendMessage.js`);
         
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(message, false)) {
             const prompt = args.join(' ').split(' ~ ');
 
             let channelID = `${prompt[0]}`;

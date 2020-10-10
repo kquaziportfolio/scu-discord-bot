@@ -6,7 +6,6 @@ module.exports = {
     description: 'Get dank memes from subreddits!',
     category: 'Fun',
 	async execute(client, message, args) {
-        message.delete();
         
         let reddit = ["meme", "memes", "dankmemes", "dankchristianmemes", "funny", "pewdiepiesubmissions"];
         let subreddit = reddit[Math.floor(Math.random() * reddit.length)];

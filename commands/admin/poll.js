@@ -8,12 +8,9 @@ module.exports = {
     usage: `[question] ~ [choice1] ~ [choice2]`, 
     category: 'Admin',  
 		async execute(client, message, args) { 
-
-            message.delete();
-
             let isAdmin = require(`../../modules/isAdmin.js`);
             
-            if(isAdmin(client, message, false)) {
+            if(isAdmin(message, false)) {
                 message.delete();
 
                 const prompt = args.join(' ').split(' ~ ');

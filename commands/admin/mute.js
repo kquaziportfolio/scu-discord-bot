@@ -9,11 +9,10 @@ module.exports = {
     args: true, 
     category: 'Admin',  
     async execute(client, message, args) {   
-        message.delete();
 
         let isAdmin = require(`../../modules/isAdmin.js`);
 
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(message, false)) {
             // the mute code here
 
             let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])

@@ -5,7 +5,6 @@ module.exports = {
     description: 'Generate a random color!', //here is a change in the file
     category: 'Utility',
     async execute (client, message, args) {
-        message.delete();
     
         const randomNumber = Math.floor(Math.random()*16777215).toString(16);
 

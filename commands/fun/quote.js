@@ -6,7 +6,6 @@ module.exports = {
 	description: 'Get random quotes!',
 	category: 'Fun',
 	async execute(client, message, args) {
-		message.delete();
         
 		const quoteEmbed = new MessageEmbed()
 		.setTitle(`Here's your quote!`)

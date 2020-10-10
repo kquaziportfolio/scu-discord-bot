@@ -8,8 +8,6 @@ module.exports = {
     usage: `[@user mention]`,
     category: 'Fun',
     async execute(client, message, args) { 
-        message.delete();
-        
         let user = message.mentions.users.first();
         if (user === message.author) return message.channel.send({ embed: { description: 'You can not compliment yourself!', color: client.config.school_color}});
         if (message.mentions.users.size < 1) return message.channel.send({ embed: { description: 'You must mention someone to compliment them.', color: client.config.school_color}});

@@ -7,12 +7,11 @@ module.exports = {
     usage: `[@user mention] [reason]`, 
     category: 'Admin',  
         async execute(client, message, args) {  
-            message.delete();
 
             let sendMessage = require(`../../modules/sendMessage.js`);
             let isAdmin = require(`../../modules/isAdmin.js`);
 
-            if(isAdmin(client, message, false)) {
+            if(isAdmin(message, false)) {
                 let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
                 let Reason = args.slice(1).join(" ")

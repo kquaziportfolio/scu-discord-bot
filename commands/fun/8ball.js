@@ -7,7 +7,6 @@ module.exports = {
     usage: `[question?]`,
     category: 'utility',
 		async execute(client, message, args) { 
-            message.delete();
         
             const prompt = args.join(' ');
             if (!prompt.endsWith("?")) return message.channel.send(`<@${message.author.id}>`, { embed: { description: "Enter a question like this: `This is a question?`", color: client.config.school_color}});

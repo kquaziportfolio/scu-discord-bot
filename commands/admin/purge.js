@@ -5,11 +5,10 @@ module.exports = {
     usage: `[# of messages]`, 
     category: 'Admin',  
     async execute(client, message, args) {   
-        message.delete();
 
         let isAdmin = require(`../../modules/isAdmin.js`);
 
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(message, false)) {
             try {
                 const deleteCount = parseInt(args[0], 10);
        

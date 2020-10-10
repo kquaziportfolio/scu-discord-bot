@@ -8,11 +8,10 @@ module.exports = {
     usage: `[@user mention] [reason]`, 
     category: 'Admin',  
 	async execute(client, message, args) {   
-        message.delete();
 
         let isAdmin = require(`../../modules/isAdmin.js`);
         
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(message, false)) {
             // the ban code here
 
             const member = message.mentions.members.first();

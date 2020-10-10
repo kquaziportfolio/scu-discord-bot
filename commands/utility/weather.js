@@ -10,7 +10,6 @@ module.exports = {
     usage: `[zip code, country abbreviation]`,
     category: 'utility',
 	async execute(client, message, args) {
-        message.delete(); 
       
         let zipCode = args[0];
         request(`http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${client.config.api.weather}`, (error, response, body) => {

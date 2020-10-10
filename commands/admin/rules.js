@@ -6,11 +6,10 @@ module.exports = {
     description: 'Here are the server rules!', 
     category: 'Admin',  
 		async execute(client, message, args) { 
-            message.delete();
 
             let isAdmin = require(`../../modules/isAdmin.js`);
 
-            if(isAdmin(client, message, false)) {
+            if(isAdmin(message, false)) {
                 const rules_embed = new MessageEmbed() 
                 .setColor(client.config.school_color)
                 .setTitle("Server Rules:")

@@ -7,7 +7,6 @@ module.exports = {
 	usage: `[command name] **OR** &help`,
 	category: 'Utility',
 	async execute(client, message, args) {
-		message.delete();
 		
 		const { commands } = message.client;
 

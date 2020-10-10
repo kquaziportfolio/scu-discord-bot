@@ -3,11 +3,10 @@ module.exports =  {
     description: 'Shut down the bot!',
     category: 'Admin',  
         async execute(client, message, args) {
-            message.delete();
 
             let isAdmin = require(`../../modules/isAdmin.js`);
             
-            if (isAdmin(client, message, false)) {
+            if (isAdmin(message, false)) {
                 try {
                     const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
 

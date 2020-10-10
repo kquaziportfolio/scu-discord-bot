@@ -7,7 +7,6 @@ module.exports = {
     description: 'Get a random joke here!',
     category: 'Fun',
     async execute(client, message, args) { 
-        message.delete();
 
         function randomJoke() {
             return jokes_list[Math.floor(Math.random() * jokes_list.length)];
