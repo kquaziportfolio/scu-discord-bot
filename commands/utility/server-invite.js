@@ -5,7 +5,6 @@ module.exports = {
     description: `Generate temporary server invite for the channel you're in!`,
     category: 'Utility',
 		async execute (client, message, args) {
-            message.delete();
 
             const ChannelID = message.content.split(' ');
 

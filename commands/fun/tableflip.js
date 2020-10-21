@@ -11,7 +11,6 @@ module.exports = {
     description: 'For flipping tables!',
     category: 'Fun',
     async execute(client, message, args) { 
-        message.delete();
         
         const msg = await message.channel.send('(\\\\°□°)\\\\  ┬─┬');
         for (const frame of frames) {

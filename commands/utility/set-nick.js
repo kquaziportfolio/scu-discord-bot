@@ -5,8 +5,6 @@ module.exports = {
     usage: `[@user mention] ~ [new nickname]`, 
     category: 'Utility',
 	async execute(client, message, args) {
-        message.delete();
-
         try {
 
             const prompt = args.join(" ").trim().split(" ~ ");

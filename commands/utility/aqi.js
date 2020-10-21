@@ -8,7 +8,6 @@ module.exports = {
     usage: `[city name, state abbreviation]`,
     category: 'Utility',
 	async execute(client, message, args) {
-        message.delete(); 
         
         let cityName = args.join("%20");
         let country = "US";

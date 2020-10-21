@@ -8,11 +8,9 @@ module.exports = {
     usage: `[Pokemon name]`,
     category: 'Fun',
 	async execute(client, message, args) {
-        message.delete();
 
         const BASE_URL = client.config.api.pokemon;
 
-        
 		async function getPokemon(pokemon) {
 			let response = await fetch(`${BASE_URL}/${pokemon}`);
 			return await response.json();

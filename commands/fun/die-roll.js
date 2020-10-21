@@ -5,7 +5,6 @@ module.exports = {
     description: 'Roll two dice to attempt to get snake eyes!',
     category: 'Fun',
     async execute(client, message, args) {  
-        message.delete();
 
         const dice = [1, 2, 3, 4, 5, 6];
         const first_die = dice[Math.floor(Math.random()*dice.length)];

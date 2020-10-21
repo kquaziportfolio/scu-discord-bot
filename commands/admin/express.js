@@ -7,7 +7,6 @@ module.exports = {
     description: 'Check status of a server via an endpoint!',
     category: 'Admin',
     async execute(client, message, args) {
-        message.delete();
 
         if(isAdmin(client, message, false)) {
             const url = client.config.verification.verifyURL;

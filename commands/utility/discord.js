@@ -5,7 +5,6 @@ module.exports  = {
     description: 'Checks Discord\'s status!',
     category: 'Utility',
     async execute(client, message, args) {
-        message.delete();
 
         /* DISCORD STATUS CHECKER */
         const url = client.config.verification.status;

@@ -8,7 +8,6 @@ module.exports = {
     usage: `[interval in ms]`, 
     category: 'Utility',
     async execute (client, message, args) {
-        message.delete()
         
         let messagez = args.join(' ');
         if (messagez.length < 1) return message.channel.send({ embed: { description: 'Incorrect format. !reminder <minutes> <message>', color: client.config.school_color}});

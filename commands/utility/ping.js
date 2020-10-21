@@ -4,7 +4,6 @@ module.exports =  {
 	cooldown: 5,
 	category: 'Utility',
 	async execute(client, message, args) {
-		message.delete();
 		
 		const msg = await message.channel.send(`Pinging...`)
 		const latency = msg.createdTimestamp - message.createdTimestamp;

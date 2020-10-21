@@ -8,7 +8,6 @@ module.exports = {
     usage: `[@user mention] [reason]`, 
     category: 'Admin',  
 	async execute(client, message, args) {   
-        message.delete();
 
         let isAdmin = require(`../../modules/isAdmin.js`);
         

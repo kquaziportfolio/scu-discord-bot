@@ -7,7 +7,6 @@ module.exports = {
     usage: `[@user mention] [reason]`, 
     category: 'Admin',  
         async execute(client, message, args) {  
-            message.delete();
 
             let sendMessage = require(`../../modules/sendMessage.js`);
             let isAdmin = require(`../../modules/isAdmin.js`);

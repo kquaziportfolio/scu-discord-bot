@@ -9,7 +9,6 @@ module.exports = {
     usage: `[username]`,
     category: 'Utility',
     async execute (client, message, args) {
-        message.delete();
 
         try {
             const username = args[0].toLowerCase().split(" ");

@@ -11,7 +11,6 @@ module.exports = {
         let isAdmin = require(`../../modules/isAdmin.js`);
         
         if(isAdmin(client, message, false)) {
-            message.delete();
 
             try {
                 const input = args[0];

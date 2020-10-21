@@ -5,7 +5,6 @@ module.exports = {
     description: 'Get general server statistics!',
     category: 'Admin',  
 		async execute(client, message, args) {
-            message.delete();
 
             let isAdmin = require(`../../modules/isAdmin.js`);
             let sendMessage = require(`../../modules/sendMessage.js`);
