@@ -15,18 +15,10 @@ module.exports = async (client) => {
 		};
 		console.log(verifyMSG.description);
 		sendMessage(client, client.config.channels.auditlogs, { embed: verifyMSG});
-
-		let inviteDisplay = guild.channels.cache.find(channel => channel.id === client.config.channels.invite);
-		inviteDisplay.setName(`🔗 ${client.config.verification.inviteLink}`);	
 		
 		let memberCount = guild.members.cache.filter(member => !member.user.bot).size;	
-		let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === client.config.serverRoles.verifiedStudent)).size
-
 		let liveCount = guild.channels.cache.find(channel => channel.id === client.config.channels.memberCount);
 		liveCount.setName(`👥 ${memberCount} Members`);
-
-		let studentCount = guild.channels.cache.find(channel => channel.id === client.config.channels.verifiedCount);
-		studentCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
 
 		setInterval(function() {
 			client.user.setPresence({activity: { name: status.getStatus() }, status: 'online'})
