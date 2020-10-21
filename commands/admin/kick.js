@@ -55,7 +55,7 @@ module.exports = {
             await member.kick(reason)
             .catch(err => console.log(`Error: ${err}`))
 
-            const kick_card = MessageEmbed()
+            const kick_card = new MessageEmbed()
                 .setColor(client.config.school_color)
                 .setTitle(`Kick | ${member.user.tag}`)
                 .addField("User", member, true)
