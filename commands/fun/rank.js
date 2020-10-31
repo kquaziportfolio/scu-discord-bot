@@ -3,17 +3,16 @@ const leaderboard = require('firebase-admin');
 
 //BIG THANKS TO MARK RIZKO [https://github.com/markrizko/] for allowing me to use this!
 
-leaderboard.initializeApp({
-	credential: leaderboard.credential.cert(client.config.api.leaderboard), //for leaderboard! :)
-});
-
-const db = leaderboard.firestore();
-
 module.exports = {
     name: 'rank',
     description: 'Find your rank in the server!',
     category: 'Fun',  
     async execute (client, message, args) {
+      leaderboard.initializeApp({
+	credential: leaderboard.credential.cert(client.config.api.leaderboard), //for leaderboard! :)
+      });
+
+      const db = leaderboard.firestore();
       const usersRef = db.collection(message.guild.name);
       const users = await usersRef.orderBy('karma', 'desc').get();
 
