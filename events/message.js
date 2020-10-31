@@ -1,5 +1,6 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 let sendMessage = require(`../modules/sendMessage.js`);
+const fs = require(`fs`);
 
 module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
@@ -11,6 +12,15 @@ module.exports = async (client, message) => {
 
   // Grab the command data from the client.commands Enmap
   const command = client.commands.get(commandName);
+  
+  let prefixes = JSON.parse(fs.readFileSync("../commands/admin/prefix.json", "utf8")); //Read File
+    if(!prefixes[message.guild.id]){  //If there is no string that is startwith prefixes[msg.guild.id]
+       prefixes[message.guild.id] = { //Let prefixes[msg.guild.id] be
+          prefix: client.config.prefix
+       }
+    }
+
+  let prefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[msg.guild.id].prefix
 
   /*Some commands are meant to be used only inside servers and won't work whatsoever in DMs. 
   A prime example of this would be a kick command. You can add a property to the necessary 
