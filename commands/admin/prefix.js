@@ -1,5 +1,6 @@
 const { MessageEmbed } = require(`discord.js`);
 const isAdmin = require(`../../modules/isAdmin.js`);
+const error = require(`../../modules/error.js`);
 const fs = require(`fs`);
 const prefixConf = require('./prefix.json');
 
@@ -11,13 +12,16 @@ module.exports = {
     usage: `<new prefix>`,  
     async execute (client, message, args) {
         if(isAdmin(client, message, false)) {
-            prefixConf[message.guild.id].prefix = args[0];
-            if (!prefixConf[message.guild.id].prefix) {
-                prefixConf[message.guild.id].prefix = client.config.prefix; // If you didn't specify a Prefix, set the Prefix to the Default Prefix
+            if (client.config.prefix !== prefixConf.prefix) {
+                let finalConf = client.config;
+                finalConf.prefix = prefixConf.prefix;
+                fs.writeFile(`../../config.json`, JSON.stringify(finalConf, null, 3), (err) => {
+                    if (err) throw err;
+                    message.channel.send(`Successfully updated prefix to \`${prefixConf.prefix}\``);
+                });
+            } else {
+                error("That already is the current prefix!", message);   
             }
-             fs.writeFile('./prefix.json', JSON.stringify(prefixConf, null, 2), (err) => {
-                if (err) console.log(err)
-            })
 
             let newPrefix = new MessageEmbed() 
             .setColor(client.config.school_color)
