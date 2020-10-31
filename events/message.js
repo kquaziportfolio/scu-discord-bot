@@ -6,17 +6,6 @@ module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (message.author.bot || !message.guild) return;
 
-  // Ignore messages not starting with the prefix (in client.config.json)
-  if (message.content.indexOf(client.config.prefix)) return;
-
-  let prefixes = JSON.parse(fs.readFileSync(`../prefix.json`, `utf-8`));
-
-  if(!prefixes[message.guild.id]) {
-    prefixes[message.guild.id] = {
-      prefixes: client.config.prefix
-    };
-  }
-
   // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
