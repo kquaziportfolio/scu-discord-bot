@@ -1,4 +1,4 @@
-const { MessageEmbed } = require(`discord.js`); //for embed functionality
+/* const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const leaderboard = require('firebase-admin');
 
 //BIG THANKS TO MARK RIZKO [https://github.com/markrizko/] for allowing me to use this!
@@ -37,3 +37,4 @@ module.exports = {
       );
     }
 }
+*/
