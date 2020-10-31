@@ -20,7 +20,7 @@ module.exports = {
                     message.channel.send(`Successfully updated prefix to \`${prefixConf.prefix}\``);
                 });
             } else {
-                error("That already is the current prefix!", message);   
+                message.channel.send("That already is the current prefix!");   
             }
 
             let newPrefix = new MessageEmbed() 
