@@ -14,7 +14,7 @@ module.exports = {
             if (client.config.prefix !== prefixConf) {
                 let finalConf = client.config;
                 finalConf.prefix = prefixConf;
-                fs.writeFile(`../../config.json`, JSON.stringify(finalConf, null, 1), (err) => {
+                fs.writeFile(`../../config.json`, JSON.stringify(finalConf, null, 0), (err) => {
                     if (err) throw err;
                 });
             } else {
