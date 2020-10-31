@@ -1,5 +1,6 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 let sendMessage = require(`../modules/sendMessage.js`);
+const fs = require(`fs`);
 
 module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
@@ -7,6 +8,14 @@ module.exports = async (client, message) => {
 
   // Ignore messages not starting with the prefix (in client.config.json)
   if (message.content.indexOf(client.config.prefix)) return;
+
+  let prefixes = JSON.parse(fs.readFileSync(`prefix.json`, `utf-8`));
+
+  if(!prefixes[message.guild.id]) {
+    prefixes[message.guild.id] = {
+      prefixes: client.config.prefix
+    };
+  }
 
   // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
