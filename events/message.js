@@ -9,7 +9,7 @@ module.exports = async (client, message) => {
   // Ignore messages not starting with the prefix (in client.config.json)
   if (message.content.indexOf(client.config.prefix)) return;
 
-  let prefixes = JSON.parse(fs.readFileSync(`prefix.json`, `utf-8`));
+  let prefixes = JSON.parse(fs.readFileSync(`../commands/admin/prefix.json`, `utf-8`));
 
   if(!prefixes[message.guild.id]) {
     prefixes[message.guild.id] = {
