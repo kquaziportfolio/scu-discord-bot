@@ -7,7 +7,7 @@ leaderboard.initializeApp({
 	credential: admin.credential.cert(serviceAccount),
 });
 
-const db = admin.firestore();
+const db = leaderboard.firestore();
 
 module.exports = {
     name: 'rank',
