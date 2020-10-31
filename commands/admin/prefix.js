@@ -11,12 +11,12 @@ module.exports = {
     usage: `<new prefix>`,  
     async execute (client, message, args) {
         if(isAdmin(client, message, false)) {
-            if (client.config.prefix !== prefixConf.prefix) {
+            if (client.config.prefix !== prefixConf) {
                 let finalConf = client.config;
-                finalConf.prefix = prefixConf.prefix;
+                finalConf.prefix = prefixConf;
                 fs.writeFile(`../../config.json`, JSON.stringify(finalConf, null, 3), (err) => {
                     if (err) throw err;
-                    message.channel.send(`Successfully updated prefix to \`${prefixConf.prefix}\``);
+                    message.channel.send(`Successfully updated prefix to \`${prefixConf}\``);
                 });
             } else {
                 message.channel.send("That already is the current prefix!");   
