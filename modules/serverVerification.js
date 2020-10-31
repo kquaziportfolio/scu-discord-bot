@@ -25,7 +25,7 @@ module.exports.run = async (client) => {
     }
     INCOMING OBJECT FROM GOOGLE FORMS
     {
-        "name": "First/Last name",
+        "name": "First Name",
         "major": "Current Major", //defaults to 'none' for SCU Faculty
         "status": "Member Status",
         "discord": "Discord Username with Tag"
@@ -79,7 +79,7 @@ module.exports.run = async (client) => {
       } else {
           sendMessage(client, client.config.channels.auditlogs, { embed: { title: `__**✅ Verification Alert!**__`, description: `New data from **${req.body.discord}** (**${req.body.name}**)`, color: client.config.school_color, timestamp: new Date()}}); //will display new verification message if member tag matches input in Google form
           if (req.body.status == "SCU Faculty/Staff") {
-            //changes nickname and grants verified personnel role but skips onwards to remove Unverified role, but won't receive RLC, major, and verified Student roles
+            //changes nickname and grants verified personnel role but skips onwards to remove Unverified role, but won't receive major and verified Student roles
             member.setNickname(req.body.name);
             member.roles.add(guild.roles.cache.find((role) => role.id == client.config.serverRoles.verifiedPersonnel)); //the SCU Faculty/Staff role
           } else {
