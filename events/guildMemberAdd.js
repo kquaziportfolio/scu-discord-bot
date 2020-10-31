@@ -7,7 +7,7 @@ module.exports = async (client, member) => {
 
   const guild = client.guilds.cache.get(`${client.config.verification.guildID}`);
 
-  const sicon = guild.iconURL();
+  const sicon = guild.iconURL({format: "png", dynamic: true});
 
   let memberCount = guild.members.cache.filter(member => !member.user.bot).size;
 	
@@ -34,8 +34,8 @@ module.exports = async (client, member) => {
       `${emojiCharacters.one} If you are new to Discord, this short [tutorial](https://youtu.be/rnYGrq95ezA) can help you get started! \n\n` +
       `${emojiCharacters.two} __**Please**__ fill out the Google Form :clipboard: in the <#${client.config.channels.roles}> to __**immediately**__ verify yourself and get roles in the SCU server! It'll only take a couple seconds! Note: If you're a **Guest** or **Prospective Student**, you are exempted from this requirement. \n\n` +
       `${emojiCharacters.three} Read the <#${client.config.channels.info}> channel and introduce yourself :wave: in the <#${client.config.channels.intros}> channel! \n\n` +
-      `${emojiCharacters.four} Check out SCU updates :mega: in <#${client.config.channels.updates}> and keep your eyes peeled for cool servers :cool: in <#${client.config.channels.discordPromos}>! \n\n` +
-      `${emojiCharacters.five} If you have any technical issues :computer:, feel free to contact <@&${client.config.serverRoles.admin}> or <@&${client.config.serverRoles.mod}> for help!\n\n` +
+      `${emojiCharacters.four} Check out SCU updates :mega: in <#${client.config.channels.updates}> and keep your eyes peeled for cool servers :cool: in <#${client.config.channels.promos}>! \n\n` +
+      `${emojiCharacters.five} If you have any technical issues :computer:, feel free to contact **ADMIN** or **MOD** for help!\n\n` +
       `Thank you for your cooperation and Go Broncos! :racehorse:`
     )
     .setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!
