@@ -9,7 +9,7 @@ module.exports = {
     args: true,
     usage: `<new prefix>`,  
     async execute (client, message, args) {
-        if(isAdmin(client, message,true)) {
+        if(isAdmin(client, message, false)) {
             let prefixes = JSON.parse(fs.readFileSync(`../../../prefix.json`, `utf-8`));
 
             prefixes[message.guild.id] = {
