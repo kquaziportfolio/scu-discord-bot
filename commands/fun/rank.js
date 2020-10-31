@@ -1,10 +1,10 @@
-/* const { MessageEmbed } = require(`discord.js`); //for embed functionality
+const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const leaderboard = require('firebase-admin');
 
 //BIG THANKS TO MARK RIZKO [https://github.com/markrizko/] for allowing me to use this!
 
 leaderboard.initializeApp({
-	credential: leaderboard.credential.cert(serviceAccount),
+	credential: leaderboard.credential.cert(client.config.api.leaderboard), //for leaderboard! :)
 });
 
 const db = leaderboard.firestore();
@@ -37,4 +37,3 @@ module.exports = {
       );
     }
 }
-*/
