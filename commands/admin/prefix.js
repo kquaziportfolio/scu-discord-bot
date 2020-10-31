@@ -1,6 +1,5 @@
 const { MessageEmbed } = require(`discord.js`);
 const isAdmin = require(`../../modules/isAdmin.js`);
-const error = require(`../../modules/error.js`);
 const fs = require(`fs`);
 const prefixConf = require('./prefix.json');
 
