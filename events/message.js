@@ -13,7 +13,7 @@ module.exports = async (client, message) => {
   // Grab the command data from the client.commands Enmap
   const command = client.commands.get(commandName);
   
-  let prefixes = JSON.parse(fs.readFileSync("../commands/admin/prefix.json", "utf8")); //Read File
+  let prefixes = JSON.parse(fs.readFileSync("./../commands/admin/prefix.json", "utf8")); //Read File
     if(!prefixes[message.guild.id]){  //If there is no string that is startwith prefixes[msg.guild.id]
        prefixes[message.guild.id] = { //Let prefixes[msg.guild.id] be
           prefix: client.config.prefix
