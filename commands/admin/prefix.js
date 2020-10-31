@@ -14,9 +14,8 @@ module.exports = {
             if (client.config.prefix !== prefixConf) {
                 let finalConf = client.config;
                 finalConf.prefix = prefixConf;
-                fs.writeFile(`../../config.json`, JSON.stringify(finalConf, null, 3), (err) => {
+                fs.writeFile(`../../config.json`, JSON.stringify(finalConf, null, 1), (err) => {
                     if (err) throw err;
-                    message.channel.send(`Successfully updated prefix to \`${prefixConf}\``);
                 });
             } else {
                 message.channel.send("That already is the current prefix!");   
@@ -25,7 +24,7 @@ module.exports = {
             let newPrefix = new MessageEmbed() 
             .setColor(client.config.school_color)
             .setTitle(`**NEW PREFIX SET**`)
-            .setDescription(`Set to \`${args[0]}\``)
+            .setDescription(`Set to \`${prefixConf}\``)
 
             message.channel.send(newPrefix);
         }
