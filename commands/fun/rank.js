@@ -4,7 +4,7 @@ const leaderboard = require('firebase-admin');
 //BIG THANKS TO MARK RIZKO [https://github.com/markrizko/] for allowing me to use this!
 
 leaderboard.initializeApp({
-	credential: admin.credential.cert(serviceAccount),
+	credential: leaderboard.credential.cert(serviceAccount),
 });
 
 const db = leaderboard.firestore();
