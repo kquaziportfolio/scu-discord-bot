@@ -7,8 +7,6 @@ module.exports = async (client, member) => {
 
   const guild = client.guilds.cache.get(`${client.config.verification.guildID}`);
 
-  const sicon = guild.iconURL({format: "png", dynamic: true});
-
   let memberCount = guild.members.cache.filter(member => !member.user.bot).size;
 	
   let role = member.guild.roles.cache.find((role) => role.id == client.config.serverRoles.unverifiedStudent);
@@ -38,7 +36,8 @@ module.exports = async (client, member) => {
       `${emojiCharacters.five} If you have any technical issues :computer:, feel free to contact **ADMIN** or **MOD** for help!\n\n` +
       `Thank you for your cooperation and Go Broncos! :racehorse:`
     )
-    .setThumbnail(`${sicon}`) // The image on the top right; method requires an url, not a path to file!
+    .attachFiles([`./assets/logo-pic.png`])
+    .setThumbnail(`attachment://logo-pic.png`)
     .setTimestamp() // Sets a timestamp at the end of the embed
     .setColor(client.config.school_color)
     .setFooter(`Brought to you by the creators of this Discord server.`);
