@@ -10,13 +10,13 @@ module.exports = {
     usage: `<new prefix>`,  
     async execute (client, message, args) {
         if(isAdmin(client, message, false)) {
-            let prefixes = JSON.parse(fs.readFileSync(`./../../prefix.json`, `utf-8`));
+            let prefixes = JSON.parse(fs.readFileSync(`./prefix.json`, `utf-8`));
 
             prefixes[message.guild.id] = {
                 prefixes: args[0]
             };
 
-            fs.writeFile(`./../../prefix.json`, JSON.stringify(prefixes), (err) => {
+            fs.writeFile(`./prefix.json`, JSON.stringify(prefixes), (err) => {
                 if (err) {
                     console.log(err)
                 }
