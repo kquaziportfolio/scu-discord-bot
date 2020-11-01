@@ -25,17 +25,35 @@ fs.readdir("./events/", (err, files) => {
 
 client.commands = new Enmap();
 
-try {
-  readdirSync(join(__dirname, "..")).forEach(f => {
-    const files = readdirSync(join(__dirname, "..", f));
-    if (files.includes(`${commandName}.js`)) {
-      const file = `./commands/${f}/${commandName}.js`;
-      client.commands.set(commandName, file);
-    }
+fs.readdir("./commands/admin", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/admin/${file}`);
+    let commandName = file.split(".")[0];
+    client.commands.set(commandName, props);
   });
-} catch (err) {
-     console.log(err);
-}
+});
+
+fs.readdir("./commands/utility", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/utility/${file}`);
+    let commandName = file.split(".")[0];
+    client.commands.set(commandName, props);
+  });
+});
+
+fs.readdir("./commands/fun", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/fun/${file}`);
+    let commandName = file.split(".")[0];
+    client.commands.set(commandName, props);
+  });
+});
 
 // BOT TOKEN
 client.login(client.config.token);
