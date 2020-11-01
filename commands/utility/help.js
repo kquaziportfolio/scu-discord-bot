@@ -7,7 +7,7 @@ let error = require("../../modules/missingPerms.js");
 module.exports = {
 	name: 'help',
 	description: 'List of all of my commands or info about a specific command.',
-	usage: `[command name] **OR** ${client.config.prefix}help`,
+	usage: `[command name] **OR** &help`,
 	category: 'Utility',
 	async execute(client, message, args) {
 		
