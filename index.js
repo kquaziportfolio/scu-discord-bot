@@ -25,14 +25,17 @@ fs.readdir("./events/", (err, files) => {
 
 client.commands = new Enmap();
 
-readdirSync(join(__dirname, "..")).forEach(f => {
-  if (err) return console.error(err);
-  const files = readdirSync(join(__dirname, "..", f));
-  if (files.includes(`${commandName}.js`)) {
-    const file = `./commands/${f}/${commandName}.js`;
-    client.commands.set(commandName, file);
-  }
-});
+try {
+  readdirSync(join(__dirname, "..")).forEach(f => {
+    const files = readdirSync(join(__dirname, "..", f));
+    if (files.includes(`${commandName}.js`)) {
+      const file = `./commands/${f}/${commandName}.js`;
+      client.commands.set(commandName, file);
+    }
+  });
+} catch (err) {
+     console.log(err);
+}
 
 // BOT TOKEN
 client.login(client.config.token);
