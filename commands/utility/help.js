@@ -36,7 +36,7 @@ module.exports = {
 						{ name: `**❯ Cooldown:**`, value: `${command.cooldown || 3} seconds`}
 					],
 					color: client.config.school_color,
-					thumbnail: { url: `${client.config.verification.thumbnailLink}`},
+					thumbnail: { url: `https://jasonanhvu.github.io/scu-discord-bot/assets/logo-pic.png`},
 					footer: { text: `Use ${client.config.prefix}help [command name] to get specific commmand info!`}
 				}
 			});
