@@ -1,4 +1,5 @@
 let isAdmin = require(`../../modules/isAdmin.js`);
+let sendMessage = require(`../../modules/sendMessage.js`);
 const { readdirSync } = require("fs");
 const { join } = require("path");
 
@@ -10,13 +11,11 @@ module.exports = {
 	async execute(client, message, args) {
 
 		if(isAdmin(client, message, false)) {
-			let auditLogs = message.guild.channels.cache.find(channel => channel.id === client.config.channels.auditlogs);
-
-			if (!args.length) return auditLogs.send({ embed: { description: `❌ You didn't pass any command to reload, <@${message.author.id}>!`}});
+			if (!args.length) return message.reply({ embed: { description: `❌ You didn't pass any command to reload!`}});
 			const commandName = args[0].toLowerCase();
 			const command = message.client.commands.get(commandName);
 
-			if (!command) return auditLogs.send({ embed: { description: `❌ There is no command with name or alias \`${commandName}\`, ${message.author}!`}});
+			if (!command) return message.reply({ embed: { description: `❌ There is no command with name or alias \`${commandName}\`!`}});
 
 			readdirSync(join(__dirname, "..")).forEach(f => {
 				const files = readdirSync(join(__dirname, "..", f));
@@ -35,7 +34,7 @@ module.exports = {
 				}
 			});
 
-			auditLogs.send({ embed: { description: `Command \`${commandName}\` was reloaded! ✅`, color: client.config.school_color}});
+			sendMessage(client, client.config.channels.auditlogs, { embed: { description: `Command \`${commandName}\` was reloaded! ✅`, color: client.config.school_color}});
 		} 
 	}
 }
