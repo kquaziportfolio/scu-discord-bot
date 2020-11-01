@@ -20,11 +20,6 @@ module.exports = {
 			if (!command) {
 				return message.channel.send({ embed: { description: `<@${message.author.id}>, that\'s not a valid command!`, color: client.config.school_color}});
 			}
-		
-			const modRole = client.config.serverRoles;
-			if (command.category === "admin" && message.author.id != [modRole.owner, modRole.admin, modRole.mod]) {
-				error(`You are missing the **OWNER**, **ADMIN**, or **MOD** permission roles.`, message);	
-			}
 			
 			return message.channel.send(
 				{ embed: { 
