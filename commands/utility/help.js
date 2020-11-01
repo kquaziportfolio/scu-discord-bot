@@ -1,21 +1,29 @@
+const Discord = require(`discord.js`);
+const client = new Discord.Client();
 const { MessageEmbed } = require('discord.js');
 let sendMessage = require(`../../modules/sendMessage.js`);
+let error = require("../../modules/missingPerms.js");
 
 module.exports = {
 	name: 'help',
 	description: 'List of all of my commands or info about a specific command.',
-	usage: `[command name] **OR** &help`,
+	usage: `[command name] **OR** ${client.config.prefix}help`,
 	category: 'Utility',
 	async execute(client, message, args) {
 		
 		const { commands } = message.client;
 
-		if (args[0]) {
+		if (args[0) {
 			const name = args[0];
 			const command = commands.get(name);
 
 			if (!command) {
 				return message.channel.send({ embed: { description: `<@${message.author.id}>, that\'s not a valid command!`, color: client.config.school_color}});
+			}
+		
+			const modRole = client.config.serverRoles;
+			if (command.category === "admin" && message.author.id != [modRole.owner, modRole.admin, modRole.mod]) {
+				error(`You are missing the **OWNER**, **ADMIN**, or **MOD** permission roles.`, message);	
 			}
 			
 			return message.channel.send(
