@@ -13,7 +13,7 @@ module.exports = {
 		
 		const { commands } = message.client;
 
-		if (args[0) {
+		if (args[0]) {
 			const name = args[0];
 			const command = commands.get(name);
 
