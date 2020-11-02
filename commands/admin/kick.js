@@ -27,7 +27,7 @@ module.exports = {
                     description: "I can't kick my owner!",
                     color: client.config.school_color
                 }
-            }
+            })
 
             if(member.user.id === message.author.id) return message.channel.send({embed: {
                 description: `You can't kick yourself!`,
