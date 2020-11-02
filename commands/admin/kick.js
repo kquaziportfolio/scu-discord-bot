@@ -33,7 +33,7 @@ module.exports = {
                 description: `You can't kick yourself!`,
                 color: client.config.school_color
                 }
-            }).then(msg => msg.delete({timeout: 2000})) 
+            })
 
             const reason = args.slice(1).join(" ");
 
