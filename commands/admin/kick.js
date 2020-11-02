@@ -47,8 +47,8 @@ module.exports = {
                 .setColor(client.config.school_color)
                 .setTitle(`Kick | ${member.user.tag}`)
                 .addField("User", member, true)
-                .addField("Moderator", <@${message.author.id}>, true)
-                .addField("Reason", reason_card)
+                .addField("Moderator", `<@${message.author.id}>`, true)
+                .addField("Reason", reason, true)
                 .setTimestamp()
 
             sendMessage(client, client.config.channels.auditlogs, kick_card);
