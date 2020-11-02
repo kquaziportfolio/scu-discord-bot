@@ -1,12 +1,12 @@
+let isAdmin = require(`../../modules/isAdmin.js`);     
+
 module.exports =  {  
 	name: 'restart',
-    description: 'Restart the bot!',
-    category: 'Admin',  
-	async execute(client, message, args) {
+	description: 'Restart the bot!',
+	category: 'Admin',  
+	async execute(client, message, args) {   
 
-        let isAdmin = require(`../../modules/isAdmin.js`);        
-
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(client, message, true)) {
 
             try {
                 const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
