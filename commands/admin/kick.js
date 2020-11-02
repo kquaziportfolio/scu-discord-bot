@@ -38,12 +38,11 @@ module.exports = {
             const reason = args.slice(1).join(" ");
 
             if(!reason) {
-                message.channel.send(`You must provide a reason to kick the user!`)
+                message.channel.send({ embed: { description: `You must provide a reason to kick the user!`, color: client.config.school_color);
             } else {
-		await member.kick(reason)
-            }
-
-            const kick_card = new MessageEmbed()
+		await member.kick(reason);
+		
+		const kick_card = new MessageEmbed()
                 .setColor(client.config.school_color)
                 .setTitle(`Kick | ${member.user.tag}`)
                 .addField("User", member, true)
@@ -51,7 +50,8 @@ module.exports = {
                 .addField("Reason", reason, true)
                 .setTimestamp()
 
-            sendMessage(client, client.config.channels.auditlogs, kick_card);
+                sendMessage(client, client.config.channels.auditlogs, kick_card);
+	    }
         } 
     }
 }
