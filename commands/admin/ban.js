@@ -22,14 +22,14 @@ module.exports = {
                 }
             })
 
-            if(member.user.id === client..config.serverRoles.owner) 
+            if(member.user.id === client.config.serverRoles.owner) 
                 return message.channel.send({embed: {
                     description: "I can't ban my owner!",
                     color: client.config.school_color
                 }
             }) 
 
-            if(member.userid === message.author.id) 
+            if(member.user.id === message.author.id) 
 		return message.channel.send({embed: {
 		    description: `You can't ban yourself!`,
 		    color: client.config.school_color
