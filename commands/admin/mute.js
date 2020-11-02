@@ -1,6 +1,7 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const ms = require('ms');
 let sendMessage = require(`../../modules/sendMessage.js`);
+let isAdmin = require(`../../modules/isAdmin.js`);
 
 module.exports = {
 	name: 'mute',
@@ -9,8 +10,6 @@ module.exports = {
     args: true, 
     category: 'Admin',  
     async execute(client, message, args) {   
-
-        let isAdmin = require(`../../modules/isAdmin.js`);
 
         if(isAdmin(client, message, false)) {
             // the mute code here
@@ -43,22 +42,22 @@ module.exports = {
             
             let time = args[1];
             if(!time) {
-                if (user.roles.cache.has(muterole.id)) return message.channel.send({embed: { description: "The user id still muted.", color: 10231598}})
+                if (user.roles.cache.has(muterole.id)) return message.channel.send({embed: { description: "The user id still muted.", color: client.config.school_color}})
                 await (user.roles.add(muterole.id).catch(err => console.log(`Error: ${err}`)))
                 //return message.channel.send(`${user.user.tag} is now muted.`);
                 const muteEmbed = new MessageEmbed()
                 .setTitle(`You have muted the user ${user.user.username}!`)
-                endMessage(client, client.config.channels.auditlogs, muteEmbed);
+                sendMessage(client, client.config.channels.auditlogs, muteEmbed);
     
             } else {
-                if (user.roles.cache.has(muterole.id)) return message.channel.send({embed: {description: `${user.user.username} still muted.`, color: 10231598}})
-                await (user.roles.add(muterole.id).catch(err => console.log(`Error: ${err}`)))
+                if (user.roles.cache.has(muterole.id)) return message.channel.send({embed: {description: `${user.user.username} still muted.`, color: client.config.school_color}})
+                await (user.roles.add(muterole.id);
     
                 let timer = setTimeout(function() {
-                    user.roles.remove(muterole.id).catch(err => console.log(`Error: ${err}`));
+                    user.roles.remove(muterole.id);
                     const unmuteEmbed = new MessageEmbed()
                     .setTitle(`${user.user.username} is now unmuted!`)
-                    endMessage(client, client.config.channels.auditlogs, unmuteEmbed);
+                    sendMessage(client, client.config.channels.auditlogs, unmuteEmbed);
                 }, ms(time))
     
                 client.mute.set(message.author.id, timer);
