@@ -39,7 +39,7 @@ module.exports = {
             const reason = args.slice(1).join(" ");
 
             if(!reason) {
-                message.channel.send({ embed: { description: `You must provide a reason to ban the user!, color: client.config.school_color`);
+                message.channel.send({ embed: { description: `You must provide a reason to ban the user!, color: client.config.school_color`}});
             } else {
                await member.ban(reason);
    
