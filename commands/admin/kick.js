@@ -20,7 +20,7 @@ module.exports = {
                 description: "I can't kick this user!",
                 color: client.config.school_color
                 }
-            }
+            })
             
             if(member.user.id === client.config.serverRoles.owner) 
                 return message.channel.send({embed: {
