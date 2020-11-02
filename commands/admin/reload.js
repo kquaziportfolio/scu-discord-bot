@@ -26,15 +26,17 @@ module.exports = {
 						message.client.commands.delete(commandName);
 						const pull = require(file);
 						message.client.commands.set(commandName, pull);
+						
+						sendMessage(client, client.config.channels.auditlogs, { embed: { description: `Command \`${commandName}\` was reloaded! ✅`, color: client.config.school_color}});
 					}
 					catch (err) {
-						message.channel.send(`Could not reload: \`${args[0].toUpperCase()}\``);
+						sendMessage(client, client.config.channels.auditlogs, { embed: { description: `Could not reload: \`${args[0].toUpperCase()}\`, color: client.config.school_color`}});
 						return console.log(err.stack || err);
 					}
 				}
 			});
 
-			sendMessage(client, client.config.channels.auditlogs, { embed: { description: `Command \`${commandName}\` was reloaded! ✅`, color: client.config.school_color}});
+			
 		} 
 	}
 }
