@@ -1,5 +1,4 @@
 let isAdmin = require(`../../modules/isAdmin.js`);  
-let sendMessage = require(`../../modules/sendMessage.js`);
 
 module.exports =  {  
 	name: 'restart',
@@ -17,10 +16,7 @@ module.exports =  {
                 for (const frame of frames) {
                     setTimeout(() => {}, 4000);
                     await msg.edit({ embed: { description: frame, color: client.config.school_color}});
-                }
-
-                sendMessage(client, client.config.channels.auditlogs);
-
+		}
             } catch (err) {
                 console.log(err.message);
             } finally {
