@@ -51,7 +51,7 @@ module.exports = {
     
             } else {
                 if (user.roles.cache.has(muterole.id)) return message.channel.send({embed: {description: `${user.user.username} still muted.`, color: client.config.school_color}})
-                await (user.roles.add(muterole.id);
+                await (user.roles.add(muterole.id));
     
                 let timer = setTimeout(function() {
                     user.roles.remove(muterole.id);
