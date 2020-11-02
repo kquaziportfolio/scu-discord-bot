@@ -19,6 +19,6 @@ module.exports = async function isAdmin(client, message, statement) {
       return true; 
     } else {
         error(`You are missing the **OWNER**, **ADMIN**, or **MOD** permission roles.`, message);
-        return false;
+        return;
     }
 };
