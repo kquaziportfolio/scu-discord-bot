@@ -1,4 +1,5 @@
-let isAdmin = require(`../../modules/isAdmin.js`);     
+let isAdmin = require(`../../modules/isAdmin.js`);  
+let sendMessage = require(`../../modules/sendMessage.js`);
 
 module.exports =  {  
 	name: 'restart',
@@ -6,7 +7,7 @@ module.exports =  {
 	category: 'Admin',  
 	async execute(client, message, args) {   
 
-        if(isAdmin(client, message, true)) {
+        if(isAdmin(client, message, false)) {
 
             try {
                 const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
@@ -18,7 +19,7 @@ module.exports =  {
                     await msg.edit({ embed: { description: frame, color: client.config.school_color}});
                 }
 
-                return message;
+                sendMessage(client, client.config.channels.auditlogs);
 
             } catch (err) {
                 console.log(err.message);
