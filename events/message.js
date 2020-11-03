@@ -4,7 +4,7 @@ const fs = require(`fs`);
 
 module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
-  if (message.author.bot || !message.guild) return;
+  if (!message.content.startsWith(client.config.prefix.length) || message.author.bot || !message.guild) return;
 
   // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
