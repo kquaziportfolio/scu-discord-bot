@@ -1,5 +1,6 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
-const leaderboard = require('firebase-admin');
+const admin = require('firebase-admin');
+const key = require(`./scu-discord-bot-firebase-admin.json`);
 
 //BIG THANKS TO MARK RIZKO [https://github.com/markrizko/] for allowing me to use this!
 
@@ -8,11 +9,11 @@ module.exports = {
     description: 'Find your rank in the server!',
     category: 'Fun',  
     async execute (client, message, args) {
-      leaderboard.initializeApp({
-	      credential: leaderboard.credential.cert(client.config.api.leaderboard),
+      admin.initializeApp({
+	      credential: admin.credential.cert(key),
       });
 
-      const db = leaderboard.firestore();
+      const db = admin.firestore();
       
       const usersRef = db.collection(message.guild.name);
       const users = await usersRef.orderBy('karma', 'desc').get();
@@ -37,28 +38,29 @@ module.exports = {
       );
 	    
       if (args[1] == '++' || args[1] == '--') {
-	const mention = message.mentions.users.first();
-	if (message.author.id == mention.id) {
-		message.channel.send({ embed: { descriptioon: 'Can\'t give karma to yourself!', color: client.config.school_color}});
-		return;
-	}
-	const userRef = db.collection(message.guild.name).doc(mention.id);
-	const snapshot = await userRef.get();
-	const data = snapshot.data();
-	let karma = data && data.karma || 0;
+        const mention = message.mentions.users.first();
+        if (message.author.id == mention.id) {
+          message.channel.send({ embed: { description: 'Can\'t give karma to yourself!', color: client.config.school_color}});
+          return;
+        }
+        const userRef = db.collection(message.guild.name).doc(mention.id);
+        const snapshot = await userRef.get();
+        const data = snapshot.data();
+        let karma = data && data.karma || 0;
 
-	if (args[1] === '++') {
-		karma++;
-	}
-	else if (args[1] === '--') {
-		karma--;
-	}
-	await userRef.set({
-		karma,
-		id: mention.id.toString(),
-	});
+        if (args[1] === '++') {
+          karma++;
+        } else if (args[1] === '--') {
+          karma--;
+        }
+        
+        await userRef.set({
+          karma,
+          id: mention.id.toString(),
+        });
 
-	const pointStr = karma === 1 ? 'point' : 'points';
-	await message.channel.send({ embed: { description: `${mention.username} you now have ${karma} ${pointStr}`, color: client.config.school_color}});
+        const pointStr = karma === 1 ? 'point' : 'points';
+        await message.channel.send({ embed: { description: `${mention.username} you now have ${karma} ${pointStr}`, color: client.config.school_color}});
+      }
     }
 }
