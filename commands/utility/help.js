@@ -14,10 +14,10 @@ module.exports = {
 			const command = commands.get(name);
 
 			if (!command) {
-				return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
+				message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
 			}
 			
-			return message.channel.send(
+			message.channel.send(
 				{ embed: { 
 					title: `${command.name.toUpperCase()} Command`, 
 					fields: [
@@ -30,7 +30,7 @@ module.exports = {
 					thumbnail: { url: client.config.verification.thumbnailLink},
 					footer: { text: `Use ${client.config.prefix}help [command name] to get specific commmand info!`}
 				}
-			});
+			})
 		}
 
 		const helpEmbed = new MessageEmbed()
@@ -45,6 +45,6 @@ module.exports = {
 		        .setURL(`${client.config.verification.githubLink}tree/master/commands)
 			.setTimestamp()
 
-		message.author.send(helpEmbed);
-	},
-};
+		message.channel.send(helpEmbed);
+	}
+}
