@@ -1,6 +1,6 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const admin = require('firebase-admin');
-const key = require(`./scu-discord-bot-firebase-admin.json`);
+const key = require(`../../scu-discord-bot-firebase-admin.json`);
 
 //BIG THANKS TO MARK RIZKO [https://github.com/markrizko/] for allowing me to use this!
 
