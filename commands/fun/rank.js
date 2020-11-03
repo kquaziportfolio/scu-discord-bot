@@ -35,5 +35,30 @@ module.exports = {
       await message.channel.send(
         embed,
       );
+	    
+      if (args[1] == '++' || args[1] == '--') {
+	const mention = message.mentions.users.first();
+	if (message.author.id == mention.id) {
+		message.channel.send({ embed: { descriptioon: 'Can\'t give karma to yourself!', color: client.config.school_color}});
+		return;
+	}
+	const userRef = db.collection(message.guild.name).doc(mention.id);
+	const snapshot = await userRef.get();
+	const data = snapshot.data();
+	let karma = data && data.karma || 0;
+
+	if (args[1] === '++') {
+		karma++;
+	}
+	else if (args[1] === '--') {
+		karma--;
+	}
+	await userRef.set({
+		karma,
+		id: mention.id.toString(),
+	});
+
+	const pointStr = karma === 1 ? 'point' : 'points';
+	await message.channel.send({ embed: { description: `${mention.username} you now have ${karma} ${pointStr}, color: client.config.school_color}});
     }
 }
