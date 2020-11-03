@@ -1,6 +1,5 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 let sendMessage = require(`../modules/sendMessage.js`);
-const fs = require(`fs`);
 
 module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
