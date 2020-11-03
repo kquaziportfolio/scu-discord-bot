@@ -59,6 +59,6 @@ module.exports = {
 	});
 
 	const pointStr = karma === 1 ? 'point' : 'points';
-	await message.channel.send({ embed: { description: `${mention.username} you now have ${karma} ${pointStr}, color: client.config.school_color}});
+	await message.channel.send({ embed: { description: `${mention.username} you now have ${karma} ${pointStr}`, color: client.config.school_color}});
     }
 }
