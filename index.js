@@ -11,6 +11,7 @@ client.config = require(`./config.json`);
 
 client.on("warn", (e) => console.warn(e));
 client.on("debug", (e) => console.info(e));
+client.on("error", console.error);
 
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
