@@ -1,8 +1,4 @@
-const Discord = require(`discord.js`);
-const client = new Discord.Client();
 const { MessageEmbed } = require('discord.js');
-let sendMessage = require(`../../modules/sendMessage.js`);
-let error = require("../../modules/missingPerms.js");
 
 module.exports = {
 	name: 'help',
@@ -18,7 +14,7 @@ module.exports = {
 			const command = commands.get(name);
 
 			if (!command) {
-				return message.channel.send({ embed: { description: `<@${message.author.id}>, that\'s not a valid command!`, color: client.config.school_color}});
+				return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
 			}
 			
 			return message.channel.send(
@@ -31,7 +27,7 @@ module.exports = {
 						{ name: `**❯ Cooldown:**`, value: `${command.cooldown || 3} seconds`}
 					],
 					color: client.config.school_color,
-					thumbnail: { url: `https://jasonanhvu.github.io/scu-discord-bot/assets/logo-pic.png`},
+					thumbnail: { url: client.config.verification.thumbnailLink},
 					footer: { text: `Use ${client.config.prefix}help [command name] to get specific commmand info!`}
 				}
 			});
@@ -46,15 +42,9 @@ module.exports = {
 			.setColor(client.config.school_color)
 			.attachFiles([`./assets/logo-pic.png`])
 			.setThumbnail(`attachment://logo-pic.png`)
+		        .setURL(`${client.config.verification.githubLink}tree/master/commands)
 			.setTimestamp()
 
-		message.author.send(helpEmbed)
-			.then(() => {
-				if (message.channel.type === 'dm') return;
-				message.channel.send(`<@${message.author.id}>`, { embed: { description: `I've sent you a DM with all my commands!`, color: client.config.school_color}});
-			})
-			.catch(error => {
-				sendMessage(client, client.config.channels.auditlogs, { embed: { description: `<@${message.author.id}, it seems like I can't DM you! Do you have your DMs disabled! Or it could be an error: ${error}`, color: client.config.school_color}});
-			});
+		message.author.send(helpEmbed);
 	},
 };
