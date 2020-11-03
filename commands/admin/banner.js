@@ -1,4 +1,5 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
+let isAdmin = require(`../../modules/isAdmin.js`);
 
 module.exports = {
     name: 'banner',
@@ -7,10 +8,7 @@ module.exports = {
     usage: `[file name and extension]`, 
     category: 'Admin',  
     async execute (client, message, args) {
-
-        let isAdmin = require(`../../modules/isAdmin.js`);
-        
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(client, message, true)) {
 
             try {
                 const input = args[0];
