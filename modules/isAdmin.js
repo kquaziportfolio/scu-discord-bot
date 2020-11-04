@@ -16,10 +16,11 @@ module.exports = async function isAdmin(client, message, statement) {
   
   let error = require("./missingPerms.js");
   const modRole = client.config.serverRoles;
-    if (message.member.roles.cache.has(modRole.owner) || message.member.roles.cache.has(modRole.admin) || message.member.roles.cache.has(modRole.mod)) {
+    if (message.member.roles.cache.find(r => r.id === [modRole.owner, modRole.admin, modRole.mod])) {
       return true; 
     } else if (statement != true) {
         error(`You are missing the **OWNER**, **ADMIN**, or **MOD** permission roles.`, message);
         return false;
+        return;
     }
 }
