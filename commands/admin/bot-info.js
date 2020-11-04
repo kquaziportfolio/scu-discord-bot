@@ -34,7 +34,7 @@ module.exports = {
               },
               {
                 name: "Dependencies",
-                value: `${package.dependencies.join("\n")}`,
+                value: `${package.dependencies}.join("\n")`,
               },
             ],
           },
