@@ -1,5 +1,4 @@
 let isAdmin = require(`../../modules/isAdmin.js`);
-let error = require(`../../modules/
 
 module.exports  = {
     name: 'dm',
