@@ -12,7 +12,7 @@ module.exports = {
             color: client.config.school_color,
             author: {
               name: "SCU Discord Network",
-              icon_url: "https://jasonanhvu/scu-discord-bot/assets/logo-pic.png",
+              icon_url: client.config.verification.thumbnailLink,
               url: client.config.verification.githubLink,
             },
             description:
