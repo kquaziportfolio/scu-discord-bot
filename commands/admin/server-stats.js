@@ -30,7 +30,7 @@ module.exports = {
 		let serverembed = new MessageEmbed()
 		    .setDescription(`__**${message.guild.name} - Statistics**__`)
 		    .setColor(client.config.school_color)
-		    .addField('Server Owner', `<@${client.config.serverRoles.owner}>`, true)
+		    .addField('Server Owner', `<@&${client.config.serverRoles.owner}>`, true)
 		    .addField('Server Region', message.guild.region, true)
 		    .setThumbnail(sicon, true)
 		    .addField("Server Name", message.guild.name, true)
