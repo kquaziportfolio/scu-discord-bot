@@ -33,11 +33,6 @@ module.exports = {
                     inline: true
                   },
                   {
-                    name: "Working Name",
-                    value: `\`${package.name}\``,
-                    inline: true,
-                  },
-                  {
                     name: "Dependencies Used",
                     value: `${Object.entries(package.dependencies).join(", ")}`,
                     inline: false
