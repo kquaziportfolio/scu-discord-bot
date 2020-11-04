@@ -8,7 +8,7 @@ module.exports  = {
     category: 'Admin',  
     async execute(client, message, args) {
         
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(client, message, true)) {
             if (!args[0].startsWith(`@`)) {
                 return message.channel.send({ embed: { description: `You must mention a user!`, color: client.config.school_color}});
               } else {
