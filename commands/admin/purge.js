@@ -1,14 +1,13 @@
+let isAdmin = require(`../../modules/isAdmin.js`);
+
 module.exports = {
-	name: 'purge',
+    name: 'purge',
     description: 'Delete recent messages using this command!',
     args: true,
     usage: `[# of messages]`, 
     category: 'Admin',  
     async execute(client, message, args) {   
-
-        let isAdmin = require(`../../modules/isAdmin.js`);
-
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(client, message, true)) {
             try {
                 const deleteCount = parseInt(args[0], 10);
        
