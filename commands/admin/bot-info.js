@@ -14,7 +14,7 @@ module.exports = {
                   icon_url: client.user.avatarURL()
                 },
                 url: `${package.homepage}`,
-                title: `Bot Info`,
+                title: `Bot Information`,
                 description: `${package.description}`,
                 fields: [
                   {
@@ -30,12 +30,15 @@ module.exports = {
                   {
                     name: "License",
                     value: `\`${package.license}\``,
-                    inlines: true
+                    inline: true
                   },
+                  { name: "Key Words",
+                    value: `${Object.entries(package.keywords[0]).join(",")},
+                    inline: true
                   {
                     name: "Dependencies Used",
                     value: `${Object.entries(package.dependencies).join("\n")}`,
-                    inline: true
+                    inline: false
                   },
                 ],
              };
