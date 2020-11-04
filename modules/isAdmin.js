@@ -19,7 +19,7 @@ module.exports = async function isAdmin(client, message, statement) {
     return true;
   } else {
      if (statement == true) {
-       error(`You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, message);
+       //error(`You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, message);
        return false;
      }
   }
