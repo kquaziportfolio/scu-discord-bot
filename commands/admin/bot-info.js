@@ -26,9 +26,19 @@ module.exports = {
                 inline: true
               },
               {
+                name: "Contact Us",
+                value: `[Reporting bugs and user suggestions!](${package.bugs.url})`,
+                inline: true
+              },
+              {
                 name: "Version",
                 value: `\`${package.version}\``,
                 inline: true
+              },
+              {
+                name: "License",
+                value: `\`${package.license}\``,
+                inlines: true
               },
               {
                 name: "Dependencies Used",
