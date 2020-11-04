@@ -1,16 +1,15 @@
 const { MessageEmbed } = require(`discord.js`);
 const emojiCharacters = require(`../../modules/emoji-characters.js`);
+let isAdmin = require(`../../modules/isAdmin.js`);
 
 module.exports = {
-	name: 'poll',
+    name: 'poll',
     description: 'Make a poll with results!',
     args: true,
     usage: `[question] ~ [choice1] ~ [choice2]`, 
     category: 'Admin',  
-		async execute(client, message, args) { 
-            let isAdmin = require(`../../modules/isAdmin.js`);
-            
-            if(isAdmin(client, message, false)) {
+	    async execute(client, message, args) { 
+            if(isAdmin(client, message, true)) {
                 message.delete();
 
                 const prompt = args.join(' ').split(' ~ ');
