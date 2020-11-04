@@ -33,7 +33,7 @@ module.exports = {
               },
               {
                 name: "Dependencies",
-                value: ${package.dependencies.forEach((item) => { return package.dependencies })}.join("\n"),
+                value: ${package.dependencies}.forEach((item) => { return package.dependencies }).join("\n"),
                 inline: true
               },
             ],
