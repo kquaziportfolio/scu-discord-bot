@@ -34,7 +34,7 @@ module.exports = {
                   },
                   { 
                     name: "Key Words",
-                    value: `${Object.entries(package.keywords[0]).join(",")},
+                    value: `${Object.entries(package.keywords[0]).join(",")}`,
                     inline: true
                   },
                   {
