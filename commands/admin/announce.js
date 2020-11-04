@@ -1,3 +1,6 @@
+let isAdmin = require(`../../modules/isAdmin.js`);
+let sendMessage = require(`../../modules/sendMessage.js`);
+
 module.exports = { 
     name: 'announce',
     description: 'Announce to server members!',
@@ -5,11 +8,7 @@ module.exports = {
     usage: `[channel id] ~ [@role mention] ~ [title] ~ [description] ~ [image url]`,  
     category: 'Admin',  
     async execute(client, message, args) {
-
-        let isAdmin = require(`../../modules/isAdmin.js`);
-        let sendMessage = require(`../../modules/sendMessage.js`);
-        
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(client, message, true)) {
             const prompt = args.join(' ').split(' ~ ');
 
             let channelID = `${prompt[0]}`;
