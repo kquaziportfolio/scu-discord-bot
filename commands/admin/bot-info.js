@@ -25,7 +25,7 @@ module.exports = {
               },
               {
                 name: "Documentation",
-                value: `${client.config.githubLink}blob/master/README.md`,
+                value: `${client.config.verification.githubLink}blob/master/README.md`,
               },
               {
                 name: "Version",
@@ -34,7 +34,7 @@ module.exports = {
               },
               {
                 name: "Dependencies",
-                value: `${package.dependencies}.join("\n")}`,
+                value: `${package.dependencies.join("\n")}`,
               },
             ],
           },
