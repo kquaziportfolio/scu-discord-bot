@@ -6,7 +6,7 @@ module.exports =  {
 	category: 'Admin',  
 	async execute(client, message, args) {   
 
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(client, message, true)) {
 
             try {
                 const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
