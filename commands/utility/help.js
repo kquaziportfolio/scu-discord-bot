@@ -42,7 +42,7 @@ module.exports = {
 			.setColor(client.config.school_color)
 			.attachFiles([`./assets/logo-pic.png`])
 			.setThumbnail(`attachment://logo-pic.png`)
-		        .setURL(`${client.config.verification.githubLink}tree/master/commands)
+		        .setURL(`${client.config.verification.githubLink}tree/master/commands`)
 			.setTimestamp()
 
 		message.channel.send(helpEmbed);
