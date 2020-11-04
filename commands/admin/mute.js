@@ -4,14 +4,14 @@ let sendMessage = require(`../../modules/sendMessage.js`);
 let isAdmin = require(`../../modules/isAdmin.js`);
 
 module.exports = {
-	name: 'mute',
+    name: 'mute',
     description: 'Mute members!',
     usage: `[@user] | [insert time/reason]`,
     args: true, 
     category: 'Admin',  
     async execute(client, message, args) {   
 
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(client, message, true)) {
             // the mute code here
 
             let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
