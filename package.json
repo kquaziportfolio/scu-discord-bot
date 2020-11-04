@@ -1,9 +1,7 @@
 {
   "name": "scu-discord-bot",
   "version": "1.0.0",
-  "description": "This is a modular bot that I made for my SCU Discord Network to provide a comprehensive social media" + 
-  " platform for Santa Clara University students to utilize especially in the midst of the worldwide COVID-19 pandemic." + 
-  " Written in Discord.js, deployed via Node.js, and hosted 24/7 on my Raspberry Pi 4 Model B.",
+  "description": "This is a modular bot that I made for my SCU Discord Network to provide a comprehensive social media platform for Santa Clara University students to utilize especially in the midst of the worldwide COVID-19 pandemic. Written in Discord.js, deployed via Node.js, and hosted 24/7 on my Raspberry Pi 4 Model B.",
   "main": "index.js",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
