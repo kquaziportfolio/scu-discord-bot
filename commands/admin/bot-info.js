@@ -3,7 +3,7 @@ let isAdmin = require(`../../modules/isAdmin.js`);
 
 module.exports = { 
     name: 'bot-info',
-    description: 'Get the bot's info!',
+    description: 'Get the bot\'s info!',
     category: 'Admin',  
     async execute(client, message, args) {
       if(isAdmin(client, message, false)) {
