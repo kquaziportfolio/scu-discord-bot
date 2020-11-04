@@ -1,3 +1,6 @@
+let isAdmin = require("../../modules/isAdmin.js");
+let sendMessage = require("../../modules/sendMessage.js");
+
 module.exports = { 
     name: 'other-discords',
     description: 'For outputting other Discord server embeds!',  
@@ -5,11 +8,7 @@ module.exports = {
     usage: `[title] | [description] | [image url]`, 
     category: 'Admin',  
     async execute(client, message, args) {
-       
-        let isAdmin = require("../../modules/isAdmin.js");
-        let sendMessage = require("../../modules/sendMessage.js");
-
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(client, message, true)) {
             const prompt = args.join(' ').split('|');
                     
             sendMessage(client, client.config.channels.discordPromos, {embed : {color: client.config.school_color, title: `${prompt[0]}`, description: `${prompt[1]}`, thumbnail: {url: `${prompt[2]}`}}});
