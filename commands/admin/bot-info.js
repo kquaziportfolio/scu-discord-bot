@@ -32,14 +32,14 @@ module.exports = {
                     value: `\`${package.license}\``,
                     inline: true
                   },
-                  { 
-                    name: "Key Words",
-                    value: `${Object.entries(package.keywords[0]).join(",")}`,
-                    inline: true
+                  {
+                    name: "Working Name",
+                    value: `\`${package.name}\``,
+                    inline: true,
                   },
                   {
                     name: "Dependencies Used",
-                    value: `${Object.entries(package.dependencies).join("\n")}`,
+                    value: `${Object.entries(package.dependencies).join(", ")}`,
                     inline: false
                   },
                 ],
