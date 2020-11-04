@@ -13,7 +13,7 @@
     "cli-table": "^0.3.1",
     "common-tags": "^1.8.0",
     "cors": "^2.8.5",
-    "discord.js": "^12.3.1",
+    "discord.js": "^12.4.1",
     "discord.js-pagination": "^1.0.2",
     "enmap": "^5.3.1",
     "eslint": "^7.4.0",
@@ -47,7 +47,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start index.js && pm2 log",
+    "restart": "pm2 restart index.js && pm2 log"
   },
   "repository": {
     "type": "git",
