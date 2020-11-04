@@ -13,7 +13,7 @@ module.exports = {
               name: "SCU Discord Network",
               icon_url: client.user.avatarURL()
             },
-            description: `\`{package.description}\``,
+            description: `\`${package.description}\``,
             fields: [
               {
                 name: "Prefix",
@@ -27,7 +27,7 @@ module.exports = {
               },
               {
                 name: "Contact Us",
-                value: `[Reporting bugs and user suggestions!](${package.bugs.url})`,
+                value: `[Get support here!](${package.bugs.url})`,
                 inline: true
               },
               {
