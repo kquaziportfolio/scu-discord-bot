@@ -10,7 +10,7 @@ module.exports = {
     category: 'Admin',  
 	async execute(client, message, args) {   
 
-        if(isAdmin(client, message, false)) {
+        if(isAdmin(client, message, true)) {
             // the ban code here
 
             const member = message.mentions.members.first();
