@@ -18,8 +18,8 @@ module.exports = async function isAdmin(client, message, statement) {
   const modRole = client.config.serverRoles;
     if (message.member.roles.cache.has(modRole.owner) || message.member.roles.cache.has(modRole.admin) || message.member.roles.cache.has(modRole.mod)) {
       return true; 
-    } else if (statement != true) {
+    } else if (statement == true) {
         error(`You are missing the **OWNER**, **ADMIN**, or **MOD** permission roles.`, message);
-        return false;
+        return;
     }
 }
