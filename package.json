@@ -49,7 +49,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "pm2 start index.js && pm2 log",
-    "restart": "pm2 restart index.js && pm2 log"
+    "restart": "pm2 restart index.js && pm2 log",
+    "pull": "git pull origin master"
   },
   "repository": {
     "type": "git",
