@@ -4,13 +4,13 @@ module.exports  = {
     name: 'dm',
     description: 'Direct message!',   
     args: true,
-    usage: `[@user]`, 
+    usage: `[@user] [message content]`, 
     category: 'Admin',  
     async execute(client, message, args) {
         
         if(isAdmin(client, message, false)) {
-            if (args[0] == null) {
-                return message.channel.send({ embed: { title: `Here's an example:`, description: `${client.config.prefix}dm [@user] [message]`, color: client.config.school_color}});
+            if (!args[0].startsWith(`@`)) {
+                return message.channel.send({ embed: { description: `You must mention a user!`, color: client.config.school_color}});
               } else {
                 try {
                     let member = message.guild.member(message.mentions.users.first());
