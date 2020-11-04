@@ -6,14 +6,6 @@ module.exports = {
     description: 'Get the bot\'s info!',
     category: 'Admin',  
     async execute(client, message, args) {
-      if(isAdmin(client, message, false)) {
-        const jsonData = () => {
-            for(var i = 0; i < package.dependencies.length; i++) {
-                const obj = package.dependencies[i];
-
-                message.channel.send(obj.id);
-            }
-        };
         message.channel.send({
           embed: {
             color: client.config.school_color,
@@ -31,7 +23,7 @@ module.exports = {
               },
               {
                 name: "Documentation",
-                value: `${client.config.verification.githubLink}blob/master/README.md`,
+                value: `[${client.config.verification.githubLink}blob/master/README.md](Here you go!)`,
                 inline: true
               },
               {
@@ -41,7 +33,7 @@ module.exports = {
               },
               {
                 name: "Dependencies",
-                value: `${jsonData}`,
+                value: ${package.dependencies.forEach((item) => { return package.dependencies })}.join("\n"),
                 inline: true
               },
             ],
