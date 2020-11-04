@@ -1,15 +1,13 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const emojiCharacters = require(`../../modules/emoji-characters`); //for emojis
+let isAdmin = require(`../../modules/isAdmin.js`);
 
 module.exports = {
-	name: 'server-info',
+    name: 'server-info',
     description: 'Get general server information here!',
     category: 'Admin',  
-		async execute(client, message, args) { 
-
-            let isAdmin = require(`../../modules/isAdmin.js`);
-
-            if(isAdmin(client, message, false)) {
+    	async execute(client, message, args) { 
+            if(isAdmin(client, message, true)) {
                 let serverIcon = message.guild.iconURL({ dynamic: true });
 
                 const serverEmbed = new MessageEmbed()
