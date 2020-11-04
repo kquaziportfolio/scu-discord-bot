@@ -23,7 +23,7 @@ module.exports = {
               },
               {
                 name: "Documentation",
-                value: `[${client.config.verification.githubLink}blob/master/README.md](Here you go!)`,
+                value: `[Here you go!](${client.config.verification.githubLink}blob/master/README.md)`,
                 inline: true
               },
               {
