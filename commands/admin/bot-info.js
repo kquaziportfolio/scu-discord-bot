@@ -23,7 +23,7 @@ module.exports = {
               },
               {
                 name: "Documentation",
-                value: `(${client.config.verification.githubLink}blob/master/README.md)[Here you go!]`,
+                value: `[${client.config.verification.githubLink}blob/master/README.md](Here you go!)`,
                 inline: true
               },
               {
@@ -33,7 +33,7 @@ module.exports = {
               },
               {
                 name: "Dependencies",
-                value: `${Object.entries(require("../../package.json").dependencies).join("\n")}`,
+                value: `${Object.entries(package.dependencies).join("\n")}`,
                 inline: true
               },
             ],
