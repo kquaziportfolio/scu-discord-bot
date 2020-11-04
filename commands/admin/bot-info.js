@@ -13,8 +13,7 @@ module.exports = {
               name: "SCU Discord Network",
               icon_url: client.user.avatarURL()
             },
-            description:
-              "Created by the server lords!",
+            description: `\`{package.description}\``,
             fields: [
               {
                 name: "Prefix",
@@ -23,7 +22,7 @@ module.exports = {
               },
               {
                 name: "Documentation",
-                value: `[Here you go!](${client.config.verification.githubLink}blob/master/README.md)`,
+                value: `[Here you go!](${package.homepage})`,
                 inline: true
               },
               {
@@ -32,7 +31,7 @@ module.exports = {
                 inline: true
               },
               {
-                name: "Dependencies",
+                name: "Dependencies Used",
                 value: `${Object.entries(package.dependencies).join("\n")}`,
                 inline: true
               },
