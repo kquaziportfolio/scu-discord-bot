@@ -7,13 +7,19 @@ module.exports = {
     category: 'Admin',  
     async execute(client, message, args) {
       if(isAdmin(client, message, false)) {
+        const jsonData = () => {
+            for(var i = 0; i < package.dependencies.length; i++) {
+                const obj = package.dependencies[i];
+
+                message.channel.send(obj.id);
+            }
+        };
         message.channel.send({
           embed: {
             color: client.config.school_color,
             author: {
               name: "SCU Discord Network",
-              icon_url: client.config.verification.thumbnailLink,
-              url: client.config.verification.githubLink,
+              icon_url: client.user.avatarURL()
             },
             description:
               "Created by the server lords!",
@@ -21,20 +27,22 @@ module.exports = {
               {
                 name: "Prefix",
                 value: `\`${client.config.prefix}\``,
-                inline: true,
+                inline: true
               },
               {
                 name: "Documentation",
                 value: `${client.config.verification.githubLink}blob/master/README.md`,
+                inline: true
               },
               {
                 name: "Version",
                 value: `\`${package.version}\``,
-                inline: true,
+                inline: true
               },
               {
                 name: "Dependencies",
-                value: `${package.dependencies}.join("\n")`,
+                value: `${jsonData}`,
+                inline: true
               },
             ],
           },
