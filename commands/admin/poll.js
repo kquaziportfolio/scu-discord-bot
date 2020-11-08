@@ -13,13 +13,13 @@ module.exports = {
 		const pollQuestion = pollArgs.shift();
 		let pollString = '';
 		    
-		if (pollArgs.length > 10) {
+		if (pollArgs.length === 0) {
+			message.reply({ embed: { description: `Please format like this: \`"question" "choice 1" "choice 2" ...\``, color: client.config.school_color}});
+			return;
+		} else if (pollArgs.length > 10) {
 			message.reply({ embed: { description: `You've added too many choices - the limit is 10!`, color: client.config.school_color}});
 			return;
-		} else if (pollArgs.length === 0) {
-			message.reply({ embed: { description: `Please add choices!`, color: client.config.school_color}});
-			return;
-		}
+		} 
 		pollArgs.forEach((choice, index) => {
 			pollString += `${options[index]}: ${choice}\n\n`;
 		});
