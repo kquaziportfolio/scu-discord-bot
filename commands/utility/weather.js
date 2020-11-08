@@ -7,7 +7,7 @@ module.exports = {
 	name: 'weather', //project adapted from https://github.com/ShadeBot/ShadeBot-Discord-Bot/blob/master/commands/weather.js
     description: 'Get your daily weather statistics here depending on your zip code!',
     args: true,
-    usage: `[zip code, country abbreviation]`,
+    usage: `[zip code]`,
     category: 'utility',
 	async execute(client, message, args) {
       
