@@ -5,29 +5,34 @@ let isAdmin = require(`../../modules/isAdmin.js`);
 module.exports = {
     name: 'poll',
     description: 'Make a poll with results!',
-    args: true,
-    usage: `[question] ~ [choice1] ~ [choice2]`, 
     category: 'Admin',  
 	    async execute(client, message, args) { 
             if(isAdmin(client, message, true)) {
-                message.delete();
+		const pollArgs = message.content.match(/(?:"[^"]*"|^[^"]*$)/g);
+		const options = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+		const pollQuestion = pollArgs.shift();
+		let pollString = '';
+		    
+		if (pollArgs.length > 10) {
+			message.reply({ embed: { description: `You've added too many choices - the limit is 10!`, color: client.config.school_color}});
+			return;
+		} else if (pollArgs.length === 0) {
+			message.reply({ embed: { description: `Please add choices!`, color: client.config.school_color);
+			return;
+		}
+		pollArgs.forEach((choice, index) => {
+			pollString += `${options[index]}: ${choice}\n\n`;
+		});
 
-                const prompt = args.join(' ').split(' ~ ');
-
-                const pollEmbed = new MessageEmbed()
-                .setAuthor(`Server Poll`)
-                .setTitle(prompt[0])
-                .setDescription(`- ${prompt[1]}\n- ${prompt[2]}`)
-                .setColor(client.config.school_color)
-                .setFooter(`Poll created by the server lords!`)
-
-                if(!message.content.includes("?")) return message.channel.send({embed: {description: "Include a `?` in your vote question!", color: client.config.school_color}})
-
-                const msg = await message.channel.send(pollEmbed).catch(err => `Error: ${err}`)
-
-                await msg.react(`${emojiCharacters.one}`); //here is a change in the file
-                await msg.react(`${emojiCharacters.two}`);
-
+		const embed = new MessageEmbed()
+		.setTitle(pollQuestion)
+		.setDescription(pollString);
+		 
+		message.channel.send(embed).then(r => {
+			pollArgs.forEach((i, pollArgs.length) => {
+				r.react(options[i]);
+			});
+		});
             }
         }
 }
