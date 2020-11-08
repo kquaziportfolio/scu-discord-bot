@@ -26,7 +26,8 @@ module.exports = {
 
 		const embed = new MessageEmbed()
 		.setTitle(pollQuestion)
-		.setDescription(pollString);
+		.setDescription(pollString)
+		.setColor(client.config.school_color)
 		 
 		message.channel.send(embed).then(r => {
 			for (let i = 0; i < pollArgs.length; i++) {
