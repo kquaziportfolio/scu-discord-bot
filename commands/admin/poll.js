@@ -17,7 +17,7 @@ module.exports = {
 			message.reply({ embed: { description: `You've added too many choices - the limit is 10!`, color: client.config.school_color}});
 			return;
 		} else if (pollArgs.length === 0) {
-			message.reply({ embed: { description: `Please add choices!`, color: client.config.school_color);
+			message.reply({ embed: { description: `Please add choices!`, color: client.config.school_color}});
 			return;
 		}
 		pollArgs.forEach((choice, index) => {
