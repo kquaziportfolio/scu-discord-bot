@@ -29,9 +29,9 @@ module.exports = {
 		.setDescription(pollString);
 		 
 		message.channel.send(embed).then(r => {
-			pollArgs.forEach((i, pollArgs.length) => {
+			for (let i = 0; i < pollArgs.length; i++) {
 				r.react(options[i]);
-			});
+			}
 		});
             }
         }
