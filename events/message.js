@@ -23,10 +23,8 @@ module.exports = async (client, message) => {
       //create support channel for new respondee
       active = {};
       
-      channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);
-      channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
-      channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
-      channel.overwritePermissions([
+      channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`, {
+        permissionOverwrites: [
           {
             id: client.config.serverRoles.everyone, //@everyone can't view channel
             deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS']
@@ -35,7 +33,10 @@ module.exports = async (client, message) => {
             id: [client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod, client.config.serverRoles.bot],
             allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_CHANNELS'],
           }
-        ]);
+        ]
+      });
+      channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
+      channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
 
       const newChannel = new MessageEmbed()
       .setColor(client.config.school_color)
