@@ -11,7 +11,7 @@ module.exports = async (client, message) => {
   
   //Check if message is in a direct message
   if (message.guild == null) {
-    if (message.content == `${ticket} ticketContent`) {
+    if (message.content == `${client.config.prefix}ticket ${ticketContent}`) {
         let active = await db.fetch(`support_${message.author.id}`);
         let guild = client.guilds.cache.get(client.config.verification.guildID);
         let channel, found = true;
