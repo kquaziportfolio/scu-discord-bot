@@ -11,9 +11,9 @@ module.exports = {
         if(isAdmin(client, message, true)) {
             const prompt = args.join(' ').split('|');
                     
-            sendMessage(client, client.config.channels.discordPromos, {embed : {color: client.config.school_color, title: `${prompt[0]}`, description: `${prompt[1]}`, thumbnail: {url: `${prompt[2]}`}}});
+            sendMessage(client, client.config.channels.promos, {embed : {color: client.config.school_color, title: `${prompt[0]}`, description: `${prompt[1]}`, thumbnail: {url: `${prompt[2]}`}}});
 
-            sendMessage(client, client.config.channels.auditlog, { embed: { title: `__**Discord Promo Created!**__`, description: `<@${message.author.id}> just created a Discord server promo!`}})
+            sendMessage(client, client.config.channels.auditlogs, { embed: { title: `__**Discord Promo Created!**__`, description: `<@${message.author.id}> just created a Discord server promo!`}})
         }
     }
 }
