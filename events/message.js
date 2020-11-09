@@ -25,31 +25,37 @@ module.exports = async (client, message) => {
       channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);     
       channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
       channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
+      channel.overwritePermissions(message.author.id, {
+        VIEW_CHANNEL: true,
+        SEND_MESSAGES: true,
+        ADD_REACTIONS: true,
+        READ_MESSAGE_HISTORY: true
+    });
 
       // Update Active Data
       active.channelID = channel.id;
       active.targetID =  message.author.id;
-      }
-        
-      channel = client.channels.cache.get(active.channelID);
-      const newTicket = new MessageEmbed()
-      .setColor(client.config.school_color)
-      .setAuthor(`Thank you, ${message.author.tag}`, message.author.displayAvatarURL())
-      .setDescription(`<@${message.author.id}>, your message has been sent. A staff member will contact you soon.`)
-      .setFooter('ModMail Ticket Created')
-      await message.author.send(newTicket);
-
-      const messageReception1 = new MessageEmbed()
-      .setColor(client.config.school_color)
-      .setAuthor(message.author.tag, message.author.displayAvatarURL())
-      .setDescription(`<@${message.author.id}> said: \`\`\`${message.content}\`\`\``)
-      .setFooter(`Message Received -- ${message.author.tag}`)
-      await channel.send(messageReception1);
-    
-      db.set(`support_${message.author.id}`, active);
-      db.set(`supportChannel_${channel.id}`, message.author.id);
-      return;
     }
+        
+    channel = client.channels.cache.get(active.channelID);
+    const newTicket = new MessageEmbed()
+    .setColor(client.config.school_color)
+    .setAuthor(`Thank you, ${message.author.tag}`, message.author.displayAvatarURL())
+    .setDescription(`<@${message.author.id}>, your message has been sent. A staff member will contact you soon.`)
+    .setFooter('ModMail Ticket Created')
+    await message.author.send(newTicket);
+
+    const messageReception1 = new MessageEmbed()
+    .setColor(client.config.school_color)
+    .setAuthor(message.author.tag, message.author.displayAvatarURL())
+    .setDescription(`<@${message.author.id}> said: \`${message.content}\``)
+    .setFooter(`Message Received -- ${message.author.tag}`)
+    await channel.send(messageReception1);
+
+    db.set(`support_${message.author.id}`, active);
+    db.set(`supportChannel_${channel.id}`, message.author.id);
+    return;
+  }
     
     let support = await db.fetch(`supportChannel_${message.channel.id}`);
     if (support) {
