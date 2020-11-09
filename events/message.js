@@ -1,6 +1,6 @@
 const Discord = require(`discord.js`); //requires Discord.js integration package
 let sendMessage = require(`../modules/sendMessage.js`);
-const db = require(`quick-db`);
+const db = require(`quick.db`);
 const active = new Map();
 
 module.exports = async (client, message) => {
