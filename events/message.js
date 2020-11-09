@@ -82,7 +82,7 @@ module.exports = async (client, message) => {
               .setFooter(`ModMail Ticket Closed -- ${message.author.tag}`)
             
             supportUser.send(completeTicket);
-            sendMessage(client, client.config.channels.auditlogs, { embed: { title: `ModMail Ticket Resolved`, description: `Support for <@${supportUser.id}> has been closed.`, footer: `ModMail Ticket Closed -- ${message.author.tag}` color: client.config.school_color}});
+            sendMessage(client, client.config.channels.auditlogs, { embed: { title: `ModMail Ticket Resolved`, description: `Support for <@${supportUser.id}> has been closed.`, footer: `ModMail Ticket Closed -- ${message.author.tag}`, color: client.config.school_color}});
             message.channel.delete();
             return db.delete(`support_${support.targetID}`);
         }
