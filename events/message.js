@@ -6,6 +6,7 @@ module.exports = async (client, message, args) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
   
+  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const ticketContent = args.join(' ');
   
   //Check if message is in a direct message
@@ -96,7 +97,6 @@ module.exports = async (client, message, args) => {
     }
 
   // Our standard argument/command name definition.
-  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
 
   // Grab the command data from the client.commands Enmap
