@@ -75,7 +75,7 @@ module.exports = async (client, message) => {
         if (!supportUser) return message.channel.delete();
         
         // <@SCU#6441> close-ticket command
-        if (message.content == `<@${client.config.serverRoles.bot}> close-ticket`) {
+        if (message.content == `<@!${client.config.serverRoles.bot}> close-ticket`) {
             const completeTicket = new MessageEmbed()
               .setColor(client.config.school_color)
               .setTitle(`ModMail Ticket Resolved`)
