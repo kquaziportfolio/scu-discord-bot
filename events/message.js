@@ -49,10 +49,10 @@ module.exports = async (client, message) => {
     
     const newTicket = new MessageEmbed()
     .setColor(client.config.school_color)
-    .setAuthor(`Thank you, ${message.author.tag}`, message.author.displayAvatarURL())
-    .setDescription(`<@${message.author.id}>, hello! I have opened up a new ticket for you. One of our staff members 
-    will respond back to you shortly. If you need to add anything else to your ticket, you can send it here!`)
-    .setFooter(`ModMail Ticket Created`)
+    .setAuthor(message.author.tag, message.author.displayAvatarURL())
+    .setDescription(`<@${message.author.id}>, hello! I have opened up a new ticket for you. One of our staff members ` +
+    `will respond back to you shortly. If you need to add anything else to your ticket, you can send it here!`)
+    .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
     await message.author.send(newTicket);
 
     const messageReception = new MessageEmbed()
@@ -77,9 +77,9 @@ module.exports = async (client, message) => {
         if (message.content.toLowerCase() == `${client.config.prefix}complete`) {
             const completeTicket = new MessageEmbed()
               .setColor(client.config.school_color)
-              .setAuthor(`Hey, ${supportUser.tag}`, supportUser.displayAvatarURL())
+              .setAuthor(message.author.tag, message.author.displayAvatarURL())
               .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
-              .setFooter(`ModMail Ticket Closed`)
+              .setFooter(`ModMail Ticket Closed -- ${message.author.tag}`)
             
             supportUser.send(completeTicket);
             sendMessage(client, client.config.channels.auditlogs, { embed: { title: `ModMail Ticket Resolved`, description: `Support for ${supportUser.tag} has been closed.`, color: client.config.school_color}});
