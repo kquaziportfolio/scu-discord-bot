@@ -22,55 +22,54 @@ module.exports = async (client, message) => {
     if (!active || !found) {
       //create support channel for new respondee
       active = {};
-      let everyone = guild.roles.cache.find(r => r.name == `@everyone`);
       channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);
-          channel.setParent(client.config.channels.supportTicketsCategory); // Management Category ID
-          channel.setTopic(`Use \`${client.config.prefix}complete\` to close the Ticket | ModMail for ${message.author.tag} | ID: ${message.author.id}`);
-          channel.overwritePermissions([client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod], { // This will set the permissions so only Staff will see the ticket.
-              VIEW_CHANNEL: true,
-              SEND_MESSAGES: true,
-              MANAGE_CHANNELS: true
-          });
-          channel.overwritePermissions(everyone.id, { //@everyone can't view channel 
-              VIEW_CHANNEL: false,
-          });
-          channel.overwritePermissions(client.user.id, {
-              VIEW_CHANNEL: true,
-              SEND_MESSAGES: true,
-              MANAGE_CHANNELS: true
-          }); 
+      channel.setParent(client.config.channels.supportTicketsCategory); // Management Category ID
+      channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`;
+      channel.overwritePermissions([client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod], { // This will set the permissions so only Staff will see the ticket.
+          VIEW_CHANNEL: true,
+          SEND_MESSAGES: true,
+          MANAGE_CHANNELS: true
+      });
+      channel.overwritePermissions(client.config.serverRoles.everyone, { //@everyone can't view channel 
+          VIEW_CHANNEL: false,
+      });
+      channel.overwritePermissions(client.config.serverRoles.bot, {
+          VIEW_CHANNEL: true,
+          SEND_MESSAGES: true,
+          MANAGE_CHANNELS: true
+      }); 
 
       const newChannel = new MessageEmbed()
-          .setColor(client.config.school_color)
-          .setAuthor(message.author.tag, message.author.displayAvatarURL())
-          .setFooter('ModMail Ticket Created')
-          .addField('User', message.author)
-          .addField('ID', message.author.id);
+      .setColor(client.config.school_color)
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
+      .setFooter('ModMail Ticket Created')
+      .addField('User', message.author)
+      .addField('ID', message.author.id)
       await channel.send(newChannel);
 
       const newTicket = new MessageEmbed()
-          .setColor(client.config.school_color)
-          .setAuthor(`Hello, ${message.author.tag}`, message.author.displayAvatarURL())
-          .setFooter('ModMail Ticket Created');
+      .setColor(client.config.school_color)
+      .setAuthor(`Hello, ${message.author.tag}`, message.author.displayAvatarURL())
+      .setFooter('ModMail Ticket Created')
       await message.author.send(newTicket);
 
       // Update Active Data
       active.channelID = channel.id;
-      active.targetID = author.id;
+      active.targetID =  message.author.id;
       }
         
       channel = client.channels.cache.get(active.channelID);
       const dm = new MessageEmbed()
           .setColor(client.config.school_color)
-          .setAuthor(`Thank you, ${message.author.tag}`, message.author.displayAvatarURL)
-          .setFooter(`Your message has been sent -- A staff member will be in contact soon.`);
+          .setAuthor(`Thank you, ${message.author.tag}`, message.author.displayAvatarURL())
+          .setFooter(`Your message has been sent -- A staff member will be in contact soon.`)
       await message.author.send(dm);
 
       const messageReception1 = new MessageEmbed()
-          .setColor(client.config.school_color)
-          .setAuthor(message.author.tag, message.author.displayAvatarURL())
-          .setDescription(message.content)
-          .setFooter(`Message Received -- ${message.author.tag}`);
+      .setColor(client.config.school_color)
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
+      .setDescription(message.content)
+      .setFooter(`Message Received -- ${message.author.tag}`)
       await channel.send(messageReception1);
     
       db.set(`support_${message.author.id}`, active);
@@ -85,28 +84,29 @@ module.exports = async (client, message) => {
         if (!supportUser) return message.channel.delete();
         
         // !complete command
-        if (message.content.toLowerCase() === `${client.config.prefix}complete`) {
-            const complete = new MessageEmbed()
+        if (message.content.toLowerCase() == `${client.config.prefix}complete`) {
+            const completeTicket = new MessageEmbed()
               .setColor(client.config.school_color)
               .setAuthor(`Hey, ${supportUser.tag}`, supportUser.displayAvatarURL())
               .setFooter('Ticket Closed')
               .setDescription('*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*');
                 
-            supportUser.send(complete);
+            supportUser.send(completeTicket);
             message.channel.delete()
                 .then(console.log(`Support for ${supportUser.tag} has been closed.`))
                 .catch(console.error);
             return db.delete(`support_${support.targetID}`);
         }
+      
         const messageReception2 = new MessageEmbed()
         .setColor(client.config.school_color)
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
+        .setDescription(message.content)
         .setFooter(`Message Received`)
-        .setDescription(message.content);
             
-        client.users.cache.get(support.targetID).send(messageReception);
+        client.users.cache.get(support.targetID).send(messageReception2);
         message.delete({timeout: 1000});
-        messageReception.setFooter(`Message Sent -- ${supportUser.tag}`).setDescription(message.content);
+        messageReception2.setFooter(`Message Sent -- ${supportUser.tag}`).setDescription(message.content);
         return message.channel.send(messageReception2);
     }
 
