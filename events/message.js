@@ -22,19 +22,22 @@ module.exports = async (client, message) => {
     if (!active || !found) {
       //create support channel for new respondee
       active = {};
-      const channelName = `${message.author.username}-${message.author.discriminator}`;
-      channel = await guild.channels.create(channelName, {
-        permissionOverwrites: [
-          {
-            id: client.config.serverRoles.everyone, //@everyone can't view channel
-            deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS']
-          },
-          {
-            id: [client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod, client.config.serverRoles.bot],
-            allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_CHANNELS'],
-          }
-        ]
+      channel = await guild.createChannel(`${message.author.username}-${message.author.discriminator}`);
+      
+      channel.overwritePermissions(client.config.serverRoles.owner, {
+          VIEW_CHANNEL: true,
+          SEND_MESSAGES: true,
+          MANAGE_CHANNELS: true
       });
+      channel.overwritePermissions(client.config.serverRoles.everyone, {
+          VIEW_CHANNEL: false,
+      });
+      channel.overwritePermissions(client.config.serverRoles.bot, {
+          VIEW_CHANNEL: true,
+          SEND_MESSAGES: true,
+          MANAGE_CHANNELS: true
+      }); // This will set the permissions so only Staff will see the ticket.
+      
       channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
       channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
 
@@ -115,10 +118,6 @@ module.exports = async (client, message) => {
 
   // Grab the command data from the client.commands Enmap
   const command = client.commands.get(commandName);
-
-  /*Some commands are meant to be used only inside servers and won't work whatsoever in DMs. 
-  A prime example of this would be a kick command. You can add a property to the necessary 
-  commands to determine whether or not it should be only available outside of servers.*/
 
   // If that command doesn't exist, return nothing
   if (!client.commands.has(`${commandName}`)) return;
