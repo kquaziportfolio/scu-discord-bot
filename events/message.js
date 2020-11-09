@@ -29,7 +29,11 @@ module.exports = async (client, message) => {
         {
           id: message.author.id,
           allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY']
-        }
+        },
+        {
+          id: client.config.serverRoles.everyone,
+          deny: ['VIEW_CHANNEL']
+        } 
       ]);
 
       // Update Active Data
