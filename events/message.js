@@ -24,7 +24,7 @@ module.exports = async (client, message) => {
       active = {};
       let modRoles = guild.roles.cache.find(r => r.name == ["Owner", "Admin", "Mod"]);
       let everyone = guild.roles.cache.find(r => r.name == `@everyone`);
-      channel = await guild.createChannel(`${message.author.username}-${message.author.discriminator}`);
+      channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);
           channel.setParent(`775397054532026388`); // Management Category ID
           channel.setTopic(`Use \`${prefix}complete\` to close the Ticket | ModMail for ${message.author.tag} | ID: ${message.author.id}`);
           channel.overwritePermissions(modRoles, { // This will set the permissions so only Staff will see the ticket.
