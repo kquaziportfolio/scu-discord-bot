@@ -34,6 +34,7 @@ module.exports = async (client, message) => {
           {
             id: [client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod, client.config.serverRoles.bot],
             allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_CHANNELS'],
+          }
         ],
       }).then(m => {
           m.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
