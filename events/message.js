@@ -81,7 +81,7 @@ module.exports = async (client, message) => {
         const messageReception2 = new MessageEmbed()
         .setColor(client.config.school_color)
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .setDescription(`<@${message.author.id}> said: `\`\${message.content}`\`\`)
+        .setDescription(`<@${message.author.id}> said: **${message.content}**`)
         .setFooter(`Message Received`)
             
         client.users.cache.get(support.targetID).send(messageReception2);
