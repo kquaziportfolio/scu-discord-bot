@@ -2,7 +2,7 @@ const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.j
 const db = require(`quick.db`);
 const active = new Map();
 
-module.exports = async (client, message) => {
+module.exports = async (client, message, args) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
   
