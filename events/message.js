@@ -80,7 +80,7 @@ module.exports = async (client, message) => {
               .setTitle(`ModMail Ticket Resolved`)
               .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
               .setDescription(`Support for <@${supportUser.id}> has been closed. *Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
-              .setFooter(`ModMail Ticket Closed -- ${supportUser.tag`)
+              .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
             
             supportUser.send(completeTicket);
             message.guilds.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
