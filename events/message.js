@@ -22,8 +22,8 @@ module.exports = async (client, message) => {
     if (!active || !found) {
       //create support channel for new respondee
       active = {};
-      
-      channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`, {
+      const channelName = `${message.author.username}-${message.author.discriminator}`;
+      channel = await guild.channels.create(channelName, {
         permissionOverwrites: [
           {
             id: client.config.serverRoles.everyone, //@everyone can't view channel
