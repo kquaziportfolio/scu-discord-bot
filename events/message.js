@@ -1,4 +1,4 @@
-const Discord = require(`discord.js`); //requires Discord.js integration package
+const { MessageEmbed } = require(`discord.js`); //requires Discord.js integration package
 let sendMessage = require(`../modules/sendMessage.js`);
 const db = require(`quick.db`);
 const active = new Map();
@@ -22,12 +22,11 @@ module.exports = async (client, message) => {
     if (!active || !found) {
       //create support channel for new respondee
       active = {};
-      let modRoles = guild.roles.cache.find(r => r.name == ["Owner", "Admin", "Mod"]);
       let everyone = guild.roles.cache.find(r => r.name == `@everyone`);
       channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);
-          channel.setParent(`775397054532026388`); // Management Category ID
+          channel.setParent(client.config.channels.supportTicketsCategory); // Management Category ID
           channel.setTopic(`Use \`${client.config.prefix}complete\` to close the Ticket | ModMail for ${message.author.tag} | ID: ${message.author.id}`);
-          channel.overwritePermissions(modRoles, { // This will set the permissions so only Staff will see the ticket.
+          channel.overwritePermissions([client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod], { // This will set the permissions so only Staff will see the ticket.
               VIEW_CHANNEL: true,
               SEND_MESSAGES: true,
               MANAGE_CHANNELS: true
@@ -67,12 +66,12 @@ module.exports = async (client, message) => {
           .setFooter(`Your message has been sent -- A staff member will be in contact soon.`);
       await message.author.send(dm);
 
-      const embed = new MessageEmbed()
+      const messageReception1 = new MessageEmbed()
           .setColor(client.config.school_color)
           .setAuthor(message.author.tag, message.author.displayAvatarURL())
           .setDescription(message.content)
           .setFooter(`Message Received -- ${message.author.tag}`);
-      await channel.send(embed);
+      await channel.send(messageReception1);
     
       db.set(`support_${message.author.id}`, active);
       db.set(`supportChannel_${channel.id}`, message.author.id);
@@ -99,7 +98,7 @@ module.exports = async (client, message) => {
                 .catch(console.error);
             return db.delete(`support_${support.targetID}`);
         }
-        const messageReception = new MessageEmbed()
+        const messageReception2 = new MessageEmbed()
         .setColor(client.config.school_color)
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
         .setFooter(`Message Received`)
@@ -108,7 +107,7 @@ module.exports = async (client, message) => {
         client.users.cache.get(support.targetID).send(messageReception);
         message.delete({timeout: 1000});
         messageReception.setFooter(`Message Sent -- ${supportUser.tag}`).setDescription(message.content);
-        return message.channel.send(messageReception);
+        return message.channel.send(messageReception2);
     }
 
   // Our standard argument/command name definition.
