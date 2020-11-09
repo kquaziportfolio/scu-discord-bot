@@ -7,7 +7,7 @@ module.exports = async (client, message) => {
   if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
   
   //Check if message is in a direct message
-  if (message.guild == null) {
+  if (message.guild == null && message.content == `<@${client.config.serverRoles.bot}> ticket ${args[0 == null]}`) {
     let active = await db.fetch(`support_${message.author.id}`);
     let guild = client.guilds.cache.get(client.config.verification.guildID);
     let channel, found = true;
@@ -49,7 +49,7 @@ module.exports = async (client, message) => {
     const newTicket = new MessageEmbed()
     .setColor(client.config.school_color)
     .setAuthor(message.author.tag, message.author.displayAvatarURL())
-    .setTitle(`ModMail Ticket Received`)
+    .setTitle(`ModMail Ticket Created`)
     .setDescription(`<@${message.author.id}>, hello! I have opened up a new ticket for you. One of our staff members ` +
     `will respond back to you shortly. If you need to add anything else to your ticket, you can send it here!`)
     .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
@@ -58,6 +58,7 @@ module.exports = async (client, message) => {
     const messageReception = new MessageEmbed()
     .setColor(client.config.school_color)
     .setAuthor(message.author.tag, message.author.displayAvatarURL())
+    .setTitle(`ModMail Ticket Received`)
     .setDescription(`**${message.content}**`)
     .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
     await channel.send(messageReception);
@@ -73,8 +74,8 @@ module.exports = async (client, message) => {
         let supportUser = client.users.cache.get(support.targetID);
         if (!supportUser) return message.channel.delete();
         
-        // &complete command
-        if (message.content.toLowerCase() == `${client.config.prefix}complete`) {
+        // <@SCU#6441> complete command
+        if (message.content == `<@${client.config.serverRoles.bot}> close-ticket`) {
             const completeTicket = new MessageEmbed()
               .setColor(client.config.school_color)
               .setTitle(`ModMail Ticket Resolved`)
