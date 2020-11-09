@@ -2,13 +2,15 @@ const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.j
 const db = require(`quick.db`);
 const active = new Map();
 
-module.exports = async (client, message) => {
+module.exports = async (client, message, args) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
   
+  const ticketContent = args.join(' ');
+  
   //Check if message is in a direct message
   if (message.guild == null) {
-    if (message.content.startsWith(`<@${client.config.serverRoles.bot}>`)) {
+    if (message.content == `${ticket} ticketContent) {
         let active = await db.fetch(`support_${message.author.id}`);
         let guild = client.guilds.cache.get(client.config.verification.guildID);
         let channel, found = true;
