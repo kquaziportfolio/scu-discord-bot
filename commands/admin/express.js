@@ -15,15 +15,15 @@ module.exports = {
             const getStatus = await status.text();
             
             if (!status.ok) {
-                sendMessage(client, client.channels.auditlogs, { embed: { title: `Error :x:`, description: `Go to [https://pitunnel.com](PiTunnel) and reset using the following commands: \`${client.config.verification.mappingRule}\``, color: client.config.school_color}});
-            }
-            
-            const statusEmbed = new MessageEmbed()
-            .setTitle(` VERIFICATION SERVER`)
-            .setDescription(`${getStatus} - Check the status [here](${url})!`)
-            .setColor(client.config.school_color)
+                sendMessage(client, client.config.channels.auditlogs, { embed: { title: `Error :x:`, description: `Go to [https://pitunnel.com](PiTunnel) and reset using the following commands: \`${client.config.verification.mappingRule}\``, color: client.config.school_color}});
+            } else {
+                const statusEmbed = new MessageEmbed()
+                .setTitle(` VERIFICATION SERVER`)
+                .setDescription(`${getStatus} - Check the status [here](${url})!`)
+                .setColor(client.config.school_color)
 
-            message.channel.send(statusEmbed);
+                message.channel.send(statusEmbed);
+            }
         }
     }
 }
