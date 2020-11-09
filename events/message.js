@@ -6,68 +6,68 @@ module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
   
-  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
-  
   //Check if message is in a direct message
-  if (message.guild == null && message.content == `<@${client.config.serverRoles.bot}> ticket ${args[0 == null]}`) {
-    let active = await db.fetch(`support_${message.author.id}`);
-    let guild = client.guilds.cache.get(client.config.verification.guildID);
-    let channel, found = true;
-    
-    try { 
-      if (active) client.channels.cache.get(active.channelID).guild;
-    } catch (e) {
-      found = false;
-    }
-    
-    if (!active || !found) {
-      //create support channel for new respondee
-      active = {};
-      channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);     
-      channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
-      channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
-      channel.overwritePermissions([ 
-        {
-          id: client.config.serverRoles.mod,
-          allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS']
-        },
-        {
-          id: message.author.id,
-          allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY']
-        },
-        {
-          id: client.config.serverRoles.everyone,
-          deny: ['VIEW_CHANNEL']
+  if (message.guild == null) {
+    if (message.content.startsWith(`<@${client.config.serverRoles.bot}>`) {
+        let active = await db.fetch(`support_${message.author.id}`);
+        let guild = client.guilds.cache.get(client.config.verification.guildID);
+        let channel, found = true;
+
+        try { 
+          if (active) client.channels.cache.get(active.channelID).guild;
+        } catch (e) {
+          found = false;
         }
-      ]);
 
-      // Update Active Data
-      active.channelID = channel.id;
-      active.targetID =  message.author.id;
+        if (!active || !found) {
+          //create support channel for new respondee
+          active = {};
+          channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);     
+          channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
+          channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
+          channel.overwritePermissions([ 
+            {
+              id: client.config.serverRoles.mod,
+              allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS']
+            },
+            {
+              id: message.author.id,
+              allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY']
+            },
+            {
+              id: client.config.serverRoles.everyone,
+              deny: ['VIEW_CHANNEL']
+            }
+          ]);
+
+          // Update Active Data
+          active.channelID = channel.id;
+          active.targetID =  message.author.id;
+        }
+
+      channel = client.channels.cache.get(active.channelID);
+
+      const newTicket = new MessageEmbed()
+      .setColor(client.config.school_color)
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
+      .setTitle(`ModMail Ticket Created`)
+      .setDescription(`<@${message.author.id}>, hello! I have opened up a new ticket for you. One of our staff members ` +
+      `will respond back to you shortly. If you need to add anything else to your ticket, you can send it here!`)
+      .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
+      await message.author.send(newTicket);
+
+      const messageReception = new MessageEmbed()
+      .setColor(client.config.school_color)
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
+      .setTitle(`ModMail Ticket Received`)
+      .setDescription(`**${message.content}**`)
+      .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
+      await channel.send(messageReception);
+
+      db.set(`support_${message.author.id}`, active);
+      db.set(`supportChannel_${channel.id}`, message.author.id);
+      return;
     }
-        
-    channel = client.channels.cache.get(active.channelID);
-    
-    const newTicket = new MessageEmbed()
-    .setColor(client.config.school_color)
-    .setAuthor(message.author.tag, message.author.displayAvatarURL())
-    .setTitle(`ModMail Ticket Created`)
-    .setDescription(`<@${message.author.id}>, hello! I have opened up a new ticket for you. One of our staff members ` +
-    `will respond back to you shortly. If you need to add anything else to your ticket, you can send it here!`)
-    .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
-    await message.author.send(newTicket);
-
-    const messageReception = new MessageEmbed()
-    .setColor(client.config.school_color)
-    .setAuthor(message.author.tag, message.author.displayAvatarURL())
-    .setTitle(`ModMail Ticket Received`)
-    .setDescription(`**${message.content}**`)
-    .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
-    await channel.send(messageReception);
-
-    db.set(`support_${message.author.id}`, active);
-    db.set(`supportChannel_${channel.id}`, message.author.id);
-    return;
   }
     
     let support = await db.fetch(`supportChannel_${message.channel.id}`);
