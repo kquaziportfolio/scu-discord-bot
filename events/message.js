@@ -83,9 +83,8 @@ module.exports = async (client, message) => {
               .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
             
             supportUser.send(completeTicket);
-            message.guilds.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
+            message.guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
             message.channel.delete();
-            guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
             return db.delete(`support_${support.targetID}`);
         }
     }
