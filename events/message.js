@@ -31,10 +31,10 @@ module.exports = async (client, message) => {
               SEND_MESSAGES: true,
               MANAGE_CHANNELS: true
           });
-          channel.overwritePermissions(everyone, { //@everyone can't view channel 
+          channel.overwritePermissions(everyone.id, { //@everyone can't view channel 
               VIEW_CHANNEL: false,
           });
-          channel.overwritePermissions(client.user.username, {
+          channel.overwritePermissions(client.user.id, {
               VIEW_CHANNEL: true,
               SEND_MESSAGES: true,
               MANAGE_CHANNELS: true
@@ -52,7 +52,7 @@ module.exports = async (client, message) => {
           .setColor(client.config.school_color)
           .setAuthor(`Hello, ${message.author.tag}`, message.author.displayAvatarURL())
           .setFooter('ModMail Ticket Created');
-      await author.send(newTicket);
+      await message.author.send(newTicket);
 
       // Update Active Data
       active.channelID = channel.id;
