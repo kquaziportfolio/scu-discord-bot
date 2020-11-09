@@ -1,6 +1,7 @@
 const { MessageEmbed } = require(`discord.js`);
 const fetch = require(`node-fetch`);
 let isAdmin = require(`../../modules/isAdmin.js`);
+let sendMessage = require(`../../modules/sendMessage.js`);
 
 module.exports = { 
     name: 'express', //here is a change in the file
