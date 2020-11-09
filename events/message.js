@@ -25,19 +25,26 @@ module.exports = async (client, message) => {
       channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);
       channel.setParent(client.config.channels.supportTicketsCategory); // Management Category ID
       channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
-      channel.overwritePermissions([client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod], { // This will set the permissions so only Staff will see the ticket.
-          VIEW_CHANNEL: true,
-          SEND_MESSAGES: true,
-          MANAGE_CHANNELS: true
-      });
-      channel.overwritePermissions(client.config.serverRoles.everyone, { //@everyone can't view channel 
-          VIEW_CHANNEL: false,
-      });
-      channel.overwritePermissions(client.config.serverRoles.bot, {
-          VIEW_CHANNEL: true,
-          SEND_MESSAGES: true,
-          MANAGE_CHANNELS: true
-      }); 
+      channel.overwritePermissions([
+        {
+          id: [client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod],
+          allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_CHANNELS'],
+        },
+      ]);
+      
+      channel.overwritePermissions([
+        {
+          id: client.config.serverRoles.everyone,
+          deny: ['VIEW_CHANNEL'],
+        },
+      ]);
+        
+      channel.overwritePermissions([
+        {
+          id: client.config.serverRoles.bot,
+          allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_CHANNELS'],
+        },
+      ]); 
 
       const newChannel = new MessageEmbed()
       .setColor(client.config.school_color)
