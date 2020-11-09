@@ -49,6 +49,7 @@ module.exports = async (client, message) => {
     const newTicket = new MessageEmbed()
     .setColor(client.config.school_color)
     .setAuthor(message.author.tag, message.author.displayAvatarURL())
+    .setTitle(`ModMail Ticket Received`)
     .setDescription(`<@${message.author.id}>, hello! I have opened up a new ticket for you. One of our staff members ` +
     `will respond back to you shortly. If you need to add anything else to your ticket, you can send it here!`)
     .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
@@ -77,11 +78,12 @@ module.exports = async (client, message) => {
             const completeTicket = new MessageEmbed()
               .setColor(client.config.school_color)
               .setTitle(`ModMail Ticket Resolved`)
-              .setAuthor(message.author.tag, message.author.displayAvatarURL())
+              .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
               .setDescription(`Support for <@${supportUser.id}> has been closed. *Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
-              .setFooter(`ModMail Ticket Closed -- ${message.author.tag}`)
+              .setFooter(`ModMail Ticket Closed -- ${supportUser.tag`)
             
             supportUser.send(completeTicket);
+            message.guilds.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
             message.channel.delete();
             guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
             return db.delete(`support_${support.targetID}`);
