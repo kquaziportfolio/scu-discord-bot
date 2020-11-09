@@ -22,24 +22,7 @@ module.exports = async (client, message) => {
     if (!active || !found) {
       //create support channel for new respondee
       active = {};
-      channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);
-      
-      channel.overwritePermissions(client.config.serverRoles.owner, {
-          VIEW_CHANNEL: true,
-          SEND_MESSAGES: true,
-          MANAGE_CHANNELS: true
-      });
-      
-      channel.overwritePermissions(client.config.serverRoles.everyone, {
-          VIEW_CHANNEL: false,
-      });
-        
-      channel.overwritePermissions(client.config.serverRoles.bot, {
-          VIEW_CHANNEL: true,
-          SEND_MESSAGES: true,
-          MANAGE_CHANNELS: true
-      }); // This will set the permissions so only Staff will see the ticket.
-      
+      channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);     
       channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
       channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
 
@@ -92,7 +75,7 @@ module.exports = async (client, message) => {
         const messageReception2 = new MessageEmbed()
         .setColor(client.config.school_color)
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .setDescription(`<@${message.author.id> said: `\`\${message.content}`\`\`
+        .setDescription(`<@${message.author.id}> said: `\`\${message.content}`\`\`)
         .setFooter(`Message Received`)
             
         client.users.cache.get(support.targetID).send(messageReception2);
