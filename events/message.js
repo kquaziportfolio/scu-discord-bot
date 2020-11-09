@@ -22,16 +22,18 @@ module.exports = async (client, message) => {
     if (!active || !found) {
       //create support channel for new respondee
       active = {};
-      channel = await guild.createChannel(`${message.author.username}-${message.author.discriminator}`);
+      channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);
       
       channel.overwritePermissions(client.config.serverRoles.owner, {
           VIEW_CHANNEL: true,
           SEND_MESSAGES: true,
           MANAGE_CHANNELS: true
       });
+      
       channel.overwritePermissions(client.config.serverRoles.everyone, {
           VIEW_CHANNEL: false,
       });
+        
       channel.overwritePermissions(client.config.serverRoles.bot, {
           VIEW_CHANNEL: true,
           SEND_MESSAGES: true,
@@ -64,7 +66,7 @@ module.exports = async (client, message) => {
       const dm = new MessageEmbed()
           .setColor(client.config.school_color)
           .setAuthor(`Thank you, ${message.author.tag}`, message.author.displayAvatarURL())
-          .setFooter(`Your message has been sent -- A staff member will be in contact soon.`)
+          .setDescription(`<@${message.author.id}>, your message has been sent. A staff member will be in contact with you soon.`)
       await message.author.send(dm);
 
       const messageReception1 = new MessageEmbed()
