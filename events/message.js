@@ -35,8 +35,7 @@ module.exports = async (client, message) => {
             id: [client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod, client.config.serverRoles.bot],
             allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_CHANNELS'],
           }
-        ],
-      });
+        ]);
 
       const newChannel = new MessageEmbed()
       .setColor(client.config.school_color)
