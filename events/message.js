@@ -22,29 +22,23 @@ module.exports = async (client, message) => {
     if (!active || !found) {
       //create support channel for new respondee
       active = {};
-      channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);
-      channel.setParent(client.config.channels.supportTicketsCategory); // Management Category ID
-      channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
-      channel.overwritePermissions([
-        {
-          id: [client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod],
-          allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_CHANNELS'],
-        },
-      ]);
+      const channelName = `${message.author.username}-${message.author.discriminator}`
       
-      channel.overwritePermissions([
-        {
-          id: client.config.serverRoles.everyone,
-          deny: ['VIEW_CHANNEL'],
-        },
-      ]);
-        
-      channel.overwritePermissions([
-        {
-          id: client.config.serverRoles.bot,
-          allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_CHANNELS'],
-        },
-      ]); 
+      guild.channels.create(channelName, {
+        type: 'text',
+        permissionOverwrites: [
+          {
+            id: client.config.serverRoles.everyone, //@everyone can't view channel
+            deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS']
+          },
+          {
+            id: [client.config.serverRoles.owner, client.config.serverRoles.admin, client.config.serverRoles.mod, client.config.serverRoles.bot],
+            allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_CHANNELS'],
+        ],
+      }).then(m => {
+          m.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
+          m.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
+      });
 
       const newChannel = new MessageEmbed()
       .setColor(client.config.school_color)
@@ -90,7 +84,7 @@ module.exports = async (client, message) => {
         let supportUser = client.users.cache.get(support.targetID);
         if (!supportUser) return message.channel.delete();
         
-        // !complete command
+        // &complete command
         if (message.content.toLowerCase() == `${client.config.prefix}complete`) {
             const completeTicket = new MessageEmbed()
               .setColor(client.config.school_color)
