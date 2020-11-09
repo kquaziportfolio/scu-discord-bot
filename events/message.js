@@ -59,8 +59,7 @@ module.exports = async (client, message) => {
     .setColor(client.config.school_color)
     .setAuthor(message.author.tag, message.author.displayAvatarURL())
     .setTitle(`ModMail Ticket Received`)
-    .setDescription(`From <@${message.author.id}>`)
-    .addField(`**${message.content}**`)
+    .setDescription(`**${message.content}**`)
     .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
     await channel.send(`<@${message.author.id}>`, { embed: messageReception });
 
@@ -75,7 +74,7 @@ module.exports = async (client, message) => {
         let supportUser = client.users.cache.get(support.targetID);
         if (!supportUser) return message.channel.delete();
         
-        // <@SCU#6441> complete command
+        // <@SCU#6441> close-ticket command
         if (message.content == `<@${client.config.serverRoles.bot}> close-ticket`) {
             const completeTicket = new MessageEmbed()
               .setColor(client.config.school_color)
