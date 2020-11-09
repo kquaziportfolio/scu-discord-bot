@@ -8,7 +8,7 @@ module.exports = async (client, message) => {
   
   //Check if message is in a direct message
   if (message.guild == null) {
-    if (message.content.startsWith(`<@${client.config.serverRoles.bot}>`) {
+    if (message.content.startsWith(`<@${client.config.serverRoles.bot}>`)) {
         let active = await db.fetch(`support_${message.author.id}`);
         let guild = client.guilds.cache.get(client.config.verification.guildID);
         let channel, found = true;
