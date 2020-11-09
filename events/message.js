@@ -43,36 +43,23 @@ module.exports = async (client, message) => {
       channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
       channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
 
-      const newChannel = new MessageEmbed()
-      .setColor(client.config.school_color)
-      .setAuthor(message.author.tag, message.author.displayAvatarURL())
-      .setFooter('ModMail Ticket Created')
-      .addField('User', message.author)
-      .addField('ID', message.author.id)
-      await channel.send(newChannel);
-
-      const newTicket = new MessageEmbed()
-      .setColor(client.config.school_color)
-      .setAuthor(`Hello, ${message.author.tag}`, message.author.displayAvatarURL())
-      .setFooter('ModMail Ticket Created')
-      await message.author.send(newTicket);
-
       // Update Active Data
       active.channelID = channel.id;
       active.targetID =  message.author.id;
       }
         
       channel = client.channels.cache.get(active.channelID);
-      const dm = new MessageEmbed()
-          .setColor(client.config.school_color)
-          .setAuthor(`Thank you, ${message.author.tag}`, message.author.displayAvatarURL())
-          .setDescription(`<@${message.author.id}>, your message has been sent. A staff member will be in contact with you soon.`)
-      await message.author.send(dm);
+      const newTicket = new MessageEmbed()
+      .setColor(client.config.school_color)
+      .setAuthor(`Thank you, ${message.author.tag}`, message.author.displayAvatarURL())
+      .setDescription(`<@${message.author.id}>, your message has been sent. A staff member will contact you soon.`)
+      .setFooter('ModMail Ticket Created')
+      await message.author.send(newTicket);
 
       const messageReception1 = new MessageEmbed()
       .setColor(client.config.school_color)
       .setAuthor(message.author.tag, message.author.displayAvatarURL())
-      .setDescription(message.content)
+      .setDescription(`<@${message.author.id> said: `\`\${message.content}`\`\`)
       .setFooter(`Message Received -- ${message.author.tag}`)
       await channel.send(messageReception1);
     
@@ -105,7 +92,7 @@ module.exports = async (client, message) => {
         const messageReception2 = new MessageEmbed()
         .setColor(client.config.school_color)
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .setDescription(message.content)
+        .setDescription(`<@${message.author.id> said: `\`\${message.content}`\`\`
         .setFooter(`Message Received`)
             
         client.users.cache.get(support.targetID).send(messageReception2);
