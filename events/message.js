@@ -10,7 +10,7 @@ module.exports = async (client, message, args) => {
   
   //Check if message is in a direct message
   if (message.guild == null) {
-    if (message.content == `${ticket} ticketContent) {
+    if (message.content == `${ticket} ticketContent`) {
         let active = await db.fetch(`support_${message.author.id}`);
         let guild = client.guilds.cache.get(client.config.verification.guildID);
         let channel, found = true;
@@ -53,18 +53,19 @@ module.exports = async (client, message, args) => {
       .setColor(client.config.school_color)
       .setAuthor(message.author.tag, message.author.displayAvatarURL())
       .setTitle(`ModMail Ticket Created`)
-      .setDescription(`<@${message.author.id}>, hello! I have opened up a new ticket for you. One of our staff members ` +
+      .setDescription(`Hello, I've opened up a new ticket for you! One of our staff members ` +
       `will respond back to you shortly. If you need to add anything else to your ticket, you can send it here!`)
       .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
-      await message.author.send(newTicket);
+      await message.author.send(`<@${message.author.id}>`, { embed: newTicket });
 
       const messageReception = new MessageEmbed()
       .setColor(client.config.school_color)
       .setAuthor(message.author.tag, message.author.displayAvatarURL())
       .setTitle(`ModMail Ticket Received`)
-      .setDescription(`**${message.content}**`)
+      .setDescription(`From <@${message.author.id}>`)
+      .addField(`**${message.content}**`)
       .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
-      await channel.send(messageReception);
+      await channel.send(`<@${message.author.id}>`, { embed: messageReception });
 
       db.set(`support_${message.author.id}`, active);
       db.set(`supportChannel_${channel.id}`, message.author.id);
@@ -84,10 +85,10 @@ module.exports = async (client, message, args) => {
               .setColor(client.config.school_color)
               .setTitle(`ModMail Ticket Resolved`)
               .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
-              .setDescription(`Support for <@${supportUser.id}> has been closed. *Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
+              .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
               .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
-            
-            supportUser.send(completeTicket);
+            supportUser.send(`<@${supportUser.id}>`, { embed: completeTicket });
+          
             message.guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
             message.channel.delete();
             return db.delete(`support_${support.targetID}`);
