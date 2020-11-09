@@ -27,13 +27,17 @@ module.exports = async (client, message) => {
       channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
       channel.overwritePermissions([ 
         {
+          id: client.config.serverRoles.mod,
+          allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'MANAGE_CHANNEL', 'MANAGE_MESSAGES', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS']
+        },
+        {
           id: message.author.id,
           allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY']
         },
         {
           id: client.config.serverRoles.everyone,
           deny: ['VIEW_CHANNEL']
-        } 
+        }
       ]);
 
       // Update Active Data
@@ -42,19 +46,21 @@ module.exports = async (client, message) => {
     }
         
     channel = client.channels.cache.get(active.channelID);
+    
     const newTicket = new MessageEmbed()
     .setColor(client.config.school_color)
     .setAuthor(`Thank you, ${message.author.tag}`, message.author.displayAvatarURL())
-    .setDescription(`<@${message.author.id}>, your message has been sent. A staff member will contact you soon.`)
-    .setFooter('ModMail Ticket Created')
+    .setDescription(`<@${message.author.id}>, hello! I have opened up a new ticket for you. One of our staff members 
+    will respond back to you shortly. If you need to add anything else to your ticket, you can send it here!`)
+    .setFooter(`ModMail Ticket Created`)
     await message.author.send(newTicket);
 
-    const messageReception1 = new MessageEmbed()
+    const messageReception = new MessageEmbed()
     .setColor(client.config.school_color)
     .setAuthor(message.author.tag, message.author.displayAvatarURL())
-    .setDescription(`<@${message.author.id}> said: **${message.content}**`)
-    .setFooter(`Message Received -- ${message.author.tag}`)
-    await channel.send(messageReception1);
+    .setDescription(`**${message.content}**`)
+    .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
+    await channel.send(messageReception);
 
     db.set(`support_${message.author.id}`, active);
     db.set(`supportChannel_${channel.id}`, message.author.id);
@@ -72,26 +78,13 @@ module.exports = async (client, message) => {
             const completeTicket = new MessageEmbed()
               .setColor(client.config.school_color)
               .setAuthor(`Hey, ${supportUser.tag}`, supportUser.displayAvatarURL())
-              .setFooter('Ticket Closed')
-              .setDescription('*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*');
-                
+              .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
+              .setFooter(`ModMail Ticket Closed`)
+            
             supportUser.send(completeTicket);
-            message.channel.delete()
-                .then(console.log(`Support for ${supportUser.tag} has been closed.`))
-                .catch(console.error);
+            sendMessage(client, client.config.channels.auditlogs, { embed: { title: `ModMail Ticket Resolved`, description: `Support for ${supportUser.tag} has been closed.`, color: client.config.school_color}});
             return db.delete(`support_${support.targetID}`);
         }
-      
-        const messageReception2 = new MessageEmbed()
-        .setColor(client.config.school_color)
-        .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .setDescription(`<@${message.author.id}> said: **${message.content}**`)
-        .setFooter(`Message Received`)
-            
-        client.users.cache.get(support.targetID).send(messageReception2);
-        message.delete({timeout: 1000});
-        messageReception2.setFooter(`Message Sent -- ${supportUser.tag}`).setDescription(message.content);
-        return message.channel.send(messageReception2);
     }
 
   // Our standard argument/command name definition.
