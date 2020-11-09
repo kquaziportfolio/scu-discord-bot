@@ -1,5 +1,4 @@
 const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
-let sendMessage = require(`../modules/sendMessage.js`);
 const db = require(`quick.db`);
 const active = new Map();
 
@@ -77,13 +76,14 @@ module.exports = async (client, message) => {
         if (message.content.toLowerCase() == `${client.config.prefix}complete`) {
             const completeTicket = new MessageEmbed()
               .setColor(client.config.school_color)
+              .setTitle(`ModMail Ticket Resolved`)
               .setAuthor(message.author.tag, message.author.displayAvatarURL())
-              .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
+              .setDescription(`Support for <@${supportUser.id}> has been closed. *Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
               .setFooter(`ModMail Ticket Closed -- ${message.author.tag}`)
             
             supportUser.send(completeTicket);
-            sendMessage(client, client.config.channels.auditlogs, { embed: { title: `ModMail Ticket Resolved`, description: `Support for <@${supportUser.id}> has been closed.`, footer: `ModMail Ticket Closed -- ${message.author.tag}`, color: client.config.school_color}});
             message.channel.delete();
+            guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
             return db.delete(`support_${support.targetID}`);
         }
     }
