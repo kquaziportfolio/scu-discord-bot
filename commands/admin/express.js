@@ -15,14 +15,9 @@ module.exports = {
             const getStatus = await status.text();
             
             if (!status.ok) {
-                sendMessage(client, client.config.channels.auditlogs, { embed: { title: `Error :x:`, description: `Go to [https://pitunnel.com](PiTunnel) and reset using the following commands: \`${client.config.verification.mappingRule}\``, color: client.config.school_color}});
+                sendMessage(client, client.config.channels.auditlogs, { embed: { title: `Verification Error :x:`, description: `Go to [PiTunnel](https://pitunnel.com) and reset using the following commands: \`\`\`${client.config.verification.mappingRule}\`\`\``, color: client.config.school_color}});
             } else {
-                const statusEmbed = new MessageEmbed()
-                .setTitle(` VERIFICATION SERVER`)
-                .setDescription(`${getStatus} - Check the status [here](${url})!`)
-                .setColor(client.config.school_color)
-
-                message.channel.send(statusEmbed);
+                sendMessage(client, client.config.channels.auditlogs, { embed: { title: `Verification Server Up!`, description: `${getStatus} - Check the status [here](${url})!`, color: client.config.school_color}});
             }
         }
     }
