@@ -1,4 +1,4 @@
-const { MessageEmbed } = require(`discord.js`); //requires Discord.js integration package
+const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
 let sendMessage = require(`../modules/sendMessage.js`);
 const db = require(`quick.db`);
 const active = new Map();
@@ -134,10 +134,10 @@ module.exports = async (client, message) => {
     return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
   }
 
-  const cooldowns = new Discord.Collection();
+  const cooldowns = new Collection();
 
   if (!cooldowns.has(command.name)) {
-    cooldowns.set(command.name, new Discord.Collection());
+    cooldowns.set(command.name, new Collection());
   }
   
   const now = Date.now();
