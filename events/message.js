@@ -23,9 +23,10 @@ module.exports = async (client, message) => {
       //create support channel for new respondee
       active = {};
       
-      const channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`, {
-        type: 'text',
-        permissionOverwrites: [
+      channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);
+      channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
+      channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
+      channel.overwritePermissions([
           {
             id: client.config.serverRoles.everyone, //@everyone can't view channel
             deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS']
@@ -35,9 +36,6 @@ module.exports = async (client, message) => {
             allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_CHANNELS'],
           }
         ],
-      }).then(m => {
-          m.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
-          m.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
       });
 
       const newChannel = new MessageEmbed()
