@@ -25,12 +25,12 @@ module.exports = async (client, message) => {
       channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);     
       channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
       channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
-      channel.overwritePermissions(message.author.id, {
-        VIEW_CHANNEL: true,
-        SEND_MESSAGES: true,
-        ADD_REACTIONS: true,
-        READ_MESSAGE_HISTORY: true
-    });
+      channel.overwritePermissions([ 
+        {
+          id: message.author.id,
+          allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY']
+        }
+      ]);
 
       // Update Active Data
       active.channelID = channel.id;
