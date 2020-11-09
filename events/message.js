@@ -2,9 +2,11 @@ const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.j
 const db = require(`quick.db`);
 const active = new Map();
 
-module.exports = async (client, message, args) => {
+module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
+  
+  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   
   //Check if message is in a direct message
   if (message.guild == null && message.content == `<@${client.config.serverRoles.bot}> ticket ${args[0 == null]}`) {
@@ -91,7 +93,6 @@ module.exports = async (client, message, args) => {
     }
 
   // Our standard argument/command name definition.
-  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
 
   // Grab the command data from the client.commands Enmap
