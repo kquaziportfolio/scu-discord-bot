@@ -26,7 +26,7 @@ module.exports = async (client, message) => {
       let everyone = guild.roles.cache.find(r => r.name == `@everyone`);
       channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);
           channel.setParent(`775397054532026388`); // Management Category ID
-          channel.setTopic(`Use \`${prefix}complete\` to close the Ticket | ModMail for ${message.author.tag} | ID: ${message.author.id}`);
+          channel.setTopic(`Use \`${client.config.prefix}complete\` to close the Ticket | ModMail for ${message.author.tag} | ID: ${message.author.id}`);
           channel.overwritePermissions(modRoles, { // This will set the permissions so only Staff will see the ticket.
               VIEW_CHANNEL: true,
               SEND_MESSAGES: true,
@@ -86,7 +86,7 @@ module.exports = async (client, message) => {
         if (!supportUser) return message.channel.delete();
         
         // !complete command
-        if (message.content.toLowerCase() === `${prefix}complete`) {
+        if (message.content.toLowerCase() === `${client.config.prefix}complete`) {
             const complete = new MessageEmbed()
               .setColor(client.config.school_color)
               .setAuthor(`Hey, ${supportUser.tag}`, supportUser.displayAvatarURL())
