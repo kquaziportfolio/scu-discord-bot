@@ -119,34 +119,31 @@ module.exports.run = async (client) => {
           member.roles.remove(guild.roles.cache.find((role) => role.id == client.config.serverRoles.unverifiedStudent));
 
           //send them a confirmation
-          const verifyConfirmation = {
-            title: `__**Successful Verification**__`,
-            description: `✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${client.config.channels.info}> for more information!`,
-            color: client.config.school_color,
-            footer: { text: "SCU Discord Network Verification", },
-            author: { name: "Verification Confirmation", icon_url: client.user.avatarURL(), },
-            image: { url: guild.splashURL(), },
-            timestamp: new Date(),
-            fields: [
+          const verifyConfirmation = new MessageEmbed()
+            .setTitle(`__**Successful Verification**__`)
+            .setDescription(`✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${client.config.channels.info}> for more information!`)
+            .setColor(client.config.school_color)
+            .setFooter(`SCU Discord Network Verification`)
+            .setAuthor("Verification Confirmation", client.user.avatarURL())
+            .attachFiles([`./assets/verified.gif`])
+            .setImage(`attachment://verified.gif`)
+            .setTimestamp()
+            .addFields(
               { name: "First Name", value: req.body.name, },
               { name: "Current Major(s)", value: (req.body.major || 'none'), }, //will output none if no major is inputted
               { name: "Member Status", value: req.body.status, },
               { name: "Discord Tag <-- (DiscordName#0000)", value: req.body.discord, },
-            ],
-          };
+            )
           member.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation});
           const verifyEmbed = { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `You are now verified! Everyone please welcome **${req.body.name}** to the server!`, color: client.config.school_color, timestamp: new Date()};
           
-          let verificationChannel = guild.channels.cache.get(client.config.channels.verifylogs);
-          verificationChannel.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation}).then(m => m.react('👍'));
+          sendMessage(client, client.config.channels.verifylogs, `**<@${member.user.id}>**`, { embed: verifyConfirmation}).then(m => m.react('👍'));
             
-          let welcomeChannel = guild.channels.cache.get(client.config.channels.welcome);
-          welcomeChannel.send(`**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
+          sendMessage(client, client.config.channels.welcome, `**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
                   
           let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === client.config.serverRoles.verifiedStudent)).size
           let studentCount = guild.channels.cache.find(channel => channel.id === client.config.channels.verifiedCount);
           studentCount.setName(`🐎 ${verifiedCount} Bucking Broncos`);
-        
       }
     } else {
         //if no body.. return this

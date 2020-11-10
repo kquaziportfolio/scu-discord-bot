@@ -1,6 +1,5 @@
 const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
 const db = require(`quick.db`);
-const active = new Map();
 let isAdmin = require(`../modules/isAdmin.js`);
 
 module.exports = async (client, message) => {
@@ -51,9 +50,12 @@ module.exports = async (client, message) => {
     .setColor(client.config.school_color)
     .setAuthor(message.author.tag, message.author.displayAvatarURL())
     .setTitle(`ModMail Ticket Created`)
-    .setDescription(`Hello, I've opened up a new ticket for you! One of our staff members ` +
+    .setDescription(`Hello, I've opened up a new ticket for you! Our staff members ` +
     `will respond shortly. If you need to add to your ticket, plug away again!`)
     .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
+    .attachFiles([`./assets/verified.gif`])
+    .setImage(`attachment://verified.gif`)
+    .setThumbnail(guild.iconURL())
     await message.author.send(`<@${message.author.id}>`, { embed: newTicket });
 
     const messageReception = new MessageEmbed()
@@ -62,6 +64,9 @@ module.exports = async (client, message) => {
     .setTitle(`ModMail Ticket Received`)
     .setDescription(`**${message.content}**`)
     .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
+    .attachFiles([`./assets/verified.gif`])
+    .setImage(`attachment://verified.gif`)
+    .setThumbnail(guild.iconURL())
     await channel.send(`<@${message.author.id}>`, { embed: messageReception });
 
     db.set(`support_${message.author.id}`, active);
@@ -75,8 +80,6 @@ module.exports = async (client, message) => {
         let supportUser = client.users.cache.get(support.targetID);
         if (!supportUser) return message.channel.delete();
         
-        const modRole = client.config.serverRoles;
-        
         if(isAdmin(client, message, true)) {
           if (message.content == `${client.config.prefix}close-ticket`) {
             const completeTicket = new MessageEmbed()
@@ -85,6 +88,9 @@ module.exports = async (client, message) => {
               .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
               .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
               .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
+              .attachFiles([`./assets/verified.gif`])
+              .setImage(`attachment://verified.gif`)
+              .setThumbnail(guild.iconURL())
             supportUser.send(`<@${supportUser.id}>`, { embed: completeTicket });
 
             message.guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
