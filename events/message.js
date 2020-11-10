@@ -75,7 +75,7 @@ module.exports = async (client, message) => {
         if (!supportUser) return message.channel.delete();
         
         const modRole = client.config.serverRoles;
-        if (message.content == `${client.config.prefix}close-ticket` && message.member.roles.cache.has([modRole.owner, modRole.admin, modRole.mod])) {
+        if (message.content == `${client.config.prefix}close-ticket` && message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name))) {
           const completeTicket = new MessageEmbed()
             .setColor(client.config.school_color)
             .setTitle(`ModMail Ticket Resolved`)
