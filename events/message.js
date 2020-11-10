@@ -54,8 +54,7 @@ module.exports = async (client, message) => {
     `will respond shortly. If you need to add to your ticket, plug away again!`)
     .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
     .attachFiles([`./assets/verified.gif`])
-    .setImage(`attachment://verified.gif`)
-    .setThumbnail(guild.iconURL())
+    .setThumbnail(`attachment://verified.gif`)
     await message.author.send(`<@${message.author.id}>`, { embed: newTicket });
 
     const messageReception = new MessageEmbed()
@@ -65,8 +64,7 @@ module.exports = async (client, message) => {
     .setDescription(`**${message.content}**`)
     .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
     .attachFiles([`./assets/verified.gif`])
-    .setImage(`attachment://verified.gif`)
-    .setThumbnail(guild.iconURL())
+    .setThumbnail(`attachment://verified.gif`)
     await channel.send(`<@${message.author.id}>`, { embed: messageReception });
 
     db.set(`support_${message.author.id}`, active);
@@ -89,8 +87,7 @@ module.exports = async (client, message) => {
               .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
               .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
               .attachFiles([`./assets/verified.gif`])
-              .setImage(`attachment://verified.gif`)
-              .setThumbnail(guild.iconURL())
+              .setThumbnail(`attachment://verified.gif`)
             supportUser.send(`<@${supportUser.id}>`, { embed: completeTicket });
 
             message.guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
