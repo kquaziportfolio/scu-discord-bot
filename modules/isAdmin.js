@@ -14,14 +14,15 @@
 
 module.exports = async function isAdmin(client, message, statement) {
   let error = require("./missingPerms.js");
-  if (message.member.roles.cache.has(r => (r.name == "Owner") || (r.name == "Admin") || (r.name == "Mod"))) {
-    return true;
-    console.log(`User is either an Owner, Admin, or Mod`);
+  const modRole = client.config.serverRoles;
+  if (message.member.roles.cache.has(r => (r.id == modRole.owner) || (r.id == modRole.admin) || (r.id == modRole.mod))) {
+   console.log(`User is either an Owner, Admin, or Mod`); 
+   return true;
   } else {
      if (statement == true) {
        //error(`You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, message);
-       return false;
-       console.log(`User is not an Owner, Admin, or Mod`);
+      console.log(`User is not an Owner, Admin, or Mod`); 
+      return false;
      }
   }
 }
