@@ -19,7 +19,7 @@ module.exports = async (client) => {
 		let liveCount = guild.channels.cache.find(channel => channel.id === client.config.channels.memberCount);
 		liveCount.setName(`👥 ${memberCount} Members`);
 
-		client.user.setPresence({activity: { name: `${client.config.prefix}help || DM the bot for mod support! 📩` }, status: 'online'});
+		client.user.setPresence({activity: { name: `${client.config.prefix}help || DM me for help! 📩` }, status: 'online'});
 
 		/* DISCORD STATUS CHECKER */
 		const url = client.config.verification.status;
