@@ -121,12 +121,12 @@ module.exports.run = async (client) => {
           //send them a confirmation
           const verifyConfirmation = new MessageEmbed()
             .setTitle(`__**Successful Verification**__`)
-            .setDescription(`✅ You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${client.config.channels.info}> for more information!`)
+            .setDescription(`You have been verified successfully in the **${guild.name}** server! Here is your information for confirmation. If anything is inputted incorrectly, please tell contact **ADMIN** or **MOD** to quickly adjust your roles! Remember to read <#${client.config.channels.info}> for more information!`)
             .setColor(client.config.school_color)
             .setFooter(`SCU Discord Network Verification`)
             .setAuthor("Verification Confirmation", client.user.avatarURL())
             .attachFiles([`./assets/verified.gif`])
-            .setImage(`attachment://verified.gif`)
+            .setThumbnail(`attachment://verified.gif`)
             .setTimestamp()
             .addFields(
               { name: "First Name", value: req.body.name, },
