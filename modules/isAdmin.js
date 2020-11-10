@@ -14,7 +14,7 @@
 
 module.exports = async function isAdmin(client, message, statement) {
   let error = require("./missingPerms.js");
-  if message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name)) {
+  if message.member.roles.cache.has(r => (r.name == "Owner") || (r.name == "Admin) || (r.name == "Mod")) {
     return true;
     console.log(`User is either an Owner, Admin, or Mod`);
   } else {
