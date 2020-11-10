@@ -38,33 +38,34 @@ module.exports = async (client, message) => {
             deny: ['VIEW_CHANNEL']
           }
         ]);
+        
+        const newTicket = new MessageEmbed()
+        .setColor(client.config.school_color)
+        .setAuthor(message.author.tag, message.author.displayAvatarURL())
+        .setTitle(`ModMail Ticket Created`)
+        .setDescription(`Hello, I've opened up a new ticket for you! Our staff members ` +
+        `will respond shortly. If you need to add to your ticket, plug away again!`)
+        .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
+        .attachFiles([`./assets/verified.gif`])
+        .setThumbnail(`attachment://verified.gif`)
+        await message.author.send(`<@${message.author.id}>`, { embed: newTicket });
 
         // Update Active Data
         active.channelID = channel.id;
         active.targetID =  message.author.id;
       }
-
+ 
     channel = client.channels.cache.get(active.channelID);
-
-    const newTicket = new MessageEmbed()
+    
+    const messageReception = new MessageEmbed() //fires for newly created and exisiting tickets 
     .setColor(client.config.school_color)
     .setAuthor(message.author.tag, message.author.displayAvatarURL())
-    .setTitle(`ModMail Ticket Created`)
-    .setDescription(`Hello, I've opened up a new ticket for you! Our staff members ` +
-    `will respond shortly. If you need to add to your ticket, plug away again!`)
-    .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
-    .attachFiles([`./assets/verified.gif`])
-    .setThumbnail(`attachment://verified.gif`)
-    await message.author.send(`<@${message.author.id}>`, { embed: newTicket });
-
-    const messageReception = new MessageEmbed()
-    .setColor(client.config.school_color)
-    .setAuthor(message.author.tag, message.author.displayAvatarURL())
-    .setTitle(`ModMail Ticket Received`)
-    .setDescription(`**${message.content}**`)
     .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
     .attachFiles([`./assets/verified.gif`])
     .setThumbnail(`attachment://verified.gif`)
+    await message.author.send(`<@${message.author.id}>`, { embed: messageReception });
+
+    messageReception.setDescription(`**${message.content}**`) //appends `.setDescription()` method to the embed that will be sent to admins
     await channel.send(`<@${message.author.id}>`, { embed: messageReception });
 
     db.set(`support_${message.author.id}`, active);
