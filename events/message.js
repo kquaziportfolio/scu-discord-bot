@@ -75,18 +75,18 @@ module.exports = async (client, message) => {
         if (!supportUser) return message.channel.delete();
         
         const modRole = client.config.serverRoles;
-        if (message.content == `${client.config.prefix}close-ticket` && message.member.roles.cache.has([modRole.owner, modRole.admin, modRole.mod]) {
-            const completeTicket = new MessageEmbed()
-              .setColor(client.config.school_color)
-              .setTitle(`ModMail Ticket Resolved`)
-              .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
-              .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
-              .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
-            supportUser.send(`<@${supportUser.id}>`, { embed: completeTicket });
-          
-            message.guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
-            message.channel.delete();
-            return db.delete(`support_${support.targetID}`);
+        if (message.content == `${client.config.prefix}close-ticket` && message.member.roles.cache.has([modRole.owner, modRole.admin, modRole.mod])) {
+          const completeTicket = new MessageEmbed()
+            .setColor(client.config.school_color)
+            .setTitle(`ModMail Ticket Resolved`)
+            .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
+            .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
+            .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
+          supportUser.send(`<@${supportUser.id}>`, { embed: completeTicket });
+
+          message.guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
+          message.channel.delete();
+          return db.delete(`support_${support.targetID}`);
         }
     }
 
