@@ -60,6 +60,7 @@ module.exports = async (client, message) => {
     const messageReception = new MessageEmbed() //fires for newly created and exisiting tickets 
     .setColor(client.config.school_color)
     .setAuthor(message.author.tag, message.author.displayAvatarURL())
+    .setDescription(`Your new content has been sent!`)
     .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
     .attachFiles([`./assets/verified.gif`])
     .setThumbnail(`attachment://verified.gif`)
