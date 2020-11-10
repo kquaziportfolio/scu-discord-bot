@@ -24,7 +24,7 @@ module.exports = async (client, message) => {
         active = {};
         channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);     
         channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
-        channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
+        channel.setTopic(`Use **${client.config.prefix}close-ticket** to close the Ticket | ModMail for <@${message.author.id}>`);
         channel.overwritePermissions([ 
           {
             id: client.config.serverRoles.mod,
@@ -52,7 +52,7 @@ module.exports = async (client, message) => {
     .setAuthor(message.author.tag, message.author.displayAvatarURL())
     .setTitle(`ModMail Ticket Created`)
     .setDescription(`Hello, I've opened up a new ticket for you! One of our staff members ` +
-    `will respond back to you shortly. If you need to add anything else to your ticket, you can send it here!`)
+    `will respond shortly. If you need to add to your ticket, plug away again!`)
     .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
     await message.author.send(`<@${message.author.id}>`, { embed: newTicket });
 
