@@ -32,7 +32,7 @@ module.exports = async (client, message) => {
           },
           {
             id: message.author.id,
-            allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY']
+            allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'EMBED_LINKS', 'ATTACH_FILES', 'USE_EXTERNAL_EMOJIS']
           },
           {
             id: client.config.serverRoles.everyone,
