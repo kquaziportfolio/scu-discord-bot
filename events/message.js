@@ -1,7 +1,7 @@
 const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
 const db = require(`quick.db`);
 const active = new Map();
-let isAdmin = require(`../../modules/sendMessage.js`);
+let isAdmin = require(`../../modules/isAdmin.js`);
 
 module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
