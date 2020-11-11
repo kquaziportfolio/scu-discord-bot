@@ -138,9 +138,9 @@ module.exports.run = async (client) => {
           member.send(`**<@${member.user.id}>**`, { embed: verifyConfirmation});
           const verifyEmbed = { title: `__**✅ NEW VERIFIED MEMBER!**__`, description: `You are now verified! Everyone please welcome **${req.body.name}** to the server!`, color: client.config.school_color, timestamp: new Date()};
           
-          sendMessage(client, client.config.channels.verifylogs, `**<@${member.user.id}>**`, { embed: verifyConfirmation}).then(m => m.react('👍'));
+          guild.channels.cache.get(client.config.channels.verifylogs).send(`**<@${member.user.id}>**`, { embed: verifyConfirmation}).then(m => m.react('👍'));
             
-          sendMessage(client, client.config.channels.welcome, `**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
+          guild.channels.cache.get(client.config.channels.welcome).send(`**<@${member.user.id}>**`, { embed: verifyEmbed}).then(m => m.react('👋'));
                   
           let verifiedCount = guild.members.cache.filter(member => member.roles.cache.find(role => role.id === client.config.serverRoles.verifiedStudent)).size
           let studentCount = guild.channels.cache.find(channel => channel.id === client.config.channels.verifiedCount);
