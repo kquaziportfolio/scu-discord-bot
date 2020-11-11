@@ -8,7 +8,7 @@ module.exports = {
     category: 'Admin',  
 	    async execute(client, message, args) { 
             if(isAdmin(client, message, true)) {
-		const pollArgs = message.content.match(/(?:"[^"]*"|^[^"]*$)/g);
+		const pollArgs = message.content.match(/(?:("|')[^("|')]*("|')|^[^("|')]*$)/g);
 		const options = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
 		const pollQuestion = pollArgs.shift();
 		let pollString = '';
