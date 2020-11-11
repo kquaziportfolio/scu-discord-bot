@@ -13,6 +13,5 @@
  */
 
 module.exports = async function isAdmin(client, message, statement) {
-  if(!message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name)) && statement == true)  return;
-  console.log(`Someone used a command!`);
+  if(!message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name))) return message.delete();
 }
