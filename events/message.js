@@ -1,6 +1,7 @@
 const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
 const db = require(`quick.db`);
 let isAdmin = require(`../modules/isAdmin.js`);
+let sendMessage = require(`../modules/sendMessage.js`);
 
 module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
@@ -17,6 +18,12 @@ module.exports = async (client, message) => {
       } catch (e) {
         found = false;
       }
+    
+      const messageReception = new MessageEmbed()
+      .setColor(client.config.school_color)
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
+      .attachFiles([`./assets/verified.gif`])
+      .setThumbnail(`attachment://verified.gif`)
 
       if (!active || !found) {
         //create support channel for new respondee
@@ -39,16 +46,13 @@ module.exports = async (client, message) => {
           }
         ]);
         
-        const newTicket = new MessageEmbed()
-        .setColor(client.config.school_color)
-        .setAuthor(message.author.tag, message.author.displayAvatarURL())
+        messageReception
         .setTitle(`ModMail Ticket Created`)
         .setDescription(`Hello, I've opened up a new ticket for you! Our staff members ` +
         `will respond shortly. If you need to add to your ticket, plug away again!`)
         .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
-        .attachFiles([`./assets/verified.gif`])
-        .setThumbnail(`attachment://verified.gif`)
-        await message.author.send(`<@${message.author.id}>`, { embed: newTicket });
+        
+        await message.author.send(`<@${message.author.id}>`, { embed: messageReception });
 
         // Update Active Data
         active.channelID = channel.id;
@@ -57,13 +61,9 @@ module.exports = async (client, message) => {
  
     channel = client.channels.cache.get(active.channelID);
     
-    const messageReception = new MessageEmbed() //fires for newly created and exisiting tickets 
-    .setColor(client.config.school_color)
-    .setAuthor(message.author.tag, message.author.displayAvatarURL())
+    messageReception //fires for newly created and exisiting tickets 
     .setDescription(`Your new content has been sent!`)
     .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
-    .attachFiles([`./assets/verified.gif`])
-    .setThumbnail(`attachment://verified.gif`)
     await message.author.send(`<@${message.author.id}>`, { embed: messageReception });
 
     messageReception.setDescription(`**${message.content}**`) //appends `.setDescription()` method to the embed that will be sent to admins
@@ -79,24 +79,40 @@ module.exports = async (client, message) => {
         support = await db.fetch(`support_${support}`);
         let supportUser = client.users.cache.get(support.targetID);
         if (!supportUser) return message.channel.delete();
+      
+        const ticketStatus = new MessageEmbed()
+        .setColor(client.config.school_color)
+        .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
+        .attachFiles([`./assets/verified.gif`])
+        .setThumbnail(`attachment://verified.gif`)
         
         if(isAdmin(client, message, true)) {
           if (message.content == `${client.config.prefix}close-ticket`) {
-            const completeTicket = new MessageEmbed()
-              .setColor(client.config.school_color)
+            ticketStatus
               .setTitle(`ModMail Ticket Resolved`)
-              .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
               .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
               .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
-              .attachFiles([`./assets/verified.gif`])
-              .setThumbnail(`attachment://verified.gif`)
-            supportUser.send(`<@${supportUser.id}>`, { embed: completeTicket });
+            supportUser.send(`<@${supportUser.id}>`, { embed: ticketStatus });
 
-            message.guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
             message.channel.delete();
             return db.delete(`support_${support.targetID}`);
+          } else if (message.content == `${client.config.prefix}archive-ticket`) {
+              ticketStatus
+                .setTitle(`ModMail Ticket Archived`)
+                .setDescription(`*Your ModMail has been marked as **Archived**. If you wish to re-enter, please send a message to the bot.*`)
+                .setFooter(`ModMail Ticket Archived -- ${supportUser.tag}`)
+              supportUser.send(`<@${supportUser.id}>`, { embed: ticketStatus });
+              message.channel.setName(`🔒📁-${message.author.username}-${message.author.discriminator}`);
+              message.channel.overwritePermissions([  
+                {
+                  id: message.author.id,
+                  deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'EMBED_LINKS', 'ATTACH_FILES', 'USE_EXTERNAL_EMOJIS']
+                },
+              ]);
           }
-        }
+          
+          sendMessage(client, client.config.channels.auditlogs, { embed: ticketStatus });
+       }
     }
 
   // Our standard argument/command name definition.
