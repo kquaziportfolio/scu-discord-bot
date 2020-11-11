@@ -96,24 +96,7 @@ module.exports = async (client, message) => {
 
             message.channel.delete();
             return db.delete(`support_${support.targetID}`);
-          } else if (message.content == `${client.config.prefix}archive-ticket`) {
-              ticketStatus
-                .setTitle(`ModMail Ticket Archived`)
-                .setDescription(`*Your ModMail has been marked as **Archived**. If you wish to re-enter, please send a message to the bot.*`)
-                .setFooter(`ModMail Ticket Archived -- ${supportUser.tag}`)
-              supportUser.send(`<@${supportUser.id}>`, { embed: ticketStatus });
-              message.channel.setName(`🔒📁-${supportUser.tag}`);
-              message.channel.overwritePermissions([  
-                {
-                  id: supportUser.id,
-                  deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'EMBED_LINKS', 'ATTACH_FILES', 'USE_EXTERNAL_EMOJIS']
-                },
-                {
-                  id: client.config.serverRoles.everyone,
-                  deny: ['VIEW_CHANNEL']
-                }
-              ]);
-          }
+          } 
           
           sendMessage(client, client.config.channels.auditlogs, { embed: ticketStatus });
        }
