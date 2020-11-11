@@ -102,10 +102,10 @@ module.exports = async (client, message) => {
                 .setDescription(`*Your ModMail has been marked as **Archived**. If you wish to re-enter, please send a message to the bot.*`)
                 .setFooter(`ModMail Ticket Archived -- ${supportUser.tag}`)
               supportUser.send(`<@${supportUser.id}>`, { embed: ticketStatus });
-              message.channel.setName(`🔒📁-${message.author.username}-${message.author.discriminator}`);
+              message.channel.setName(`🔒📁-${supportUser.tag}`);
               message.channel.overwritePermissions([  
                 {
-                  id: message.author.id,
+                  id: supportUser.id,
                   deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'EMBED_LINKS', 'ATTACH_FILES', 'USE_EXTERNAL_EMOJIS']
                 },
                 {
