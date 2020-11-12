@@ -139,10 +139,10 @@ module.exports = async (client, message) => {
       const timeLeft = (expirationTime - now) / 1000;
       message.reply({ embed: { description: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, color: client.config.school_color}});
     }
-
-    timestamps.set(message.author.id, now);
-    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
   }
+  
+  timestamps.set(message.author.id, now);
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
   try {
   // Run the command as long as it has these two parameters
