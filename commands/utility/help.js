@@ -17,7 +17,7 @@ module.exports = {
 				message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
 			}
 			
-			message.channel.send(
+			return message.channel.send(
 				{ embed: { 
 					title: `${command.name.toUpperCase()} Command`, 
 					fields: [
