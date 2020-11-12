@@ -15,7 +15,7 @@
 module.exports = async function isAdmin(client, message, statement) {
   statement = true;
   try {
-   if(message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name));
+   if(message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name)));
   } catch (e) {
     return message.reply({ embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
     statement = false;
