@@ -13,11 +13,11 @@
  */
 
 module.exports = async function isAdmin(client, message, statement) {
-  if(!message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name))) {
-      message.delete();
-      return message.reply({ embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
-      console.log(`User is not an Owner, Admin, or Mod`); 
-  } else {
-     console.log(`User is either an Owner, Admin, or Mod`);
+  statement = true;
+  try {
+   if(message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name));
+  } catch (e) {
+    return message.reply({ embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
+    statement = false;
   }
 }
