@@ -1,7 +1,8 @@
-const { MessageEmbed } = require(`discord.js`); //requires Discord.js integration package
+const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
 const db = require(`quick.db`);
 let isAdmin = require(`../modules/isAdmin.js`);
 let sendMessage = require(`../modules/sendMessage.js`);
+const cooldowns = new Collection()
 
 module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
@@ -122,20 +123,26 @@ module.exports = async (client, message) => {
     return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
   }
   
-  const talkedRecently = new Set();
-
-  if (talkedRecently.has(message.author.id)) {
-    console.log("please  w8 2.5 seconds"); 
-    message.reply("please w8 2.5 seconds");
+  if (!cooldowns.has(command.name)) {
+	  cooldowns.set(command.name, new Collection());
   }
 
-  // Adds the user to the set so that they can't talk for 2.5 seconds
-  talkedRecently.add(message.author.id);
-  setTimeout(() => {
-    // Removes the user from the set after 2.5 seconds
-    talkedRecently.delete(message.author.id);
-  }, 2500);
+  const now = Date.now();
+  const timestamps = cooldowns.get(command.name);
+  const cooldownAmount = (command.cooldown || 3) * 1000;
 
+  if (timestamps.has(message.author.id)) {
+	  const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+    if (now < expirationTime) {
+      const timeLeft = (expirationTime - now) / 1000;
+      message.reply({ embed: { description: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`,color: client.config.school_color}});
+    }
+  }
+  
+  timestamps.set(message.author.id, now);
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+  
   try {
   // Run the command as long as it has these two parameters
     command.execute(client, message, args);
