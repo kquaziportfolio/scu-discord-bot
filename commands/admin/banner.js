@@ -20,7 +20,7 @@ module.exports = {
 
                 message.channel.send(imageEmbed);
             } catch (err) {
-                console.log(err);
+                if (err) return message.reply({ embed: { description: `Please check your \`assets\` folder again to obtain the correct file!`, color: client.config.school_color}});
             }
         }
     }
