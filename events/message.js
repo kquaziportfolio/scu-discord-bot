@@ -1,4 +1,4 @@
-const { MessageEmbed, Set } = require(`discord.js`); //requires Discord.js integration package
+const { MessageEmbed } = require(`discord.js`); //requires Discord.js integration package
 const db = require(`quick.db`);
 let isAdmin = require(`../modules/isAdmin.js`);
 let sendMessage = require(`../modules/sendMessage.js`);
