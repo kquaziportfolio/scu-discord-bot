@@ -4,7 +4,7 @@ module.exports =  {
     args: true,
     usage: `[Choose rock, paper, or scissors]`, 
     category: 'Fun',
-	async execute(message, args) {
+	async execute(client, message, args) {
         
         let choices = ["rock", "paper", "scissors"];
         const USER_PLAYER = `**${message.author}** wins this round!`;
