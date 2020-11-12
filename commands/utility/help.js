@@ -24,7 +24,7 @@ module.exports = {
 						{ name: `**❯ Category:**`, value: `${command.category}`},
 						{ name: `**❯ Description:**`, value: `${command.description}`},
 						{ name: `**❯ Usage:**`, value: `${client.config.prefix}${command.name} ${command.usage || ''}`},
-						{ name: `**❯ Cooldown:**`, value: `${command.cooldown || 3} seconds`}
+						{ name: `**❯ Cooldown:**`, value: `${command.cooldown || 0} seconds`}
 					],
 					color: client.config.school_color,
 					thumbnail: { url: client.config.verification.thumbnailLink},
