@@ -124,7 +124,10 @@ module.exports = async (client, message) => {
   
   const talkedRecently = new Set();
 
-  if (talkedRecently.has(message.author.id)) return;
+  if (talkedRecently.has(message.author.id)) {
+    console.log("please  w8 2.5 seconds"); 
+    message.reply("please w8 2.5 seconds");
+  }
 
   // Adds the user to the set so that they can't talk for 2.5 seconds
   talkedRecently.add(message.author.id);
