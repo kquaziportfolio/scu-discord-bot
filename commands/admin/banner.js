@@ -12,9 +12,7 @@ module.exports = {
 
             try {
                 const input = args[0];
-                
-                if (!input.endsWith([".png", ".jpg", ".jfif", ".gif", ".jpeg"])) return message.reply({ embed: { description: `Please enter an image file format!`, color: client.config.school_color}});
-
+               
                 const imageEmbed = new MessageEmbed()
                 .attachFiles([`./assets/${input}`])
                 .setImage(`attachment://${input}`)
