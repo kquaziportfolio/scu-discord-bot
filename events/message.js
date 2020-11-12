@@ -96,9 +96,9 @@ module.exports = async (client, message) => {
 
             message.channel.delete();
             return db.delete(`support_${support.targetID}`);
-          } 
-          
-          sendMessage(client, client.config.channels.auditlogs, { embed: ticketStatus });
+            
+            message.guild.channels.cache.get(client.config.channels.auditlogs).send(ticketStatus);
+          }
        }
     }
 
