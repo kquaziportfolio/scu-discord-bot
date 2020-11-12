@@ -6,6 +6,7 @@ let sendMessage = require(`../../modules/sendMessage.js`);
 module.exports = { 
     name: 'express', //here is a change in the file
     description: 'Check status of the verification server via an endpoint!',
+    cooldown: 10,
     category: 'Admin',
     async execute(client, message, args) {
 
