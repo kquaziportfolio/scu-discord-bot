@@ -6,7 +6,8 @@ const cooldowns = new Collection()
 
 module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
-  if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
+  // If prefix isn't in index 0, return and ignore it as well.
+  if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot || message.content.indexOf(client.config.prefix) !== 0) return;
   
   //Check if message is in a direct message
   if (message.guild == null) {
