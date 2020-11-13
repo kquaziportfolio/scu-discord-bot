@@ -29,10 +29,12 @@ fs.readdir("./commands/", (err, subdirs) => {
   subdirs.forEach(subdir => {
     fs.readdir(`./commands/${subdir}/`, (err, files) => {
       // your commands code here
+      files.forEach(file => { 
         if (!file.endsWith('.js')) return;
         let props = require(`${file}`);
         let commandName = file.split(".")[0];
         client.commands.set(commandName, props);
+      }
     });
   });
 });
