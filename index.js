@@ -28,7 +28,6 @@ client.commands = new Enmap();
 fs.readdir("./commands/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
-    if (!file.endsWith(".js")) return;
     let subdirectories = ['admin', 'fun', 'utility'];
     subdirectories.forEach(subdirectory => { 
       let props = require(`./commands/${subdirectory}/${file}`);
