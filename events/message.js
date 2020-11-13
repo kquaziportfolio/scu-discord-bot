@@ -94,11 +94,11 @@ module.exports = async (client, message) => {
               .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
               .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
             supportUser.send(`<@${supportUser.id}>`, { embed: ticketStatus });
+		 
+            message.guild.channels.cache.get(client.config.channels.auditlogs).send(ticketStatus);
 
             message.channel.delete();
             return db.delete(`support_${support.targetID}`);
-            
-            message.guild.channels.cache.get(client.config.channels.auditlogs).send(ticketStatus);
           }
        }
     }
