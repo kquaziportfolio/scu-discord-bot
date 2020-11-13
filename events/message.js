@@ -5,10 +5,17 @@ let sendMessage = require(`../modules/sendMessage.js`);
 const cooldowns = new Collection()
 
 module.exports = async (client, message) => {
-  // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
-  // If prefix isn't in index 0, return and ignore it as well.
-  if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot || message.content.indexOf(client.config.prefix) !== 0) return;
-  
+
+/*
+===============================================   
+ |  \/  |         | |               (_) | 
+ | \  / | ___   __| |_ __ ___   __ _ _| | 
+ | |\/| |/ _ \ / _` | '_ ` _ \ / _` | | | 
+ | |  | | (_) | (_| | | | | | | (_| | | | 
+ |_|  |_|\___/ \__,_|_| |_| |_|\__,_|_|_| 
+=============================================== 
+*/
+	
   //Check if message is in a direct message
   if (message.guild == null) {
       let active = await db.fetch(`support_${message.author.id}`);
@@ -99,11 +106,28 @@ module.exports = async (client, message) => {
             message.guild.channels.cache.get(client.config.channels.auditlogs).send(ticketStatus);
 
             message.channel.delete();
-            return db.delete(`support_${support.targetID}`);
+			return db.delete(`support_${support.targetID}`);
           }
        }
     }
-
+	
+/*
+==================================================================================
+  __  __                                  _    _                 _ _           
+ |  \/  |                                | |  | |               | | |          
+ | \  / | ___  ___ ___  __ _  __ _  ___  | |__| | __ _ _ __   __| | | ___ _ __ 
+ | |\/| |/ _ \/ __/ __|/ _` |/ _` |/ _ \ |  __  |/ _` | '_ \ / _` | |/ _ \ '__|
+ | |  | |  __/\__ \__ \ (_| | (_| |  __/ | |  | | (_| | | | | (_| | |  __/ |   
+ |_|  |_|\___||___/___/\__,_|\__, |\___| |_|  |_|\__,_|_| |_|\__,_|_|\___|_|   
+                              __/ |                                            
+                             |___/                                             
+==================================================================================
+*/
+	
+  // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
+  // If prefix isn't in index 0, return and ignore it as well.
+  if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
+  
   // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
@@ -123,9 +147,19 @@ module.exports = async (client, message) => {
     
     return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
   }
-  
+	
+/*
+=======================================================
+  / ____|          | |   | |                        
+ | |     ___   ___ | | __| | _____      ___ __  ___ 
+ | |    / _ \ / _ \| |/ _` |/ _ \ \ /\ / / '_ \/ __|
+ | |___| (_) | (_) | | (_| | (_) \ V  V /| | | \__ \
+  \_____\___/ \___/|_|\__,_|\___/ \_/\_/ |_| |_|___/
+=======================================================
+*/                                                    
+                                                     
   if (!cooldowns.has(command.name)) {
-	  cooldowns.set(command.name, new Collection());
+	cooldowns.set(command.name, new Collection());
   }
 
   const now = Date.now();
@@ -145,7 +179,7 @@ module.exports = async (client, message) => {
   setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
   
   try {
-  // Run the command as long as it has these two parameters
+  // Run the command as long as it has these three parameters
     command.execute(client, message, args);
   } catch(err) {
       sendMessage(client, client.config.channels.auditlogs, { embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
