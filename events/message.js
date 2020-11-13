@@ -59,6 +59,7 @@ module.exports = async (client, message) => {
         active.channelID = channel.id;
         active.targetID =  message.author.id;
       }
+   }
  
     channel = client.channels.cache.get(active.channelID);
     
