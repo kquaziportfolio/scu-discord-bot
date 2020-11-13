@@ -34,7 +34,7 @@ fs.readdir("./commands/", (err, subdirs) => {
         let props = require(`${file}`);
         let commandName = file.split(".")[0];
         client.commands.set(commandName, props);
-      }
+      });
     });
   });
 });
