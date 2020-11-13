@@ -24,7 +24,7 @@ fs.readdir("./events/", (err, files) => {
 
 client.commands = new Enmap(); 
 
-const commandFiles = fs.readdirSync([`./commands/admin`, `./commands/utility`, `./commands/fun`]).filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync(`./commands/admin`).filter(file => file.endsWith('.js'));
 
 for (const cmd of commandFiles) {
     const command = require(`./commands/${file}`);
