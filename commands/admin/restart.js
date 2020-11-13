@@ -3,6 +3,7 @@ let isAdmin = require(`../../modules/isAdmin.js`);
 module.exports =  {  
 	name: 'restart',
 	description: 'Restart the bot!',
+	cooldown: 15,
 	category: 'Admin',  
 	async execute(client, message, args) {   
 
