@@ -31,7 +31,7 @@ fs.readdir("./commands/", (err, subdirs) => {
       // your commands code here
       files.forEach(file => { 
         if (!file.endsWith('.js')) return;
-        let props = require(`./${subdir}/${file}`);
+        let props = require(`./commands/${subdir}/${file}`);
         let commandName = file.split(".")[0];
         client.commands.set(commandName, props);
       });
