@@ -7,7 +7,9 @@ module.exports = async (client, member) => {
 
   const guild = client.guilds.cache.get(`${client.config.verification.guildID}`);
 
-  let memberCount = guild.members.cache.filter(member => !member.user.bot).size;
+  let memberCount = guild.members.cache.filter(member => !member.user.bot).size;	
+  let liveCount = guild.channels.cache.find(channel => channel.id === client.config.channels.memberCount);
+  liveCount.setName(`👥 ${memberCount} Members`);
 	
   let role = member.guild.roles.cache.find((role) => role.id == client.config.serverRoles.unverifiedStudent);
   await member.roles.add(role);
