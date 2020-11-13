@@ -2,7 +2,11 @@ let sendMessage = require(`../modules/sendMessage.js`);
 const fetch = require(`node-fetch`);
 
 module.exports = async (client) => {
-	try {
+	try { 
+
+		// Start the BOT TOKEN here
+		client.login(client.config.token);
+
 		require("../modules/serverVerification.js").run(client); //start server verification module in ready event 
 
 		const guild = client.guilds.cache.get(client.config.verification.guildID);
