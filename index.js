@@ -25,10 +25,11 @@ fs.readdir("./events/", (err, files) => {
 
 client.commands = new Enmap();
 
-fs.readdir("./commands/", (err, files) => {
+fs.readdir("./commands/${dirs}", (err, files) => {
   if (err) return console.error(err);
     let subdirectories = ['admin', 'fun', 'utility'];
     subdirectories.forEach(subdirectory => { 
+      if (!subdirectory.endsWith('.js')) return;
       files.forEach(file => {
         if (!file.endsWith('.js')) return;
         let props = require(`./commands/${subdirectory}/${file}`);
@@ -36,6 +37,18 @@ fs.readdir("./commands/", (err, files) => {
         client.commands.set(commandName, props);
       });
     });
+});
+
+readdir("./commands/", (err, subdirs) => {
+  subdirs.forEach(subdir => {
+    readdir(`./commands/${subdir}/`, (err, files) => {
+      // your commands code here
+        if (!file.endsWith('.js')) return;
+        let props = require(`./commands/${subdirectory}/${file}`);
+        let commandName = file.split(".")[0];
+        client.commands.set(commandName, props);
+    });
+  });
 });
 
 // BOT TOKEN
