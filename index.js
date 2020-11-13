@@ -26,7 +26,7 @@ client.commands = new Enmap();
 
 const commandFiles = fs.readdirSync(`./commands/admin`).filter(file => file.endsWith('.js'));
 
-for (const subdirectory of commandFiles) {
+for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
 }
