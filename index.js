@@ -55,14 +55,10 @@ fs.readdir("./commands/fun", (err, files) => {
   });
 });  
 
-const isFile = fileName => {
-  return fs.lstatSync(fileName).isFile()
-}
 
-fs.readdirSync('./commmands/').map(fileName => {
-  return path.join('/admin/', fileName)
-})
-.filter(isFile);
+const folderPath = '/commands';
+
+fs.readdirSync(folderPath)
 
 // BOT TOKEN
 client.login(client.config.token);
