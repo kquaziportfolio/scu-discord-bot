@@ -28,11 +28,20 @@ client.commands = new Enmap();
 
 const commandFiles = fs.readdirSync(`./commands/`).filter(file => file.endsWith('.js'));
 
-for (const file of commandFiles) {
-    for (const subdirectory of subdirectories) { 
-      const command = require(`./commands/${subdirectories}/${file}`);
-      client.commands.set(command.name, command);
-    }
+for (const subdirectory of commandFiles) {
+    const command = require(`./commands/${subdirectories}/${file}`);
+    client.commands.set(command.name, command);
+}
+
+async function main() {
+  await findCommandDirectory("commands");
+}
+
+main();
+
+async function findCommandDirectory(folderName) {
+  const commandFolder = await fs.readdir(folderName);
+  console.log(commandFolder);
 }
 
 // BOT TOKEN
