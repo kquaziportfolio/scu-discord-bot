@@ -3,7 +3,8 @@ const fetch = require(`node-fetch`);
 
 module.exports = async (client) => {
 	try {
-		require("../modules/serverVerification.js").run(client); //start server verification file in ready event
+		require("../modules/serverVerification.js").run(client); //start server verification module in ready event
+		require("../modules/modmail.js").run(client); //start server modmail module in ready event
 
 		const guild = client.guilds.cache.get(client.config.verification.guildID);
 		const verifyMSG = {
