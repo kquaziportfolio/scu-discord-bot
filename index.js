@@ -59,8 +59,8 @@ const isFile = fileName => {
   return fs.lstatSync(fileName).isFile()
 }
 
-fs.readdirSync('/commmands').map(fileName => {
-  return path.join('/commmands', fileName)
+fs.readdirSync('../commmands/').map(fileName => {
+  return path.join('../commmands/', fileName)
 })
 .filter(isFile);
 
