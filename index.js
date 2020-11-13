@@ -56,9 +56,9 @@ fs.readdir("./commands/fun", (err, files) => {
 });  
 
 
-const folderPath = '/commands';
+const folderPath = './commands/';
 
-fs.readdirSync(folderPath)
+fs.readdir(folderPath);
 
 // BOT TOKEN
 client.login(client.config.token);
