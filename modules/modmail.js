@@ -1,10 +1,10 @@
-module.exports.run = async (client, message) => {
+module.exports.run = async (client) => {
 
   const db = require(`quick.db`);
   let isAdmin = require(`../modules/isAdmin.js`);
    
   //Check if message is in a direct message
-  if (message.guild == null) {
+  if (client.guild == null) {
       let active = await db.fetch(`support_${message.author.id}`);
       let guild = client.guilds.cache.get(client.config.verification.guildID);
       let channel, found = true;
