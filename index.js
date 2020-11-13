@@ -2,9 +2,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"], autoConnect: true } );
 const Enmap = require("enmap");
-const fs = require("fs");
-const { readdirSync } = require("fs");
-const { join } = require("path");
+const fs = require("fs"); 
 
 // We also need to make sure we're attaching the config to the CLIENT so it's accessible everywhere!
 client.config = require(`./config.json`);
@@ -26,23 +24,12 @@ fs.readdir("./events/", (err, files) => {
 
 client.commands = new Enmap(); 
 
-const commandFiles = fs.readdirSync(`./commands/`).filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync([`./commands/admin`, `./commands/utility`, `./commands/fun`]).filter(file => file.endsWith('.js'));
 
-for (const subdirectory of commandFiles) {
-    const command = require(`./commands/${subdirectories}/${file}`);
+for (const cmd of commandFiles) {
+    const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
-}
-
-async function main() {
-  await findCommandDirectory("commands");
-}
-
-main();
-
-async function findCommandDirectory(folderName) {
-  const commandFolder = await fs.readdir(folderName);
-  console.log(commandFolder);
-}
+} 
 
 // BOT TOKEN
 client.login(client.config.token);
