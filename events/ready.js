@@ -13,11 +13,7 @@ module.exports = async (client) => {
 			timestamp: new Date()
 		};
 		console.log(verifyMSG.description);
-		sendMessage(client, client.config.channels.auditlogs, { embed: verifyMSG});
-
-		let memberCount = guild.members.cache.filter(member => !member.user.bot).size;	
-		let liveCount = guild.channels.cache.find(channel => channel.id === client.config.channels.memberCount);
-		liveCount.setName(`👥 ${memberCount} Members`);
+		sendMessage(client, client.config.channels.auditlogs, { embed: verifyMSG}); 
 
 		client.user.setPresence({activity: { name: `${client.config.prefix}help || DM me for help! 📩` }, status: 'online'});
 
