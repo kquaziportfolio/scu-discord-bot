@@ -12,7 +12,7 @@
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'                     
  */
 
-module.exports = async function isAdmin(client, message, statement) { 
+module.exports = function isAdmin(client, message, statement) { 
    if(message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name))) {
      return true;
    } else {
