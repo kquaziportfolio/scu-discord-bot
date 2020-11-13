@@ -24,11 +24,15 @@ fs.readdir("./events/", (err, files) => {
 
 client.commands = new Enmap(); 
 
-const commandFiles = fs.readdirSync(`./commands/admin`).filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync(`./commands/`).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command);
+    if (!file.endsWith(".js")) return;
+    const subdirectories = ['admin', 'fun', 'utility'];
+    for (const subdirectory of subdirectories) {
+      const command = require(`./commands/${subdirectory}/${file}`);
+      client.commands.set(command.name, command);
+    }
 }
 
 // BOT TOKEN
