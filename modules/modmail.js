@@ -1,4 +1,4 @@
-module.exports = async (client, message) => {
+module.exports.run = async (client, message) => {
 
   const db = require(`quick.db`);
   let isAdmin = require(`../modules/isAdmin.js`);
