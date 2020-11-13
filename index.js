@@ -5,7 +5,7 @@ const Enmap = require("enmap");
 const fs = require("fs"); 
 const path = require('path')
 
-// We also need to make sure we're attaching the config to the CLIENT so it's accessible everywhere!
+// Need to make sure the config is attached to the CLIENT so it's accessible everywhere!
 client.config = require(`./config.json`);
 
 client.on("warn", (e) => console.warn(e));
@@ -62,3 +62,6 @@ fs.readdir("./commands/", (err, subdirs) => {
     });
   });
 });
+ 
+// Start the BOT TOKEN here
+client.login(client.config.token);
