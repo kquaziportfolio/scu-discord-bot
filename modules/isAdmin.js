@@ -17,7 +17,7 @@ module.exports = function isAdmin(client, message, statement) {
      return true;
    } else {
       if (statement == true) {
-       await message.reply({ embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}}); 
+       message.reply({ embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}}); 
        return false;
       }
    }
