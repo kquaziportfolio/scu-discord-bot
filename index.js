@@ -12,6 +12,17 @@ client.on("warn", (e) => console.warn(e));
 client.on("debug", (e) => console.info(e));
 client.on("error", console.error);
 
+/*
+====================================================================
+  ______               _     _    _                 _ _           
+ |  ____|             | |   | |  | |               | | |          
+ | |____   _____ _ __ | |_  | |__| | __ _ _ __   __| | | ___ _ __ 
+ |  __\ \ / / _ \ '_ \| __| |  __  |/ _` | '_ \ / _` | |/ _ \ '__|
+ | |___\ V /  __/ | | | |_  | |  | | (_| | | | | (_| | |  __/ |   
+ |______\_/ \___|_| |_|\__| |_|  |_|\__,_|_| |_|\__,_|_|\___|_|   
+====================================================================
+*/                                                                
+
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
@@ -25,10 +36,23 @@ fs.readdir("./events/", (err, files) => {
 
 client.commands = new Enmap();
 
-fs.readdir("./commands/", (err, subdirs) => {
+/*
+==============================================================================================
+   _____                                          _   _    _                 _ _           
+  / ____|                                        | | | |  | |               | | |          
+ | |     ___  _ __ ___  _ __ ___   __ _ _ __   __| | | |__| | __ _ _ __   __| | | ___ _ __ 
+ | |    / _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` | |  __  |/ _` | '_ \ / _` | |/ _ \ '__|
+ | |___| (_) | | | | | | | | | | | (_| | | | | (_| | | |  | | (_| | | | | (_| | |  __/ |   
+  \_____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_| |_|  |_|\__,_|_| |_|\__,_|_|\___|_|   
+==============================================================================================
+*/
+
+/*loops and reads through my subdirectories - admin, fun, and utility - 
+and iterates thru individual command files in them*/
+                                                                                                                                                                                   
+fs.readdir("./commands/", (err, subdirs) => { 
   subdirs.forEach(subdir => {
-    fs.readdir(`./commands/${subdir}/`, (err, files) => {
-      // your commands code here
+    fs.readdir(`./commands/${subdir}/`, (err, files) => { 
       files.forEach(file => { 
         if (!file.endsWith('.js')) return;
         let props = require(`./commands/${subdir}/${file}`);
@@ -38,6 +62,3 @@ fs.readdir("./commands/", (err, subdirs) => {
     });
   });
 });
-
-// BOT TOKEN
-client.login(client.config.token);
