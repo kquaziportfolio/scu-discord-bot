@@ -4,7 +4,7 @@ module.exports.run = async (client, message) => {
   let isAdmin = require(`../modules/isAdmin.js`);
    
   //Check if message is in a direct message
-  if (message.channel.type == "dm") {
+  if (message.guild == null) {
       let active = await db.fetch(`support_${message.author.id}`);
       let guild = client.guilds.cache.get(client.config.verification.guildID);
       let channel, found = true;
