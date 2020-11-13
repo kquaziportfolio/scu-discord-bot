@@ -26,10 +26,10 @@ client.commands = new Enmap();
 
 const commandFiles = fs.readdirSync(`./commands/admin`).filter(file => file.endsWith('.js'));
 
-for (const cmd of commandFiles) {
-    const command = require(`./commands/${file}`);
+for (const subdirectory of commandFiles) {
+    const command = require(`./commands/${subdirectories}/${file}`);
     client.commands.set(command.name, command);
-} 
+}
 
 // BOT TOKEN
 client.login(client.config.token);
