@@ -1,13 +1,14 @@
 const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
-let isAdmin = require(`../modules/isAdmin.js`);
 const db = require(`quick.db`);
+let isAdmin = require(`../modules/isAdmin.js`);
 let sendMessage = require(`../modules/sendMessage.js`);
 const cooldowns = new Collection()
 
 module.exports = async (client, message) => {
-  // Checks if the Author is a Bot, or the message isn't from the guild, ignore it. 
-  if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
-   
+  // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
+  // If prefix isn't in index 0, return and ignore it as well.
+  if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot || message.content.indexOf(client.config.prefix) !== 0) return;
+  
   //Check if message is in a direct message
   if (message.guild == null) {
       let active = await db.fetch(`support_${message.author.id}`);
@@ -59,7 +60,6 @@ module.exports = async (client, message) => {
         active.channelID = channel.id;
         active.targetID =  message.author.id;
       }
-   }
  
     channel = client.channels.cache.get(active.channelID);
     
@@ -103,7 +103,6 @@ module.exports = async (client, message) => {
           }
        }
     }
-  }
 
   // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
