@@ -27,14 +27,14 @@ client.commands = new Enmap();
 
 fs.readdir("./commands/", (err, files) => {
   if (err) return console.error(err);
-  files.forEach(file => {
     let subdirectories = ['admin', 'fun', 'utility'];
     subdirectories.forEach(subdirectory => { 
-      let props = require(`./commands/${subdirectory}/${file}`);
-      let commandName = file.split(".")[0];
-      client.commands.set(commandName, props);
+      files.forEach(file => {
+        let props = require(`./commands/${subdirectory}/${file}`);
+        let commandName = file.split(".")[0];
+        client.commands.set(commandName, props);
+      });
     });
-  });
 });
 
 // BOT TOKEN
