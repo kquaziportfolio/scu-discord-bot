@@ -24,22 +24,16 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
-client.commands = new Enmap();
+client.commands = new Enmap(); 
 
-readdirSync(join(__dirname, "..")).forEach(f => {
-  const files = readdirSync(join(__dirname, "..", f));
-  if (files.includes(`${commandName}.js`)) {
-    const file = `../${f}/${commandName}.js`;
-    try {
-        delete require.cache[require.resolve(file)];
-        message.client.commands.delete(commandName);
-        const pull = require(file);
-        message.client.commands.set(commandName, pull);
-    } catch (e) {
-        return console.log(e.stack || e);
+const commandFiles = fs.readdirSync(`./commands/`).filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    for (const subdirectory in subdirectories) { 
+      const command = require(`./commands/${subdirectories}/${file}`);
+      client.commands.set(command.name, command);
     }
-  }
-});
+}
 
 // BOT TOKEN
 client.login(client.config.token);
