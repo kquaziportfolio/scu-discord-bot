@@ -5,19 +5,19 @@ module.exports = {
     name: "course-avail",
     description: "Get CourseAvail info on classes for the upcoming quarter!",
     args: true,
-    cooldown: 20,
+    cooldown: 5,
     usage: `[department name]`,
     category: 'Utility',
     async execute (client, message, args) {
 
         try {
-            const searchInput = args.toLowerCase().join(" ");
+            const searchInput = args[0].split(' ').join(' ');
             let response = await fetch(`https://www.scu.edu/apps/ws/courseavail/search/4120/ugrad/${searchInput}`);
             let data = await response.json(); 
             
             console.log(data);
             
-            if (data.title == null) return message.reply("That's not a valid course or department");
+            if (data.results == 0) return message.reply("That's not a valid course or department");
 
             const courseSummary = new MessageEmbed() 
                 .setDescription(`__**Search Results for ${data.title}**__`)
