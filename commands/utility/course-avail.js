@@ -25,7 +25,7 @@ module.exports = {
                 .addField(`Subject Description`, (data.results[3].subject_descr || "nothing"), true) 
                 .addField(`Class Description`, (data.results[6].class_descr || "nothing"), true) 
                 .addField(`Meeting Days`, (data.results[7].mtg_days_1 || "nothing"), true)
-                .addField(`Meeting Times`, `${data.results[9].mtg_time_beg_1}-${data.results[10].mtg_time_end_1}` || "nothing")`, true)
+                .addField(`Meeting Times`, `${data.results[9].mtg_time_beg_1}-${data.results[10].mtg_time_end_1} || "nothing"`, true)
                 .addField(`Class Building`, (data.results[12].mtg_facility_1 || "nothing"), true)
                 .addField(`Instructor`, (data.results[13].instr_1 || "nothing"), true)
                 .addField(`Seats Remaining`, (data.results[20].seats_remaining || "nothing"), true)
