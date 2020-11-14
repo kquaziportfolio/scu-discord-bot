@@ -17,6 +17,12 @@ module.exports = async (client, message) => {
  |_|  |_|\___/ \__,_|_| |_| |_|\__,_|_|_| 
 =============================================== 
 */
+
+  const messageReception = new MessageEmbed()
+  .setColor(client.config.school_color)
+  .setAuthor(message.author.tag, message.author.displayAvatarURL())
+  .attachFiles([`./assets/verified.gif`])
+  .setThumbnail(`attachment://verified.gif`)
 	
   //Check if message is in a direct message
   if (message.guild == null) {
@@ -29,12 +35,6 @@ module.exports = async (client, message) => {
       } catch (e) {
         found = false;
       }
-
-      const messageReception = new MessageEmbed()
-      .setColor(client.config.school_color)
-      .setAuthor(message.author.tag, message.author.displayAvatarURL())
-      .attachFiles([`./assets/verified.gif`])
-      .setThumbnail(`attachment://verified.gif`)
 
       if (!active || !found) {
         //create support channel for new respondee
