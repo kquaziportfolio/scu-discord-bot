@@ -27,7 +27,7 @@ module.exports = async (client, message) => {
       } catch (e) {
         found = false;
       }
-    
+
       const messageReception = new MessageEmbed()
       .setColor(client.config.school_color)
       .setAuthor(message.author.tag, message.author.displayAvatarURL())
@@ -54,22 +54,14 @@ module.exports = async (client, message) => {
             deny: ['VIEW_CHANNEL']
           }
         ]);
-        
-        messageReception
-        .setTitle(`ModMail Ticket Created`)
-        .setDescription(`Hello, I've opened up a new ticket for you! Our staff members ` +
-        `will respond shortly. If you need to add to your ticket, plug away again!`)
-        .setFooter(`ModMail Ticket Created -- ${message.author.tag}`)
-        
-        await message.author.send(`<@${message.author.id}>`, { embed: messageReception });
 
         // Update Active Data
         active.channelID = channel.id;
         active.targetID =  message.author.id;
       }
- 
+
     channel = client.channels.cache.get(active.channelID);
-    
+
     messageReception //fires for newly created and exisiting tickets 
     .setDescription(`Your new content has been sent!`)
     .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
@@ -85,30 +77,24 @@ module.exports = async (client, message) => {
     
     let support = await db.fetch(`supportChannel_${message.channel.id}`);
     if (support) {
-	support = await db.fetch(`support_${support}`);
+        support = await db.fetch(`support_${support}`);
         let supportUser = client.users.cache.get(support.targetID);
-        if (!supportUser) return message.channel.delete();
-      
-        const ticketStatus = new MessageEmbed()
-        .setColor(client.config.school_color)
-        .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
-        .attachFiles([`./assets/verified.gif`])
-        .setThumbnail(`attachment://verified.gif`)
+        if (!supportUser) return message.channel.delete(); 
         
         if(isAdmin(client, message, true)) {
           if (message.content == `${client.config.prefix}close-ticket`) {
-            ticketStatus
+            messageReception 
               .setTitle(`ModMail Ticket Resolved`)
+              .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
               .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
               .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
-            supportUser.send(`<@${supportUser.id}>`, { embed: ticketStatus });
+            supportUser.send(`<@${supportUser.id}>`, { embed: messageReception });
 
+            message.guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
             message.channel.delete();
             return db.delete(`support_${support.targetID}`);
-          } 
-          
-          sendMessage(client, client.config.channels.auditlogs, { embed: ticketStatus });
-       }
+          }
+        }
     }
 	
 /*
@@ -125,9 +111,8 @@ module.exports = async (client, message) => {
 */
 	
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
-  // If prefix isn't in index 0, return and ignore it as well.
   if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
-  
+
   // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
@@ -159,19 +144,19 @@ module.exports = async (client, message) => {
 */                                                    
                                                      
   if (!cooldowns.has(command.name)) {
-	cooldowns.set(command.name, new Collection());
+    cooldowns.set(command.name, new Collection());
   }
-
+  
   const now = Date.now();
   const timestamps = cooldowns.get(command.name);
-  const cooldownAmount = (command.cooldown || 3) * 1000;
-
+  const cooldownAmount = (command.cooldown || 3) * 1000; //make cooldown default to 3 if there are no presets for cooldown in the command
+  
   if (timestamps.has(message.author.id)) {
-	  const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return message.reply({ embed: { description: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`,color: client.config.school_color}});
+      return message.reply({ embed: { description: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, color: client.config.school_color}});
     }
   }
   
