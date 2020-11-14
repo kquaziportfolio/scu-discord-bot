@@ -101,7 +101,7 @@ module.exports = async (client, message) => {
               .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
             supportUser.send(`<@${supportUser.id}>`, { embed: messageReception });
 
-            message.guild.channels.cache.get(client.config.channels.auditlogs).send(completeTicket);
+            message.guild.channels.cache.get(client.config.channels.auditlogs).send(messageReception);
             message.channel.delete();
             return db.delete(`support_${support.targetID}`);
           }
