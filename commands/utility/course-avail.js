@@ -11,7 +11,7 @@ module.exports = {
     async execute (client, message, args) {
 
         try {
-            const departmentName = args[0].toLowerCase().join(" ");
+            const departmentName = args[0].toLowerCase().split("|");
             let response = await fetch(`https://www.scu.edu/apps/ws/courseavail/search/4120/ugrad/${departmentName}`);
             let data = await response.json(); 
             
