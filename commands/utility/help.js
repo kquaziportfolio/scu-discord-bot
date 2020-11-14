@@ -14,7 +14,7 @@ module.exports = {
 			const command = commands.get(name);
 
 			if (!command) {
-				message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
+				return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
 			}
 			
 			return message.channel.send(
