@@ -12,11 +12,9 @@ module.exports = {
     async execute (client, message, args) {
 
         try {
-            const departmentName = args[0].toLowerCase().split(" ");
+            const departmentName = args[0].toLowerCase().join(" ");
             let response = await fetch(`https://www.scu.edu/apps/ws/courseavail/search/4120/ugrad/${departmentName}`);
-            let data = await response.json();
-
-            if (data.name == null) return; //returns on invalid usernames
+            let data = await response.json(); 
 
             const courseSummary = new MessageEmbed() 
                 .setDescription(`__**Search Results for ${data.title}__`)
