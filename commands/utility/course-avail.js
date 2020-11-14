@@ -11,8 +11,8 @@ module.exports = {
     async execute (client, message, args) {
 
         try {
-            const departmentName = args[0].toLowerCase()..join(" ");
-            let response = await fetch(`https://www.scu.edu/apps/ws/courseavail/search/4120/ugrad/${departmentName}`);
+            const searchInput = args[0].toLowerCase().join(" ");
+            let response = await fetch(`https://www.scu.edu/apps/ws/courseavail/search/4120/ugrad/${searchInput}`);
             let data = await response.json(); 
             
             console.log(data);
