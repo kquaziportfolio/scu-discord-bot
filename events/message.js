@@ -4,7 +4,9 @@ let isAdmin = require(`../modules/isAdmin.js`);
 let sendMessage = require(`../modules/sendMessage.js`);
 const cooldowns = new Collection()
 
-module.exports = async (client, message) => {
+module.exports = async (client, message) => { 
+  // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
+  if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
 
 /*
 ===============================================   
@@ -71,7 +73,7 @@ module.exports = async (client, message) => {
     channel = client.channels.cache.get(active.channelID);
 
     messageReception //fires for newly created and exisiting tickets 
-    .setTitle(`New Ticket Sent!`)
+    .setTitle(`Modmail Ticket Sent!`)
     .setDescription(`Your new content has been sent!`)
     .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
     await message.author.send(`<@${message.author.id}>`, { embed: messageReception });
@@ -118,9 +120,6 @@ module.exports = async (client, message) => {
                              |___/                                             
 ==================================================================================
 */
-	
-  // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
-  if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
 
   // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
