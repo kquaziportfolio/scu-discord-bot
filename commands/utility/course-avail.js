@@ -1,6 +1,5 @@
 const fetch = require(`node-fetch`);
 const { MessageEmbed } = require(`discord.js`);
-let sendMessage = require(`../../modules/sendMessage.js`);
 
 module.exports = {
     name: "course-avail",
@@ -32,7 +31,6 @@ module.exports = {
 
             message.channel.send(courseSummary);
         } catch(err) {
-            sendMessage(client, client.config.channels.auditlogs, {embed: {description: `The following user - ${username} - does not exist.`, color: client.config.school_color}})
             console.log(err => `Error: ${err}`)
         }
     }
