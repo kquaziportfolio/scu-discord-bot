@@ -85,7 +85,7 @@ module.exports = async (client, message) => {
     
     let support = await db.fetch(`supportChannel_${message.channel.id}`);
     if (support) {
-        support = await db.fetch(`support_${support}`);
+	support = await db.fetch(`support_${support}`);
         let supportUser = client.users.cache.get(support.targetID);
         if (!supportUser) return message.channel.delete();
       
@@ -102,12 +102,12 @@ module.exports = async (client, message) => {
               .setDescription(`*Your ModMail has been marked as **Complete**. If you wish to create a new one, please send a message to the bot.*`)
               .setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
             supportUser.send(`<@${supportUser.id}>`, { embed: ticketStatus });
-		 
-            message.guild.channels.cache.get(client.config.channels.auditlogs).send(ticketStatus);
 
             message.channel.delete();
-			return db.delete(`support_${support.targetID}`);
-          }
+            return db.delete(`support_${support.targetID}`);
+          } 
+          
+          sendMessage(client, client.config.channels.auditlogs, { embed: ticketStatus });
        }
     }
 	
