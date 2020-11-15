@@ -15,7 +15,7 @@
 module.exports = function isAdmin(client, message, statement) { 
    const userRole = message.member.roles.cache;
    const modRole = client.config.serverRoles;
-   if(userRole.some(r=>["Owner", "Admin", "Mod"].includes(r.name)) || userRole.has(modRole.owner, modRole.admin, modRole.mod)) {
+   if(userRole.some(r=>["Owner", "Admin", "Mod"].includes(r.name)) && userRole.has(modRole.owner, modRole.admin, modRole.mod)) {
      return true;
    } else {
       if (statement == true) {
