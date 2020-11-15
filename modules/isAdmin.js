@@ -13,7 +13,8 @@
  */
 
 module.exports = function isAdmin(client, message, statement) { 
-   if(message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name))) {
+   const modRole = client.config.serverRoles;
+   if(message.member.roles.cache.some(r=>["Owner", "Admin", "Mod"].includes(r.name)) || r=>[modRole.owner, modRole.admin, modRole.mod].includes(r.id)) {
      return true;
    } else {
       if (statement == true) {
