@@ -12,7 +12,10 @@ module.exports = {
 
             try {
                 const input = args[0];
-               
+                if(".." in input){
+                    message.reply("Illegal input");
+                    return;
+                }
                 const imageEmbed = new MessageEmbed()
                 .attachFiles([`./assets/${input}`])
                 .setImage(`attachment://${input}`)
