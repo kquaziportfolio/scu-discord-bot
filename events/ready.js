@@ -5,6 +5,7 @@ module.exports = async (client) => {
 	try { 
 
 		require("../modules/serverVerification.js").run(client); //start server verification module in ready event 
+                require("../modules/scuReddit.js").run(client); //start reddit module in ready event 
 
 		const guild = client.guilds.cache.get(client.config.verification.guildID);
 		const verifyMSG = {
