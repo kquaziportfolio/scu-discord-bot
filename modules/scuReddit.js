@@ -20,7 +20,7 @@ module.exports.run = async (client) => {
               .setColor(client.config.school_color)
               .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title)}`)
               .setURL(`https://redd.it/${post.data.id}`)
-              .setAuthor(`${post.data.subreddit_name_prefixed}, client.user.displayAvatarURL())`
+              .setAuthor(`${post.data.subreddit_name_prefixed}`, client.user.displayAvatarURL())
               .setDescription(post.data.selftext)
               .setThumbnail(validUrl.isUri(post.data.thumbnail) ? entities.decodeHTML(post.data.thumbnail) : null)
               .setFooter(`${post.data.is_self ? 'Self Post' : 'Link Post'} by u/${post.data.author}`)
