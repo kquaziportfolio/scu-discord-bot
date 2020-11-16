@@ -10,7 +10,9 @@ client.config = require(`./config.json`);
 
 client.on("warn", (e) => console.warn(e));
 client.on("debug", (e) => console.info(e));
-client.on("error", console.error);                                                            
+client.on("error", console.error);       
+
+client.login(client.config.token)
 
 try { 
   /*
