@@ -44,6 +44,5 @@ module.exports.run = async (client) => {
         }
       })
     }
-  }, 60 * 1000); // get 10 new posts every minute
-  console.log("New Reddit post sent!");
+  }, 54000 * 1000); // get 10 new posts every 15 hours!
 }
