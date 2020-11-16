@@ -5,6 +5,15 @@ module.exports.run = async (client) => {
   const validUrl = require(`valid-url`);
   const sendMessage = require(`../modules/sendMessage.js`);
   const botReady = true; 
+  
+  const feedMSG = {
+    title: "r/SCU Feed Ready!",
+    description: `[r/SCU](https://reddit.com/r/SCU) feed works! ✅`,
+    color: "GREEN", 
+    timestamp: new Date()
+  }
+  
+  console.log(feedMSG);
 
   setInterval(() => {
     if (botReady) {
@@ -35,5 +44,5 @@ module.exports.run = async (client) => {
         }
       });
     }
-  }, 3000 * 1000); // get new posts every half-hour
+  }, 3600 * 1000); // get top 10 posts every hour
 }
