@@ -6,7 +6,7 @@ const entities = require('entities');
 const validUrl = require('valid-url');
 const sendMessage = require(`../modules/sendMessage.js`);
 const botReady = true;
-const subredditUrl = `https://www.reddit.com/r/scu/new.json?limit=10`;
+const subredditUrl = `https://www.reddit.com/r/scu/hot.json?limit=10`;
 
 setInterval(() => {
   if (botReady) {
@@ -35,5 +35,5 @@ setInterval(() => {
       }
     });
   }
-}, 60 * 1000); // get new posts every 60 seconds
+}, 600 * 1000); // get new posts every hour
 }
