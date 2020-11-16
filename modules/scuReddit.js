@@ -15,7 +15,6 @@ setInterval(() => {
       json: true,
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        logger.debug('Request succeeded, lastTimestamp = ', lastTimestamp);
         for (const post of body.data.children.reverse()) {
           if (lastTimestamp <= post.data.created_utc) {
             lastTimestamp = post.data.created_utc;
