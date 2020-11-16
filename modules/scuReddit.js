@@ -42,7 +42,8 @@ module.exports.run = async (client) => {
         } else {
           sendMessage(client, client.config.channels.auditlogs, 'Request failed - reddit could be down or subreddit doesn\'t exist. Will continue.'); 
         }
-      }).then(console.log('New Reddit posts sent!'));
+      })
     }
   }, 60 * 1000); // get 10 new posts every minute
+  console.log("New Reddit post sent!");
 }
