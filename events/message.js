@@ -46,7 +46,8 @@ module.exports = async (client, message) => {
       if (!active || !found) {
         //create support channel for new respondee
         active = {};
-        channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);     
+	const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName;
+        channel = await guild.channels.create(`${nickname}-${message.author.discriminator}`);     
         channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
         channel.setTopic(`Use **${client.config.prefix}close-ticket** to close the Ticket | ModMail for <@${message.author.id}>`);
         channel.overwritePermissions([ 
