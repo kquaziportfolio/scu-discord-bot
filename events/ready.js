@@ -2,26 +2,15 @@ let sendMessage = require(`../modules/sendMessage.js`);
 const fetch = require(`node-fetch`);
 
 module.exports = async (client) => {
-	try { 
-		
+	try {  
 		client.user.setPresence({activity: { name: `${client.config.prefix}help || DM me for help! 📩` }, status: 'online'});
 		
 		client.login(client.config.token)
 		.then(
-			function() {
+			async function() {
 			require("../modules/serverVerification.js").run(client); //start server verification module in ready event 
 			require("../modules/scuReddit.js").run(client); //start reddit module in ready event 
-
-			const guild = client.guilds.cache.get(client.config.verification.guildID);
-			const verifyMSG = {
-				title: "HURRAY!",
-				description: "All commands and events work! ✅",
-				color: "GREEN",
-				timestamp: new Date()
-			};
-			console.log(verifyMSG.description);
-			sendMessage(client, client.config.channels.auditlogs, { embed: verifyMSG}); 
-
+				
 			/* DISCORD STATUS CHECKER */
 			const url = client.config.verification.status;
 			const response = await fetch(url);
