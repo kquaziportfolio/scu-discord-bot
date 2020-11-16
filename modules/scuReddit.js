@@ -43,7 +43,7 @@ module.exports.run = async (client) => {
           sendMessage(client, client.config.channels.auditlogs, 'Request failed - reddit could be down or subreddit doesn\'t exist. Will continue.');
           botReady = false;
         }
-      });
+      }).then(console.log('New Reddit posts sent!'));
     }
-  }, 43200 * 1000); // get top posts every 12 hours
+  }, 300 * 1000); // get 10 new posts every 30 minutes
 }
