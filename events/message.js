@@ -26,7 +26,7 @@ module.exports = async (client, message) => {
 
   //Check if message is in a direct message
   if (message.channel.type == "dm" && message.mentions.has(client.user)) { 
-      let userTicketContent = message.content.replace(`<@!${client.user.id}>`, ``).trim(); 
+      let userTicketContent = message.content.split(" ").join(" ");
 
       if (userTicketContent[1].length > 1) {
         let active = await db.fetch(`support_${message.author.id}`);
@@ -81,7 +81,7 @@ module.exports = async (client, message) => {
         .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
         await message.author.send(`<@${message.author.id}>`, { embed: messageReception });
 
-        messageReception.setDescription(`**${userTicketContent}**`) //appends `.setDescription()` method to the embed that will be sent to admins
+        messageReception.setDescription(`**${userTicketContent[1]}**`) //appends `.setDescription()` method to the embed that will be sent to admins
         await channel.send(`<@${message.author.id}>`, { embed: messageReception });
 
         db.set(`support_${message.author.id}`, active);
