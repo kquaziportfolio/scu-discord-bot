@@ -7,7 +7,7 @@ module.exports = {
     description: 'Get daily and instant COVID-19 data at SCU here...', //here is a change in the file
     category: 'Utility',
     async execute (client, message, args) {  
-        request("https://www.scu.edu/preparedscu/covid-19/confirmed-cases/", function (err, resp, body) {
+        request(client.config.api.covidStats, function (err, resp, body) {
             if (!err && resp.statusCode == 200) { 
                 const scuEmbed = new MessageEmbed()
                 .setColor(client.config.school_color)
