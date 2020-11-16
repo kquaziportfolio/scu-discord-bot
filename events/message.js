@@ -75,7 +75,7 @@ module.exports = async (client, message) => {
 
         channel = client.channels.cache.get(active.channelID);
 
-        messageReception //fires for newly created and exisiting tickets 
+        messageReception //fires for newly created and existing tickets 
         .setTitle(`Modmail Ticket Sent!`)
         .setDescription(`Your new content has been sent!`)
         .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
@@ -86,7 +86,7 @@ module.exports = async (client, message) => {
 
         db.set(`support_${message.author.id}`, active);
         db.set(`supportChannel_${channel.id}`, message.author.id);
-	return;
+	      return;
       } 
 	  
     	let support = await db.fetch(`supportChannel_${message.channel.id}`);
@@ -96,7 +96,7 @@ module.exports = async (client, message) => {
           if (!supportUser) return message.channel.delete(); 
           
           if(isAdmin(client, message, true)) {
-            if (message.content == `<@!${client.user.id}>close-ticket`) {
+            if (message.content == `${prefix}close-ticket`) {
               messageReception 
                 .setTitle(`ModMail Ticket Resolved`)
                 .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
@@ -109,7 +109,7 @@ module.exports = async (client, message) => {
               return db.delete(`support_${support.targetID}`);
             } 
           }
-	}
+	      }
     } else if (message.guild == null) {
         return message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
     }
