@@ -101,7 +101,7 @@ module.exports = async (client, message) => {
     if (!supportUser) return message.channel.delete(); 
     
     if(isAdmin(client, message, true)) {
-      if (message.content == `${prefix}close-ticket`) {
+      if (message.content == `${client.config.prefix}close-ticket`) {
         messageReception 
           .setTitle(`ModMail Ticket Resolved`)
           .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
