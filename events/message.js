@@ -30,7 +30,7 @@ module.exports = async (client, message) => {
 
   //Check if message is in a direct message and mentions bot
   if (message.channel.type == "dm" && message.mentions.has(client.user)) { 
-    let userTicketContent = message.content.replace(message.mentions.USERS_PATTERN, ' ').trim();
+    let userTicketContent = message.content.split(' ').slice(1).join(' ');
 
     if (userTicketContent.length > 1) {
       let active = await db.fetch(`support_${message.author.id}`);
