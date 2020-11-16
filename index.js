@@ -34,8 +34,6 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
-client.commands = new Enmap();
-
 /*
 ==============================================================================================
    _____                                          _   _    _                 _ _           
@@ -49,6 +47,8 @@ client.commands = new Enmap();
 
 /*loops and reads through my subdirectories - admin, fun, and utility - 
 and iterates thru individual command files in them*/
+
+client.commands = new Enmap();
                                                                                                                                                                                    
 fs.readdir("./commands/", (err, subdirs) => { 
   subdirs.forEach(subdir => {
@@ -61,7 +61,4 @@ fs.readdir("./commands/", (err, subdirs) => {
       });
     });
   });
-});
- 
-// Start the BOT TOKEN here
-client.login(client.config.token);
+}); 
