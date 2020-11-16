@@ -14,9 +14,7 @@ const fetch = require(`node-fetch`);
 
 module.exports = async (client) => {
 	try {  
-		client.user.setPresence({activity: { name: `${client.config.prefix}help || DM me for help! 📩` }, status: 'online'});
-		
-		client.login(client.config.token)
+		client.user.setPresence({activity: { name: `${client.config.prefix}help || DM me for help! 📩` }, status: 'online'}) 
 		.then(
 			async function() {
 			require("../modules/serverVerification.js").run(client); //start server verification module in ready event 
