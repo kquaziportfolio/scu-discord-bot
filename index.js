@@ -65,6 +65,6 @@ try {
   }); 
 } catch (err) {
     console.log(err);
-} finally {
+} finally { 
     console.log("All commands and events work! :white_check_mark:");
 }
