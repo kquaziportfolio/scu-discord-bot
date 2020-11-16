@@ -94,7 +94,7 @@ module.exports = async (client, message) => {
           if (!supportUser) return message.channel.delete(); 
           
           if(isAdmin(client, message, true)) {
-            if (message.content == `<@!${client.user.id}>close-ticket`) {
+            if (message.content == `${prefix}close-ticket`) {
               messageReception 
                 .setTitle(`ModMail Ticket Resolved`)
                 .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
@@ -105,7 +105,7 @@ module.exports = async (client, message) => {
               message.guild.channels.cache.get(client.config.channels.auditlogs).send(messageReception);
               message.channel.delete();
               return db.delete(`support_${support.targetID}`);
-            }
+            } 
           }
         }
       } else {
