@@ -5,12 +5,12 @@ module.exports  = {
     description: 'Checks app statuses of school platforms!',
     category: 'Utility',
     args: true,
-    usage: `[Discord || Instructure || Zoom.us]
+    usage: `[Discord || Instructure || Zoom.us]`,
     async execute(client, message, args) {
 
-        /* STATUS CHECKER */
+        //STATUS CHECKERS
         if (args[0].toLowerCase() == "Discord" || args[0].toLowerCase() == "Instructure") {
-            const response = await fetch(`https://status.${args[0]}.com/api/v2/status.json`);
+            const response = await fetch(`https://status.${args[0]}/api/v2/status.json`);
         } else if (args[0].toLowerCase() == "Zoom") {
             const response = await fetch(`https://status.${args[0]}/api/v2/status.json`);
         }
