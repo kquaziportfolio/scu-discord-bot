@@ -12,10 +12,12 @@ module.exports = {
 
             try {
                 const input = args[0];
-                if(".." in input){
-                    message.reply("Illegal input");
+
+                if (".." in input) {
+                    message.channel.send({ embed: { description: `Lol! Only look in the \`assets\` directory`, color: client.config.school_color}});
                     return;
                 }
+
                 const imageEmbed = new MessageEmbed()
                 .attachFiles([`./assets/${input}`])
                 .setImage(`attachment://${input}`)

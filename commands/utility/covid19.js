@@ -17,11 +17,10 @@ module.exports = {
                 .setURL(`https://www.scu.edu/preparedscu/health-and-safety/testing-protocol/`)
                 .setFooter(`*Includes students, faculty, and staff. Includes some individuals tested multiple times.`, client.user.avatarURL()) 
 
-                const $ = cheerio.load(body);
+                const $ = cheerio.load(body); 
 
                 $('table[class="fixed_header"] > tbody > tr').each(function() {
                     let stats = $(this).text(); 
-                    console.log(stats); 
                     scuEmbed.addField(`\u200B`, stats, true);
                 });  
                 
