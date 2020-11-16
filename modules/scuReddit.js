@@ -16,9 +16,8 @@ setInterval(() => {
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
         for (const post of body.data.children.reverse()) {
+          const lastTimestamp = post.data.created_utc;
           if (lastTimestamp <= post.data.created_utc) {
-            lastTimestamp = post.data.created_utc;
-
             const scuRedditEmbed = new MessageEmbed()
             .setColor(client.config.school_color)
             .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title)}`)
