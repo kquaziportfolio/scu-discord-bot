@@ -26,7 +26,7 @@ module.exports = async (client, message) => {
 
   //Check if message is in a direct message
   if (message.channel.type == "dm" && message.mentions.has(client.user)) { 
-      let userTicketContent = message.content.split(" ").join(" ");
+      let userTicketContent = message.content.replace(message.mentions.USERS_PATTERN, '').join(" ");
 
       if (userTicketContent[1].length > 1) {
         let active = await db.fetch(`support_${message.author.id}`);
