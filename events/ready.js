@@ -35,7 +35,7 @@ module.exports = async (client) => {
 				sendMessage(client, client.config.channels.auditlogs, { embed: { title: `:x: ${body.status.description}`, description: "There seems to be an error with some of the Discord servers. Double check [here](https://status.discordapp.com/)! :x:", color: "RED", timestamp: new Date()}});
 			}
 				
-			sendMessage(client, client.config.channels.auditlogs, { embed: { description: "All commands and events work! :white_check_mark:", color: "GREEN"}});
+			sendMessage(client, client.config.channels.auditlogs, { embed: { title: `Hooray!`, description: "All commands and events work! :white_check_mark:", color: "GREEN", timestamp: new Date()}});
 		})
 		.catch(err => console.error(err));
 	} catch (err) {
