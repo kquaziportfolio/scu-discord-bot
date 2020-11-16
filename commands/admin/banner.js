@@ -25,7 +25,7 @@ module.exports = {
 
                 message.channel.send(imageEmbed);
             } catch (err) {
-                if (err) throw error;
+                if (err) throw err;
             }
         }
     }
