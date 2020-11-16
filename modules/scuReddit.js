@@ -30,7 +30,6 @@ setInterval(() => {
             sendMessage(client, client.config.channels.updates, scuRedditEmbed);
           }
         }
-        ++lastTimestamp;
       } else {
         sendMessage(client, client.config.channels.auditlogs, 'Request failed - reddit could be down or subreddit doesn\'t exist. Will continue.');
       }
