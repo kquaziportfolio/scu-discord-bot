@@ -11,12 +11,7 @@ module.exports = {
         if(isAdmin(client, message, true)) {
 
             try {
-                const input = args[0];
-
-                if (".." in input) {
-                    message.channel.send({ embed: { description: `Lol! Only look in the \`assets\` directory`, color: client.config.school_color}});
-                    return;
-                }
+                const input = args[0]; 
 
                 const imageEmbed = new MessageEmbed()
                 .attachFiles([`./assets/${input}`])
