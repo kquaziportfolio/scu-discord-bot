@@ -20,7 +20,7 @@ setInterval(() => {
           if (lastTimestamp <= post.data.created_utc) {
             lastTimestamp = post.data.created_utc;
 
-            const scuRedditEmbed = new MessageEmbed();
+            const scuRedditEmbed = new MessageEmbed()
             .setColor(client.config.school_color);
             .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title)}`);
             .setURL(`https://redd.it/${post.data.id}`);
