@@ -20,21 +20,6 @@ setInterval(() => {
           if (lastTimestamp <= post.data.created_utc) {
             lastTimestamp = post.data.created_utc;
 
-            const embed = new MessageEmbed();
-            embed.setColor(const subredditUrl = `https://www.reddit.com/r/scu/new.json?limit=10`;
-
-setInterval(() => {
-  if (botReady) {
-    request({
-      url: subredditUrl,
-      json: true,
-    }, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        logger.debug('Request succeeded, lastTimestamp = ', lastTimestamp);
-        for (const post of body.data.children.reverse()) {
-          if (lastTimestamp <= post.data.created_utc) {
-            lastTimestamp = post.data.created_utc;
-
             const scuRedditEmbed = new MessageEmbed();
             .setColor(client.config.school_color);
             .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title)}`);
