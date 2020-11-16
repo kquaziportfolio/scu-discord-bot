@@ -23,8 +23,12 @@ module.exports = async (client, message) => {
   .setAuthor(message.author.tag, message.author.displayAvatarURL())
   .attachFiles([`./assets/verified.gif`])
   .setThumbnail(`attachment://verified.gif`) 
+  
+  if (message.guild == null) {
+        return message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
+  }
 
-  //Check if message is in a direct message
+  //Check if message is in a direct message and mentions bot
   if (message.channel.type == "dm" && message.mentions.has(client.user)) { 
       let userTicketContent = message.content.replace(message.mentions.USERS_PATTERN, ' ').trim();
 
@@ -86,7 +90,7 @@ module.exports = async (client, message) => {
 
         db.set(`support_${message.author.id}`, active);
         db.set(`supportChannel_${channel.id}`, message.author.id);
-	      return;
+        return;
       } 
 	  
     	let support = await db.fetch(`supportChannel_${message.channel.id}`);
@@ -109,10 +113,8 @@ module.exports = async (client, message) => {
               return db.delete(`support_${support.targetID}`);
             } 
           }
-	      }
-    } else if (message.guild == null) {
-        return message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
-    }
+      }
+    }  
        
 /*
 ==================================================================================
