@@ -25,7 +25,7 @@ module.exports = async (client, message) => {
   .setThumbnail(`attachment://verified.gif`) 
 
   //Check if message is in a direct message
-  if (message.channel.type == "dm") { 
+  if (message.channel.type == "dm" && message.mentions.has(client.user)) { 
       let userTicketContent = message.content.replace(message.mentions.USERS_PATTERN, ' ').trim();
 
       if (userTicketContent.length > 1) {
