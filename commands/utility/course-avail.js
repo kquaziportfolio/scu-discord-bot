@@ -12,7 +12,7 @@ module.exports = {
 
         try {
             const searchInput = args[0].split(' ').join(' ');
-            let response = await fetch(`https://www.scu.edu/apps/ws/courseavail/search/4120/ugrad/${searchInput}`);
+            let response = await fetch(`${client.config.api.courseAvail}${searchInput}`);
             let data = await response.json(); 
             
             console.log(data);
