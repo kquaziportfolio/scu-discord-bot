@@ -31,8 +31,8 @@ fs.readdir("./events/", (err, files) => {
     let eventName = file.split(".")[0];
     client.on(eventName, event.bind(null, client));
     delete require.cache[require.resolve(`./events/${file}`)];
-  });
-}).then(console.log("All events work! :white_check_mark:"));
+  }) 
+}).then(() => console.log("All events work! :white_check_mark:"));
 
 /*
 ==============================================================================================
@@ -61,4 +61,4 @@ fs.readdir("./commands/", (err, subdirs) => {
       });
     });
   });
-}).then(console.log("All commands work! :white_check_mark:"));
+}).then(() => console.log("All commands work! :white_check_mark:")); 
