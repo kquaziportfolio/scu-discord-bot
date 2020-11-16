@@ -40,8 +40,7 @@ module.exports.run = async (client) => {
             }
           }
         } else {
-          sendMessage(client, client.config.channels.auditlogs, 'Request failed - reddit could be down or subreddit doesn\'t exist. Will continue.');
-          botReady = false;
+          sendMessage(client, client.config.channels.auditlogs, 'Request failed - reddit could be down or subreddit doesn\'t exist. Will continue.'); 
         }
       }).then(console.log('New Reddit posts sent!'));
     }
