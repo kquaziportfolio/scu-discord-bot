@@ -18,7 +18,7 @@ module.exports = async (client, message) => {
 =============================================== 
 */
 
-    const messageReception = new MessageEmbed()
+  const messageReception = new MessageEmbed()
   .setColor(client.config.school_color)
   .setAuthor(message.author.tag, message.author.displayAvatarURL())
   .attachFiles([`./assets/verified.gif`])
@@ -46,7 +46,7 @@ module.exports = async (client, message) => {
       if (!active || !found) {
         //create support channel for new respondee
         active = {};
-        channel = await guild.channels.create(`${message.member.nickname}-${message.author.discriminator}`);     
+        channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);     
         channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
         channel.setTopic(`Use **${client.config.prefix}close-ticket** to close the Ticket | ModMail for <@${message.author.id}>`);
         channel.overwritePermissions([ 
