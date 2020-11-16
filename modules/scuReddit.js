@@ -13,7 +13,8 @@ module.exports.run = async (client) => {
     timestamp: new Date()
   }
   
-  console.log(feedMSG);
+  console.log(feedMSG.title);
+  sendMessage(client, client.config.channels.auditlogs, { embed: feedMSG});
 
   setInterval(() => {
     if (botReady) {
@@ -44,5 +45,5 @@ module.exports.run = async (client) => {
         }
       });
     }
-  }, 3600 * 1000); // get top 10 posts every hour
+  }, 43200 * 1000); // get top posts every 12 hours
 }
