@@ -28,7 +28,7 @@ module.exports = async (client, message) => {
   if (message.channel.type == "dm" && message.mentions.has(client.user)) { 
       let userTicketContent = message.content.replace(message.mentions.USERS_PATTERN, ' ').trim();
 
-      if (userTicketContent[1].length > 1) {
+      if (userTicketContent.length > 1) {
         let active = await db.fetch(`support_${message.author.id}`);
         let guild = client.guilds.cache.get(client.config.verification.guildID);
         let channel, found = true;
@@ -81,7 +81,7 @@ module.exports = async (client, message) => {
         .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
         await message.author.send(`<@${message.author.id}>`, { embed: messageReception });
 
-        messageReception.setDescription(`**${userTicketContent[1]}**`) //appends `.setDescription()` method to the embed that will be sent to admins
+        messageReception.setDescription(`**${userTicketContent}**`) //appends `.setDescription()` method to the embed that will be sent to admins
         await channel.send(`<@${message.author.id}>`, { embed: messageReception });
 
         db.set(`support_${message.author.id}`, active);
