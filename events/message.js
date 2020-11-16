@@ -24,7 +24,7 @@ module.exports = async (client, message) => {
   .attachFiles([`./assets/verified.gif`])
   .setThumbnail(`attachment://verified.gif`) 
   
-  if (message.guild == null) {
+  if (message.guild == null && !message.mentions.has(client.user)) {
         return message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
   }
 
