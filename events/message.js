@@ -25,7 +25,7 @@ module.exports = async (client, message) => {
   .setThumbnail(`attachment://verified.gif`) 
 
   //Check if message is in a direct message
-  if (message.channel.type == "dm" && message.mentions.has(client.user)) { 
+  if (message.channel.type == "dm") { 
       let userTicketContent = message.content.replace(message.mentions.USERS_PATTERN, ' ').trim();
 
       if (userTicketContent.length > 1) {
@@ -109,7 +109,7 @@ module.exports = async (client, message) => {
           }
         }
       } else {
-          return message.reply({ embed: { description: `Please enter at least 1 word for the message!`, color: client.config.school_color}});
+          return;
       }
     } else if (message.guild == null) {
         return message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
