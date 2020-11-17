@@ -52,5 +52,5 @@ module.exports.run = async (client) => {
         sendMessage(client, client.config.channels.auditlogs, { embed: { description: 'Request failed - reddit could be down or subreddit doesn\'t exist. Will continue.', color: client.config.school_color}}); 
       }
     } 
-  }, 5000 * 1000); // get 10 new posts every 5 hours!
+  }, 5000 ); // get 10 new posts every 5 hours!
 }
