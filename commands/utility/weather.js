@@ -40,7 +40,7 @@ module.exports = {
 		.setTitle(`:flag_${body.sys.country.toLowerCase()}: ${body.name}, ${body.sys.country}`)
 		.setURL(`https://openweathermap.org/city/${body.id}`)
 		.setThumbnail(`https://openweathermap.org/img/w/${body.weather[0].icon}.png`)
-		.addField(`Temperature`, `Main: ${Math.round((body.main.temp - 273.15) * 9/5 + 32)}°F\n Feels Like: ${Math.round((body.main.feels_like - 273.15) * 9/5 + 32)}°F\n (Min: ${Math.round((body.main.temp_min - 273.15) * 9/5 + 32)}°F | Max: ${Math.round((json.main.temp_max - 273.15) * 9/5 + 32)}°F )`, true)
+		.addField(`Temperature`, `Main: ${Math.round((body.main.temp - 273.15) * 9/5 + 32)}°F\n Feels Like: ${Math.round((body.main.feels_like - 273.15) * 9/5 + 32)}°F\n (Min: ${Math.round((body.main.temp_min - 273.15) * 9/5 + 32)}°F | Max: ${Math.round((body.main.temp_max - 273.15) * 9/5 + 32)}°F )`, true)
 		.addField('Weather', toTitleCase(`${body.weather[0].description}`), true)
 		.addField(`Wind`, `${body.wind.speed}`, true)
 		.addField(`Humidity`,`${body.main.humidity}%`, true)
