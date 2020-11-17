@@ -5,13 +5,13 @@
 ## Discord.JS BOT
 - This is a 24/7 bot that I made for my [**SCU Discord Network**](https://invite.gg/gobroncos) to provide a comprehensive and effective social media platform for Santa Clara University students to utilize especially in the midst of the worldwide COVID-19 pandemic.
 
-  - Utilized the Node.js environment and Node module Discord.js to deploy a bot that greets/sends direct messages, interacts with over 500 students, and performs an assortment of automated tasks to better the server experience. 
+  - Utilized the Node.js environment and Node module Discord.js to deploy a bot that greets/sends direct messages, interacts with over 500 students, and performs an assortment of automated tasks to better the server experience. An example is the SCU Reddit feed module that scrapes posts from [r/SCU](https://reddit.com/r/SCU) (5 new posts every 5 hours) and delivers them as message embeds in the Discord server.
 
   - Programmed an Express.js server for a guild verification system that automatically gives graduating year, college major, and verified roles to SCU students. The user's Google Form responses will grant them different server roles based on their unique input.
 
-  - Logged user suggestions to better the server's general UI/UX. 
+  - Crafted the server's ModMail ticket system which allows server members to seek instant support from Discord server admins in any given scenario.
 
-  - Open to promote this student-run online network if possible by institutional measures.
+  - Very open to promoting this student-run online network if possible by institutional measures.
 
 ## Server Logo
 ![SCU Discord Network Logo](https://github.com/jasonanhvu/scu-discord-bot/blob/master/assets/logo-pic.png?raw=true)
@@ -21,7 +21,7 @@
 
 ## Creator(s)
 - Jason Vu = Discord server owner, admin, and back-end
-- Samuel Stephen = Discord server moderator and back-end
+- Samuel Stephen = Discord server admin and back-end
 
 ## Contributors
-- Kairan Quazi = Discord server moderator, back-end, and GitHub integrations
+- Kairan Quazi = Discord server moderator and back-end
