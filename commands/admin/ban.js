@@ -9,32 +9,29 @@ module.exports = {
     usage: `[@user mention] [reason]`, 
     category: 'Admin',  
 	async execute(client, message, args) {   
-
-        if(isAdmin(client, message, true)) {
-            // the ban code here
-
+        if(isAdmin(client, message)) { 
             const member = message.mentions.members.first();
 
             if(!member.bannable) 
-		return message.channel.send({embed: {
+                return message.channel.send({embed: {
                     description: "I can't ban this user!",
                     color: client.config.school_color
                 }
-            })
+            });
 
             if(member.user.id === client.config.serverRoles.owner) 
                 return message.channel.send({embed: {
                     description: "I can't ban my owner!",
                     color: client.config.school_color
                 }
-            }) 
+            }); 
 
             if(member.user.id === message.author.id) 
-		return message.channel.send({embed: {
-		    description: `You can't ban yourself!`,
-		    color: client.config.school_color
+		        return message.channel.send({embed: {
+                    description: `You can't ban yourself!`,
+                    color: client.config.school_color
                 }
-            }) 
+            });
 
             const reason = args.slice(1).join(" ");
 

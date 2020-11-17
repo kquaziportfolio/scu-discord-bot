@@ -9,9 +9,8 @@ module.exports = {
 	usage: `[command name]`, 
 	args: true,
 	category: 'Admin',  
-	async execute(client, message, args) {
-
-		if(isAdmin(client, message, true)) {
+	async execute(client, message, args) { 
+		if(isAdmin(client, message)) {
 			const commandName = args[0].toLowerCase();
 			const command = message.client.commands.get(commandName);
 
@@ -34,9 +33,7 @@ module.exports = {
 						return console.log(err.stack || err);
 					}
 				}
-			});
-
-			
+			}); 
 		} 
 	}
-}
+} 

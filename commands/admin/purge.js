@@ -7,7 +7,7 @@ module.exports = {
     usage: `[# of messages]`, 
     category: 'Admin',  
     async execute(client, message, args) {   
-        if(isAdmin(client, message, true)) {
+        if(isAdmin(client, message)) {
             try {
                 const deleteCount = parseInt(args[0], 10);
        

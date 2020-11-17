@@ -9,11 +9,8 @@ module.exports = {
     args: true,
     usage: `[@user mention] [reason]`,
     category: 'Admin',  
-	async execute(client, message, args) {   
-
-        if(isAdmin(client, message, true)) {
-            // the kick code here
-
+	async execute(client, message, args) {    
+        if(isAdmin(client, message)) {  
             const member = message.mentions.members.first();
 
             if(!member.kickable) return message.channel.send({embed: {
@@ -40,9 +37,9 @@ module.exports = {
             if(!reason) {
                 message.channel.send({ embed: { description: `You must provide a reason to kick the user!`, color: client.config.school_color}});
             } else {
-		await member.kick(reason);
+                await member.kick(reason);
 		
-		const kick_card = new MessageEmbed()
+                const kick_card = new MessageEmbed()
                 .setColor(client.config.school_color)
                 .setTitle(`Kick | ${member.user.tag}`)
                 .addField("User", member, true)
@@ -51,7 +48,7 @@ module.exports = {
                 .setTimestamp()
 
                 sendMessage(client, client.config.channels.auditlogs, kick_card);
-	    }
+	        }
         } 
     }
 }

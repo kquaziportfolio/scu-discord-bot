@@ -10,7 +10,7 @@ module.exports = {
     category: 'Admin',
     async execute(client, message, args) {
 
-        if(isAdmin(client, message, true)) {
+        if(isAdmin(client, message)) {
             const url = client.config.verification.verifyURL;
             const status = await fetch(url);
             const getStatus = await status.text();

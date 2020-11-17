@@ -12,15 +12,14 @@
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'                     
  */
 
-module.exports = function isAdmin(client, message, statement) { 
+module.exports = function isAdmin(client, message) { 
    const userRole = message.member.roles.cache;
    const modRole = client.config.serverRoles;
    if(userRole.has(modRole.owner) || userRole.has(modRole.admin) || userRole.has(modRole.mod)) {
      return true;
-   } else {
-      if (statement == true) {
+   } else { 
+       message.delete();
        message.reply({ embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}}); 
-       return false;
-      }
+       return false; 
    }
 }

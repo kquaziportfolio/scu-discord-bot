@@ -6,7 +6,7 @@ module.exports = {
     description: 'Get the bot\'s info!',
     category: 'Admin',  
     async execute(client, message, args) {
-        if(isAdmin(client, message, true)) {
+        if(isAdmin(client, message)) {
             const botInfo = {
                 color: client.config.school_color,
                 author: {

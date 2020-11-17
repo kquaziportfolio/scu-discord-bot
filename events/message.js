@@ -22,14 +22,10 @@ module.exports = async (client, message) => {
   .setColor(client.config.school_color)
   .setAuthor(message.author.tag, message.author.displayAvatarURL())
   .attachFiles([`./assets/verified.gif`])
-  .setThumbnail(`attachment://verified.gif`) 
-  
-  if (message.guild == null && !message.mentions.has(client.user)) {
-        return message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
-  }
+  .setThumbnail(`attachment://verified.gif`)  
 
   //Check if message is in a direct message and mentions bot
-  if (message.channel.type == "dm" && message.mentions.has(client.user)) { 
+  if (message.channel.type === "dm" && message.mentions.has(client.user)) { 
     let userTicketContent = message.content.split(' ').slice(1).join(' ');
 
     if (userTicketContent.length > 1) {
@@ -46,7 +42,7 @@ module.exports = async (client, message) => {
       if (!active || !found) {
         //create support channel for new respondee
         active = {};
-	const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName;
+	      const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName;
         channel = await guild.channels.create(`${nickname}-${message.author.discriminator}`);     
         channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
         channel.setTopic(`Use **${client.config.prefix}close-ticket** to close the Ticket | ModMail for <@${message.author.id}>`);
@@ -75,7 +71,7 @@ module.exports = async (client, message) => {
         
         // Update Active Data
         active.channelID = channel.id;
-        active.targetID =  message.author.id;
+        active.targetID = message.author.id;
       }
 
       channel = client.channels.cache.get(active.channelID);
@@ -93,6 +89,8 @@ module.exports = async (client, message) => {
       db.set(`supportChannel_${channel.id}`, message.author.id);
       return;
     } 
+  } else {
+      return message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
   }
   
   let support = await db.fetch(`supportChannel_${message.channel.id}`);
@@ -101,8 +99,8 @@ module.exports = async (client, message) => {
     let supportUser = client.users.cache.get(support.targetID);
     if (!supportUser) return message.channel.delete(); 
     
-    if(isAdmin(client, message, true)) {
-      if (message.content == `${client.config.prefix}close-ticket`) {
+    if(isAdmin(client, message)) {
+      if (message.content === `${client.config.prefix}close-ticket`) {
         messageReception 
           .setTitle(`ModMail Ticket Resolved`)
           .setAuthor(supportUser.tag, supportUser.displayAvatarURL())

@@ -5,10 +5,8 @@ module.exports =  {
 	description: 'Restart the bot!',
 	cooldown: 15,
 	category: 'Admin',  
-	async execute(client, message, args) {   
-
-        if(isAdmin(client, message, true)) {
-
+	async execute(client, message, args) {     
+        if(isAdmin(client, message)) { 
             try {
                 const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
 
@@ -17,7 +15,7 @@ module.exports =  {
                 for (const frame of frames) {
                     setTimeout(() => {}, 4000);
                     await msg.edit({ embed: { description: frame, color: client.config.school_color}});
-		}
+		        }
             } catch (err) {
                 console.log(err.message);
             } finally {

@@ -11,7 +11,7 @@ module.exports = async (client, member) => {
   let liveCount = guild.channels.cache.find(channel => channel.id === client.config.channels.memberCount);
   liveCount.setName(`👥 ${memberCount} Members`);
 	
-  let role = member.guild.roles.cache.find((role) => role.id == client.config.serverRoles.unverifiedStudent);
+  let role = member.guild.roles.cache.find((role) => role.id === client.config.serverRoles.unverifiedStudent);
   await member.roles.add(role);
 
   sendMessage(client, client.config.channels.auditlogs, { embed: { description: `The **Unverified** role has been given to **<@${member.user.id}>** by **<@${client.user.id}>**!` } });

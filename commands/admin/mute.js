@@ -11,30 +11,28 @@ module.exports = {
     category: 'Admin',  
     async execute(client, message, args) {   
 
-        if(isAdmin(client, message, true)) {
-            // the mute code here
+        if(isAdmin(client, message)) {  
+            let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
 
-            let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-
-            let Time = args.slice(1).join(" ")
-            if (!Time) Reason = "No time given!"
+            let Time = args.slice(1).join(" ");
+            if (!Time) Reason = "No time given!";
     
-            let muterole = message.guild.roles.cache.find(x => x.name === "Muted")
+            let muterole = message.guild.roles.cache.find(x => x.name === "Muted");
             if(!muterole) {
                 try {
                     muterole = await message.guild.roles.create({
-                    data: {
-                        name: "Muted",
-                        color: "#514f48",
-                        permissions: []
-                    }
-                    })
+                        data: {
+                            name: "Muted",
+                            color: "#514f48",
+                            permissions: []
+                        }
+                    });
                     message.guild.channels.cache.forEach(async (channel, id) => {
                         await channel.updateOverwrite(muterole, {
                           SEND_MESSAGES: false,
                           ADD_REACTIONS: false
                         });
-                      });
+                    });
                 } catch(e) {
                     sendMessage(client, client.config.channels.auditlogs, e.stack);
                 }

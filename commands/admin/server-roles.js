@@ -6,7 +6,7 @@ module.exports = {
     description: 'Get the server-roles embed!',
     category: 'Admin',  
 	async execute (client, message, args) {
-	      if(isAdmin(client, message, true)) {
+	      if(isAdmin(client, message)) {
 		const serverRolesEmbed = new MessageEmbed()
 		.setTitle("__**SERVER ROLES FORM!**__")
 		.setColor(client.config.school_color)
