@@ -28,8 +28,8 @@ module.exports.run = async (client) => {
 
   setInterval(() => {
     if (botReady) {
-      const response = await fetch(client.config.api.subreddit);
-      const body = await response.json();
+      const response = fetch(client.config.api.subreddit);
+      const body = response.json();
      
       if (response.statusCode === 200) {
         for (const post of body.data.children.reverse()) {
