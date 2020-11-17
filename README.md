@@ -9,7 +9,7 @@
 
   - Programmed an Express.js server for a guild verification system that automatically gives graduating year, college major, and verified roles to SCU students. The user's Google Form responses will grant them different server roles based on their unique input.
 
-  - Crafted the server's ModMail ticket system which allows server members to seek instant support from Discord server admins in any given scenario.
+  - Crafted the ModMail ticket system which allows server members to seek instant support from Discord server admins.
 
   - Very open to promoting this student-run online network if possible by institutional measures.
 
