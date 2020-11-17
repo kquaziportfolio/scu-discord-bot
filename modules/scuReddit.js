@@ -24,13 +24,13 @@ module.exports.run = async (client) => {
   
   console.log(feedMSG.title);
   sendMessage(client, client.config.channels.auditlogs, { embed: feedMSG});
-
-    if (botReady) {  
-      setInterval(() => {
-         if (response.ok) { 
-            const fetch = require(`node-fetch`);
-            const response = fetch(client.config.api.subreddit);
-            const body = response.json();
+   
+  setInterval(() => {
+      const fetch = require(`node-fetch`);
+      const response = fetch(client.config.api.subreddit);
+      const body = response.json();
+      if (botReady) {  
+         if (response.ok) {  
               for (const post of body.data.children.reverse()) {
                 const lastTimestamp = post.data.created_utc;
                 if (lastTimestamp <= post.data.created_utc) {
@@ -50,6 +50,6 @@ module.exports.run = async (client) => {
          } else {
            sendMessage(client, client.config.channels.auditlogs, { embed: { description: 'Request failed - reddit could be down or subreddit doesn\'t exist. Will continue.', color: client.config.school_color}}); 
          }
-       }, 1800 * 1000 ); // get 5 random posts every 30 minutes!
     }
+  }, 1800 * 1000 ); // get 5 random posts every 30 minutes!
 }
