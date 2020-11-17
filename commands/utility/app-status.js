@@ -9,7 +9,7 @@ module.exports  = {
         //STATUS CHECKERS
         const apps = ["Discord", "Instructure", "Zoom.us"];
         
-        for (const i = 0; i < apps.length; i++) { 
+        for (let i = 0; i < apps.length; i++) { 
             const response = await fetch(`https://status.${apps[i]}.com/api/v2/status.json`); 
         }
         
