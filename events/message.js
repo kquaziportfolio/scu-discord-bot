@@ -89,7 +89,7 @@ module.exports = async (client, message) => {
       db.set(`supportChannel_${channel.id}`, message.author.id);
       return;
     } 
-  } else {
+  } else if (message.channel.type === "dm" && !message.mentions.has(client.user)) {
       return message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
   }
   
