@@ -26,31 +26,31 @@ module.exports.run = async (client) => {
   console.log(feedMSG.title);
   sendMessage(client, client.config.channels.auditlogs, { embed: feedMSG});
 
-    if (botReady) {
+  setInterval(() => {
+   if (botReady) {
       const response = await fetch(client.config.api.subreddit);
       const body = await response.json();
      
-      setInterval(() => {
-         if (response.ok) {
-           for (const post of body.data.children.reverse()) {
-             const lastTimestamp = post.data.created_utc;
-             if (lastTimestamp <= post.data.created_utc) {
-               const scuRedditEmbed = new MessageEmbed()
-               .setColor(client.config.school_color)
-               .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title)}`)
-               .setURL(`https://redd.it/${post.data.id}`)
-               .setAuthor(`${post.data.subreddit_name_prefixed}`, client.user.displayAvatarURL())
-               .setDescription(post.data.selftext)
-               .setThumbnail(validUrl.isUri(post.data.thumbnail) ? entities.decodeHTML(post.data.thumbnail) : null)
-               .setFooter(`${post.data.is_self ? 'Self Post' : 'Link Post'} by u/${post.data.author}`)
-               .setTimestamp(new Date(post.data.created_utc * 1000))
+      if (response.ok) {
+        for (const post of body.data.children.reverse()) {
+          const lastTimestamp = post.data.created_utc;
+          if (lastTimestamp <= post.data.created_utc) {
+            const scuRedditEmbed = new MessageEmbed()
+            .setColor(client.config.school_color)
+            .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title)}`)
+            .setURL(`https://redd.it/${post.data.id}`)
+            .setAuthor(`${post.data.subreddit_name_prefixed}`, client.user.displayAvatarURL())
+            .setDescription(post.data.selftext)
+            .setThumbnail(validUrl.isUri(post.data.thumbnail) ? entities.decodeHTML(post.data.thumbnail) : null)
+            .setFooter(`${post.data.is_self ? 'Self Post' : 'Link Post'} by u/${post.data.author}`)
+            .setTimestamp(new Date(post.data.created_utc * 1000))
 
-               sendMessage(client, client.config.channels.reddit, scuRedditEmbed);
-             }
-           }
-         } else {
-           sendMessage(client, client.config.channels.auditlogs, { embed: { description: 'Request failed - reddit could be down or subreddit doesn\'t exist. Will continue.', color: client.config.school_color}}); 
-         }
-       }, 1800 * 1000 ); // get 5 random posts every 30 minutes!
-    }
+            sendMessage(client, client.config.channels.reddit, scuRedditEmbed);
+          }
+        }
+      } else {
+        sendMessage(client, client.config.channels.auditlogs, { embed: { description: 'Request failed - reddit could be down or subreddit doesn\'t exist. Will continue.', color: client.config.school_color}}); 
+      }
+    }, 1800 * 1000 ); // get 5 random posts every 30 minutes!
+  }
 }
