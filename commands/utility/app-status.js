@@ -10,7 +10,7 @@ module.exports  = {
 
         //STATUS CHECKERS
         if (args[0].toLowerCase() == "Discord" || args[0].toLowerCase() == "Instructure" || args[0].toLowerCase() == "Zoom.us") {
-            const response = await fetch(`https://status.${args[0]}/api/v2/status.json`); 
+            const response = await fetch(`https://status.${args[0]}.com/api/v2/status.json`); 
         
             const body = await response.json();
 
