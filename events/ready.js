@@ -17,7 +17,7 @@ module.exports = async (client) => {
 		client.user.setPresence({activity: { name: `${client.config.prefix}help || DM me for help! 📩` }, status: 'online'}) 
 
 		require("../modules/serverVerification.js").run(client); //start server verification module in ready event 
-		require("../modules/scuReddit.js").run(client); //start reddit module in ready event 
+		require("../modules/collegeReddit.js").run(client); //start reddit module in ready event 
 
 		/* DISCORD STATUS CHECKER */
 		const url = client.config.verification.status;
