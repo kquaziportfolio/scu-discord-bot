@@ -13,7 +13,7 @@ module.exports = {
 	        const msg= await message.channel.send("Pulling...");
 		child_proc.exec("git pull origin master");
                 for (const frame of frames) {
-                    setTimeout(() => {}, 4000);
+                    setTimeout(() => {}, 1000);
                     await msg.edit({ embed: { description: frame, color: client.config.school_color}});
 		}
             } catch (err) {
