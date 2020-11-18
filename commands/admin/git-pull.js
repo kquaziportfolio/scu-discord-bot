@@ -7,10 +7,10 @@ module.exports = {
     description: "Git pulls from my repo!",
     cooldown: 20,
     category: "Admin",
-    async execute(client,message,args) {
+    async execute(client, message, args) {
         if (isAdmin(client, message)) {
             try {
-                const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50%', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
+                const frames = [`□`, `□□□□ 25%`, `□□□□□□□□ 50%`, `□□□□□□□□□□□□ 75%`, `□□□□□□□□□□□□□□□□ 100%`, `Finished pulling from [scu-discord-bot](${client.config.verification.githubLink})!`];
 	        const msg= await message.channel.send("Pulling...");
 		    
 		child_proc.exec("git pull origin master");
@@ -21,9 +21,7 @@ module.exports = {
 		}
             } catch (err) {
                 console.log(err.message);
-            } finally {
-		sendMessage(client, client.config.channels.auditlogs, { embed: { description: `Finished pulling from [scu-discord-bot](${client.config.verification.githubLink})!`, color: client.config.school_color}}); 
-	    }
+            }
         }
     }
 } 
