@@ -1,15 +1,7 @@
 let isAdmin = require(`../../modules/isAdmin.js`);
 let sendMessage = require(`../../modules/sendMessage`);
-const exec = require('child_process').exec, child;
+const child_proc = require('child_process');
 
-child = exec('git pull',
-    function (error, stdout, stderr) {
-        console.log('stdout: ' + stdout);
-        console.log('stderr: ' + stderr);
-        if (error !== null) {
-             console.log('exec error: ' + error);
-        }
-    });
 
 module.exports = {
     name:"git-reload",
@@ -20,7 +12,7 @@ module.exports = {
         if (isAdmin(client, message)) {
             try {
                 await message.channel.send("Pulling from the repo...");
-                child();
+                child_proc.exec("git pull");
                 const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
 
                 const msg = await message.channel.send(`Restarting the bot...`);
