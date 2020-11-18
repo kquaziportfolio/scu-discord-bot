@@ -29,6 +29,7 @@ module.exports.run = async (client) => {
             if (lastTimestamp <= post.data.created_utc) {
               const redditPost = new MessageEmbed()
               .setColor(client.config.school_color)
+              .setAuthor(`${post.data.subreddit_name_prefixed}`, client.user.displayAvatarURL())
               .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title)}`)
               .setURL(`https://redd.it/${post.data.id}`)
               .setDescription(post.data.selftext)
