@@ -13,7 +13,7 @@ module.exports = {
 			const name = args[0];
 			const command = commands.get(name);
 			
-			if (!args[0]) return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
+			if (!command) return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
 			 
 			const secHelpEmbed = new MessageEmbed()
 			.setTitle(`${command.name.toUpperCase()} Command`)
