@@ -3,6 +3,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	name: 'help',
 	description: 'List of all of my commands or info about a specific command.',
+	aliases: ['cmds', 'commands'],
 	usage: `[command name] **OR** &help`,
 	category: 'Utility',
 	async execute(client, message, args) {
@@ -11,7 +12,7 @@ module.exports = {
 
 		if (args[0]) {
 			const name = args[0];
-			const command = commands.get(name);
+			const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name)); //includes aliases of commnad
 
 			if (!command) {
 				return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
@@ -24,7 +25,8 @@ module.exports = {
 						{ name: `**❯ Category:**`, value: `${command.category}`},
 						{ name: `**❯ Description:**`, value: `${command.description}`},
 						{ name: `**❯ Usage:**`, value: `${client.config.prefix}${command.name} ${command.usage || ''}`},
-						{ name: `**❯ Cooldown:**`, value: `${command.cooldown || 0} seconds`}
+						{ name: `**❯ Cooldown:**`, value: `${command.cooldown || 0} seconds`},
+						{ name: `**❯ Alias(es):**`, value: `${command.aliases.join(', ') || 'none'}`}
 					],
 					color: client.config.school_color,
 					thumbnail: { url: client.config.verification.thumbnailLink},
