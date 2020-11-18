@@ -36,6 +36,11 @@ module.exports.run = async (client) => {
               .setThumbnail(validUrl.isUri(post.data.thumbnail) ? entities.decodeHTML(post.data.thumbnail) : null)
               .setFooter(`${post.data.is_self ? 'self post' : 'link post'} by ${post.data.author}`)
               .setTimestamp(new Date(post.data.created_utc * 1000))
+              
+              if (post.data.selftext.length > 2048) { //if reddit post exceeds 2048 characters, split the message into two embeds to render the content :)
+                message.channel.send({ embed: { description: post.data.selftext.substring(0, 2047), color: client.config.school_color}}); 
+                redditPost.setDescription(post.data.selftext.substring(2048, post.data.selftext.length));
+              }
 
               sendMessage(client, client.config.channels.reddit, redditPost);
             }
