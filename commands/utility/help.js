@@ -30,7 +30,7 @@ module.exports = {
 			.setThumbnail(client.config.verification.thumbnailLink)
 			.setFooter(`Use ${client.config.prefix}help [command name] to get specific commmand info!`) 
 			
-			if (command.aliases) helpEmbed.addField({ name: `**❯ Aliases:**`, value: `${command.aliases.join(', ')`}));
+			if (command.aliases) helpEmbed.addField({ name: `**❯ Aliases:**`, value: `${command.aliases.join(', ')}`));
 			
 			return message.channel.send(helpEmbed);
 		}
