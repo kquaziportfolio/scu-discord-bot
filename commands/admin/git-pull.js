@@ -9,7 +9,7 @@ module.exports = {
     async execute(client,message,args) {
         if (isAdmin(client, message)) {
             try {
-                const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
+                const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50%', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
 	        const msg= await message.channel.send("Pulling...");
 		child_proc.exec("git pull origin master");
                 for (const frame of frames) {
