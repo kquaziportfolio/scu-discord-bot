@@ -1,6 +1,6 @@
 let isAdmin = require(`../../modules/isAdmin.js`);
 let sendMessage = require(`../../modules/sendMessage`);
-var exec = require('child_process').exec, child;
+const exec = require('child_process').exec, child;
 
 child = exec('git pull',
     function (error, stdout, stderr) {
@@ -10,6 +10,7 @@ child = exec('git pull',
              console.log('exec error: ' + error);
         }
     });
+
 module.exports = {
     name:"git-reload",
     description: "Git pulls from my repo and restarts the bot from Discord!",
@@ -27,7 +28,7 @@ module.exports = {
                 for (const frame of frames) {
                     setTimeout(() => {}, 4000);
                     await msg.edit({ embed: { description: frame, color: client.config.school_color}});
-		        }
+		}
             } catch (err) {
                 console.log(err.message);
             } finally {
