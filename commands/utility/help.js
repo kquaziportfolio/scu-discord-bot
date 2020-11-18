@@ -12,6 +12,8 @@ module.exports = {
 		if (args[0]) {
 			const name = args[0];
 			const command = commands.get(name);
+			
+			if (!args[0]) return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
 			 
 			const secHelpEmbed = new MessageEmbed()
 			.setTitle(`${command.name.toUpperCase()} Command`)
@@ -26,9 +28,7 @@ module.exports = {
 			.setFooter(`Use ${client.config.prefix}help [command name] to get specific commmand info!`) 
 			
 			return message.channel.send(secHelpEmbed);
-		} else {
-			return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
-		}	
+		}
 
 		const mainHelpEmbed = new MessageEmbed()
 		.setTitle(`**SCU BOT COMMANDS**`)
