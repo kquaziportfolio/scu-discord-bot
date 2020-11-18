@@ -12,8 +12,8 @@ module.exports = {
 
 		if (args[0]) {
 			const name = args[0];
-			const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name)); //includes aliases of commnad
-
+			const command = commands.get(name);
+			
 			if (!command) {
 				return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
 			}
@@ -29,10 +29,6 @@ module.exports = {
 			.setColor(client.config.school_color)
 			.setThumbnail(client.config.verification.thumbnailLink)
 			.setFooter(`Use ${client.config.prefix}help [command name] to get specific commmand info!`) 
-			
-			if (command.aliases) {
-				secHelpEmbed.addField({ name: `**❯ Aliases:**`, value: `${command.aliases.join(', ')}`});
-			}
 			
 			return message.channel.send(secHelpEmbed);
 		}
