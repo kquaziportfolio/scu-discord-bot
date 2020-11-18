@@ -40,7 +40,7 @@ module.exports.run = async (client) => {
             }
           }
         } else {
-          sendMessage(client, client.config.channels.auditlogs, 'Request failed - reddit could be down or subreddit doesn\'t exist. Will continue.');
+          sendMessage(client, client.config.channels.auditlogs, { embed: { description: `Request failed - reddit could be down or subreddit doesn't exist. Will continue.`, color: client.config.school_color}});
         }
       });
     }
