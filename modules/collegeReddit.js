@@ -6,6 +6,16 @@ module.exports.run = async (client) => {
   const validUrl = require('valid-url');
   const sendMessage = require(`../modules/sendMessage.js`);
   const botReady = true; 
+  
+  const feedMSG = {
+    title: "/r/College Feed Ready!",
+    description: `[/r/College](https://reddit.com/r/College) feed works! ✅`,
+    color: "GREEN", 
+    timestamp: new Date()
+  }
+  
+  console.log(feedMSG.title);
+  sendMessage(client, client.config.channels.auditlogs, { embed: feedMSG});
 
   setInterval(() => {
     if (botReady) {
