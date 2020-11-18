@@ -9,9 +9,8 @@ module.exports = {
     async execute(client,message,args) {
         if (isAdmin(client, message)) {
             try {
-                await message.channel.send({ embed: { description: "Pulling from the repo...", color: client.config.school_color}});
-                const msg= child_proc.exec("git pull");
                 const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
+	        const msg= await child_proc.exec("git pull origin master");
                 
                 for (const frame of frames) {
                     setTimeout(() => {}, 4000);
