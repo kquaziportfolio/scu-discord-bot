@@ -27,7 +27,7 @@ module.exports = {
 				{ name: `**❯ Cooldown:**`, value: `${command.cooldown || 0} seconds`},
 			)
 			.setColor(client.config.school_color)
-			.setThumbnail(client.config.verification.thumbnailLink})
+			.setThumbnail(client.config.verification.thumbnailLink)
 			.setFooter(`Use ${client.config.prefix}help [command name] to get specific commmand info!`) 
 			
 			if (command.aliases) helpEmbed.addField({ name: `**❯ Aliases:**`, value: `${command.aliases.join(', ')`}));
