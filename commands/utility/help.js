@@ -18,7 +18,7 @@ module.exports = {
 				return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
 			}
 			
-			const helpEmbed = new MessageEmbed()
+			const secHelpEmbed = new MessageEmbed()
 			.setTitle(`${command.name.toUpperCase()} Command`)
 			.addFields(
 				{ name: `**❯ Category:**`, value: `${command.category}`},
@@ -30,12 +30,12 @@ module.exports = {
 			.setThumbnail(client.config.verification.thumbnailLink)
 			.setFooter(`Use ${client.config.prefix}help [command name] to get specific commmand info!`) 
 			
-			if (command.aliases) helpEmbed.addField({ name: `**❯ Aliases:**`, value: `${command.aliases.join(', ')}`);
+			if (command.aliases) secHelpEmbed.addField({ name: `**❯ Aliases:**`, value: `${command.aliases.join(', ')}`);
 			
-			return message.channel.send(helpEmbed);
+			return message.channel.send(secHelpEmbed);
 		}
 
-		const helpEmbed = new MessageEmbed()
+		const mainHelpEmbed = new MessageEmbed()
 			.setTitle(`**SCU BOT COMMANDS**`)
 			.setDescription(`<@${client.user.id}> is the **SCU Discord Network**'s very own bot! :robot:\n\n` +
 			 `**Commands**\nA full list of commands is available [here](${client.config.verification.githubLink}tree/master/commands) or use \`${client.config.prefix}help [command name]\` to get specific command info!\n\n` +
@@ -47,6 +47,6 @@ module.exports = {
 		        .setURL(`${client.config.verification.githubLink}tree/master/commands`)
 			.setTimestamp()
 
-		message.channel.send(helpEmbed);
+		message.channel.send(mainHelpEmbed);
 	}
 }
