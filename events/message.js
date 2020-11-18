@@ -133,7 +133,7 @@ module.exports = async (client, message) => {
   const commandName = args.shift().toLowerCase();
 
   // Grab the command data from the client.commands Enmap
-  const command = client.commands.get(commandName) || client.commands.find(command => command.aliases && command.aliases.includes(commandName));
+  const command = client.commands.get(commandName);
 
   // If that command doesn't exist, return nothing
   if (!command) return;
