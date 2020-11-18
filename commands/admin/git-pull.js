@@ -22,7 +22,7 @@ module.exports = {
             } catch (err) {
                 console.log(err.message);
             } finally {
-		sendMessage(client, client.config.channels.auditlogs, { embed: { description: `Finished pulling from [scu-discord-bot](client.config.verification.githubLink)!`, color: client.config.school_color}}); 
+		sendMessage(client, client.config.channels.auditlogs, { embed: { description: `Finished pulling from [scu-discord-bot](${client.config.verification.githubLink})!`, color: client.config.school_color}}); 
 	    }
         }
     }
