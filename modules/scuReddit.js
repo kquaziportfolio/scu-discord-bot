@@ -14,6 +14,7 @@ module.exports.run = async (client) => {
   const entities = require(`entities`);
   const validUrl = require(`valid-url`);
   const sendMessage = require(`../modules/sendMessage.js`);
+  let lastTimestamp = Math.floor(Date.now() / 1000);
   const botReady = true; 
   
   const feedMSG = {
@@ -32,10 +33,11 @@ module.exports.run = async (client) => {
         url: client.config.api.subreddit,
         json: true,
       }, (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-          for (const post of body.data.children.reverse()) {
-            const lastTimestamp = post.data.created_utc;
+        if (!error && response.statusCode === 200) {c
+          for (const post of body.data.children.reverse()) { 
             if (lastTimestamp <= post.data.created_utc) {
+               lastTimestamp = post.data.created_utc;
+               
               const scuRedditEmbed = new MessageEmbed()
               .setColor(client.config.school_color)
               .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title)}`)
