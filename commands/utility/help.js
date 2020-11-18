@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	name: 'help',
 	description: 'List of all of my commands or info about a specific command.',
-	aliases: ['cmds', 'commands'],
 	usage: `[command name] **OR** &help`,
 	category: 'Utility',
 	async execute(client, message, args) {
