@@ -7,7 +7,7 @@ const entities = require('entities');
 const validUrl = require('valid-url');
 const sendMessage = require(`../modules/sendMessage.js`);
 const botReady = true;
-const subredditUrl = `https://www.reddit.com/r/scu/hot.json?limit=10`;
+const subredditUrl = `https://www.reddit.com/r/college/new.json?limit=5`;
 
 setInterval(() => {
   if (botReady) {
@@ -19,7 +19,7 @@ setInterval(() => {
         for (const post of body.data.children.reverse()) {
           const lastTimestamp = post.data.created_utc;
           if (lastTimestamp <= post.data.created_utc) {
-            const scuRedditEmbed = new MessageEmbed()
+            const redditPost = new MessageEmbed()
             .setColor(client.config.school_color)
             .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title)}`)
             .setURL(`https://redd.it/${post.data.id}`)
@@ -28,7 +28,7 @@ setInterval(() => {
             .setFooter(`${post.data.is_self ? 'self post' : 'link post'} by ${post.data.author}`)
             .setTimestamp(new Date(post.data.created_utc * 1000))
 
-            sendMessage(client, client.config.channels.updates, scuRedditEmbed);
+            sendMessage(client, "778323568580755456", redditPost);
           }
         }
       } else {
@@ -36,5 +36,5 @@ setInterval(() => {
       }
     });
   }
-}, 1800 * 1000); // get 5 random posts every 30 minutes!
+}, 1800 * 1000); // get 5 new posts every 30 minutes!
 }
