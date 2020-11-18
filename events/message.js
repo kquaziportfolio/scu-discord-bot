@@ -136,7 +136,7 @@ module.exports = async (client, message) => {
   const command = client.commands.get(commandName) || client.commands.find(command => command.aliases && command.aliases.includes(commandName));
 
   // If that command doesn't exist, return nothing
-  if (!client.commands.has(`${commandName}`)) return;
+  if (!command) return;
 
   if (command.args && !args.length) {
     let reply = `You didn't provide any arguments, <@${message.author.id}>!`;
