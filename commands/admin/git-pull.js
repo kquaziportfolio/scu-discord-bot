@@ -10,7 +10,9 @@ module.exports = {
         if (isAdmin(client, message)) {
             try {
                 const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
-	        const msg= await child_proc.exec("git pull origin master");
+	        const msg= await message.channel.send("Pulling...");
+		await message.channel.send("test123...");
+		child_proc.exec("git pull origin master");
                 
                 for (const frame of frames) {
                     setTimeout(() => {}, 4000);
