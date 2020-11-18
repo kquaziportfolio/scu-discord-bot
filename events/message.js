@@ -42,7 +42,7 @@ module.exports = async (client, message) => {
       if (!active || !found) {
         //create support channel for new respondee
         active = {};
-	      const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName;
+        const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName;
         channel = await guild.channels.create(`${nickname}-${message.author.discriminator}`);     
         channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
         channel.setTopic(`Use **${client.config.prefix}close-ticket** to close the Ticket | ModMail for <@${message.author.id}>`);
@@ -133,7 +133,7 @@ module.exports = async (client, message) => {
   const commandName = args.shift().toLowerCase();
 
   // Grab the command data from the client.commands Enmap
-  const command = client.commands.get(commandName);
+  const command = client.commands.get(commandName) || client.commands.find(command => command.aliases && command.aliases.includes(commandName));
 
   // If that command doesn't exist, return nothing
   if (!client.commands.has(`${commandName}`)) return;
