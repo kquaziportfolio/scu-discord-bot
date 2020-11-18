@@ -18,26 +18,26 @@ module.exports = {
 				return message.reply({ embed: { description: `That\'s not a valid command!`, color: client.config.school_color}});
 			}
 			
-			return message.channel.send(
-				{ embed: { 
-					title: `${command.name.toUpperCase()} Command`, 
-					fields: [
-						{ name: `**❯ Category:**`, value: `${command.category}`},
-						{ name: `**❯ Description:**`, value: `${command.description}`},
-						{ name: `**❯ Usage:**`, value: `${client.config.prefix}${command.name} ${command.usage || ''}`},
-						{ name: `**❯ Cooldown:**`, value: `${command.cooldown || 0} seconds`},
-						{ name: `**❯ Alias(es):**`, value: `${command.aliases.join(', ') || 'none'}`}
-					],
-					color: client.config.school_color,
-					thumbnail: { url: client.config.verification.thumbnailLink},
-					footer: { text: `Use ${client.config.prefix}help [command name] to get specific commmand info!`}
-				}
-			})
+			const helpEmbed = new MessageEmbed()
+			.setTitle(`${command.name.toUpperCase()} Command`)
+			.addFields(
+				{ name: `**❯ Category:**`, value: `${command.category}`},
+				{ name: `**❯ Description:**`, value: `${command.description}`},
+				{ name: `**❯ Usage:**`, value: `${client.config.prefix}${command.name} ${command.usage || ''}`},
+				{ name: `**❯ Cooldown:**`, value: `${command.cooldown || 0} seconds`},
+			)
+			.setColor(client.config.school_color)
+			.setThumbnail(client.config.verification.thumbnailLink})
+			.setFooter(`Use ${client.config.prefix}help [command name] to get specific commmand info!`) 
+			
+			if (command.aliases) helpEmbed.addField({ name: `**❯ Aliases:**`, value: `${command.aliases.join(', ')`}));
+			
+			return message.channel.send(helpEmbed);
 		}
 
 		const helpEmbed = new MessageEmbed()
 			.setTitle(`**SCU BOT COMMANDS**`)
-			.setDescription(`<@${client.user.id}> is the **SCU Discord Network**'s very own bot! Say hi! :robot:\n\n` +
+			.setDescription(`<@${client.user.id}> is the **SCU Discord Network**'s very own bot! :robot:\n\n` +
 			 `**Commands**\nA full list of commands is available [here](${client.config.verification.githubLink}tree/master/commands) or use \`${client.config.prefix}help [command name]\` to get specific command info!\n\n` +
 			 `**Support**\n[Click here](${client.config.verification.githubLink}pulls) to talk to our support team and/or suggest new ideas!`)
 			.setFooter(`Brought to you by the server lords!`)
