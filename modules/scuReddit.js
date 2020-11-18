@@ -33,7 +33,7 @@ module.exports.run = async (client) => {
         url: client.config.api.subreddit,
         json: true,
       }, (error, response, body) => {
-        if (!error && response.statusCode === 200) {c
+        if (!error && response.statusCode === 200) {
           for (const post of body.data.children.reverse()) { 
             if (lastTimestamp <= post.data.created_utc) {
                lastTimestamp = post.data.created_utc;
