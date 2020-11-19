@@ -7,7 +7,7 @@ const { prefix } = require(`../config.json`);
 
 module.exports = async (client, message) => { 
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
-  if (message.author.bot) return;
+  if (message.content.indexOf(client.config.prefix) !== 0 || message.author.bot) return;
 
 /*
 ===============================================   
