@@ -11,7 +11,7 @@ module.exports = {
         if(isAdmin(client, message)) {
           let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
             
-          prefixes[msg.guild.id] = { //Let The config be
+          prefixes[message.guild.id] = { //Let The config be
             prefix: args[0] //Let prefix = arguement 1
           }
 
