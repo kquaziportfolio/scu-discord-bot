@@ -52,36 +52,6 @@ module.exports = async (client, message) => {
   }
 	
 /*
-=======================================================
-  / ____|          | |   | |                        
- | |     ___   ___ | | __| | _____      ___ __  ___ 
- | |    / _ \ / _ \| |/ _` |/ _ \ \ /\ / / '_ \/ __|
- | |___| (_) | (_) | | (_| | (_) \ V  V /| | | \__ \
-  \_____\___/ \___/|_|\__,_|\___/ \_/\_/ |_| |_|___/
-=======================================================
-*/                                                    
-                                                     
-  if (!cooldowns.has(command.name)) {
-    cooldowns.set(command.name, new Collection());
-  }
-  
-  const now = Date.now();
-  const timestamps = cooldowns.get(command.name);
-  const cooldownAmount = (command.cooldown || 3) * 1000; //make cooldown default to 3 if there are no presets for cooldown in the command
-  
-  if (timestamps.has(message.author.id)) {
-    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-    if (now < expirationTime) {
-      const timeLeft = (expirationTime - now) / 1000;
-      return message.reply({ embed: { description: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, color: client.config.school_color}});
-    }
-  }
-  
-  timestamps.set(message.author.id, now);
-  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-  
-  /*
 ===============================================   
  |  \/  |         | |               (_) | 
  | \  / | ___   __| |_ __ ___   __ _ _| | 
@@ -187,6 +157,36 @@ module.exports = async (client, message) => {
       } 
     }
   }  
+	
+/*
+=======================================================
+  / ____|          | |   | |                        
+ | |     ___   ___ | | __| | _____      ___ __  ___ 
+ | |    / _ \ / _ \| |/ _` |/ _ \ \ /\ / / '_ \/ __|
+ | |___| (_) | (_) | | (_| | (_) \ V  V /| | | \__ \
+  \_____\___/ \___/|_|\__,_|\___/ \_/\_/ |_| |_|___/
+=======================================================
+*/                                                    
+                                                     
+  if (!cooldowns.has(command.name)) {
+    cooldowns.set(command.name, new Collection());
+  }
+  
+  const now = Date.now();
+  const timestamps = cooldowns.get(command.name);
+  const cooldownAmount = (command.cooldown || 3) * 1000; //make cooldown default to 3 if there are no presets for cooldown in the command
+  
+  if (timestamps.has(message.author.id)) {
+    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+    if (now < expirationTime) {
+      const timeLeft = (expirationTime - now) / 1000;
+      return message.reply({ embed: { description: `Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, color: client.config.school_color}});
+    }
+  }
+  
+  timestamps.set(message.author.id, now);
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
   
   try {
   // Run the command as long as it has these three parameters
