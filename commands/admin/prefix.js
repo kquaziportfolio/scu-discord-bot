@@ -1,5 +1,6 @@
 let isAdmin = require(`../../modules/isAdmin.js`);
 let db = require(`quick.db`);
+const { prefix } = require(`../../config.json`);
 
 module.exports = { 
     name: 'prefix',
@@ -9,7 +10,7 @@ module.exports = {
     category: 'Admin',  
     async execute(client, message, args) {
         if(isAdmin(client, message)) {
-          if(args.join("") === client.config.prefix) {
+          if(args.join("") === prefix) {
             db.delete(`newPrefix_${message.guild.id}`);
             return await message.channel.send({ embed: { description: "Reset the bot prefix ✅", color: client.config.school_color}});
           }
