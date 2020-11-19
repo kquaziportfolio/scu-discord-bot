@@ -1,6 +1,5 @@
 let isAdmin = require(`../../modules/isAdmin.js`);
-let fs = require(`fs`);
-const { prefix } = require(`../../config.json`);
+let fs = require(`fs`); 
 
 module.exports = { 
     name: 'prefix',
@@ -10,7 +9,7 @@ module.exports = {
     category: 'Admin',  
     async execute(client, message, args) {
         if(isAdmin(client, message)) {
-          let prefixes = JSON.parse(fs.readFileSync(`../../config.json`, "utf8"));
+          let prefixes = JSON.parse(fs.readFileSync(`config.json`, "utf8"));
 
           prefixes[message.guild.id] = {
             prefixes: args[0]
