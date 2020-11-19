@@ -10,11 +10,7 @@ module.exports = {
     async execute(client, message, args) {
         if(isAdmin(client, message)) {
           let prefixes = JSON.parse(fs.readFileSync("./commands/admin/prefix.json", "utf8")); //Read File
-            
-          if(args[0] === prefixes[message.guild.id].prefix) {
-            return message.channel.send({ embed: { description: `This is the current prefix you already have!`, color: client.config.school_color}});
-          }
-            
+          
           prefixes[message.guild.id] = { //Let The config be
               prefix: args[0] //Let prefix = argument 1
           }
@@ -22,6 +18,10 @@ module.exports = {
           fs.writeFile("./commands/admin/prefix.json", JSON.stringify(prefixes), (err) => { //Write File
             if(err) console.log(err); //If error log error to the console
           })
+            
+          if (args[0] === prefixes[message.guild.id].prefix) {
+            return await message.channel.send({ embed: { description: `This is the current prefix you already have!`, color: client.config.school_color}});
+          }
             
           if (args[1] || args[0].length > 1) {
             return await message.channel.send({ embed: { description: `You can't set a double-argument prefix or one that's over 1 character!`, color: client.config.school_color}});
