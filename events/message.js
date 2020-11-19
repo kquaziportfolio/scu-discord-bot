@@ -3,13 +3,14 @@ const db = require(`quick.db`);
 let isAdmin = require(`../modules/isAdmin.js`);
 let sendMessage = require(`../modules/sendMessage.js`);
 const cooldowns = new Collection()
+const { prefix } = require(`../config.json`);
 
 module.exports = async (client, message) => { 
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
 	
   let newPrefix = db.get(`newPrefix_{message.guild.id}`); 
-  if (newPrefix === null) newPrefix = client.config.prefix;
+  if (newPrefix === null) newPrefix = prefix;
 
 /*
 ===============================================   
