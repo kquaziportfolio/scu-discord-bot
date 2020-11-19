@@ -5,10 +5,7 @@ const db = require(`quick.db`);
 let sendMessage = require(`../modules/sendMessage.js`);
 const cooldowns = new Collection()  
 
-module.exports = async (client, message) => {    
-  // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
-  if (message.content.indexOf(client.config.prefix) !== 0 || message.author.bot) return;
-	
+module.exports = async (client, message) => {     
   let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
   if(!prefixes[message.guild.id]) {  //If there is no string that is startwith prefixes[msg.guild.id]
     prefixes[message.guild.id] = { //Let prefixes[msg.guild.id] be
@@ -17,6 +14,9 @@ module.exports = async (client, message) => {
   }
 
   let otherPrefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[msg.guild.id].prefix
+	 
+  // Checks if the Author is a Bot, the prefix isn't right, or the message isn't from the guild, ignore it.
+  if (message.content.indexOf(client.config.prefix) !== 0 || message.content.indexOf(otherPrefix) !== 0 || message.author.bot) return;
        
 /*
 ==================================================================================
