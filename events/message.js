@@ -133,8 +133,8 @@ module.exports = async (client, message) => {
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
 	
-  let newPrefix = db.get(`newPrefix${message.guild.id}`); 
-  if (newPrefix === null) newPrefix = prefix;
+  let newPrefix = db.get(`newPrefix_${message.guild.id}`); 
+  if (newPrefix == null) { newPrefix = prefix; }
 
   // Grab the command data from the client.commands Enmap
   const command = client.commands.get(commandName);
