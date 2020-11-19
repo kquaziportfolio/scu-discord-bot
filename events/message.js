@@ -7,7 +7,7 @@ const cooldowns = new Collection()
 
 module.exports = async (client, message) => {      
     
-    if (message.guild !== null) {
+    if (message.channel.type !== "dm") {
       let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
       if(!prefixes[message.guild.id]) {  //If there is no string that includes prefixes[message.message.id]
         prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
