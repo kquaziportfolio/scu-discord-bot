@@ -11,7 +11,7 @@ module.exports = {
     async execute(client, message, args) {
         if(isAdmin(client, message)) {
           if(args.join("") === prefix) {
-            db.delete(`newPrefix${message.guild.id}`);
+            db.delete(`newPrefix_${message.guild.id}`);
             return await message.channel.send({ embed: { description: "Reset the bot prefix ✅", color: client.config.school_color}});
           }
           
@@ -19,7 +19,7 @@ module.exports = {
             return await message.channel.send({ embed: { description: `You can't set a double-argument prefix or one that's over 1 character!`, color: client.config.school_color}});
           }
         
-          db.set(`newPrefix${message.guild.id}`, args[0]);
+          db.set(`newPrefix_${message.guild.id}`, args[0]);
           await message.channel.send({ embed: { description: `Set the bot prefix to ${args[0]}!`, color: client.config.school_color}});
         }
     }
