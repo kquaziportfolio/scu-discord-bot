@@ -7,11 +7,11 @@
 
   - Utilized the Node.js environment and Node module Discord.js to deploy a bot that greets/sends direct messages, interacts with over 500 students, and performs an assortment of automated tasks to better the server experience. An example is the SCU Reddit feed module that scrapes posts from [/r/College](https://reddit.com/r/College) (5 new posts every 30 hours) and delivers them as message embeds in the Discord server.
 
-  - Programmed an Express.js server for a guild verification system that automatically gives graduating year, college major, and verified roles to SCU students. The user's Google Form responses will grant them different server roles based on their unique input.
+  - Programmed an Express.js server for a guild verification system which automatically gives graduating year, college major, and verified roles to SCU students on submitting their unique Google Form responses.
 
-  - Crafted the ModMail ticket system which allows server members to seek instant support from Discord server admins.
+  - Crafted the ModMail ticket system which allows members to seek immediate support from admins/mods.
 
-  - Very open to promoting this student-run online network if possible by institutional measures.
+  - Very open to promoting this student-run online network and applying for [Discord's Partner Program](https://discord.com/partners) soon.
 
 ## Server Logo
 ![SCU Discord Network Logo](https://github.com/jasonanhvu/scu-discord-bot/blob/master/assets/logo-pic.png?raw=true)
