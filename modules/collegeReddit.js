@@ -44,6 +44,7 @@ module.exports.run = async (client) => {
               .setAuthor(`/${post.data.subreddit_name_prefixed}`, client.user.displayAvatarURL())
               .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title)}`)
               .setURL(`https://redd.it/${post.data.id}`)
+              .setDescription(post.data.selftext)
               .setThumbnail(validUrl.isUri(post.data.thumbnail) ? entities.decodeHTML(post.data.thumbnail) : null)
               .setFooter(`${post.data.is_self ? 'self post' : 'link post'} by /u/${post.data.author}`)
               .setTimestamp(new Date(post.data.created_utc * 1000))
