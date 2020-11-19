@@ -9,7 +9,7 @@ module.exports = {
     category: 'Admin',  
     async execute(client, message, args) {
         if(isAdmin(client, message)) {
-          if(args.join("") === default_prefix) {
+          if(args.join("") === client.config.prefix) {
             db.delete(`newPrefix_${message.guild.id}`);
             return await message.channel.send({ embed: { description: "Reset the bot prefix ✅", color: client.config.school_color}});
           }
@@ -19,7 +19,7 @@ module.exports = {
           }
         
           db.set(`newPrefix_${message.guild.id}`, args[0]);
-          await message.channel.send({ embed: { description: `Set the bot prefix to `\${args[0]}`\!`, color: client.config.school_color}});
+          await message.channel.send({ embed: { description: `Set the bot prefix to ${args[0]}!`, color: client.config.school_color}});
         }
     }
 }
