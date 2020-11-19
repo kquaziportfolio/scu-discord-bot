@@ -3,4 +3,5 @@ node_modules
 .git
 .github
 config.json
+./commands/admin/prefix.json
 json.sqlite
