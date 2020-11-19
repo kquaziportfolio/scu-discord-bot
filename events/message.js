@@ -5,7 +5,10 @@ let sendMessage = require(`../modules/sendMessage.js`);
 const cooldowns = new Collection()
 const { prefix } = require(`../config.json`);
 
-module.exports = async (client, message) => { 
+module.exports = async (client, message) => {  
+  let newPrefix = db.get(`newPrefix_${message.guild.id}`);  //QUERY PREFIX FROM DATABASE FIRST!
+  if (newPrefix == null) newPrefix = prefix; 
+	
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (message.content.indexOf(client.config.prefix) !== 0 || message.author.bot) return;
 
@@ -132,9 +135,6 @@ module.exports = async (client, message) => {
   // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
-	
-  let newPrefix = db.get(`newPrefix_${message.guild.id}`); 
-  if (newPrefix == null) { newPrefix = prefix; }
 
   // Grab the command data from the client.commands Enmap
   const command = client.commands.get(commandName);
