@@ -15,7 +15,7 @@ module.exports = {
             prefix: args[0] //Let prefix = arguement 1
           }
 
-          fs.writeFile("./prefixes.json", JSON.stringify(prefixes), (err) => { //Write File
+          fs.writeFile("./prefix.json", JSON.stringify(prefixes), (err) => { //Write File
             if(err) console.log(err); //If error log error to the console
           })
             
