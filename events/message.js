@@ -6,7 +6,7 @@ let sendMessage = require(`../modules/sendMessage.js`);
 const cooldowns = new Collection()  
 
 module.exports = async (client, message) => {     
-  let prefixes = JSON.parse(fs.readFileSync("./commands/admin/prefix.json", "utf8")); //Read File
+  let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
   if(!prefixes[message.guild.id]) {  //If there is no string that is startwith prefixes[msg.message.id]
     prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
       prefix: client.config.prefix //Prefix = Default Prefix Which is on config.json
