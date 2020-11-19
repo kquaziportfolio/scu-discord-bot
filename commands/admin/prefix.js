@@ -11,8 +11,10 @@ module.exports = {
         if(isAdmin(client, message)) {
           let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
             
-          prefixes[message.guild.id] = { //Let The config be
-            prefix: args[0] //Let prefix = arguement 1
+          if(prefixes[message.guild.id]) {
+            prefixes[message.guild.id] = { //Let The config be
+              prefix: args[0] //Let prefix = argument 1
+            }
           }
 
           fs.writeFile("./prefix.json", JSON.stringify(prefixes), (err) => { //Write File
