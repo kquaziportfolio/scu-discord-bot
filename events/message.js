@@ -10,7 +10,7 @@ module.exports = async (client, message) => {
 	
   let prefixes = JSON.parse(fs.readFileSync(`../config.json`, "utf8"));
   if (!prefixes[message.guild.id]) {
-    prefixes[message.guild.id]) = {
+    prefixes[message.guild.id] = {
       prefixes: client.config.prefix;
     };
   };
