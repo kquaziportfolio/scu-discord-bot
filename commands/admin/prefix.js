@@ -16,7 +16,7 @@ module.exports = {
             prefixes: args[0]
           };
 
-          fs.writeFile(`../../config.json`, JSON.stringify(prefixes) (err) => {
+          fs.writeFile(`../../config.json`, JSON.stringify(prefixes), (err) => {
             if (err) console.log(err);
           });
 
