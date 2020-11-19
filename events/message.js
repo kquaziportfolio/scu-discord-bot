@@ -8,9 +8,6 @@ const { prefix } = require(`../config.json`);
 module.exports = async (client, message) => { 
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return;
-	
-  let newPrefix = db.get(`newPrefix_${message.guild.id}`); 
-  if (newPrefix === null) newPrefix = prefix;
 
 /*
 ===============================================   
@@ -135,6 +132,9 @@ module.exports = async (client, message) => {
   // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
+	
+  let newPrefix = db.get(`newPrefix${message.guild.id}`); 
+  if (newPrefix === null) newPrefix = prefix;
 
   // Grab the command data from the client.commands Enmap
   const command = client.commands.get(commandName);
