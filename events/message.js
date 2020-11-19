@@ -1,16 +1,19 @@
-const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
-const db = require(`quick.db`);
+const { MessageEmbed, Collection } = require(`discord.js`);  
 let isAdmin = require(`../modules/isAdmin.js`);
 let sendMessage = require(`../modules/sendMessage.js`);
-const cooldowns = new Collection()
-const { prefix } = require(`../config.json`);
+const cooldowns = new Collection() 
+const fs = require(`fs`);
 
-module.exports = async (client, message) => {  
-  let newPrefix = db.get(`newPrefix_${message.guild.id}`);  //QUERY PREFIX FROM DATABASE FIRST!
-  if (newPrefix == null) newPrefix = prefix; 
-	
+module.exports = async (client, message) => {    
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (message.content.indexOf(client.config.prefix) !== 0 || message.author.bot) return;
+	
+  let prefixes = JSON.parse(fs.readFileSync(`../config.json`, "utf8"));
+  if (!prefixes[message.guild.id]) {
+    prefixes[message.guild.id]) = {
+      prefixes: client.config.prefix;
+    };
+  };
 
 /*
 ===============================================   
