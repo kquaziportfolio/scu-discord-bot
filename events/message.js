@@ -9,13 +9,13 @@ module.exports = async (client, message) => {
   if (message.content.indexOf(client.config.prefix) !== 0 || message.author.bot) return;
 	
   let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
-  if(!prefixes[msg.guild.id]) {  //If there is no string that is startwith prefixes[msg.guild.id]
-    prefixes[msg.guild.id] = { //Let prefixes[msg.guild.id] be
+  if(!prefixes[message.guild.id]) {  //If there is no string that is startwith prefixes[msg.guild.id]
+    prefixes[message.guild.id] = { //Let prefixes[msg.guild.id] be
       prefix: client.config.prefix //Prefix = Default Prefix Which is on config.json
     }
   }
 
-  let otherPrefix = prefixes[msg.guild.id].prefix; //Let prefix be prefixes[msg.guild.id].prefix
+  let otherPrefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[msg.guild.id].prefix
        
 /*
 ==================================================================================
