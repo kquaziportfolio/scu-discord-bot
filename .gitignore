@@ -3,5 +3,5 @@ node_modules
 .git
 .github
 config.json
-./commands/admin/prefix.json
+prefix.json
 json.sqlite
