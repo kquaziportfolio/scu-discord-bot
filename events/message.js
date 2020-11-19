@@ -17,40 +17,7 @@ module.exports = async (client, message) => {
 	 
   // Checks if the Author is a Bot, the prefix isn't right, or the message isn't from the guild, ignore it.
   if (!message.content.startsWith(otherPrefix) ||  message.author.bot) return;
-       
-/*
-==================================================================================
-  __  __                                  _    _                 _ _           
- |  \/  |                                | |  | |               | | |          
- | \  / | ___  ___ ___  __ _  __ _  ___  | |__| | __ _ _ __   __| | | ___ _ __ 
- | |\/| |/ _ \/ __/ __|/ _` |/ _` |/ _ \ |  __  |/ _` | '_ \ / _` | |/ _ \ '__|
- | |  | |  __/\__ \__ \ (_| | (_| |  __/ | |  | | (_| | | | | (_| | |  __/ |   
- |_|  |_|\___||___/___/\__,_|\__, |\___| |_|  |_|\__,_|_| |_|\__,_|_|\___|_|   
-                              __/ |                                            
-                             |___/                                             
-==================================================================================
-*/
 
-  // Our standard argument/command name definition. 
-  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g) || message.content.slice(otherPrefix.length).trim().split(/ +/g);
-  const commandName = args.shift().toLowerCase();
-
-  // Grab the command data from the client.commands Enmap
-  const command = client.commands.get(commandName);
-
-  // If that command doesn't exist, return nothing
-  if (!command) return;
-
-  if (command.args && !args.length) {
-    let reply = `You didn't provide any arguments, <@${message.author.id}>!`;
-    
-    if (command.usage) {
-      reply += `\nThe proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``;
-    }
-    
-    return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
-  }
-	
 /*
 ===============================================   
  |  \/  |         | |               (_) | 
@@ -143,7 +110,7 @@ module.exports = async (client, message) => {
     if (!supportUser) return message.channel.delete(); 
     
     if(isAdmin(client, message)) {
-      if (message.content === `${client.config.prefix}close-ticket`) {
+      if (message.content === `${otherPrefix}close-ticket`) {
         messageReception 
           .setTitle(`ModMail Ticket Resolved`)
           .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
@@ -157,6 +124,41 @@ module.exports = async (client, message) => {
       } 
     }
   }  
+       
+/*
+==================================================================================
+  __  __                                  _    _                 _ _           
+ |  \/  |                                | |  | |               | | |          
+ | \  / | ___  ___ ___  __ _  __ _  ___  | |__| | __ _ _ __   __| | | ___ _ __ 
+ | |\/| |/ _ \/ __/ __|/ _` |/ _` |/ _ \ |  __  |/ _` | '_ \ / _` | |/ _ \ '__|
+ | |  | |  __/\__ \__ \ (_| | (_| |  __/ | |  | | (_| | | | | (_| | |  __/ |   
+ |_|  |_|\___||___/___/\__,_|\__, |\___| |_|  |_|\__,_|_| |_|\__,_|_|\___|_|   
+                              __/ |                                            
+                             |___/                                             
+==================================================================================
+*/
+
+  // Our standard argument/command name definition. 
+  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g) || message.content.slice(otherPrefix.length).trim().split(/ +/g);
+  const commandName = args.shift().toLowerCase();
+
+  // Grab the command data from the client.commands Enmap
+  const command = client.commands.get(commandName);
+
+  // If that command doesn't exist, return nothing
+  if (!command) return;
+
+  if (command.args && !args.length) {
+    let reply = `You didn't provide any arguments, <@${message.author.id}>!`;
+    
+    if (command.usage) {
+      reply += `\nThe proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``;
+    }
+    
+    return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
+  }
+	
+
 	
 /*
 =======================================================
