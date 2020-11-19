@@ -9,13 +9,13 @@ module.exports = {
     category: 'Admin',  
     async execute(client, message, args) {
         if(isAdmin(client, message)) {
-          let prefixes = JSON.parse(fs.readFileSync("./commands/admin/prefix.json", "utf8")); //Read File
+          let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
           
           prefixes[message.guild.id] = { //Let The config be
               prefix: args[0] //Let prefix = argument 1
           }
 
-          fs.writeFile("./commands/admin/prefix.json", JSON.stringify(prefixes), (err) => { //Write File
+          fs.writeFile("./prefix.json", JSON.stringify(prefixes), (err) => { //Write File
             if(err) console.log(err); //If error log error to the console
           })
             
