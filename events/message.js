@@ -6,8 +6,7 @@ let sendMessage = require(`../modules/sendMessage.js`);
 const cooldowns = new Collection()  
 
 module.exports = async (client, message) => {      
-    
-    if (message.channel.type !== "dm") {
+     
       let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
       if(!prefixes[message.guild.id]) {  //If there is no string that includes prefixes[message.message.id]
         prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
@@ -18,8 +17,7 @@ module.exports = async (client, message) => {
       let otherPrefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[message.guild.id].prefix
 
       // Checks if the Author is a Bot, the prefix isn't right, or the message isn't from the guild, ignore it.
-      if (!message.content.startsWith(otherPrefix) ||  message.author.bot) return; 
-    }
+      if (!message.content.startsWith(otherPrefix) ||  message.author.bot) return;  
 
 /*
 ===============================================   
