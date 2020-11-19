@@ -1,7 +1,0 @@
-node_modules
-.vscode
-.git
-.github
-config.json
-prefix.json
-json.sqlite
