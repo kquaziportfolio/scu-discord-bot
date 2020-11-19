@@ -11,10 +11,12 @@ module.exports = {
         if(isAdmin(client, message)) {
           let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
             
-          if(prefixes[message.guild.id]) {
-            prefixes[message.guild.id] = { //Let The config be
+          if(args[0] === prefixes[message.guild.id]) {
+            return message.channel.send({ embed: { description: `This is the current prefix you already have!`, color: client.config.school_color}});
+          }
+            
+          prefixes[message.guild.id] = { //Let The config be
               prefix: args[0] //Let prefix = argument 1
-            }
           }
 
           fs.writeFile("./prefix.json", JSON.stringify(prefixes), (err) => { //Write File
