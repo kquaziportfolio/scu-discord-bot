@@ -10,7 +10,7 @@ module.exports = {
     async execute(client, message, args) {
         if(isAdmin(client, message)) {
           if(args.join("") === default_prefix) {
-            db.delete(`prefix_${message.guild.id}`);
+            db.delete(`newPrefix_${message.guild.id}`);
             return await message.channel.send({ embed: { description: "Reset the bot prefix ✅", color: client.config.school_color}});
           }
           
