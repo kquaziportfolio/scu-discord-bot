@@ -16,7 +16,7 @@ module.exports = async (client, message) => {
   let otherPrefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[msg.guild.id].prefix
 	 
   // Checks if the Author is a Bot, the prefix isn't right, or the message isn't from the guild, ignore it.
-  if (message.author.bot) return;
+  if (!message.content.startsWith(otherPrefix) ||  message.author.bot) return;
        
 /*
 ==================================================================================
