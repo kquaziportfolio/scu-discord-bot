@@ -19,7 +19,7 @@ module.exports = {
             if(err) console.log(err); //If error log error to the console
           })
              
-          if (args[1] || args[0] > 1) {
+          if (args[1] || args[0].length > 1 || args[0 == prefixes[message.guild.id].prefix]) {
             return message.channel.send({ embed: { description: `You can't set a double-argument prefix or one that's greater than one character!`, color: client.config.school_color}});
           } 
              
