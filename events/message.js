@@ -2,8 +2,7 @@ const { MessageEmbed, Collection } = require(`discord.js`);
 let isAdmin = require(`../modules/isAdmin.js`);
 const db = require(`quick.db`);
 let sendMessage = require(`../modules/sendMessage.js`);
-const cooldowns = new Collection() 
-const fs = require(`fs`);
+const cooldowns = new Collection()  
 
 module.exports = async (client, message) => {    
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
