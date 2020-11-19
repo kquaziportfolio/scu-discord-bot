@@ -20,14 +20,14 @@ module.exports = {
           })
             
           if (args[0] === prefixes[message.guild.id].prefix) {
-            return await message.channel.send({ embed: { description: `This is the current prefix you already have!`, color: client.config.school_color}});
+            return message.channel.send({ embed: { description: `This is the current prefix you already have!`, color: client.config.school_color}});
           }
             
           if (args[1] || args[0].length > 1) {
-            return await message.channel.send({ embed: { description: `You can't set a double-argument prefix or one that's over 1 character!`, color: client.config.school_color}});
+            return message.channel.send({ embed: { description: `You can't set a double-argument prefix or one that's over 1 character!`, color: client.config.school_color}});
           } 
 
-          await message.channel.send({ embed: { description: `Set the bot prefix to ${args[0]}!`, color: client.config.school_color}});
+          message.channel.send({ embed: { description: `Set the bot prefix to ${args[0]}!`, color: client.config.school_color}});
         }
     }
 }
