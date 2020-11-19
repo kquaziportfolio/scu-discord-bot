@@ -19,7 +19,7 @@ module.exports = {
             if(err) console.log(err); //If error log error to the console
           })
             
-          if (args[0] === prefixes[message.guild.id].prefix) {
+          if (args[0] == prefixes[message.guild.id].prefix) {
             return message.channel.send({ embed: { description: `This is the current prefix you already have!`, color: client.config.school_color}});
           }
             
