@@ -1,5 +1,6 @@
 const { MessageEmbed, Collection } = require(`discord.js`);  
 let isAdmin = require(`../modules/isAdmin.js`);
+const db = require(`quick.db`);
 let sendMessage = require(`../modules/sendMessage.js`);
 const cooldowns = new Collection() 
 const fs = require(`fs`);
