@@ -18,7 +18,7 @@ module.exports = {
             return await message.channel.send({ embed: { description: `You can't set a double-argument prefix or one that's over 1 character!, color: client.config.school_color}});
           }
         
-          db.set(`prefix_${message.guild.id}`, args[0]);
+          db.set(`newPrefix_${message.guild.id}`, args[0]);
           await message.channel.send({ embed: { description: `Set the bot prefix to `\${args[0]}`\!`, color: client.config.school_color}});
         }
     }
