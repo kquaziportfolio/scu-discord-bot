@@ -8,7 +8,7 @@ module.exports = async (client, message) => {
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (message.content.indexOf(client.config.prefix) !== 0 || message.author.bot) return;
 	
-  let prefixes = JSON.parse(fs.readFileSync(`../config.json`, "utf8"));
+  let prefixes = JSON.parse(fs.readFileSync(`../../config.json`, "utf8"));
   if (!prefixes[message.guild.id]) {
     prefixes[message.guild.id] = {
       prefixes: client.config.prefix
