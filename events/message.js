@@ -8,14 +8,7 @@ const fs = require(`fs`);
 module.exports = async (client, message) => {    
   // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
   if (message.content.indexOf(client.config.prefix) !== 0 || message.author.bot) return;
-	
-  let prefixes = JSON.parse(fs.readFileSync(`config.json`, "utf8"));
-  if (!prefixes[message.guild.id]) {
-    prefixes[message.guild.id] = {
-      prefixes: client.config.prefix
-    };
-  };
-
+	  
 /*
 ===============================================   
  |  \/  |         | |               (_) | 
@@ -137,7 +130,8 @@ module.exports = async (client, message) => {
 */
 
   // Our standard argument/command name definition.
-  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
+  const otherPrefix = db.get(`guild_${message.guild.id}_prefix`);	
+  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g) || message.content.slice(otherPrefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
 
   // Grab the command data from the client.commands Enmap
