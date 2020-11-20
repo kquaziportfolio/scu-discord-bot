@@ -12,12 +12,11 @@ module.exports = async (client, message) => {
         prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
           prefix: client.config.prefix //Prefix = Default Prefix Which is on config.json
         }
+	 let otherPrefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[message.guild.id].prefix
+
+         // Checks if the Author is a Bot, the prefix isn't right, or the message isn't from the guild, ignore it.
+         if (!message.content.startsWith(otherPrefix) ||  message.author.bot) return;  
       }
-
-      let otherPrefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[message.guild.id].prefix
-
-      // Checks if the Author is a Bot, the prefix isn't right, or the message isn't from the guild, ignore it.
-      if (!message.content.startsWith(otherPrefix) ||  message.author.bot) return;  
 
 /*
 ===============================================   
