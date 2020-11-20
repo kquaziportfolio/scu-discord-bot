@@ -15,9 +15,7 @@ module.exports = {
             prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
               prefix: prefix //Prefix = Default Prefix Which is on config.json
             }
-          }
-
-         let prefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[message.guild.id].prefix
+          } 
              
           if (args[1] || args[0].length > 1) {
             return message.channel.send({ embed: { description: `:x: You can't set a double-argument prefix or one that's greater than one character!`, color: `RED`}});
