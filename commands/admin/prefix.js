@@ -18,7 +18,7 @@ module.exports = {
              
           if (args[1] || args[0].length > 1) {
             return message.channel.send({ embed: { description: `:x: You can't set a double-argument prefix or one that's greater than one character!`, color: `RED`}});
-          } else if (args[0] == defaultPrefix[message.guild.id].prefix) { //detects if input resembles the default value in the config.json
+          } else if (args[0] == defaultPrefix.prefix) { //detects if input resembles the default value in the config.json
             return message.channel.send({ embed: { description: `:x: You can't set the prefix equal to its default value!`, color: `RED`}});
           } else if (args[0].match(/^[a-zA-Z]+$/)) { //detects if character is from alphabet, in either lowercase/uppercase form, will return nothing
             return message.channel.send({ embed: { description: `:x: You can't use any letters in the alphabet!`, color: `RED`}});
