@@ -1,13 +1,12 @@
-const { MessageEmbed, Collection } = require(`discord.js`);  
-let isAdmin = require(`../modules/isAdmin.js`);
-const fs = require(`fs`);
+const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
 const db = require(`quick.db`);
+let isAdmin = require(`../modules/isAdmin.js`);
 let sendMessage = require(`../modules/sendMessage.js`);
-const cooldowns = new Collection()  
+const cooldowns = new Collection() 
 
-module.exports = async (client, message) => {      
-	// Checks if the Author is a Bot, the prefix isn't right, or the message isn't from the guild, ignore it.
-  if (!message.content.startsWith(client.config.prefix) ||  message.author.bot) return;
+module.exports = async (client, message) => { 
+  // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
+  if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return; 
 	
 /*
 ===============================================   
@@ -115,7 +114,7 @@ module.exports = async (client, message) => {
       } 
     }
   }  
-	
+       
 /*
 ==================================================================================
   __  __                                  _    _                 _ _           
@@ -129,7 +128,7 @@ module.exports = async (client, message) => {
 ==================================================================================
 */
 
-  // Our standard argument/command name definition. 
+  // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
 
@@ -185,5 +184,5 @@ module.exports = async (client, message) => {
   } catch(err) {
       sendMessage(client, client.config.channels.auditlogs, { embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
       return console.log(err.stack || err);
-  } 
-} 
+  }
+}
