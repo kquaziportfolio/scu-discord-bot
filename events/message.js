@@ -99,9 +99,9 @@ module.exports = async (client, message) => {
       db.set(`supportChannel_${channel.id}`, message.author.id);
       return;
     } 
-  } else if (message.channel.type === "dm" && !message.mentions.has(client.user)) {
+  } /*else if (message.channel.type === "dm" && !message.mentions.has(client.user)) {
       return message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
-  }
+  }*/
   
   let support = await db.fetch(`supportChannel_${message.channel.id}`);
   if (support) {
