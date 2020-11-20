@@ -11,7 +11,7 @@ module.exports = {
     async execute(client, message, args) {
       try {
         if(isAdmin(client, message)) {  
-         *const defaultPrefix = JSON.parse(fs.readFileSync('./config.json')); 
+          const defaultPrefix = JSON.parse(fs.readFileSync('./config.json')); 
           
           defaultPrefix.prefix = args[0];
 
