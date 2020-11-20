@@ -42,16 +42,15 @@ module.exports.run = async (client) => {
               const redditPost = new MessageEmbed()
               .setColor(client.config.school_color)
               .setAuthor(`/${post.data.subreddit_name_prefixed}`, client.user.displayAvatarURL())
-              .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title.length > 256 ? post.data.title.slice(0, 256).concat('...') : '')}`)
+              .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${post.data.title.length}`)
               .setURL(`https://redd.it/${post.data.id}`)
               .setDescription(`${post.data.is_self ? entities.decodeHTML(post.data.selftext.length > 2048 ? post.data.selftext.slice(0, 2048).concat('...') : post.data.selftext) : ''}`)
               .setThumbnail(validUrl.isUri(post.data.thumbnail) ? entities.decodeHTML(post.data.thumbnail) : null)
               .setFooter(`${post.data.is_self ? 'Self Post' : 'Link Post'} by /u/${post.data.author}`)
               .setTimestamp(new Date(post.data.created_utc * 1000))
               
-              if (post.data.selftext.length > 2048) { //if reddit post exceeds 2048 characters, split the message into two embeds to render the content :)
-                redditPost.setDescription(post.data.selftext.substring(0, 2047));
-                sendMessage(client, client.channels.reddit, { embed: { description: post.data.selftext.substring(2048, post.data.selftext.length)}});
+              if (post.data.title.length > 256) { //if title element exceeds 256 characters, append ("...") to the content :)
+                redditPost.setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${post.data.title.slice(0, 256).concat('...')}`);
               } 
 
               sendMessage(client, client.config.channels.reddit, redditPost);
