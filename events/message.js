@@ -5,17 +5,18 @@ const db = require(`quick.db`);
 let sendMessage = require(`../modules/sendMessage.js`);
 const cooldowns = new Collection()  
 
-module.exports = async (client, message) => {      
-    let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
-    if(message.guild != null && !prefixes[message.guild.id]) {  //If there is no string that includes prefixes[message.guild.id]
-      prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
-        prefix: client.config.prefix //Prefix = Default Prefix Which is on config.json
-      } 
-    } 
-    
-    const otherPrefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[message.guild.id].prefix
-    // Checks if the Author is a Bot, the prefix isn't right, or the message isn't from the guild, ignore it.
-    if (!message.content.startsWith(otherPrefix) ||  message.author.bot) return;  
+module.exports = async (client, message) => {    
+    if(message.guild != null) {  //If there is no string that includes prefixes[message.guild.id]
+      let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
+      if (!prefixes[message.guild.id]) {
+        prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
+          prefix: client.config.prefix //Prefix = Default Prefix Which is on config.json
+        } 
+        const otherPrefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[message.guild.id].prefix
+        // Checks if the Author is a Bot, the prefix isn't right, or the message isn't from the guild, ignore it.
+        if (!message.content.startsWith(otherPrefix) ||  message.author.bot) return;  
+      }
+    }
 
     /*
     ===============================================   
