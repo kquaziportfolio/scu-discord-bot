@@ -14,11 +14,8 @@ module.exports = {
             
           if(defaultPrefix != null) {  
             defaultPrefix.prefix = args[0]; //Let the file be read and let prefix = argument 1
-
-          if(defaultPrefix) {  
-            defaultPrefix.prefix //Prefix = Default Prefix Which is on config.json
-          } 
-             
+          }
+      
           if (args[1] || args[0].length > 1) {
             return message.channel.send({ embed: { description: `:x: You can't set a double-argument prefix or one that's greater than one character!`, color: `RED`}});
           } else if (args[0] == client.config.prefix) { //detects if input resembles the default value in the config.json
@@ -36,15 +33,6 @@ module.exports = {
   
           delete require.cache[require.resolve(`../../index.js`)];
           return require(`../../index.js`);
-
-          defaultPrefix.prefix = args[0]; //Let the file be read and let prefix = argument 1
-            
-          fs.writeFile("./config.json", JSON.stringify(defaultPrefix), (err) => { //Write File
-            if(err) console.log(err); //If error log error to the console
-          })
-
-          message.channel.send({ embed: { description: `Set the bot prefix to \`${args[0]}\`!`, color: client.config.school_color}});
-        
         }
     }
 }
