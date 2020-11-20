@@ -22,12 +22,12 @@ module.exports = {
             return message.channel.send({ embed: { description: `:x: You can't set the prefix equal to its default value!`, color: `RED`}});
           } else if (args[0].match(/^[a-zA-Z]+$/)) { //detects if character is from alphabet, in either lowercase/uppercase form, will return nothing
             return message.channel.send({ embed: { description: `:x: You can't use any letters in the alphabet!`, color: `RED`}});
-          } else { 
-              let msg = await message.channel.send({ embed: { description: `Set the bot prefix to \`${args[0]}\`!`, color: client.config.school_color}});
-              await msg.edit({embed: { description: `Wait a bit while I readjust!`, color: client.config.school_color}})
-              
-              process.exit();
           }
+            
+          let msg = await message.channel.send({ embed: { description: `Set the bot prefix to \`${args[0]}\`!`, color: client.config.school_color}});
+          await msg.edit({embed: { description: `Wait a bit while I readjust!`, color: client.config.school_color}})
+
+          //process.exit(); 
         }
       } catch(err) {
           console.log(err);
