@@ -7,7 +7,7 @@ const cooldowns = new Collection()
 
 module.exports = async (client, message) => {      
 	// Checks if the Author is a Bot, the prefix isn't right, or the message isn't from the guild, ignore it.
-  if (!message.content.startsWith(otherPrefix) ||  message.author.bot) return;
+  if (!message.content.startsWith(client.config.prefix) ||  message.author.bot) return;
        
 /*
 ==================================================================================
