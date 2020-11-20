@@ -11,13 +11,12 @@ module.exports = {
     async execute(client, message, args) {
         if(isAdmin(client, message)) { 
           let defaultPrefix = JSON.parse(fs.readFileSync("./config.json", "utf8")); //Read File
-<<<<<<< HEAD
+            
           if(defaultPrefix != null) {  
             defaultPrefix.prefix = args[0]; //Let the file be read and let prefix = argument 1
-=======
+
           if(defaultPrefix) {  
             defaultPrefix.prefix //Prefix = Default Prefix Which is on config.json
->>>>>>> ebb92d86d2a1c502c07a04846b54581e03f4e5b9
           } 
              
           if (args[1] || args[0].length > 1) {
@@ -27,7 +26,6 @@ module.exports = {
           } else if (args[0].match(/^[a-zA-Z]+$/)) { //detects if character is from alphabet, in either lowercase/uppercase form, will return nothing
             return message.channel.send({ embed: { description: `:x: You can't use any letters in the alphabet!`, color: `RED`}});
           }
-<<<<<<< HEAD
             
           fs.writeFile("./config.json", JSON.stringify(defaultPrefix), (err) => { //Write File
             if(err) console.log(err); //If there's an error, log error to the console
@@ -38,7 +36,6 @@ module.exports = {
   
           delete require.cache[require.resolve(`../../index.js`)];
           return require(`../../index.js`);
-=======
 
           defaultPrefix.prefix = args[0]; //Let the file be read and let prefix = argument 1
             
@@ -48,7 +45,6 @@ module.exports = {
 
           message.channel.send({ embed: { description: `Set the bot prefix to \`${args[0]}\`!`, color: client.config.school_color}});
         
->>>>>>> ebb92d86d2a1c502c07a04846b54581e03f4e5b9
         }
     }
 }
