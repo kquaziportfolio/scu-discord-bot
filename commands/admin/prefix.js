@@ -1,5 +1,6 @@
 let isAdmin = require(`../../modules/isAdmin.js`);
 let fs = require(`fs`); 
+const { prefix } = require(`../../config.json`);
 
 module.exports = { 
     name: 'prefix',
@@ -8,8 +9,15 @@ module.exports = {
     usage: `[enter prefix]`,
     category: 'Admin',  
     async execute(client, message, args) {
-        if(isAdmin(client, message)) {
-          let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
+        if(isAdmin(client, message)) { 
+          let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8")); //Read File
+          if(!prefixes[message.guild.id]) {  //If there is no string that is startwith prefixes[message.guild.id]
+            prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
+              prefix: config.prefix //Prefix = Default Prefix Which is on config.json
+            }
+          }
+
+         let prefix = prefixes[message.guild.id].prefix; //Let prefix be prefixes[message.guild.id].prefix
              
           if (args[1] || args[0].length > 1) {
             return message.channel.send({ embed: { description: `:x: You can't set a double-argument prefix or one that's greater than one character!`, color: `RED`}});
@@ -19,7 +27,7 @@ module.exports = {
             return message.channel.send({ embed: { description: `:x: You can't use any letters in the alphabet!`, color: `RED`}});
           }
 
-          prefixes[message.guild.id] = { //Let The config be
+          prefixes[message.guild.id] = { //Let the file be read
             prefix: args[0] //Let prefix = argument 1
           }
             
