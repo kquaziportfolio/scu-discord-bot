@@ -10,7 +10,7 @@ module.exports = {
     category: 'Admin',  
     async execute(client, message, args) {
         if(isAdmin(client, message)) { 
-          let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8")); //Read File
+          let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
           if(!prefixes[message.guild.id]) {  //If there is no string that is startwith prefixes[message.guild.id]
             prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
               prefix: config.prefix //Prefix = Default Prefix Which is on config.json
