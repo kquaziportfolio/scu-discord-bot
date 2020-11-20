@@ -35,5 +35,6 @@ module.exports = {
           process.exit();*/
         client.config.prefix=args[0];
       }
+          finally{await message.channel.send("test123");}
     }
 }
