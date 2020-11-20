@@ -185,6 +185,5 @@ module.exports = async (client, message) => {
   } catch(err) {
       sendMessage(client, client.config.channels.auditlogs, { embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
       return console.log(err.stack || err);
-  }
-}
-}
+  } 
+} 
