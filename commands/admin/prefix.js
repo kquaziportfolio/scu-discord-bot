@@ -11,7 +11,7 @@ module.exports = {
     async execute(client, message, args) {
       try {
         if(isAdmin(client, message)) {  
-          /*const defaultPrefix = JSON.parse(fs.readFileSync('./config.json')); 
+         *const defaultPrefix = JSON.parse(fs.readFileSync('./config.json')); 
           
           defaultPrefix.prefix = args[0];
 
@@ -26,15 +26,12 @@ module.exports = {
           fs.writeFileSync('./config.json', JSON.stringify(defaultPrefix), 'utf-8');
           
           let msg = await message.channel.send({ embed: { description: `Set the bot prefix to \`${args[0]}\`!`, color: client.config.school_color}});
-          await msg.edit({embed: { description: `Wait a bit while I readjust!`, color: client.config.school_color}});
+          await msg.edit({embed: { description: `Wait a bit while I readjust!`, color: client.config.school_color}})
+          .then({} => process.exit();   
 
         }
       } catch(err) {
           console.log(err);
-      } finally {
-          process.exit();*/
-        client.config.prefix=args[0];
       }
-          finally{await message.channel.send("test123");}
     }
 }
