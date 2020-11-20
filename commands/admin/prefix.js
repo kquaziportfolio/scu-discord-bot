@@ -9,26 +9,26 @@ module.exports = {
     category: 'Admin',  
     async execute(client, message, args) {
         if(isAdmin(client, message)) { 
-          let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
-          if(!prefixes[message.guild.id]) {  //If there is no string that is startwith prefixes[message.guild.id]
-            prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
+          let defaultPrefix = JSON.parse(fs.readFileSync("./config.json", "utf8")); //Read File
+          if(defaultPrefix) {  //If there is no string that is startwith prefixes[message.guild.id]
+            defaultPrefix = { //Let prefixes[message.guild.id] be
               prefix: client.config.prefix //Prefix = Default Prefix Which is on config.json
             }
           } 
              
           if (args[1] || args[0].length > 1) {
             return message.channel.send({ embed: { description: `:x: You can't set a double-argument prefix or one that's greater than one character!`, color: `RED`}});
-          } else if (args[0] == prefixes[message.guild.id].prefix) { //detects if input resembles the default value in the config.json
+          } else if (args[0] == defaultPrefix[message.guild.id].prefix) { //detects if input resembles the default value in the config.json
             return message.channel.send({ embed: { description: `:x: You can't set the prefix equal to its default value!`, color: `RED`}});
           } else if (args[0].match(/^[a-zA-Z]+$/)) { //detects if character is from alphabet, in either lowercase/uppercase form, will return nothing
             return message.channel.send({ embed: { description: `:x: You can't use any letters in the alphabet!`, color: `RED`}});
           }
 
-          prefixes[message.guild.id] = { //Let the file be read
+          defaultPrefix = { //Let the file be read
             prefix: args[0] //Let prefix = argument 1
           }
             
-          fs.writeFile("./prefix.json", JSON.stringify(prefixes), (err) => { //Write File
+          fs.writeFile("./config.json", JSON.stringify(prefixes), (err) => { //Write File
             if(err) console.log(err); //If error log error to the console
           })
 
