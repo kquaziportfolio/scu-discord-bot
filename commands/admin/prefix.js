@@ -13,7 +13,7 @@ module.exports = {
           let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8")); //Read File
           if(!prefixes[message.guild.id]) {  //If there is no string that is startwith prefixes[message.guild.id]
             prefixes[message.guild.id] = { //Let prefixes[message.guild.id] be
-              prefix: config.prefix //Prefix = Default Prefix Which is on config.json
+              prefix: prefix //Prefix = Default Prefix Which is on config.json
             }
           }
 
