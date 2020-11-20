@@ -42,7 +42,7 @@ module.exports.run = async (client) => {
               const redditPost = new MessageEmbed()
               .setColor(client.config.school_color)
               .setAuthor(`/${post.data.subreddit_name_prefixed}`, client.user.displayAvatarURL())
-              .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.selftext.length > 2048 ? post.data.selftext.slice(0, 2048).concat('...') : '')}`)
+              .setTitle(`${post.data.link_flair_text ? `[${post.data.link_flair_text}] ` : ''}${entities.decodeHTML(post.data.title.length > 256 ? post.data.title.slice(0, 256).concat('...') : '')}`)
               .setURL(`https://redd.it/${post.data.id}`)
               .setDescription(`${post.data.is_self ? entities.decodeHTML(post.data.selftext.length > 2048 ? post.data.selftext.slice(0, 2048).concat('...') : post.data.selftext) : ''}`)
               .setThumbnail(validUrl.isUri(post.data.thumbnail) ? entities.decodeHTML(post.data.thumbnail) : null)
