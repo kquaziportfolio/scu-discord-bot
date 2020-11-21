@@ -20,8 +20,8 @@
 - Check them out [here!](https://github.com/jasonanhvu/scu-discord-bot/tree/master/commands)
 
 ## Creator(s)
-- Jason Vu = Discord server owner, admin, and back-end
-- Samuel Stephen = Discord server admin and back-end
+- Jason Vu = server owner, admin, and developer
+- Samuel Stephen = server admin and developer
 
 ## Contributors
-- Kairan Quazi = Discord server moderator and back-end
+- Kairan Quazi = server moderator and developer
