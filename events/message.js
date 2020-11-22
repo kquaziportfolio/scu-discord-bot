@@ -85,7 +85,7 @@ module.exports = async (client, message) => {
       if (message.attachments.size > 0) { 
         await channel.send(messageReception.setDescription(`> ${userTicketContent}`).setImage(message.attachments.first().url));
       } else {
-      	await channel.send(`<@${message.author.id}>`, { embed: messageReception }); 
+      	await channel.send(`<@${message.author.id}>`, message.setDescription(`> ${userTicketContent}`)); 
       }
 
       db.set(`support_${message.author.id}`, active);
