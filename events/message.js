@@ -114,75 +114,75 @@ module.exports = async (client, message) => {
         await message.channel.delete();
         return db.delete(`support_${support.targetID}`);
         
-      } else if(message.content.startsWith(`${client.config.prefix}reply`)){ // reply (with user and role)
+      } else if(message.content.startsWith(`${client.config.prefix}reply`)){ // reply to user
           let isPause = await db.get(`suspended${support.targetID}`);
           let isBlock = await db.get(`isBlocked${support.targetID}`);
           if(isPause === true) return await message.channel.send({ embed: { description: "This ticket already paused. Unpause it to continue.", color: client.config.school_color}})
-          if(isBlock === true) return await message.channel.send({ embed: { descriptioN: "The user is blocked. Unblock them to continue or close the ticket.", color: client.config.school_color}})
+          if(isBlock === true) return await message.channel.send({ embed: { description: "The user is blocked. Unblock them to continue or close the ticket.", color: client.config.school_color}})
           let args = message.content.split(" ").slice(1); 
           let msg = args.join(" ");
           await message.react("✅");
-          let replyEmbed = new MessageEmbed().setDescription(`> ${msg}`).setColor(client.config.school_color)
+          let replyEmbed = new MessageEmbed().setDescription(`<@${message.author.id}> replied to you! > ${msg}`).setColor(client.config.school_color)
+	  .setFooter(`ModMail Ticket Replied -- ${supportUser.tag}`).attachFiles([`./assets/paused.gif`]).setThumbnail(`attachment://paused.gif`)
           
           if(message.attachments.size > 0) { 
             await replyEmbed.setImage(message.attachments.first().url)
           }
     
-          return await supportUser.send(replyEmbed);
-          sendMessage(client, client.config.channels.auditlogs, { embed: { description: `<@${message.author.id}> replied to <@${supportUser}>!`, color: client.config.school_color}});
+          return await supportUser.send(replyEmbed); 
         
       } else if(message.content === `${client.config.prefix}pause`) { // suspend a thread
           let isPause = await db.get(`suspended${support.targetID}`);
           if(isPause === true || isPause === "true") return message.channel.send("This ticket already paused. Unpause it to continue.")
           await db.set(`suspended${support.targetID}`, true);
-          let suspendedTicket = new MessageEmbed()
-          .setDescription(`⏸️ <@${message.author.id}>, your thread has been **locked** and **suspended**. Do \`${client.config.prefix}continue\` to cancel.`)
-          .setTimestamp().setColor("YELLOW").attachFiles([`./assets/paused.gif`]).setThumbnail(`attachment://paused.gif`) 
-          return await supportUser.send(suspendedTicket);
-          sendMessage(client, client.config.channels.auditlogs, {embed: suspendedTicket});
+          let pausedTicket = new MessageEmbed()
+          .setDescription(`⏸️ <@${message.author.id}>, your thread has been **paused**.`)
+          .setTimestamp().setColor("YELLOW").attachFiles([`./assets/paused.gif`]).setThumbnail(`attachment://paused.gif`).setFooter(`ModMail Ticket Paused -- ${supportUser.tag}`) 
+          return await supportUser.send(pausedTicket);
+	  pausedTicket.setDescription(`Admin/mod, please use \`${client.config.prefix}continue\` to cancel.`);
+          sendMessage(client, client.config.channels.auditlogs, {embed: pausedTicket});
       
       } else if (message.content === `${client.config.prefix}continue`) { // continue a thread
           let isPause = await db.get(`suspended${support.targetID}`);
           if(isPause === null || isPause === false) return message.channel.send({ embed: { description: "This ticket was not paused.", color: client.config.school_color}});
           await db.delete(`suspended${support.targetID}`);
           let continuedTicket = new MessageEmbed()
-          .setDescription("▶️ Your thread has been **unlocked**! We're ready to continue!").setColor("BLUE")
-          .setTimestamp().attachFiles([`./assets/verified.gif`]).setThumbnail(`attachment://verified.gif`) 
+          .setDescription("▶️ <@${message.author.id}>, your thread has **continued**! We're ready to continue!").setColor("BLUE").setTimestamp()
+          .attachFiles([`./assets/continued.gif`]).setThumbnail(`attachment://continued.gif`).setFooter(`ModMail Ticket Continued -- ${supportUser.tag}`) 
           return await supportUser.send(continuedTicket);
           sendMessage(client, client.config.channels.auditlogs, {embed: continuedTicket});
       
       } else if (message.content.startsWith(`${client.config.prefix}block`)){ // block a user
           const args = message.content.split(" ").slice(1)
           let reason = args.join(" ");
-          if(!reason) reason = `Unspecified.`
-          let user = client.users.fetch(`${support.targetID}`); // djs want a string here
-
+          if(!reason) reason = return message.channel.send({ embed: { description: `:x: You must specify a valid reason!`, color: client.config.school_color}});
+	  
           const blockedTicket = new MessageEmbed()
-          .setColor("RED").setAuthor(user.tag, user.displayAvatarURL()) 
-          .setTitle("User blocked")
-          .addField("Channel", `<#${message.channel.id}>`, true)
-          .addField("Reason", reason, true)
+          .setColor("RED").setAuthor(supportUser.tag, supportUser.displayAvatarURL()) 
+          .setTitle("User blocked").addField("Channel", `<#${message.channel.id}>`, true).addField("Reason", reason, true)
+	  .setFooter(`ModMail User Blocked -- ${supportUser.tag}`).attachFiles([`./assets/blocked.gif`]).setThumbnail(`attachment://blocked.gif`).setTimestamp()
 
           let isBlock = await db.get(`isBlocked${support.targetID}`);
-          if(isBlock === true) return message.channel.send("The user is already blocked.")
+          if(isBlock === true) return message.channel.send({ embed: { description: "The user is already blocked.", color: client.config.school_color}});
           await db.set(`isBlocked${support.targetID}`, true); 
+	      
           blockedTicket.setDescription("🙅‍♂️ You cannot use the modmail anymore and have been blocked.")
           .setColor("RED").setTimestamp()
+	      
           return await supportUser.send({embed: blockedTicket});
           sendMessage(client, client.config.channels.auditlogs, { embed: blockedTicket});
       
       } else if(message.content.startsWith(`${client.config.prefix}unblock`)) { // unblock a user
           let isBlock = await db.get(`isBlocked${support.targetID}`);
           if(isBlock === false || !isBlock || isBlock === null) return message.channel.send({ embed: { description: "User wasn't blocked", color: client.config.school_color}});
-          let user = client.users.fetch(`${support.targetID}`); // djs want a string here
           
           let unblockedTicket = MessageEmbed()
-          .setColor("RED").setAuthor(user.tag).setTitle("User unblocked!")
+          .setColor("RED").setAuthor(supportUser.tag).setTitle("User unblocked!").setTimestamp()
 
           await db.delete(`isBlocked${support.targetID}`);
 	      
           unblockedTicket.setDescription("🙋‍♂️ You've been successfully unblocked!").setColor("BLUE").setTimestamp()
-	  .attachFiles([`./assets/verified.gif`]).setThumbnail(`attachment://verified.gif`)  
+	  .attachFiles([`./assets/unlocked.gif`]).setThumbnail(`attachment://unlocked.gif`).setFooter(`ModMail User Unblocked -- ${supportUser.tag}`)   
           return await supportUser.send({embed: unblockedTicket}); 
           sendMessage(client, client.config.channels.auditlogs, { embed: unblockedTicket});
       }
