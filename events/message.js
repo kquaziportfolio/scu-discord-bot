@@ -177,7 +177,7 @@ module.exports = async (client, message) => {
           let user = client.users.fetch(`${support.targetID}`); // djs want a string here
           
           let unblockedTicket = MessageEmbed()
-          .setColor("RED").setAuthor(user.tag).setTitle("User
+          .setColor("RED").setAuthor(user.tag).setTitle("User unblocked!")
 
           await db.delete(`isBlocked${support.targetID}`);
 	      
