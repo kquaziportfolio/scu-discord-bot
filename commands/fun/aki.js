@@ -69,7 +69,7 @@ module.exports = {
 
         collector.on("end",()=> { 
           Started.delete(message.author.id);
-          await msg.delete({ timeout: 1000 }).catch(()=>{});
+          msg.delete({ timeout: 1000 }).catch(()=>{});
         });
       }
 }
