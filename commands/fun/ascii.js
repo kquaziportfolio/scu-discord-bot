@@ -6,7 +6,7 @@ module.exports = {
     category: "Fun",
     args: true,
     usage: "<insert text>",
-    async run (client, message, args){
+    async execute (client, message, args){
 
         const msg = args.join(" ");
 
