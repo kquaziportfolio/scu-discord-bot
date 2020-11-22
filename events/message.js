@@ -105,7 +105,7 @@ module.exports = async (client, message) => {
     if (!supportUser) return message.channel.delete(); 
     
     if(isAdmin(client, message)) {
-      if (message.content === `${client.config.modmailPrefix}complete`) {
+      if (message.content === `${client.config.prefix}complete`) {
         messageReception 
         .setTitle(`ModMail Ticket Resolved`)
         .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
@@ -117,7 +117,7 @@ module.exports = async (client, message) => {
         await message.channel.delete();
         return db.delete(`support_${support.targetID}`);
         
-      } else if (message.content.startsWith(`${client.config.modmailPrefix}reply`)){ // reply (with user and role)
+      } else if (message.content.startsWith(`${client.config.prefix}reply`)){ // reply (with user and role)
           let isPause = await db.get(`suspended${support.targetID}`);
           let isBlock = await db.get(`isBlocked${support.targetID}`);
           if(isPause === true) return await message.channel.send({ embed: { description: "This ticket already paused. Unpause it to continue.", color: client.config.school_color}})
@@ -133,7 +133,7 @@ module.exports = async (client, message) => {
 	        
 	        await supportUser.send(replyEmbed);
         
-      } else if(message.content === `${client.config.modmailPrefix}pause`) { // suspend a thread
+      } else if(message.content === `${client.config.prefix}pause`) { // suspend a thread
           let isPause = await db.get(`suspended${support.targetID}`);
           if(isPause === true || isPause === "true") return message.channel.send("This ticket already paused. Unpause it to continue.")
           await table.set(`suspended${support.targetID}`, true);
@@ -143,7 +143,7 @@ module.exports = async (client, message) => {
           await message.channel.send({embed: suspendedTicket});
           return await supportUser.send(suspendedTicket);
         
-      } else if (message.content === `${client.config.modmailPrefix}continue`) { // continue a thread
+      } else if (message.content === `${client.config.prefix}continue`) { // continue a thread
           let isPause = await db.get(`suspended${support.targetID}`);
           if(isPause === null || isPause === false) return message.channel.send({ embed: { description: "This ticket was not paused.", color: client.config.school_color}});
           await db.delete(`suspended${support.targetID}`);
@@ -153,7 +153,7 @@ module.exports = async (client, message) => {
           message.channel.send({embed: continuedTicket});
           return await supportUser.send(continuedTicket);
         
-      } else if (message.content.startsWith(`${client.config.modmailPrefix}block`)){ // block a user
+      } else if (message.content.startsWith(`${client.config.prefix}block`)){ // block a user
           const args = message.content.split(" ").slice(1)
           let reason = args.join(" ");
           if(!reason) reason = `Unspecified.`
@@ -177,7 +177,7 @@ module.exports = async (client, message) => {
           .setColor("RED").setTimestamp()
           return await supportUser.send({embed: blockedTicket});
         
-      } else if(message.content.startsWith(`${client.config.modmailPrefix}unblock`)) { // unblock a user
+      } else if(message.content.startsWith(`${client.config.prefix}unblock`)) { // unblock a user
           let isBlock = await db.get(`isBlocked${support.targetID}`);
           if(isBlock === false || !isBlock || isBlock === null) return message.channel.send({ embed: { description: "User wasn't blocked", color: client.config.school_color}});
           let user = client.users.fetch(`${support.targetID}`); // djs want a string here
