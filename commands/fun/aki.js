@@ -1,4 +1,4 @@
-const { Client, MessageEmbed, Set  } = require("discord.js");
+const { Client, MessageEmbed } = require("discord.js");
 const { Aki } = require("aki-api");
 const emojis = ["👍", "👎", "❔", "🤔", "🙄", "❌"];
 const Started = new Set();
