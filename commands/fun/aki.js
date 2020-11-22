@@ -39,29 +39,29 @@ module.exports = {
                 if (aki.progress >= 70 || aki.currentStep >= 78) {
                   await aki.win();
                   collector.stop();
-                  message.channel.send(new MessageEmbed()
+                  await message.channel.send(new MessageEmbed()
                   .setTitle(`**${nickname}, is this this your character? :thinking:**`)
                   .setDescription(`**${aki.answers[0].name}**\n${aki.answers[0].description}\nRanking as **#${aki.answers[0].ranking}**\n\n[yes (**y**) / no (**n**)]`)
                   .setImage(aki.answers[0].absolute_picture_path)
                   .setColor("RANDOM"));
-                  message.channel.awaitMessages(response => ["yes","y","no","n"].includes(response.content.trim().toLowerCase()) &&
+                  await message.channel.awaitMessages(response => ["yes","y","no","n"].includes(response.content.trim().toLowerCase()) &&
                     response.author.id == message.author.id, { max: 1, time: 30000, errors: ["time"] })
                       .then(collected => {
                          const content = collected.first().content.trim().toLowerCase();
                             if (content == "y" || content == "yes")
-                                 return message.channel.send(new MessageEmbed()
+                                 await return message.channel.send(new MessageEmbed()
                                   .setColor("RANDOM")
                                   .setTitle(`**Great! I guessed right one more time. :smiley:**`)
                                   .setDescription(`<@${message.author.id}>, I love playing with you!`));
                             else 
-                                return message.channel.send(new MessageEmbed()
+                                await return message.channel.send(new MessageEmbed()
                                   .setColor("RANDOM")
                                   .setTitle(`**${nickname}, you're the winner! :relieved:**`)
                                   .setDescription(`<@${message.author.id}>, I love playing with you!`));
                           });
                         return;
                       }
-                 msg.edit(new MessageEmbed()
+                 await msg.edit(new MessageEmbed()
                   .setTitle(`**${nickname}**, Question ${aki.currentStep + 1}`)
                   .setColor("RANDOM")
                   .setDescription(`**${aki.question}**\n${aki.answers.map((x, i) => `${x} | ${emojis[i]}`).join("\n")}`));
@@ -69,7 +69,7 @@ module.exports = {
 
         collector.on("end",()=> { 
           Started.delete(message.author.id);
-          msg.delete({ timeout: 1000 }).catch(()=>{});
+          await msg.delete({ timeout: 1000 }).catch(()=>{});
         });
       }
 }
