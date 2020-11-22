@@ -129,7 +129,7 @@ module.exports = async (client, message) => {
           }
     
           return await supportUser.send(replyEmbed);
-          sendMessage(client, client.config.channels.auditlogs, { embed: { description: `<@${message.author.id}> replied to <@${supportUser}>!, color: client.config.school_color}});
+          sendMessage(client, client.config.channels.auditlogs, { embed: { description: `<@${message.author.id}> replied to <@${supportUser}>!`, color: client.config.school_color}});
         
       } else if(message.content === `${client.config.prefix}pause`) { // suspend a thread
           let isPause = await db.get(`suspended${support.targetID}`);
