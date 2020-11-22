@@ -45,7 +45,7 @@ module.exports = async (client, message) => {
         const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName;
         channel = await guild.channels.create(`${nickname}-${message.author.discriminator}`);     
         channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
-        channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
+        channel.setTopic(`Use **${client.config.modmailPrefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
         channel.overwritePermissions([ 
           {
             id: client.config.serverRoles.mod,
