@@ -1,4 +1,4 @@
-const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
+const { MessageEmbed, MessageAttachment, Collection } = require(`discord.js`); //requires Discord.js integration package
 const db = require(`quick.db`);
 let isAdmin = require(`../modules/isAdmin.js`);
 let sendMessage = require(`../modules/sendMessage.js`);
@@ -45,7 +45,7 @@ module.exports = async (client, message) => {
         const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName;
         channel = await guild.channels.create(`${nickname}-${message.author.discriminator}`);     
         channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
-        channel.setTopic(`Use **${client.config.prefix}close-ticket** to close the Ticket | ModMail for <@${message.author.id}>`);
+        channel.setTopic(`Use **${client.config.prefix}complete** to close the Ticket | ModMail for <@${message.author.id}>`);
         channel.overwritePermissions([ 
           {
             id: client.config.serverRoles.mod,
@@ -74,23 +74,28 @@ module.exports = async (client, message) => {
         active.targetID = message.author.id;
       }
 
-      channel = client.channels.cache.get(active.channelID);
+      channel = client.channels.cache.get(active.channelID); 
 
       messageReception //fires for newly created and existing tickets 
       .setTitle(`Modmail Ticket Sent!`)
       .setDescription(`Your new content has been sent!`)
       .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
-      await message.author.send(`<@${message.author.id}>`, { embed: messageReception });
-
-      messageReception.setDescription(`**${userTicketContent}**`) //appends `.setDescription()` method to the embed that will be sent to admins
-      await channel.send(`<@${message.author.id}>`, { embed: messageReception });
+      await message.author.send(`<@${message.author.id}>`, { embed: messageReception }); 
+      await channel.send(`<@${message.author.id}>`, { embed: messageReception }); 
+      
+      if (message.attachments.size > 0){
+        let attachment = new MessageAttachment(message.attachments.first().url)
+        await channel.send(`${message.author.username} > ${userTicketContent}`, {files: [message.attachments.first().url]})
+      } else {
+          await channel.send(`${message.author.username} > ${userTicketContent}`);
+      }
 
       db.set(`support_${message.author.id}`, active);
       db.set(`supportChannel_${channel.id}`, message.author.id);
       return;
     } 
   } else if (message.channel.type === "dm" && !message.mentions.has(client.user)) {
-      return message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
+      return await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
   }
   
   let support = await db.fetch(`supportChannel_${message.channel.id}`);
@@ -100,7 +105,7 @@ module.exports = async (client, message) => {
     if (!supportUser) return message.channel.delete(); 
     
     if(isAdmin(client, message)) {
-      if (message.content === `${client.config.prefix}close-ticket`) {
+      if (message.content === `${client.config.prefix}complete`) {
         messageReception 
           .setTitle(`ModMail Ticket Resolved`)
           .setAuthor(supportUser.tag, supportUser.displayAvatarURL())
@@ -111,7 +116,87 @@ module.exports = async (client, message) => {
         message.guild.channels.cache.get(client.config.channels.auditlogs).send(messageReception);
         message.channel.delete();
         return db.delete(`support_${support.targetID}`);
-      } 
+        
+      } else if(message.content.startsWith(`${client.config.prefix}reply`)){ // reply (with user and role)
+          let isPause = await db.get(`suspended${support.targetID}`);
+          let isBlock = await db.get(`isBlocked${support.targetID}`);
+          if(isPause === true) return await message.channel.send("This ticket already paused. Unpause it to continue.")
+          if(isBlock === true) return await message.channel.send("The user is blocked. Unblock them to continue or close the ticket.")
+	        let args = message.content.split(" ").slice(1)
+          let msg = args.join(" ");
+          await message.react("✅");
+          if(message.attachments.size > 0){
+            let attachment = new MessageAttachment(message.attachments.first().url)
+            return await supportUser.send(`${message.author.username} > ${msg}`, {files: [message.attachments.first().url]})
+          } else {
+              return await supportUser.send(`${message.author.username} > ${msg}`);
+          }
+        
+      } else if(message.content === `${client.config.prefix}id`){ // print user ID
+          return message.channel.send(`User's ID is **${support.targetID}**.`);
+        
+      } else if(message.content === `${client.config.prefix}pause`) { // suspend a thread
+          let isPause = await db.get(`suspended${support.targetID}`);
+          if(isPause === true || isPause === "true") return message.channel.send("This ticket already paused. Unpause it to continue.")
+          await table.set(`suspended${support.targetID}`, true);
+          let suspend = new MessageEmbed()
+          .setDescription(`⏸️ This thread has been **locked** and **suspended**. Do \`${client.config.prefix}continue\` to cancel.`)
+          .setTimestamp()
+          .setColor("YELLOW")
+          await message.channel.send({embed: suspend});
+          return await supportUser.send("Your ticket has been paused. We'll send you a message when we're ready to continue.")
+        
+      } else if (message.content === `${client.config.prefix}continue`) { // continue a thread
+          let isPause = await db.get(`suspended${support.targetID}`);
+          if(isPause === null || isPause === false) return message.channel.send("This ticket was not paused.");
+          await db.delete(`suspended${support.targetID}`);
+          let c = new MessageEmbed()
+          .setDescription("▶️ This thread has been **unlocked**.")
+          .setColor("BLUE").setTimestamp()
+          message.channel.send({embed: c});
+          return await supportUser.send("Hi! Your ticket isn't paused anymore. We're ready to continue!");
+        
+      } else if (message.content.startsWith(`${client.config.prefix}block`)){ // block a user
+          const args = message.content.split(" ").slice(1)
+          let reason = args.join(" ");
+          if(!reason) reason = `Unspecified.`
+          let user = client.users.fetch(`${support.targetID}`); // djs want a string here
+
+          const blocked = new MessageEmbed()
+          .setColor("RED").setAuthor(user.tag)
+          .setTitle("User blocked")
+          .addField("Channel", `<#${message.channel.id}>`, true)
+          .addField("Reason", reason, true)
+
+          if(client.config.channels.auditlogs){
+            sendMessage(client, client.config.channels.auditlogs, { embed: blocked});
+          }
+
+          let isBlock = await db.get(`isBlocked${support.targetID}`);
+          if(isBlock === true) return message.channel.send("The user is already blocked.")
+          await db.set(`isBlocked${support.targetID}`, true);
+          const c = new MessageEmbed()
+          .setDescription("⏸️ The user can not use the modmail anymore; they have been blocked. You may now close the ticket or unblock them to continue.")
+          .setColor("RED").setTimestamp()
+          return await message.channel.send({embed: c});
+        
+      } else if(message.content.startsWith(`${client.config.prefix}unblock`)) { // unblock a user
+          let isBlock = await db.get(`isBlocked${support.targetID}`);
+          if(isBlock === false || !isBlock || isBlock === null) return message.channel.send("User wasn't blocked")
+          let user = client.users.fetch(`${support.targetID}`); // djs want a string here
+          let unBlock = MessageEmbed()
+          .setColor("RED").setAuthor(user.tag).setTitle("User unblocked")
+
+          if(client.config.channels.auditlogs) {
+            sendMessage(client, client.config.channels.auditlogs, { embed: unBlock});
+          }
+
+          await table.delete(`isBlocked${support.targetID}`);
+          let c = new MessageEmbed()
+          .setDescription("▶️ The user has successfully been unblocked!")
+          .setColor("BLUE").setTimestamp()
+          return await message.channel.send({embed: c}); 
+      }
     }
   }  
        
