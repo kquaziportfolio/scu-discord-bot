@@ -40,7 +40,7 @@ module.exports = {
                   await aki.win();
                   collector.stop();
                   message.channel.send(new MessageEmbed()
-                  .setTitle(`**${nickname}**, is this this your character? :thinking:**`)
+                  .setTitle(`**${nickname}, is this this your character? :thinking:**`)
                   .setDescription(`**${aki.answers[0].name}**\n${aki.answers[0].description}\nRanking as **#${aki.answers[0].ranking}**\n\n[yes (**y**) / no (**n**)]`)
                   .setImage(aki.answers[0].absolute_picture_path)
                   .setColor("RANDOM"));
