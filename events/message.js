@@ -134,7 +134,7 @@ module.exports = async (client, message) => {
       } else if(message.content === `${client.config.prefix}pause`) { // suspend a thread
           let isPause = await db.get(`suspended${support.targetID}`);
           if(isPause === true || isPause === "true") return message.channel.send("This ticket already paused. Unpause it to continue.")
-          await table.set(`suspended${support.targetID}`, true);
+          await db.set(`suspended${support.targetID}`, true);
           let suspendedTicket = new MessageEmbed()
           .setDescription(`⏸️ Your thread has been **locked** and **suspended**. Do \`${client.config.prefix}continue\` to cancel.`)
           .setTimestamp().setColor("YELLOW").attachFiles([`./assets/paused.gif`]).setThumbnail(`attachment://paused.gif`) 
