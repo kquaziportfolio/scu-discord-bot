@@ -126,9 +126,9 @@ module.exports = async (client, message) => {
 	      
           if(message.attachments.size > 0) { 
 	    let replyEmbed = new MessageEmbed().setDescription(`> ${msg}`).setImage(message.attachments.first().url)
-	    .attachFiles([`./assets/verified.gif`]).setThumbnail(`attachment://verified.gif`)); 
+	    .attachFiles([`./assets/verified.gif`]).setThumbnail(`attachment://verified.gif`);
 	  } else { 
-               replyEmbed.setDescription(`> ${msg}`).attachFiles([`./assets/verified.gif`]).setThumbnail(`attachment://verified.gif`)); 
+               replyEmbed.setDescription(`> ${msg}`).attachFiles([`./assets/verified.gif`]).setThumbnail(`attachment://verified.gif`);
           }
 	      
 	  await supportUser.send(replyEmbed);
