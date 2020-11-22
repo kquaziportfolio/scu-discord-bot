@@ -61,7 +61,7 @@ module.exports = {
                           });
                         return;
                       }
-                 await msg.edit(new MessageEmbed()
+                 msg.edit(new MessageEmbed()
                   .setTitle(`**${nickname}**, Question ${aki.currentStep + 1}`)
                   .setColor("RANDOM")
                   .setDescription(`**${aki.question}**\n${aki.answers.map((x, i) => `${x} | ${emojis[i]}`).join("\n")}`));
