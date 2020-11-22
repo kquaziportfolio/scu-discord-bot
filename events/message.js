@@ -155,7 +155,7 @@ module.exports = async (client, message) => {
       } else if (message.content.startsWith(`${client.config.prefix}block`)){ // block a user
           const args = message.content.split(" ").slice(1)
           let reason = args.join(" ");
-          if(!reason) reason = return message.channel.send({ embed: { description: `:x: You must specify a valid reason!`, color: client.config.school_color}});
+          if(!reason) reason = `Unspecified...`;
 	  
           const blockedTicket = new MessageEmbed()
           .setColor("RED").setAuthor(supportUser.tag, supportUser.displayAvatarURL()) 
