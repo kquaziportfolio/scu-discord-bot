@@ -4,16 +4,16 @@ const emojis = ["👍", "👎", "❔", "🤔", "🙄", "❌"];
 const Started = new Set();
 
 module.exports = {
-	name: 'aki',
-  description: 'Play with the Akinator!',
-  category: 'Fun',
-  async execute(client, message, args) {  
+    name: 'aki',
+    description: 'Play with the Akinator!',
+    category: 'Fun',
+    async execute(client, message, args) {  
     new Client({messageCacheMaxSize: 50})
 
     if(!Started.has(message.author.id)) Started.add(message.author.id);
     else return message.channel.send("**:x: | The game already started..**");
     
-    const aki = new Aki("ar"); // Full languages list at: https://github.com/jgoralcz/aki-api
+    const aki = new Aki("en"); // Full languages list at: https://github.com/jgoralcz/aki-api
     await aki.start();
     
     const msg = await message.channel.send(new MessageEmbed()
