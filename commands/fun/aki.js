@@ -49,12 +49,12 @@ module.exports = {
                       .then(collected => {
                          const content = collected.first().content.trim().toLowerCase();
                             if (content == "y" || content == "yes")
-                                 await return message.channel.send(new MessageEmbed()
+                                return message.channel.send(new MessageEmbed()
                                   .setColor("RANDOM")
                                   .setTitle(`**Great! I guessed right one more time. :smiley:**`)
                                   .setDescription(`<@${message.author.id}>, I love playing with you!`));
                             else 
-                                await return message.channel.send(new MessageEmbed()
+                                return message.channel.send(new MessageEmbed()
                                   .setColor("RANDOM")
                                   .setTitle(`**${nickname}, you're the winner! :relieved:**`)
                                   .setDescription(`<@${message.author.id}>, I love playing with you!`));
