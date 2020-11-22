@@ -122,8 +122,8 @@ module.exports = async (client, message) => {
           let args = message.content.split(" ").slice(1); 
           let msg = args.join(" ");
           await message.react("✅");
-          let replyEmbed = new MessageEmbed().setDescription(`<@${message.author.id}> replied to you! > ${msg}`).setColor(client.config.school_color)
-	  .setFooter(`ModMail Ticket Replied -- ${supportUser.tag}`).attachFiles([`./assets/paused.gif`]).setThumbnail(`attachment://paused.gif`)
+          let replyEmbed = new MessageEmbed().setTitle(`**Admin/mod replied to you!**`).setDescription(`> ${msg}`).setColor(client.config.school_color)
+	  .setFooter(`ModMail Ticket Replied -- ${supportUser.tag}`).attachFiles([`./assets/reply.gif`]).setThumbnail(`attachment://reply.gif`)
           
           if(message.attachments.size > 0) { 
             await replyEmbed.setImage(message.attachments.first().url)
