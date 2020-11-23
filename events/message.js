@@ -122,7 +122,7 @@ module.exports = async (client, message) => {
 	  
     const isPause = await db.get(`suspended${support.targetID}`);
     const isBlock = await db.get(`isBlocked${support.targetID}`);
-    const args = message.content.split(" ").slice(1); 
+    let args = message.content.split(" ").slice(1); 
     
     if(isAdmin(client, message)) {
       switch (message.content.toLowerCase() === `${client.config.modmailPrefix}`) { //if message content in the support user channel is modmail prefix, executes these following commands...
