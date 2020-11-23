@@ -283,3 +283,4 @@ module.exports = async (client, message) => {
       return console.log(err.stack || err);
   }
 }
+}
