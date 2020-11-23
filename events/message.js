@@ -122,7 +122,7 @@ module.exports = async (client, message) => {
 	  
     const isPause = await db.get(`suspended${support.targetID}`);
     const isBlock = await db.get(`isBlocked${support.targetID}`);
-    let args = message.content.split(" ").slice(1); 
+    const modmailArgs = message.content.split(" ").slice(1); 
     
     if(isAdmin(client, message)) {
       switch (message.content.toLowerCase() === `${client.config.modmailPrefix}`) { //if message content in the support user channel is modmail prefix, executes these following commands...
@@ -141,7 +141,7 @@ module.exports = async (client, message) => {
           if(isPause === true) return await message.channel.send({ embed: { description: "This ticket already paused. Unpause it to continue.", color: client.config.school_color}})
           if(isBlock === true) return await message.channel.send({ embed: { description: "The user is blocked. Unblock them to continue or close the ticket.", color: client.config.school_color}})
           
-          let msg = args.join(" "); 
+          let msg = modmailArgs.join(" "); 
           
           messageReception.setTitle(`**💬 Admin/mod replied to you!**`).setFooter(`ModMail Ticket Replied -- ${supportUser.tag}`)
           .setDescription(`> ${msg}`).attachFiles([`./assets/reply.gif`]).setThumbnail(`attachment://reply.gif`)
@@ -180,7 +180,7 @@ module.exports = async (client, message) => {
           break;
       
       case "block": // block a user
-          let reason = args.join(" ");
+          let reason = modmailArgs.join(" ");
           if(!reason) reason = `Unspecified...`;
 	  
           messageReception.setColor("RED").setTitle("User blocked").addField("Channel", `<#${message.channel.id}>`, true).addField("Reason", reason, true)
