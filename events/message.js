@@ -1,19 +1,23 @@
-const { MessageEmbed, MessageCollector, Collection } = require(`discord.js`); //requires Discord.js integration package
+const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
 const db = require(`quick.db`);
 const fs = require(`fs`);
 const cooldowns = new Collection(); 
 let isAdmin = require(`../modules/isAdmin.js`);
 let sendMessage = require(`../modules/sendMessage.js`); 
+const jsdom = require(`jsdom`);
+const { JSDOM } = jsdom;
+const dom = new JSDOM();
+const document = dom.window.document;
 
 module.exports = async (client, message) => { 
-  // Checks if the Author is a Bot, or the message isn't from the guild, ignore it.
+  // Checks if the Author is a Bot, or the message isn`t from the guild, ignore it.
   if (!message.content.startsWith(client.config.prefix) && message.channel.type != "dm" || message.author.bot) return; 
-	
+
 /*
 ===============================================   
  |  \/  |         | |               (_) | 
  | \  / | ___   __| |_ __ ___   __ _ _| | 
- | |\/| |/ _ \ / _` | '_ ` _ \ / _` | | | 
+ | |\/| |/ _ \ / _` | `_ ` _ \ / _` | | | 
  | |  | | (_) | (_| | | | | | | (_| | | | 
  |_|  |_|\___/ \__,_|_| |_| |_|\__,_|_|_| 
 =============================================== 
@@ -27,7 +31,7 @@ module.exports = async (client, message) => {
 
   //Check if message is in a direct message and mentions bot
   if (message.channel.type === "dm" && message.mentions.has(client.user)) {   
-    const userTicketContent = message.content.split(' ').slice(1).join(' '); 
+    const userTicketContent = message.content.split(` `).slice(1).join(` `); 
     if (userTicketContent.length > 1) {
       let active = await db.fetch(`support_${message.author.id}`);
       let guild = client.guilds.cache.get(client.config.verification.guildID);
@@ -46,17 +50,17 @@ module.exports = async (client, message) => {
         channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
         channel.setTopic(`Use **${client.config.prefix}cmds** to utilize the Ticket | ModMail commands on behalf of <@${message.author.id}>`);
         channel.overwritePermissions([ 
-          /*{
+          {
             id: client.config.serverRoles.mod,
-            allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS']
-          },*/
+            allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
+          },
           {
             id: message.author.id,
-            allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'EMBED_LINKS', 'ATTACH_FILES', 'USE_EXTERNAL_EMOJIS']
+            allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `EMBED_LINKS`, `ATTACH_FILES`, `USE_EXTERNAL_EMOJIS`]
           },
           {
             id: client.config.serverRoles.everyone,
-            deny: ['VIEW_CHANNEL']
+            deny: [`VIEW_CHANNEL`]
           }
         ]);
         
@@ -103,7 +107,7 @@ module.exports = async (client, message) => {
     function modmailCommands() {
       const commands = [ 
         { cmd: "block", desc: "🙅‍♂️ Block this user!" },
-        { cmd: "complete", desc: "✅ Close a ticket channel and logs the support channel's content!" },   
+        { cmd: "complete", desc: "✅ Close a ticket channel and logs the support channel`s content!" },   
         { cmd: "continue", desc: "▶️ Continue the modmail session!"},  
         { cmd: "reply", desc: "💬 DM the user who sent the modmail ticket!"},
         { cmd: "pause", desc: "⏸️ Pause the modmail session!" },
@@ -125,7 +129,7 @@ module.exports = async (client, message) => {
       let isBlock = await db.get(`isBlocked${support.targetID}`); 
       switch (message.content.split(" ")[0].slice(1).toLowerCase()) { //if message content in the support user channel is a modmail command, execute the results...
         case "cmds": //on default, give list of modmail sub-commands :)
-          message.channel.send({ embed: { title: `**📩 MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
+          message.channel.send({ embed: { title: `**📩  MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
           break; 
 
         case "block": // block a user
@@ -144,35 +148,93 @@ module.exports = async (client, message) => {
           sendMessage(client, client.config.channels.auditlogs, { embed: messageReception});
           break;
 
-        case "complete": //close the user's ticket after they're done and log it!
+        case "complete": //close the user`s ticket after they`re done and log it!
           messageReception.setTitle(`ModMail Ticket Resolved`).setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
           .setDescription(`✅ *Your ModMail has been marked as **complete** and has been logged by the admins/mods. If you wish to create a new one, please send a message to the bot.*`) 
           
-          await supportUser.send(`<@${supportUser.id}>`, { embed: messageReception });
-          sendMessage(client, client.config.channels.auditlogs, { embed: messageReception});
+          await supportUser.send(`<@${supportUser.id}>`, { embed: messageReception });;
 
-          let filter = m => !m.author.bot;
-          let collector = new MessageCollector(message.channel, filter); 
-          collector.on('collect', (m, col) => {
-              console.log("Collected message: " + m.content);
-              let counter = 0;
-              counter++;
-              if (counter === 100) {
-                collector.stop();
-                let messageLOGGER = new MessageEmbed()
-                .setTitle("New Message")
-                .setDescription(m.content)
-                .setTimestamp()
-                .setAuthor(m.author.tag, m.author.displayAvatarURL)
-                .setColor('#FFAB32')
-              
-                sendMessage(client, client.config.channels.auditlogs, messageLOGGER);
-              } 
+          let messageCollection = new Collection();
+          let channelMessages = await message.channel.messages.fetch({ limit: 100 }).catch(err => console.log(err));
+
+          messageCollection = messageCollection.concat(channelMessages);
+
+          while(channelMessages.size === 100) {
+            let lastMessageId = channelMessages.lastKey();
+            channelMessages = await message.channel.messages.fetch({ limit: 100, before: lastMessageId }).catch(err => console.log(err));
+            if(channelMessages) {
+              messageCollection = messageCollection.concat(channelMessages);
+            }
+          }
+
+          let msgs = messageCollection.array().reverse();
+          await fs.readFile(`./events/modmailLogs/template/template.html`, `utf8`, function(err, data) {
+            const filePath = `./events/modmailLogs/index_${supportUser.tag}.html`;
+            fs.writeFile(filePath, data, function (err, data) {
+              if(err) console.log(`error`, err);
+              let guildElement = document.createElement(`div`);
+              let guildText = document.createTextNode(message.guild.name);
+              let guildImg = document.createElement(`img`);
+              guildImg.setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/logo-pic.png`);
+              guildImg.setAttribute(`width`, `150`);
+              guildElement.appendChild(guildImg);
+              guildElement.appendChild(guildText); 
+
+              fs.appendFile(filePath, guildElement.outerHTML, function (err) {
+                if (err) console.log(`error`, err);
+              });
+
+              msgs.forEach(async msg => {
+                let parentContainer = document.createElement("div");
+                parentContainer.className = "parent-container";
+
+                let avatarDiv = document.createElement("div");
+                avatarDiv.className = "avatar-container";
+                let img = document.createElement(`img`);
+                img.setAttribute(`src`, msg.author.displayAvatarURL());
+                img.className = "avatar";
+                avatarDiv.appendChild(img);
+
+                parentContainer.appendChild(avatarDiv);
+
+                let messageContainer = document.createElement(`div`);
+                messageContainer.className = "message-container";
+
+                const spanElement = document.createElement("span"); 
+                const codeNode = document.createElement("code");
+
+                let nameElement = document.createElement("span");
+                let name = document.createTextNode(`\n[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`);
+                nameElement.appendChild(name);
+                messageContainer.append(nameElement);
+
+                msg.embeds.forEach((embed) => {
+                  console.log(msg); 
+                  let botTxtEmbedContentsNode = document.createTextNode(`Title: ${embed.title}\nDescription: ${embed.description}\n Footer: ${embed.footer.text}`); 
+                  codeNode.append(botTxtEmbedContentsNode); 
+                  messageContainer.appendChild(codeNode); 
+                });
+
+                if(msg.content.startsWith("```")) {
+                  let m = msg.content.replace(/```/g, "");
+                  let textNode =  document.createTextNode(m);
+                  codeNode.appendChild(textNode);
+                  messageContainer.appendChild(codeNode);
+                } else {  
+                  let textNode = document.createTextNode(msg.content);
+                  spanElement.append(textNode);
+                  messageContainer.appendChild(spanElement);
+                }
+                parentContainer.appendChild(messageContainer);
+
+                fs.appendFile(filePath, parentContainer.outerHTML, function (err) {
+                  if (err) console.log(`error`, err);  
+                }); 
+              }); 
+              messageReception.attachFiles(filePath);  
+              sendMessage(client, client.config.channels.auditlogs, messageReception);
+            });
           });
-
-          collector.on('end', collected => {
-              console.log("Messages collected: " + collected.size);
-          }); 
 
           await message.channel.delete();
           db.delete(`support_${support.targetID}`);
@@ -214,16 +276,18 @@ module.exports = async (client, message) => {
           
           messageReception.setTitle(`**💬 Admin/mod replied to you!**`).setFooter(`ModMail Ticket Replied -- ${supportUser.tag}`)
           .setDescription(`> ${msg}`).attachFiles([`./assets/reply.gif`]).setThumbnail(`attachment://reply.gif`)
+          .setImage(message.attachments.first() ? message.attachments.first().url : "") 
           
-          await messageReception.setImage(message.attachments.first() ? message.attachments.first().url : "")  
+          await supportUser.send(messageReception);
+          sendMessage(client, client.config.channels.auditlogs, {embed: messageReception});
           break;
  
         case "unblock":  // unblock a user  
-          if(isBlock === false || !isBlock || isBlock === null) return message.channel.send({ embed: { description: "User wasn't blocked", color: client.config.school_color}});
+          if(isBlock === false || !isBlock || isBlock === null) return message.channel.send({ embed: { description: "User wasn`t blocked", color: client.config.school_color}});
 
           await db.delete(`isBlocked${support.targetID}`);
         
-          messageReception.setDescription(`🙋‍♂️ <@${support.id}> has been successfully **unblocked**!`).setColor("BLUE") 
+          messageReception.setDescription(`🙋‍♂️ <@${supportUser.id}> has been successfully **unblocked**!`).setColor("BLUE") 
           .attachFiles([`./assets/unlocked.gif`]).setThumbnail(`attachment://unlocked.gif`).setFooter(`ModMail User Unblocked -- ${supportUser.tag}`)   
           
           await supportUser.send({embed: messageReception}); 
@@ -243,7 +307,7 @@ module.exports = async (client, message) => {
   __  __                                  _    _                 _ _           
  |  \/  |                                | |  | |               | | |          
  | \  / | ___  ___ ___  __ _  __ _  ___  | |__| | __ _ _ __   __| | | ___ _ __ 
- | |\/| |/ _ \/ __/ __|/ _` |/ _` |/ _ \ |  __  |/ _` | '_ \ / _` | |/ _ \ '__|
+ | |\/| |/ _ \/ __/ __|/ _` |/ _` |/ _ \ |  __  |/ _` | `_ \ / _` | |/ _ \ `__|
  | |  | |  __/\__ \__ \ (_| | (_| |  __/ | |  | | (_| | | | | (_| | |  __/ |   
  |_|  |_|\___||___/___/\__,_|\__, |\___| |_|  |_|\__,_|_| |_|\__,_|_|\___|_|   
                               __/ |                                            
@@ -258,7 +322,7 @@ module.exports = async (client, message) => {
   // Grab the command data from the client.commands Enmap
   const command = client.commands.get(commandName);
 
-  // If that command doesn't exist, return nothing
+  // If that command doesn`t exist, return nothing
   if (!command) return;
 
   if (command.args && !args.length) {
@@ -275,7 +339,7 @@ module.exports = async (client, message) => {
 =======================================================
   / ____|          | |   | |                        
  | |     ___   ___ | | __| | _____      ___ __  ___ 
- | |    / _ \ / _ \| |/ _` |/ _ \ \ /\ / / '_ \/ __|
+ | |    / _ \ / _ \| |/ _` |/ _ \ \ /\ / / `_ \/ __|
  | |___| (_) | (_) | | (_| | (_) \ V  V /| | | \__ \
   \_____\___/ \___/|_|\__,_|\___/ \_/\_/ |_| |_|___/
 =======================================================
