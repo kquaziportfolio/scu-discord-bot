@@ -99,7 +99,7 @@ module.exports = async (client, message) => {
   let support = await db.fetch(`supportChannel_${message.channel.id}`);
   if (support) {
     support = await db.fetch(`support_${support}`);
-    let supportUser = client.users.cache.get(support.targetID);
+    const supportUser = client.users.cache.get(support.targetID);
     if (!supportUser) return message.channel.delete(); 
     
     function modmailCommands() {
@@ -111,8 +111,8 @@ module.exports = async (client, message) => {
         { cmd: "pause", desc: "⏸️ Pause the modmail session!" },
         { cmd: "unblock", desc: "🙋‍♂️ Unblock this user!" }
       ];
-      let str = "```\n";
-      for (let i in commands) {
+      const str = "```\n";
+      for (const i in commands) {
         str += `${client.config.prefix}${commands[i].cmd} - ${commands[i].desc}\n`;
       }
       return str + "\n```";
@@ -120,8 +120,9 @@ module.exports = async (client, message) => {
     
     messageReception.setAuthor(supportUser.tag, supportUser.displayAvatarURL()).setTimestamp()
 	  
-    let isPause = await db.get(`suspended${support.targetID}`);
-    let isBlock = await db.get(`isBlocked${support.targetID}`);
+    const isPause = await db.get(`suspended${support.targetID}`);
+    const isBlock = await db.get(`isBlocked${support.targetID}`);
+    const args = message.content.split(" ").slice(1); 
     
     if(isAdmin(client, message)) {
       switch (message.content.toLowerCase() === `${client.config.modmailPrefix}`) { //if message content in the support user channel is modmail prefix, executes these following commands...
@@ -140,7 +141,6 @@ module.exports = async (client, message) => {
           if(isPause === true) return await message.channel.send({ embed: { description: "This ticket already paused. Unpause it to continue.", color: client.config.school_color}})
           if(isBlock === true) return await message.channel.send({ embed: { description: "The user is blocked. Unblock them to continue or close the ticket.", color: client.config.school_color}})
           
-          let args = message.content.split(" ").slice(1); 
           let msg = args.join(" "); 
           
           messageReception.setTitle(`**💬 Admin/mod replied to you!**`).setFooter(`ModMail Ticket Replied -- ${supportUser.tag}`)
@@ -180,7 +180,6 @@ module.exports = async (client, message) => {
           break;
       
       case "block": // block a user
-          let args = message.content.split(" ").slice(1)
           let reason = args.join(" ");
           if(!reason) reason = `Unspecified...`;
 	  
