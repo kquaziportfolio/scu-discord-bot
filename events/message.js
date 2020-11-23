@@ -119,10 +119,12 @@ module.exports = async (client, message) => {
     }
     
     messageReception.setAuthor(supportUser.tag, supportUser.displayAvatarURL()).setTimestamp()
+	  
+    let isPause = await db.get(`suspended${support.targetID}`);
+    let isBlock = await db.get(`isBlocked${support.targetID}`);
     
     if(isAdmin(client, message)) {
       switch (message.content.toLowerCase() === `${client.config.modmailPrefix}`) { //if message content in the support user channel is modmail prefix, executes these following commands...
-        
 	      case "complete": //close the user's ticket after they're done!
           messageReception.setTitle(`ModMail Ticket Resolved`).setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
           .setDescription(`✅ *Your ModMail has been marked as **complete**. If you wish to create a new one, please send a message to the bot.*`) 
@@ -134,9 +136,7 @@ module.exports = async (client, message) => {
           return db.delete(`support_${support.targetID}`);
           break;
          
-        case "reply": // reply to user
-          let isPause = await db.get(`suspended${support.targetID}`);
-          let isBlock = await db.get(`isBlocked${support.targetID}`);
+        case "reply": // reply to user 
           if(isPause === true) return await message.channel.send({ embed: { description: "This ticket already paused. Unpause it to continue.", color: client.config.school_color}})
           if(isBlock === true) return await message.channel.send({ embed: { description: "The user is blocked. Unblock them to continue or close the ticket.", color: client.config.school_color}})
           
@@ -153,8 +153,7 @@ module.exports = async (client, message) => {
 	        }
           break;
         
-        case "pause":  // pause a thread
-          let isPause = await db.get(`suspended${support.targetID}`);
+        case "pause":  // pause a thread 
           if(isPause === true || isPause === "true") return message.channel.send("This ticket already paused. Unpause it to continue.")
           
           await db.set(`suspended${support.targetID}`, true);
@@ -169,7 +168,6 @@ module.exports = async (client, message) => {
           break;
       
       case "continue": // continue a thread
-          let isPause = await db.get(`suspended${support.targetID}`);
           if(isPause === null || isPause === false) return message.channel.send({ embed: { description: "This ticket was not paused.", color: client.config.school_color}});
           
           await db.delete(`suspended${support.targetID}`);
