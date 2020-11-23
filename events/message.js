@@ -1,4 +1,4 @@
-const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
+const { MessageEmbed, MessageCollector, Collection } = require(`discord.js`); //requires Discord.js integration package
 const db = require(`quick.db`);
 const fs = require(`fs`);
 const cooldowns = new Collection(); 
@@ -86,11 +86,12 @@ module.exports = async (client, message) => {
       db.set(`support_${message.author.id}`, active);
       db.set(`supportChannel_${channel.id}`, message.author.id);
       
-      await channel.send(messageReception.setDescription(`> ${userTicketContent}`).setImage(message.attachments.first() ? message.attachments.first().url : ""));
-      return
+      return await channel.send(messageReception.setDescription(`> ${userTicketContent}`).setImage(message.attachments.first() ? message.attachments.first().url : ""));
+   
     } 
-  } else if (message.channel.type === "dm" && !message.mentions.has(client.user)) {
-      return await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
+  } else if (message.channel.type === "dm" && !message.mentions.has(client.user)) { 
+      await message.react("❌");
+      await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
   }
   
   let support = await db.fetch(`supportChannel_${message.channel.id}`);
@@ -150,25 +151,28 @@ module.exports = async (client, message) => {
           await supportUser.send(`<@${supportUser.id}>`, { embed: messageReception });
           sendMessage(client, client.config.channels.auditlogs, { embed: messageReception});
 
-          const getMSG = await message.channel.messages.fetch({ limit: 100 });
-
-          fs.access("./events/modmailLogs", (err) => { 
-            if (!err) {
-              console.log("Logs", "Your logs folder is ready");
-            } else {
-              fs.mkdir("/modmailLogs", function (err) {
-                if (err) return console.log("Logs", err);
-                console.log("Logs", "Your logs folder is now ready");
-              });
-            }
+          let filter = m => !m.author.bot;
+          let collector = new MessageCollector(message.channel, filter); 
+          collector.on('collect', (m, col) => {
+              console.log("Collected message: " + m.content);
+              let counter = 0;
+              counter++;
+              if (counter === 100) {
+                collector.stop();
+                let messageLOGGER = new MessageEmbed()
+                .setTitle("New Message")
+                .setDescription(m.content)
+                .setTimestamp()
+                .setAuthor(m.author.tag, m.author.displayAvatarURL)
+                .setColor('#FFAB32')
+              
+                sendMessage(client, client.config.channels.auditlogs, messageLOGGER);
+              } 
           });
 
-          let LOG_TEMPLATE = `[${new Date()}] [${nickname}] ${getMSG}`;
-          fs.writeFile(`./events/modmailLogs/logs_${nickname}.txt`, `${LOG_TEMPLATE}`, function(err) {
-            if (err) {
-              return console.log(err);
-            }
-          });
+          collector.on('end', collected => {
+              console.log("Messages collected: " + collected.size);
+          }); 
 
           await message.channel.delete();
           db.delete(`support_${support.targetID}`);
@@ -227,8 +231,8 @@ module.exports = async (client, message) => {
           break; 
 
         default:
-          message.react("❌");
-          message.delete({ timeout: 3000 });
+          await message.react("❌");
+          await message.delete({ timeout: 3000 });
           break;
         }
       }  
