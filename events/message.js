@@ -118,9 +118,11 @@ module.exports = async (client, message) => {
       return str + "\n```";
     }
     
+    messageReception.setAuthor(supportUser.tag, supportUser.displayAvatarURL()).setTimestamp()
+    
     if(isAdmin(client, message)) {
       switch (message.content.toLowerCase() === `${client.config.modmailPrefix}`) { //if message content in the support user channel is modmail prefix, executes these following commands...
-        messageReception.setAuthor(supportUser.tag, supportUser.displayAvatarURL()).setTimestamp()
+        
 	      case "complete": //close the user's ticket after they're done!
           messageReception.setTitle(`ModMail Ticket Resolved`).setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
           .setDescription(`✅ *Your ModMail has been marked as **complete**. If you wish to create a new one, please send a message to the bot.*`) 
