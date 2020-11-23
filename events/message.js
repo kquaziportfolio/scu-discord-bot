@@ -196,7 +196,6 @@ module.exports = async (client, message) => {
           sendMessage(client, client.config.channels.auditlogs, { embed: messageReception});
           break;
       case "unblock":  // unblock a user
-          let isBlock = await db.get(`isBlocked${support.targetID}`);
           if(isBlock === false || !isBlock || isBlock === null) return message.channel.send({ embed: { description: "User wasn't blocked", color: client.config.school_color}});
 
           await db.delete(`isBlocked${support.targetID}`);
