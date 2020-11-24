@@ -27,7 +27,7 @@ module.exports.run = async (client) => {
   }
   
   console.log(feedMSG.title);
-  sendMessage(client, client.config.channels.auditlogs, { embed: feedMSG});
+  //sendMessage(client, client.config.channels.auditlogs, { embed: feedMSG});
 
   setInterval(() => {
     if (botReady) {
