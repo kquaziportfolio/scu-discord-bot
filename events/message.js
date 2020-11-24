@@ -211,7 +211,7 @@ module.exports = async (client, message) => {
                 const spanElement = document.createElement("span"); 
                 const codeNode = document.createElement("code");
  
-                spanElement.appendChild(document.createTextNode(`\n[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`););
+                spanElement.appendChild(document.createTextNode(`\n[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`));
                 messageContainer.append(spanElement);
 
                 msg.embeds.forEach((embed) => {
