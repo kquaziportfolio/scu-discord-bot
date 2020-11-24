@@ -219,7 +219,7 @@ module.exports = async (client, message) => {
 	          let embedArray = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
 		  embedArray.forEach((e) => document.createTextNode(e));
 		  embedArray.forEach((e) => codeNode.append(e)); 
-		  embedArray.forEach((e) => document.createElement("br");
+		  embedArray.forEach((e) => document.createElement("br"));
                   messageContainer.appendChild(codeNode); 
                 });
 
