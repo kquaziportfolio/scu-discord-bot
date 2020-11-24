@@ -24,8 +24,8 @@ module.exports = {
 				});
 
 				const embed = new MessageEmbed()
-				.setTitle(pollQuestion)
-				.setDescription(pollString)
+				.setTitle(pollQuestion.replace(/['"]+/g, ''))
+				.setDescription(pollString.replace(/['"]+/g, ''))
 				.setColor(client.config.school_color)
 				
 				message.channel.send(embed).then(r => {
