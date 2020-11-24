@@ -172,14 +172,20 @@ module.exports = async (client, message) => {
             const filePath = `./events/modmailLogs/index_${supportUser.tag}.html`;
             fs.writeFile(filePath, data, function (err, data) {
               if(err) console.log(`error`, err);
+		    
               let guildElement = document.createElement(`div`); 
+		    
               let guildBannerImg = document.createElement(`img`);
               guildBannerImg.setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/scu_banner.png`);
-              guildBannerImg.setAttribute(`width`, `500`);
+              guildBannerImg.setAttribute(`width`, `500`); 
               guildElement.appendChild(guildBannerImg);
-              let guildTicketImg = document.createElement(`img`);
+		    
+	      let guildBreak = document.createElement(`br`);
+	      guildElement.appendChild(guildBreak);
+		    
+              let guildTicketImg = document.createElement(`img`); 
               guildTicketImg.setAttribute(`src`, `https://i.ibb.co/zbL8P57/scu-modmail-ticket.png`);
-              guildTicketImg.setAttribute(`width`, `500`); 
+              guildTicketImg.setAttribute(`width`, `500`);  
               guildElement.appendChild(guildTicketImg); 
 
               fs.appendFile(filePath, guildElement.outerHTML, function (err) {
@@ -204,16 +210,16 @@ module.exports = async (client, message) => {
 
                 const spanElement = document.createElement("span"); 
                 const codeNode = document.createElement("code");
-
-                let nameElement = document.createElement("span");
-                let name = document.createTextNode(`\n[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`);
-                nameElement.appendChild(name);
-                messageContainer.append(nameElement);
+ 
+                spanElement.appendChild(document.createTextNode(`\n[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`););
+                messageContainer.append(spanElement);
 
                 msg.embeds.forEach((embed) => {
                   console.log(msg); 
-                  let botTxtEmbedContentsNode = document.createTextNode(`Title: ${embed.title}\nDescription: ${embed.description}\n Footer: ${embed.footer.text}`); 
-                  codeNode.append(botTxtEmbedContentsNode); 
+	          let embedArray = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
+		  embedArray.forEach((e) => document.createTextNode(e));
+		  embedArray.forEach((e) => codeNode.append(e)); 
+		  embedArray.forEach((e) => document.createElement("br");
                   messageContainer.appendChild(codeNode); 
                 });
 
