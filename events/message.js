@@ -172,13 +172,15 @@ module.exports = async (client, message) => {
             const filePath = `./events/modmailLogs/index_${supportUser.tag}.html`;
             fs.writeFile(filePath, data, function (err, data) {
               if(err) console.log(`error`, err);
-              let guildElement = document.createElement(`div`);
-              let guildText = document.createTextNode(message.guild.name);
-              let guildImg = document.createElement(`img`);
-              guildImg.setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/logo-pic.png`);
-              guildImg.setAttribute(`width`, `150`);
-              guildElement.appendChild(guildImg);
-              guildElement.appendChild(guildText); 
+              let guildElement = document.createElement(`div`); 
+              let guildBannerImg = document.createElement(`img`);
+              guildBannerImg.setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/scu_banner.png`);
+              guildBannerImg.setAttribute(`width`, `500`);
+              guildElement.appendChild(guildBannerImg);
+              let guildTicketImg = document.createElement(`img`);
+              guildTicketImg.setAttribute(`src`, `https://i.ibb.co/zbL8P57/scu-modmail-ticket.png`);
+              guildTicketImg.setAttribute(`width`, `500`); 
+              guildElement.appendChild(guildTicketImg); 
 
               fs.appendFile(filePath, guildElement.outerHTML, function (err) {
                 if (err) console.log(`error`, err);
@@ -192,6 +194,7 @@ module.exports = async (client, message) => {
                 avatarDiv.className = "avatar-container";
                 let img = document.createElement(`img`);
                 img.setAttribute(`src`, msg.author.displayAvatarURL());
+                img.setAttribute(`style`, `margin: 30px`);
                 img.className = "avatar";
                 avatarDiv.appendChild(img);
 
@@ -202,11 +205,10 @@ module.exports = async (client, message) => {
 
                 const spanElement = document.createElement("span"); 
                 const codeNode = document.createElement("code");
-
-                let nameElement = document.createElement("span");
+ 
                 let name = document.createTextNode(`\n[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`);
-                nameElement.appendChild(name);
-                messageContainer.append(nameElement);
+                spanElement.appendChild(name);
+                messageContainer.append(spanElement);
 
                 msg.embeds.forEach((embed) => {
                   console.log(msg); 
