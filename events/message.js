@@ -129,7 +129,7 @@ module.exports = async (client, message) => {
       let isBlock = await db.get(`isBlocked${support.targetID}`); 
       switch (message.content.split(" ")[0].slice(1).toLowerCase()) { //if message content in the support user channel is a modmail command, execute the results...
         case "cmds": //on default, give list of modmail sub-commands :)
-          message.channel.send({ embed: { title: `**📩  MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
+          await message.channel.send({ embed: { title: `**📩  MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
           break; 
 
         case "block": // block a user
@@ -145,7 +145,7 @@ module.exports = async (client, message) => {
           messageReception.setDescription(`🙅‍♂️ You cannot use the modmail anymore and have been blocked.`)
         
           await supportUser.send({embed: messageReception});
-          sendMessage(client, client.config.channels.auditlogs, { embed: messageReception});
+          await message.channel.send(messageReception);
           break;
 
         case "complete": //close the user`s ticket after they`re done and log it!
@@ -252,7 +252,7 @@ module.exports = async (client, message) => {
           .attachFiles([`./assets/continued.gif`]).setThumbnail(`attachment://continued.gif`).setFooter(`ModMail Ticket Continued -- ${supportUser.tag}`) 
           
           await supportUser.send(messageReception);
-          sendMessage(client, client.config.channels.auditlogs, {embed: messageReception});
+          await message.channel.send(messageReception);
           break;
           
         case "pause":  // pause a thread 
@@ -266,7 +266,7 @@ module.exports = async (client, message) => {
           await supportUser.send(messageReception);
           
           messageReception.setDescription(`Admin/mod, please use \`${client.config.prefix}continue\` to cancel.`);
-          sendMessage(client, client.config.channels.auditlogs, {embed: messageReception});
+          await message.channel.send(messageReception);
           break;
 
         case "reply": // reply to user  
@@ -281,7 +281,7 @@ module.exports = async (client, message) => {
           .setImage(message.attachments.first() ? message.attachments.first().url : "") 
           
           await supportUser.send(messageReception);
-          sendMessage(client, client.config.channels.auditlogs, {embed: messageReception});
+          await message.channel.send(messageReception);
           break;
  
         case "unblock":  // unblock a user  
@@ -293,7 +293,7 @@ module.exports = async (client, message) => {
           .attachFiles([`./assets/unlocked.gif`]).setThumbnail(`attachment://unlocked.gif`).setFooter(`ModMail User Unblocked -- ${supportUser.tag}`)   
           
           await supportUser.send({embed: messageReception}); 
-          sendMessage(client, client.config.channels.auditlogs, { embed: messageReception});
+          await message.channel.send(messageReception);
           break; 
 
         default:
