@@ -129,7 +129,7 @@ module.exports = async (client, message) => {
       let isBlock = await db.get(`isBlocked${support.targetID}`); 
       switch (message.content.split(" ")[0].slice(1).toLowerCase()) { //if message content in the support user channel is a modmail command, execute the results...
         case "cmds": //on default, give list of modmail sub-commands :)
-          await message.channel.send({ embed: { title: `**📩  MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
+          message.channel.send({ embed: { title: `**📩  MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
           break; 
 
         case "block": // block a user
@@ -168,7 +168,7 @@ module.exports = async (client, message) => {
           }
 
           let msgs = messageCollection.array().reverse();
-          await fs.readFile(`./assets/modmailTemplate/template.html`, `utf8`, function(err, data) {
+          await fs.readFile(`./events/modmailLogs/template/template.html`, `utf8`, function(err, data) {
             const filePath = `./events/modmailLogs/index_${supportUser.tag}.html`;
             fs.writeFile(filePath, data, function (err, data) {
               if(err) console.log(`error`, err);
@@ -194,7 +194,6 @@ module.exports = async (client, message) => {
                 avatarDiv.className = "avatar-container";
                 let img = document.createElement(`img`);
                 img.setAttribute(`src`, msg.author.displayAvatarURL());
-                img.setAttribute(`style`, `margin: 30px`);
                 img.className = "avatar";
                 avatarDiv.appendChild(img);
 
@@ -205,10 +204,11 @@ module.exports = async (client, message) => {
 
                 const spanElement = document.createElement("span"); 
                 const codeNode = document.createElement("code");
- 
+
+                let nameElement = document.createElement("span");
                 let name = document.createTextNode(`\n[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`);
-                spanElement.appendChild(name);
-                messageContainer.append(spanElement);
+                nameElement.appendChild(name);
+                messageContainer.append(nameElement);
 
                 msg.embeds.forEach((embed) => {
                   console.log(msg); 
