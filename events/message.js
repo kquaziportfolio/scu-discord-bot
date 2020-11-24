@@ -210,18 +210,18 @@ module.exports = async (client, message) => {
 
                 const spanElement = document.createElement("span"); 
                 const codeNode = document.createElement("code");
- 
-                spanElement.appendChild(document.createTextNode(`\n[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`));
-                messageContainer.append(spanElement);
+
+                let nameElement = document.createElement("span");
+                let name = document.createTextNode(`[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`);
+                nameElement.appendChild(name);
+                messageContainer.append(nameElement);
 
                 msg.embeds.forEach((embed) => {
                   console.log(msg); 
-	          let embedArray = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
-		  embedArray.forEach((e) => document.createTextNode(e));
-		  embedArray.forEach((e) => codeNode.append(e)); 
-		  embedArray.forEach((e) => document.createElement("br"));
+                  let botTxtEmbedContentsNode = document.createTextNode(`Title: ${embed.title}\nDescription: ${embed.description}\n Footer: ${embed.footer.text}`); 
+                  codeNode.append(botTxtEmbedContentsNode); 
                   messageContainer.appendChild(codeNode); 
-                });
+                }); 
 
                 if(msg.content.startsWith("```")) {
                   let m = msg.content.replace(/```/g, "");
