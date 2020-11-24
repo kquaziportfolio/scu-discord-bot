@@ -168,7 +168,7 @@ module.exports = async (client, message) => {
           }
 
           let msgs = messageCollection.array().reverse();
-          await fs.readFile(`./events/modmailLogs/template/template.html`, `utf8`, function(err, data) {
+          await fs.readFile(`./assets/modmailTemplate/template.html`, `utf8`, function(err, data) {
             const filePath = `./events/modmailLogs/index_${supportUser.tag}.html`;
             fs.writeFile(filePath, data, function (err, data) {
               if(err) console.log(`error`, err);
