@@ -47,7 +47,7 @@ module.exports.run = async (client) => {
   }
   app.listen(2000, () => {
     console.log(verifyMSG.description);
-    //sendMessage(client, client.config.channels.auditlogs, { embed: verifyMSG});
+    sendMessage(client, client.config.channels.auditlogs, { embed: verifyMSG});
   });
   app.all("/", (req, res) => {
     res.status(200).send(`${verifyMSG.title} was deployed on ${verifyMSG.timestamp} ✅`);
