@@ -43,25 +43,24 @@ module.exports = async (client, message) => {
         found = false;
       }
 
-      if (!active || !found) {
-        //create support channel for new respondee
+      if (!active || !found) { //create support channel for new respondee
         active = {};
         channel = await guild.channels.create(`${nickname}-${message.author.discriminator}`);     
         channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
         channel.setTopic(`Use **${client.config.prefix}cmds** to utilize the Ticket | ModMail commands on behalf of <@${message.author.id}>`);
         channel.overwritePermissions([ 
-          {
+          /*{
             id: client.config.serverRoles.mod,
             allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
-          },
+          },*/
           {
             id: message.author.id,
             allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `EMBED_LINKS`, `ATTACH_FILES`, `USE_EXTERNAL_EMOJIS`]
           },
-          {
+          /*{
             id: client.config.serverRoles.everyone,
             deny: [`VIEW_CHANNEL`]
-          }
+          }*/
         ]);
         
         messageReception
@@ -72,7 +71,7 @@ module.exports = async (client, message) => {
         .attachFiles([`./assets/verified.gif`])
         .setThumbnail(`attachment://verified.gif`)  
         
-        await message.author.send(`<@${message.author.id}>`, { embed: messageReception });
+        await message.author.send({ embed: messageReception });
         
         // Update Active Data
         active.channelID = channel.id;
@@ -83,9 +82,9 @@ module.exports = async (client, message) => {
 
       messageReception //fires for newly created and existing tickets 
       .setTitle(`Modmail Ticket Sent!`)
-      .setDescription(`Your new content has been sent!`)
+      .setDescription(`Your new content was sent to <#${active.channelID}>!`)
       .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
-      await message.author.send(`<@${message.author.id}>`, { embed: messageReception }); 
+      await message.author.send({ embed: messageReception }); 
 
       db.set(`support_${message.author.id}`, active);
       db.set(`supportChannel_${channel.id}`, message.author.id);
@@ -93,7 +92,7 @@ module.exports = async (client, message) => {
       return await channel.send(messageReception.setDescription(`> ${userTicketContent}`).setImage(message.attachments.first() ? message.attachments.first().url : ""));
    
     } 
-  } else if (message.channel.type === "dm" && (!message.mentions.has(client.user) || message.content.indexOf('@') !== -1 || message.attachments.size > 0)) { 
+  } else if (message.channel.type === "dm" && (!message.mentions.has(client.user) || message.attachments.size > 0)) { 
       return await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message and/or send an attachment!`, color: client.config.school_color}});
   }
   
@@ -167,47 +166,49 @@ module.exports = async (client, message) => {
           }
 
           let msgs = messageCollection.array().reverse();
-          await fs.readFile(`./assets/modmailTemplate/template.html`, `utf8`, function(err, data) {
+          fs.readFile(`./assets/modmailTemplate/template.html`, `utf8`, function (err, data) {
             const filePath = `./events/modmailLogs/index_${supportUser.tag}.html`;
             fs.writeFile(filePath, data, function (err, data) {
-              if(err) console.log(`error`, err);
-		    
-              let guildElement = document.createElement(`div`); 
-		    
+              if (err) console.log(`error`, err);
+
+              let guildElement = document.createElement(`div`);
+              guildElement.className = "img-container";
+
               let guildBannerImg = document.createElement(`img`);
-              guildBannerImg.setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/scu_banner.png`);
-              guildBannerImg.setAttribute(`width`, `500`); 
+              guildBannerImg.setAttribute(`src`, `${client.config.verification.githubLink}blob/master/assets/scu_banner.png?raw=true`);
+              guildBannerImg.setAttribute(`width`, `500`);
               guildElement.appendChild(guildBannerImg);
-		    
-	      let guildBreak = document.createElement(`br`);
-	      guildElement.appendChild(guildBreak);
-		    
-              let guildTicketImg = document.createElement(`img`); 
-              guildTicketImg.setAttribute(`src`, `https://i.ibb.co/zbL8P57/scu-modmail-ticket.png`);
-              guildTicketImg.setAttribute(`width`, `500`);  
-              guildElement.appendChild(guildTicketImg); 
-		    
-	      fs.appendFile(filePath, guildElement.outerHTML, function (err) {
-                if (err) console.log(`error`, err);
+
+              let guildBreak = document.createElement(`br`);
+              guildElement.appendChild(guildBreak);
+
+              let guildTicketImg = document.createElement(`img`);
+              guildTicketImg.setAttribute(`src`, `${client.config.verification.githubLink}blob/master/assets/scu_modmail_ticket.png?raw=true`);
+              guildTicketImg.setAttribute(`width`, `500`);
+              guildElement.appendChild(guildTicketImg);
+
+              fs.appendFile(filePath, guildElement.outerHTML, function (err) {
+                if (err)
+                  console.log(`error`, err);
               });
 
-              msgs.forEach(async msg => {
+              msgs.forEach(async (msg) => {
                 let parentContainer = document.createElement("div");
                 parentContainer.className = "parent-container";
 
                 let avatarDiv = document.createElement("div");
                 avatarDiv.className = "avatar-container";
+
                 let img = document.createElement(`img`);
                 img.setAttribute(`src`, msg.author.displayAvatarURL());
                 img.className = "avatar";
                 avatarDiv.appendChild(img);
-
                 parentContainer.appendChild(avatarDiv);
 
-                let messageContainer = document.createElement(`div`);
+                const messageContainer = document.createElement(`div`);
                 messageContainer.className = "message-container";
 
-                const spanElement = document.createElement("span"); 
+                const spanElement = document.createElement("span");
                 const codeNode = document.createElement("code");
 
                 let nameElement = document.createElement("span");
@@ -215,32 +216,35 @@ module.exports = async (client, message) => {
                 nameElement.appendChild(name);
                 messageContainer.append(nameElement);
 
-                msg.embeds.forEach(async embed => {
-		  console.log(msg); 
-                  let embedElements = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
-                  embedElements.forEach(async embedElement => {
-                      codeNode.append(embedElement); 
-                  });
-                  messageContainer.appendChild(guildElement); 
-                  messageContainer.appendChild(codeNode); 
-                }); 
+                for (const embed of msg.embeds) {
+                  const embedElements = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
+                
+                  for (const text of embedElements) {
+                    const paragraph = document.createElement("p");
+                    paragraph.appendChild(document.createTextNode(text));
+                    const embedSpan = document.createElement("span");
+                    embedSpan.append(paragraph); 
+                    messageContainer.appendChild(embedSpan);
+                  }
+                }
 
-                if(msg.content.startsWith("```")) {  
+                if (msg.content.startsWith("```")) {
                   codeNode.appendChild(document.createTextNode(msg.content.replace(/```/g, "")));
                   messageContainer.appendChild(codeNode);
-                } else {   
+                } else if (msg.content) {
                   spanElement.append(document.createTextNode(msg.content));
                   messageContainer.appendChild(spanElement);
                 }
-			
+
                 parentContainer.appendChild(messageContainer);
-		      
-		fs.appendFile(filePath, parentContainer.outerHTML, function (err) {
-                  if (err) console.log(`error`, err);  
-                }); 
- 
-              }); 
-              messageReception.attachFiles(filePath);  
+
+                fs.appendFile(filePath, parentContainer.outerHTML, function (err) {
+                  if (err)
+                    console.log(`error`, err);
+                });
+              });
+
+              messageReception.attachFiles(filePath);
               sendMessage(client, client.config.channels.auditlogs, messageReception);
             });
           });
@@ -275,7 +279,8 @@ module.exports = async (client, message) => {
           await message.channel.send(messageReception);
           break;
 
-        case "reply": // reply to user  
+        case "reply": // reply to user 
+          message.delete();
           if(isPause === true) return await message.channel.send({ embed: { description: "This ticket already paused. Unpause it to continue.", color: client.config.school_color}})
           if(isBlock === true) return await message.channel.send({ embed: { description: "The user is blocked. Unblock them to continue or close the ticket.", color: client.config.school_color}})
           
