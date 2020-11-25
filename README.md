@@ -5,7 +5,7 @@
 ## Discord.JS BOT
 - This is a 24/7 bot that I made for my [**SCU Discord Network**](https://invite.gg/gobroncos) to provide a comprehensive and effective social media platform for Santa Clara University students to utilize especially in the midst of the worldwide COVID-19 pandemic.
 
-  - Utilized the Node.js environment and Node module Discord.js to deploy a bot that greets/sends direct messages, interacts with over 500 students, and performs an assortment of automated tasks to better the server experience. An example is the SCU Reddit feed module that scrapes posts from [/r/College](https://reddit.com/r/College) (5 new posts every 30 hours) and delivers them as message embeds in the Discord server.
+  - Utilized the Node.js environment and Node module Discord.js to deploy a bot that greets/sends direct messages, interacts with over 500 students, and performs an assortment of automated tasks to better the server experience.
 
   - Programmed an Express.js server for a guild verification system which automatically gives graduating year, college major, and verified roles to SCU students on submitting their unique Google Form responses.
 
