@@ -186,6 +186,10 @@ module.exports = async (client, message) => {
               guildTicketImg.setAttribute(`src`, `https://i.ibb.co/zbL8P57/scu-modmail-ticket.png`);
               guildTicketImg.setAttribute(`width`, `500`);  
               guildElement.appendChild(guildTicketImg); 
+		    
+	      fs.appendFile(filePath, guildElement.outerHTML, function (err) {
+                if (err) console.log(`error`, err);
+              });
 
               msgs.forEach(async msg => {
                 let parentContainer = document.createElement("div");
@@ -229,6 +233,10 @@ module.exports = async (client, message) => {
                 }
 			
                 parentContainer.appendChild(messageContainer);
+		      
+		fs.appendFile(filePath, parentContainer.outerHTML, function (err) {
+                  if (err) console.log(`error`, err);  
+                }); 
  
               }); 
               messageReception.attachFiles(filePath);  
