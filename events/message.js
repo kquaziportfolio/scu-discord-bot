@@ -49,18 +49,18 @@ module.exports = async (client, message) => {
         channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
         channel.setTopic(`Use **${client.config.prefix}cmds** to utilize the Ticket | ModMail commands on behalf of <@${message.author.id}>`);
         channel.overwritePermissions([ 
-          /*{
+          {
             id: client.config.serverRoles.mod,
             allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
-          },*/
+          },
           {
             id: message.author.id,
             allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `EMBED_LINKS`, `ATTACH_FILES`, `USE_EXTERNAL_EMOJIS`]
           },
-          /*{
+          {
             id: client.config.serverRoles.everyone,
             deny: [`VIEW_CHANNEL`]
-          }*/
+          }
         ]);
         
         messageReception
