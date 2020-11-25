@@ -179,7 +179,7 @@ module.exports = async (client, message) => {
               const guildTicketImg = document.createElement(`img`).setAttribute(`src`, `https://i.ibb.co/zbL8P57/scu-modmail-ticket.png`).setAttribute(`width`, `500`);  
 		    
 	      const guildElements = [guildBannerImg, guildBreak, guildTicketImg];
-	      guildElements.forEach( async guildE =>
+	      guildElements.forEach( async guildE => {
 	          guildElement.appendChild(guildE);
 	      }); 
 
