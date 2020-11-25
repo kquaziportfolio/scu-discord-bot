@@ -172,37 +172,51 @@ module.exports = async (client, message) => {
             fs.writeFile(filePath, data, function (err, data) {
               if(err) console.log(`error`, err);
 		    
-              const guildElement = document.createElement(`div`);  
-              const guildBannerImg = document.createElement(`img`)
-              .setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/scu_banner.png`).setAttribute(`width`, `500`); 
-	      const guildBreak = document.createElement(`br`); 
-              const guildTicketImg = document.createElement(`img`).setAttribute(`src`, `https://i.ibb.co/zbL8P57/scu-modmail-ticket.png`).setAttribute(`width`, `500`);  
+              let guildElement = document.createElement(`div`); 
 		    
-	      const guildElements = [guildBannerImg, guildBreak, guildTicketImg];
-	      guildElements.forEach( async guildE => {
-	          guildElement.appendChild(guildE);
-	      }); 
+              let guildBannerImg = document.createElement(`img`);
+              guildBannerImg.setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/scu_banner.png`);
+              guildBannerImg.setAttribute(`width`, `500`); 
+              guildElement.appendChild(guildBannerImg);
+		    
+	      let guildBreak = document.createElement(`br`);
+	      guildElement.appendChild(guildBreak);
+		    
+              let guildTicketImg = document.createElement(`img`); 
+              guildTicketImg.setAttribute(`src`, `https://i.ibb.co/zbL8P57/scu-modmail-ticket.png`);
+              guildTicketImg.setAttribute(`width`, `500`);  
+              guildElement.appendChild(guildTicketImg); 
 
               msgs.forEach(async msg => {
-                let parentContainer = document.createElement("div").container; 
-                let avatarDiv = document.createElement("div").className = "avatar-container";
-                let img = document.createElement(`img`).setAttribute(`src`, msg.author.displayAvatarURL()).className = "avatar";
-                avatarDiv.appendChild(img); 
+                let parentContainer = document.createElement("div");
+                parentContainer.className = "parent-container";
+
+                let avatarDiv = document.createElement("div");
+                avatarDiv.className = "avatar-container";
+                let img = document.createElement(`img`);
+                img.setAttribute(`src`, msg.author.displayAvatarURL());
+                img.className = "avatar";
+                avatarDiv.appendChild(img);
+
                 parentContainer.appendChild(avatarDiv);
 
-                const messageContainer = document.createElement(`div`).className = "message-container"; 
+                let messageContainer = document.createElement(`div`);
+                messageContainer.className = "message-container";
+
                 const spanElement = document.createElement("span"); 
                 const codeNode = document.createElement("code");
- 
-	        const nameElement = document.createElement("span")
-                    .appendChild(document.createTextNode(`[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`));
+
+                let nameElement = document.createElement("span");
+                let name = document.createTextNode(`[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`);
+                nameElement.appendChild(name);
                 messageContainer.append(nameElement);
 
                 msg.embeds.forEach(async embed => {
                   console.log(msg); 
 		  let embedsArray = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
 		  embedsArray.forEach(async embed => { 
-		      codeNode.append(document.createTextNode(embed)).appendChild(guildBreak);
+		      codeNode.append(document.createTextNode(embed));
+		      codeNode.appendChild(guildBreak);
 		      messageContainer.appendChild(codeNode);
 		  });  
                 }); 
