@@ -218,7 +218,7 @@ module.exports = async (client, message) => {
                 msg.embeds.forEach(async embed => {
 		  console.log(msg); 
                   let embedElements = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
-                  embedElements.forEach(async embedElement =>
+                  embedElements.forEach(async embedElement => {
                       codeNode.append(embedElement); 
                   });
                   messageContainer.appendChild(guildElement); 
