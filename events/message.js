@@ -184,7 +184,7 @@ module.exports = async (client, message) => {
 	      }); 
 
               msgs.forEach(async msg => {
-                let parentContainer = document.createElement("div").container"; 
+                let parentContainer = document.createElement("div").container; 
                 let avatarDiv = document.createElement("div").className = "avatar-container";
                 let img = document.createElement(`img`).setAttribute(`src`, msg.author.displayAvatarURL()).className = "avatar";
                 avatarDiv.appendChild(img); 
