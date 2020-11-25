@@ -211,7 +211,7 @@ module.exports = async (client, message) => {
                   codeNode.appendChild(document.createTextNode(msg.content.replace(/```/g, "")));
                   messageContainer.appendChild(codeNode);
                 } else {   
-                  spanElement.append(document.createTextNode(msg.content);
+                  spanElement.append(document.createTextNode(msg.content));
                   messageContainer.appendChild(spanElement);
                 }
 			
