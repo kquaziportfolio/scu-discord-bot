@@ -93,8 +93,8 @@ module.exports = async (client, message) => {
       return await channel.send(messageReception.setDescription(`> ${userTicketContent}`).setImage(message.attachments.first() ? message.attachments.first().url : ""));
    
     } 
-  } else if (message.channel.type === "dm" && !message.mentions.has(client.user)) { 
-      return await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
+  } else if (message.channel.type === "dm" && (!message.mentions.has(client.user) ||  message.content.indexOf(message.mention.has(client.user) === 0)) || message.attachments.size > 0) { 
+      return await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message and/or send an attachment!`, color: client.config.school_color}});
   }
   
   let support = await db.fetch(`supportChannel_${message.channel.id}`);
@@ -174,7 +174,7 @@ module.exports = async (client, message) => {
 		    
               const guildElement = document.createElement(`div`);  
               const guildBannerImg = document.createElement(`img`)
-              .setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/scu_banner.png`) .setAttribute(`width`, `500`); 
+              .setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/scu_banner.png`).setAttribute(`width`, `500`); 
 	      const guildBreak = document.createElement(`br`); 
               const guildTicketImg = document.createElement(`img`).setAttribute(`src`, `https://i.ibb.co/zbL8P57/scu-modmail-ticket.png`).setAttribute(`width`, `500`);  
 		    
