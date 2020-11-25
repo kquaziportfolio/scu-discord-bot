@@ -6,7 +6,7 @@
 - Este es un bot 24/7 que fue creado para red de la SCU Discord para poder proporcionar una plataforma de redes sociales completa y efectiva para que los estudiantes de la Universidad de Santa Clara la utilizar, especialmente en tiempos de pandemia mundial de COVID-19. 
 
   - Utilizamos el entorno Node.js y el modulo node Discord.JS para implementar un bot que saluda y envia mensajes directos,
-interactua con mas de 500 estudiantes y realiza una variedad de tareas automatizadas para mejorar la experiencia del servidor. Un ejemplo es el modulo de alimentacion de Reddit que extrae publicaciones de [/r/College](https://reddit.com/r/college) (5 publicaciones nuevas cada 30 horas) y las entrega como mensajes embeds en el servidor de Discord.
+interactua con mas de 500 estudiantes y realiza una variedad de tareas automatizadas para mejorar la experiencia del servidor.
 
   - Programamos un servidor Express.js para un sistema de verificacion gremios que automaticamente otorga roles de año de graduacion, especializacion universitaria y verificados a los estudiantes de SCU al enviar sus respuestas unicas de Google Form.
 
