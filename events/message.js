@@ -212,13 +212,12 @@ module.exports = async (client, message) => {
                 messageContainer.append(nameElement);
 
                 msg.embeds.forEach(async embed => {
-                  console.log(msg); 
-		  let embedsArray = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
-		  embedsArray.forEach(async embed => { 
-		      codeNode.append(document.createTextNode(embed));
-		      codeNode.appendChild(guildBreak);
-		      messageContainer.appendChild(codeNode);
-		  });  
+		  console.log(msg); 
+                  let title = document.createTextNode(`Title: ${embed.title}`); 
+		  let description = document.createTextNode(`Description: ${embed.description}`);
+		  let footer = document.createTextNode(`Footer: ${embed.footer.text}`);
+                  codeNode.append(title); codeNode.append(description); codeNode.append(footer); 
+                  messageContainer.appendChild(codeNode); 
                 }); 
 
                 if(msg.content.startsWith("```")) {  
