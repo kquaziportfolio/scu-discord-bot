@@ -93,7 +93,7 @@ module.exports = async (client, message) => {
       return await channel.send(messageReception.setDescription(`> ${userTicketContent}`).setImage(message.attachments.first() ? message.attachments.first().url : ""));
    
     } 
-  } else if (message.channel.type === "dm" && (!message.mentions.has(client.user) ||  message.content.indexOf(message.mention.has(client.user) === 0)) || message.attachments.size > 0) { 
+  } else if (message.channel.type === "dm" && (!message.mentions.has(client.user) || message.content.indexOf('@') !== -1 || message.attachments.size > 0)) { 
       return await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message and/or send an attachment!`, color: client.config.school_color}});
   }
   
@@ -217,10 +217,11 @@ module.exports = async (client, message) => {
 
                 msg.embeds.forEach(async embed => {
 		  console.log(msg); 
-                  let title = document.createTextNode(`Title: ${embed.title}`); 
-		  let description = document.createTextNode(`Description: ${embed.description}`);
-		  let footer = document.createTextNode(`Footer: ${embed.footer.text}`);
-                  codeNode.append(title); codeNode.append(description); codeNode.append(footer); 
+                  let embedElements = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
+                  embedElements.forEach(async embedElement =>
+                      codeNode.append(embedElement); 
+                  });
+                  messageContainer.appendChild(guildElement); 
                   messageContainer.appendChild(codeNode); 
                 }); 
 
