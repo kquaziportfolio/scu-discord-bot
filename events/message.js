@@ -94,8 +94,7 @@ module.exports = async (client, message) => {
    
     } 
   } else if (message.channel.type === "dm" && !message.mentions.has(client.user)) { 
-      await message.react("❌");
-      await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
+      return await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message!`, color: client.config.school_color}});
   }
   
   let support = await db.fetch(`supportChannel_${message.channel.id}`);
@@ -155,13 +154,13 @@ module.exports = async (client, message) => {
           await supportUser.send(`<@${supportUser.id}>`, { embed: messageReception });;
 
           let messageCollection = new Collection();
-          let channelMessages = await message.channel.messages.fetch({ limit: 100 }).catch(err => console.log(err));
+          let channelMessages = await message.channel.messages.fetch({ limit: 100 });
 
           messageCollection = messageCollection.concat(channelMessages);
 
           while(channelMessages.size === 100) {
             let lastMessageId = channelMessages.lastKey();
-            channelMessages = await message.channel.messages.fetch({ limit: 100, before: lastMessageId }).catch(err => console.log(err));
+            channelMessages = await message.channel.messages.fetch({ limit: 100, before: lastMessageId });
             if(channelMessages) {
               messageCollection = messageCollection.concat(channelMessages);
             }
@@ -173,71 +172,51 @@ module.exports = async (client, message) => {
             fs.writeFile(filePath, data, function (err, data) {
               if(err) console.log(`error`, err);
 		    
-              let guildElement = document.createElement(`div`); 
+              const guildElement = document.createElement(`div`);  
+              const guildBannerImg = document.createElement(`img`)
+              .setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/scu_banner.png`) .setAttribute(`width`, `500`); 
+	      const guildBreak = document.createElement(`br`); 
+              const guildTicketImg = document.createElement(`img`).setAttribute(`src`, `https://i.ibb.co/zbL8P57/scu-modmail-ticket.png`).setAttribute(`width`, `500`);  
 		    
-              let guildBannerImg = document.createElement(`img`);
-              guildBannerImg.setAttribute(`src`, `https://raw.githubusercontent.com/jasonanhvu/scu-discord-bot/master/assets/scu_banner.png`);
-              guildBannerImg.setAttribute(`width`, `500`); 
-              guildElement.appendChild(guildBannerImg);
-		    
-	      let guildBreak = document.createElement(`br`);
-	      guildElement.appendChild(guildBreak);
-		    
-              let guildTicketImg = document.createElement(`img`); 
-              guildTicketImg.setAttribute(`src`, `https://i.ibb.co/zbL8P57/scu-modmail-ticket.png`);
-              guildTicketImg.setAttribute(`width`, `500`);  
-              guildElement.appendChild(guildTicketImg); 
-
-              fs.appendFile(filePath, guildElement.outerHTML, function (err) {
-                if (err) console.log(`error`, err);
-              });
+	      const guildElements = [guildBannerImg, guildBreak, guildTicketImg];
+	      guildElements.forEach( async guildE =>
+	          guildElement.appendChild(guildE);
+	      }); 
 
               msgs.forEach(async msg => {
-                let parentContainer = document.createElement("div");
-                parentContainer.className = "parent-container";
-
-                let avatarDiv = document.createElement("div");
-                avatarDiv.className = "avatar-container";
-                let img = document.createElement(`img`);
-                img.setAttribute(`src`, msg.author.displayAvatarURL());
-                img.className = "avatar";
-                avatarDiv.appendChild(img);
-
+                let parentContainer = document.createElement("div").container"; 
+                let avatarDiv = document.createElement("div").className = "avatar-container";
+                let img = document.createElement(`img`).setAttribute(`src`, msg.author.displayAvatarURL()).className = "avatar";
+                avatarDiv.appendChild(img); 
                 parentContainer.appendChild(avatarDiv);
 
-                let messageContainer = document.createElement(`div`);
-                messageContainer.className = "message-container";
-
+                const messageContainer = document.createElement(`div`).className = "message-container"; 
                 const spanElement = document.createElement("span"); 
                 const codeNode = document.createElement("code");
-
-                let nameElement = document.createElement("span");
-                let name = document.createTextNode(`[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`);
-                nameElement.appendChild(name);
+ 
+	        const nameElement = document.createElement("span")
+                    .appendChild(document.createTextNode(`[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`));
                 messageContainer.append(nameElement);
 
-                msg.embeds.forEach((embed) => {
+                msg.embeds.forEach(async embed => {
                   console.log(msg); 
-                  let botTxtEmbedContentsNode = document.createTextNode(`Title: ${embed.title}\nDescription: ${embed.description}\n Footer: ${embed.footer.text}`); 
-                  codeNode.append(botTxtEmbedContentsNode); 
-                  messageContainer.appendChild(codeNode); 
+		  let embedsArray = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
+		  embedsArray.forEach(async embed => { 
+		      codeNode.append(document.createTextNode(embed)).appendChild(guildBreak);
+		      messageContainer.appendChild(codeNode);
+		  });  
                 }); 
 
-                if(msg.content.startsWith("```")) {
-                  let m = msg.content.replace(/```/g, "");
-                  let textNode =  document.createTextNode(m);
-                  codeNode.appendChild(textNode);
+                if(msg.content.startsWith("```")) {  
+                  codeNode.appendChild(document.createTextNode(msg.content.replace(/```/g, "")););
                   messageContainer.appendChild(codeNode);
-                } else {  
-                  let textNode = document.createTextNode(msg.content);
-                  spanElement.append(textNode);
+                } else {   
+                  spanElement.append(document.createTextNode(msg.content);
                   messageContainer.appendChild(spanElement);
                 }
+			
                 parentContainer.appendChild(messageContainer);
-
-                fs.appendFile(filePath, parentContainer.outerHTML, function (err) {
-                  if (err) console.log(`error`, err);  
-                }); 
+ 
               }); 
               messageReception.attachFiles(filePath);  
               sendMessage(client, client.config.channels.auditlogs, messageReception);
@@ -246,7 +225,6 @@ module.exports = async (client, message) => {
 
           await message.channel.delete();
           db.delete(`support_${support.targetID}`);
-
           break; 
         
         case "continue": // continue a thread
