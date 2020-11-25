@@ -208,7 +208,7 @@ module.exports = async (client, message) => {
                 }); 
 
                 if(msg.content.startsWith("```")) {  
-                  codeNode.appendChild(document.createTextNode(msg.content.replace(/```/g, ""));
+                  codeNode.appendChild(document.createTextNode(msg.content.replace(/```/g, "")));
                   messageContainer.appendChild(codeNode);
                 } else {   
                   spanElement.append(document.createTextNode(msg.content);
