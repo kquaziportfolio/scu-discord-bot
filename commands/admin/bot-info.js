@@ -1,12 +1,10 @@
 const package = require(`../../package.json`);
-let isAdmin = require(`../../modules/isAdmin.js`);
 
 module.exports = { 
     name: 'bot-info',
     description: 'Get the bot\'s info!',
     category: 'Admin',  
     async execute(client, message, args) {
-        if(isAdmin(client, message)) {
             const botInfo = {
                 color: client.config.school_color,
                 author: {
@@ -40,6 +38,5 @@ module.exports = {
                 ],
              };
              message.channel.send({embed: botInfo});
-         }
       }
   }
