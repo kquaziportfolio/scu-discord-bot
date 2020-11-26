@@ -1,5 +1,4 @@
-const { MessageEmbed } = require(`discord.js`); //for embed functionality
-let isAdmin = require(`../../modules/isAdmin.js`);
+const { MessageEmbed } = require(`discord.js`); //for embed functionality 
 
 module.exports = {
     name: 'banner',
