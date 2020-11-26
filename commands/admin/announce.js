@@ -1,4 +1,3 @@
-let isAdmin = require(`../../modules/isAdmin.js`);
 let sendMessage = require(`../../modules/sendMessage.js`);
 
 module.exports = { 
