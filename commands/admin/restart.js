@@ -1,12 +1,9 @@
-let isAdmin = require(`../../modules/isAdmin.js`);  
-
-module.exports =  {  
+ module.exports =  {  
 	name: 'restart',
 	description: 'Restart the bot!',
 	cooldown: 15,
 	category: 'Admin',  
-	async execute(client, message, args) {     
-        if(isAdmin(client, message)) { 
+	async execute(client, message, args) {   
             try {
                 const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
 
@@ -20,7 +17,6 @@ module.exports =  {
                 console.log(err.message);
             } finally {
                 process.exit();
-            }
-        }
+            } 
     }
-}
+} 
