@@ -13,6 +13,8 @@ module.exports = {
             try {
                 const input = args[0]; 
 
+                if(input.includes(`/`)) return message.channel.send({ embed: { description: `Not a file!`, color: client.config.school_color}});
+
                 const imageEmbed = new MessageEmbed()
                 .attachFiles([`./assets/${input}`])
                 .setImage(`attachment://${input}`)

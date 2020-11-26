@@ -1,0 +1,15 @@
+node_modules
+.vscode
+.git
+.github
+config.json
+prefix.json
+json.sqlite
+package-lock.json
+package.json
+eslintjrc.json
+modmailLogs
+server-info.js
+express.js
+server-roles.js
+rules.js
