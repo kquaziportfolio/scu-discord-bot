@@ -1,4 +1,3 @@
-let isAdmin = require(`../../modules/isAdmin.js`); 
 let sendMessage = require(`../../modules/sendMessage.js`);
 const child_proc = require('child_process');
  
@@ -8,7 +7,6 @@ module.exports = {
     cooldown: 20,
     category: "Admin",
     async execute(client, message, args) {
-        if (isAdmin(client, message)) {
             try {
                 const frames = [`□`, `□□□□ 25%`, `□□□□□□□□ 50%`, `□□□□□□□□□□□□ 75%`, `□□□□□□□□□□□□□□□□ 100%`, `Finished pulling from [scu-discord-bot](${client.config.verification.githubLink})!`];
 	        const msg= await message.channel.send("Pulling...");
@@ -22,6 +20,5 @@ module.exports = {
             } catch (err) {
                 console.log(err.message);
             }
-        }
     }
 } 
