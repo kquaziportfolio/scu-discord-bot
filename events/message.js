@@ -26,7 +26,9 @@ module.exports = async (client, message) => {
   .setColor(client.config.school_color)
   .setAuthor(message.author.tag, message.author.displayAvatarURL())
   
-  const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName; 
+  const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName; 	
+  const userRole = message.member.roles.cache;
+  const guildRole = client.config.serverRoles;
 
   //Check if message is in a direct message and mentions bot
   if (message.channel.type === "dm" && message.mentions.has(client.user)) {   
@@ -49,7 +51,7 @@ module.exports = async (client, message) => {
         channel.setTopic(`Use **${client.config.prefix}cmds** to utilize the Ticket | ModMail commands on behalf of <@${message.author.id}>`);
         channel.overwritePermissions([ 
           {
-            id: client.config.serverRoles.mod,
+            id: guildRole.mod,
             allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
           },
           {
@@ -57,7 +59,7 @@ module.exports = async (client, message) => {
             allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `EMBED_LINKS`, `ATTACH_FILES`, `USE_EXTERNAL_EMOJIS`]
           },
           {
-            id: client.config.serverRoles.everyone,
+            id: guildRole.everyone,
             deny: [`VIEW_CHANNEL`]
           }
         ]);
@@ -123,6 +125,12 @@ module.exports = async (client, message) => {
     const modmailArgs = message.content.split(" ").slice(1); 
  
       let isBlock = await db.get(`isBlocked${support.targetID}`); 
+
+      if( !(userRole.has(guildRole.owner) || userRole.has(guildRole.admin) || userRole.has(guildRole.mod) || message.author.id === guildRole.botOwner) ) {
+          await message.delete(); 
+          message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
+          return false;
+      } else { 
       switch (message.content.split(" ")[0].slice(1).toLowerCase()) { //if message content in the support user channel is a modmail command, execute the results...
         case "cmds": //on default, give list of modmail sub-commands :)
           message.channel.send({ embed: { title: `**📩  MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
@@ -310,6 +318,7 @@ module.exports = async (client, message) => {
           await message.delete({ timeout: 3000 });
           break;
         } 
+      }
     }
        
 /*
@@ -345,12 +354,9 @@ module.exports = async (client, message) => {
     return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
   }
 	
-  const userRole = message.member.roles.cache;
-  const modRole = client.config.serverRoles;
-	
-  if (command.category === "Admin" & !(userRole.has(modRole.owner) || userRole.has(modRole.admin) || userRole.has(modRole.mod) || message.author.id === modRole.botOwner)) {
+  if (command.category === "Admin" & !(userRole.has(guildRole.owner) || userRole.has(guildRole.admin) || userRole.has(guildRole.mod) || message.author.id === guildRole.botOwner)) {
       await message.delete(); 
-      message.reply({ embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
+      message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
       return false;
   }	
 	
