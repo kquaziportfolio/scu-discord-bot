@@ -1,11 +1,8 @@
-let isAdmin = require(`../../modules/isAdmin.js`);
-
 module.exports =  {  
     name: 'shutdown',
     description: 'Shut down the bot!',
     category: 'Admin',  
-    async execute(client, message, args) {
-        if (isAdmin(client, message)) {
+    async execute(client, message, args) { 
             try {
                 const frames = ['□', '□□□□ 25%', '□□□□□□□□ 50', '□□□□□□□□□□□□ 75%', '□□□□□□□□□□□□□□□□ 100%'];
 
@@ -27,7 +24,6 @@ module.exports =  {
                     console.log("====================");
                     console.log(err);
                 });
-            }
-        }
+            } 
     }
 }
