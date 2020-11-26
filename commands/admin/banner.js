@@ -8,8 +8,6 @@ module.exports = {
     usage: `[file name and extension]`, 
     category: 'Admin',  
     async execute (client, message, args) {
-        if(isAdmin(client, message)) {
-
             try {
                 const input = args[0]; 
 
@@ -24,6 +22,5 @@ module.exports = {
             } catch (err) {
                 if (err) throw err;
             }
-        }
     }
 }
