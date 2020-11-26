@@ -1,8 +1,7 @@
 const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.js integration package
 const db = require(`quick.db`);
 const fs = require(`fs`);
-const cooldowns = new Collection(); 
-let isAdmin = require(`../modules/isAdmin.js`);
+const cooldowns = new Collection();  
 let sendMessage = require(`../modules/sendMessage.js`); 
 const jsdom = require(`jsdom`);
 const { JSDOM } = jsdom;
@@ -122,8 +121,7 @@ module.exports = async (client, message) => {
  
     const isPause = await db.get(`suspended${support.targetID}`);
     const modmailArgs = message.content.split(" ").slice(1); 
-
-    if(isAdmin(client, message)) {  
+ 
       let isBlock = await db.get(`isBlocked${support.targetID}`); 
       switch (message.content.split(" ")[0].slice(1).toLowerCase()) { //if message content in the support user channel is a modmail command, execute the results...
         case "cmds": //on default, give list of modmail sub-commands :)
@@ -311,8 +309,7 @@ module.exports = async (client, message) => {
           await message.react("❌");
           await message.delete({ timeout: 3000 });
           break;
-        }
-      }  
+        } 
     }
        
 /*
