@@ -352,8 +352,7 @@ module.exports = async (client, message) => {
   const modRole = client.config.serverRoles;
 	
   if (command.category === "Admin" && (!userRole.has(modRole.owner) || !userRole.has(modRole.admin) || !userRole.has(modRole.mod) || message.author.id !== modRole.botOwner)) { 
-      await message.delete();
-      message.channel.send("You fell for it fool!");
+      await message.delete(); 
       return message.reply(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
   }	
 	
