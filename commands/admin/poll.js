@@ -1,12 +1,10 @@
-const { MessageEmbed } = require(`discord.js`);
-let isAdmin = require(`../../modules/isAdmin.js`);
+const { MessageEmbed } = require(`discord.js`); 
 
 module.exports = {
     name: 'poll',
     description: 'Make a poll with results!',
     category: 'Admin',  
-	    async execute(client, message, args) { 
-            if(isAdmin(client, message)) {
+	    async execute(client, message, args) {  
 				const pollArgs = message.content.match(/(?:("|')[^("|')]*("|')|^[^("|')]*$)/g);
 				const options = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
 				const pollQuestion = pollArgs.shift();
@@ -32,7 +30,6 @@ module.exports = {
 					for (let i = 0; i < pollArgs.length; i++) {
 						r.react(options[i]);
 					}
-				});
-            }
+				}); 
         }
 }
