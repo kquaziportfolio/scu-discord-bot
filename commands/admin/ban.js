@@ -9,7 +9,6 @@ module.exports = {
     usage: `[@user mention] [reason]`, 
     category: 'Admin',  
 	async execute(client, message, args) {   
-        if(isAdmin(client, message)) { 
             const member = message.mentions.members.first();
 
             if(!member.bannable) 
@@ -50,6 +49,5 @@ module.exports = {
    
                sendMessage(client, client.config.channels.auditlogs, ban_card);
             }
-        } 
     }
 }
