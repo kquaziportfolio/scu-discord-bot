@@ -1,13 +1,11 @@
-const { MessageEmbed } = require(`discord.js`); //for embed functionality
-let isAdmin = require(`../../modules/isAdmin.js`);
+const { MessageEmbed } = require(`discord.js`); //for embed functionality 
 let sendMessage = require(`../../modules/sendMessage.js`);
 
 module.exports = {
     name: 'server-stats',
     description: 'Get general server statistics!',
     category: 'Admin',  
-    async execute(client, message, args) {
-	    if(isAdmin(client, message)) { 
+    async execute(client, message, args) { 
 			function checkBots(guild) {
 				let botCount = 0;
 				guild.members.cache.forEach(member => {
@@ -41,7 +39,6 @@ module.exports = {
 			.attachFiles([`./assets/logo-pic.png`])
 			.setImage(`attachment://logo-pic.png`)
 
-			sendMessage(client, client.config.channels.auditlogs, serverembed);
-	    }
+			sendMessage(client, client.config.channels.auditlogs, serverembed); 
 	} 
-}
+} 
