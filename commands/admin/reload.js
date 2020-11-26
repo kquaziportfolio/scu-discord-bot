@@ -1,5 +1,4 @@
-let isAdmin = require(`../../modules/isAdmin.js`);
-let sendMessage = require(`../../modules/sendMessage.js`);
+ let sendMessage = require(`../../modules/sendMessage.js`);
 const { readdirSync } = require("fs");
 const { join } = require("path");
 
@@ -9,8 +8,7 @@ module.exports = {
 	usage: `[command name]`, 
 	args: true,
 	category: 'Admin',  
-	async execute(client, message, args) { 
-		if(isAdmin(client, message)) {
+	async execute(client, message, args) {  
 			const commandName = args[0];
 			const command = message.client.commands.get(commandName);
 
@@ -33,7 +31,6 @@ module.exports = {
 						return console.log(err.stack || err);
 					}
 				}
-			}); 
-		} 
+			});  
 	}
-} 
+}  
