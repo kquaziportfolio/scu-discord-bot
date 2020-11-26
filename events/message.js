@@ -348,6 +348,15 @@ module.exports = async (client, message) => {
     return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
   }
 	
+  const userRole = message.member.roles.cache;
+  const modRole = client.config.serverRoles;
+	
+  if (command.category === "Admin" && (!userRole.has(modRole.owner) || !userRole.has(modRole.admin) || !userRole.has(modRole.mod) || message.author.id !== modRole.botOwner)) { 
+      await message.delete();
+      message.channel.send("You fell for it fool!");
+      return message.reply(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
+  }	
+	
 /*
 =======================================================
   / ____|          | |   | |                        
