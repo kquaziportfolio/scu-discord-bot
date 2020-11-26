@@ -1,6 +1,5 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 let sendMessage = require(`../../modules/sendMessage.js`);
-let isAdmin = require(`../../modules/isAdmin.js`);
 
 module.exports = {
 	name: 'kick',
@@ -10,7 +9,6 @@ module.exports = {
     usage: `[@user mention] [reason]`,
     category: 'Admin',  
 	async execute(client, message, args) {    
-        if(isAdmin(client, message)) {  
             const member = message.mentions.members.first();
 
             if(!member.kickable) return message.channel.send({embed: {
@@ -49,6 +47,5 @@ module.exports = {
 
                 sendMessage(client, client.config.channels.auditlogs, kick_card);
 	        }
-        } 
     }
 }
