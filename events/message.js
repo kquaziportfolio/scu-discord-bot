@@ -348,9 +348,7 @@ module.exports = async (client, message) => {
   const userRole = message.member.roles.cache;
   const modRole = client.config.serverRoles;
 	
-  if (command.category === "Admin" & (userRole.has(modRole.owner) || userRole.has(modRole.admin) || userRole.has(modRole.mod) || message.author.id === modRole.botOwner)) {
-    return true;
-  } else {
+  if (command.category === "Admin" & !(userRole.has(modRole.owner) || userRole.has(modRole.admin) || userRole.has(modRole.mod) || message.author.id === modRole.botOwner)) {
       await message.delete(); 
       message.reply({ embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
       return false;
