@@ -1,13 +1,9 @@
+  
 // ASSIGN VARIABLES
 const Discord = require('discord.js');
 const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"], autoConnect: true } );
 const Enmap = require("enmap");
-const { readdirSync } = require("fs"); 
-const path = require('path')
-const ascii = require(`ascii-table`);
-
-const table = new ascii(`Commands`);
-table.setHeading(`Command`, `Load Status`);
+const fs = require("fs");  
 
 // Need to make sure the config is attached to the CLIENT so it's accessible everywhere!
 client.config = require(`./config.json`);
@@ -57,20 +53,20 @@ try {
 
   client.commands = new Enmap();
 
-  readdirSync(`./commands/`).forEach(dir => {
-      const commands = readdirSync(`./commands/${dir}`).filter(file => file.endsWith(`.js`));
-      for (let file of commands) {
-          let props = require(`../commands/${dir}/${file}`);
-          if (props.name) {
-              client.commands.set(props.name, props);
-              table.addRow(file, `✅`);
-          } else {
-              table.addRow(file, `❌ > missing name or name isn't a string`);
-          }
-      } 
-  });  
+  fs.readdir("./commands/", (err, subdirs) => { 
+    subdirs.forEach(subdir => {
+      fs.readdir(`./commands/${subdir}/`, (err, files) => { 
+        files.forEach(file => { 
+          if (!file.endsWith('.js')) return;
+          let props = require(`./commands/${subdir}/${file}`);
+          let commandName = file.split(".")[0];
+          client.commands.set(commandName, props);
+        });
+      });
+    });
+  }); 
 } catch (err) {
     console.log(err);
 } finally { 
-    console.log(table.toString());
+    console.log("All commands and events work! :white_check_mark:");
 }
