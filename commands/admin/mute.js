@@ -10,8 +10,6 @@ module.exports = {
     args: true, 
     category: 'Admin',  
     async execute(client, message, args) {   
-
-        if(isAdmin(client, message)) {  
             let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
 
             let Time = args.slice(1).join(" ");
@@ -64,14 +62,5 @@ module.exports = {
                 .setDescription(`Time: ${ms(ms(time), {long: true})}`)
                 sendMessage(client, client.config.channels.auditlogs, auditEmbed);   
             }
-  
-            /*mutee.roles.add(muterole).then(()=> {
-                //message.delete()
-                const Embed = new MessageEmbed()
-                .setTitle(`You have muted the user ${mutee.user.username}!`)
-                .setDescription(`Reason: ${Reason} \nTime: ${Time}`)
-                message.channel.send(Embed)
-            })*/
-        }
     }
 }
