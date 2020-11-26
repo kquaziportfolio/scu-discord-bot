@@ -35,9 +35,7 @@ module.exports = {
 			.addField('Humans', checkMembers(message.guild), true)
 			.addField('Bots', checkBots(message.guild), true)
 			.addField('Guild Created At:', message.guild.createdAt, true)
-			.setTimestamp()
-			.attachFiles([`./assets/logo-pic.png`])
-			.setImage(`attachment://logo-pic.png`)
+			.setTimestamp() 
 
 			sendMessage(client, client.config.channels.auditlogs, serverembed); 
 	} 
