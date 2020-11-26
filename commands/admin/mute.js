@@ -1,7 +1,6 @@
 const { MessageEmbed } = require(`discord.js`); //for embed functionality
 const ms = require('ms');
-let sendMessage = require(`../../modules/sendMessage.js`);
-let isAdmin = require(`../../modules/isAdmin.js`);
+let sendMessage = require(`../../modules/sendMessage.js`); 
 
 module.exports = {
     name: 'mute',
