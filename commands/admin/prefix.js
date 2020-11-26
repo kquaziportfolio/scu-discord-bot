@@ -1,5 +1,4 @@
-let isAdmin = require(`../../modules/isAdmin.js`);
-let fs = require(`fs`);  
+ let fs = require(`fs`);  
 
 module.exports = { 
     name: 'prefix',
@@ -8,8 +7,7 @@ module.exports = {
     cooldown: 10,
     usage: `[enter prefix]`,
     category: 'Admin',  
-    async execute(client, message, args) {
-        if(isAdmin(client, message)) { 
+    async execute(client, message, args) { 
           let defaultPrefix = JSON.parse(fs.readFileSync("./config.json", "utf8")); //Read File
             
           if(defaultPrefix != null) {  
@@ -31,8 +29,7 @@ module.exports = {
           const msg = await message.channel.send({ embed: { description: `Set the bot prefix to \`${args[0]}\`!`, color: client.config.school_color}});
           await msg.edit({ embed: { description: `Please wait a couple of seconds while I readjust!`, color: client.config.school_color}});
   
-          delete require.cache[require.resolve(`../../index.js`)];
-          return require(`../../index.js`);
+          delete require.cache[require.resolve(`../../index.js`)]; 
         }
     }
 }
