@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"], autoConnect: true } );
 const Enmap = require("enmap");
-const fs, { readdirSync } = require("fs"); 
+const { readdirSync } = require("fs"); 
 const path = require('path')
 const ascii = require(`ascii-table`);
 
