@@ -171,22 +171,30 @@ module.exports = async (client, message) => {
             }
           }
 
-          let msgs = messageCollection.array().reverse();
-          fs.readFile(`./assets/modmailTemplate/template.html`, `utf8`, function (err, data) {
-            const filePath = `./events/modmailLogs/index_${supportUser.tag}.html`;
+          /*this section of the code is for creating a transcript for a channel created by my bot's ticketing 
+	  implementation, which normally wouldn't have much messages anyways unless someone were to spam haha */         
+
+	  let msgs = messageCollection.array().reverse();
+          fs.readFile(`./assets/modmailTemplate/template.html`, `utf8`, function (err, data) {  //goes into my directory for create the log's HTML/CSS template
+            const filePath = `./events/modmailLogs/index_${supportUser.tag}.html`; 
+            //names file after user's Discord tag and saves to my modmail file logs on my Raspberry Pi
             fs.writeFile(filePath, data, function (err, data) {
               if (err) console.log(`error`, err);
 
               let guildElement = document.createElement(`div`);
               guildElement.className = "img-container";
+ 
+              //creates first image which is the SCU banner :)
 
               let guildBannerImg = document.createElement(`img`);
               guildBannerImg.setAttribute(`src`, `${client.config.verification.githubLink}blob/master/assets/scu_banner.png?raw=true`);
               guildBannerImg.setAttribute(`width`, `500`);
               guildElement.appendChild(guildBannerImg);
 
-              let guildBreak = document.createElement(`br`);
+              let guildBreak = document.createElement(`br`); //creates break element between these two images
               guildElement.appendChild(guildBreak);
+
+              // creates second image which says "Modmail Ticket!"
 
               let guildTicketImg = document.createElement(`img`);
               guildTicketImg.setAttribute(`src`, `${client.config.verification.githubLink}blob/master/assets/scu_modmail_ticket.png?raw=true`);
@@ -198,6 +206,7 @@ module.exports = async (client, message) => {
                   console.log(`error`, err);
               });
 
+              //for each normal user message sent in the ticketing channel, put them in a div and nest elements in their respective places
               msgs.forEach(async (msg) => {
                 let parentContainer = document.createElement("div");
                 parentContainer.className = "parent-container";
@@ -218,10 +227,13 @@ module.exports = async (client, message) => {
                 const codeNode = document.createElement("code");
 
                 let nameElement = document.createElement("span");
-                let name = document.createTextNode(`[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`);
+                let name = document.createTextNode(`[${msg.author.tag}] [${msg.createdAt.toDateString()}] [${msg.createdAt.toLocaleTimeString()} PST]`); 
+                //gets time of message, the message author's tag, and the date it was sent and puts it in a span element in HTML
                 nameElement.appendChild(name);
                 messageContainer.append(nameElement);
 
+                //for each embed message sent from the bot, iterate through all of them and create paragraph element for each one
+                //then apply span element to each to divide up the title, description, and footer into viewable sections
                 for (const embed of msg.embeds) {
                   const embedElements = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
                 
@@ -234,10 +246,11 @@ module.exports = async (client, message) => {
                   }
                 }
 
+                // messages with code backticks will be rendered as code element in HTML
                 if (msg.content.startsWith("```")) {
                   codeNode.appendChild(document.createTextNode(msg.content.replace(/```/g, "")));
                   messageContainer.appendChild(codeNode);
-                } else if (msg.content) {
+                } else if (msg.content) {  //normal messages will be put into a span element in HTML
                   spanElement.append(document.createTextNode(msg.content));
                   messageContainer.appendChild(spanElement);
                 }
@@ -249,11 +262,6 @@ module.exports = async (client, message) => {
                     console.log(`error`, err);
                 });
               });
-
-              messageReception.attachFiles(filePath);
-              sendMessage(client, client.config.channels.auditlogs, messageReception);
-            });
-          });
 
           await message.channel.delete();
           db.delete(`support_${support.targetID}`);
@@ -397,4 +405,4 @@ module.exports = async (client, message) => {
       sendMessage(client, client.config.channels.auditlogs, { embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
       return console.log(err.stack || err);
   }
-}
+} 
