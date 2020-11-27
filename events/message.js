@@ -27,7 +27,6 @@ module.exports = async (client, message) => {
   .setAuthor(message.author.tag, message.author.displayAvatarURL())
   
   const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName; 	
-  const userRole = message.member.roles.cache;
   const guildRole = client.config.serverRoles;
 
   //Check if message is in a direct message and mentions bot
@@ -126,7 +125,7 @@ module.exports = async (client, message) => {
  
       let isBlock = await db.get(`isBlocked${support.targetID}`); 
 
-      if( !(userRole.has(guildRole.owner) || userRole.has(guildRole.admin) || userRole.has(guildRole.mod) || message.author.id === guildRole.botOwner) ) {
+      if( !(message.member.roles.cache.has(guildRole.owner) || message.member.roles.cache.has(guildRole.admin) || message.member.roles.cache.has(guildRole.mod) || message.author.id === guildRole.botOwner) ) {
           await message.delete(); 
           message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
           return false;
@@ -262,6 +261,10 @@ module.exports = async (client, message) => {
                     console.log(`error`, err);
                 });
               });
+              messageReception.attachFiles(filePath);
+              sendMessage(client, client.config.channels.auditlogs, messageReception);
+            });
+          });
 
           await message.channel.delete();
           db.delete(`support_${support.targetID}`);
@@ -362,7 +365,7 @@ module.exports = async (client, message) => {
     return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
   }
 	
-  if (command.category === "Admin" & !(userRole.has(guildRole.owner) || userRole.has(guildRole.admin) || userRole.has(guildRole.mod) || message.author.id === guildRole.botOwner)) {
+  if (command.category === "Admin" & !(message.member.roles.cache.has(guildRole.owner) || message.member.roles.cache.has(guildRole.admin) || message.member.roles.cache.has(guildRole.mod) || message.author.id === guildRole.botOwner)) {
       await message.delete(); 
       message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
       return false;
