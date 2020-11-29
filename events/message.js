@@ -29,73 +29,80 @@ module.exports = async (client, message) => {
   const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName; 	
   const guildRole = client.config.serverRoles;
 
-  //Check if message is in a direct message and mentions bot
-  if (message.channel.type === "dm" && message.mentions.has(client.user)) {   
-    const userTicketContent = message.content.split(` `).slice(1).join(` `); 
-    if (userTicketContent.length > 1) {
-      let active = await db.fetch(`support_${message.author.id}`);
-      let guild = client.guilds.cache.get(client.config.verification.guildID);
-      let channel, found = true; 
+    //Check if message is in a direct message and mentions bot
+    if (message.channel.type === "dm" && message.mentions.has(client.user)) {   
+      const userTicketContent = message.content.split(` `).slice(1).join(` `); 
+      if (userTicketContent.length > 1) {
+        let user = await db.get(`suspended${message.author.id}`);
+        if (user === true || user === "true") return message.react("❌");
 
-      try { 
-        if (active) client.channels.cache.get(active.channelID).guild;
-      } catch (e) {
-        found = false;
-      }
-
-      if (!active || !found) { //create support channel for new respondee
-        active = {};
-        channel = await guild.channels.create(`${nickname}-${message.author.discriminator}`);     
-        channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
-        channel.setTopic(`Use **${client.config.prefix}cmds** to utilize the Ticket | ModMail commands on behalf of <@${message.author.id}>`);
-        channel.overwritePermissions([ 
-          {
-            id: guildRole.mod,
-            allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
-          },
-          {
-            id: message.author.id,
-            allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `EMBED_LINKS`, `ATTACH_FILES`, `USE_EXTERNAL_EMOJIS`]
-          },
-          {
-            id: guildRole.everyone,
-            deny: [`VIEW_CHANNEL`]
-          }
-        ]);
-        
-        messageReception
-        .setTitle(`ModMail Ticket Created`)
-        .setDescription(`Hello, I've opened up a new ticket for you! Our staff members ` +
-        `will respond shortly. If you need to add to your ticket, plug away again!`)
-        .setFooter(`ModMail Ticket Created -- ${message.author.tag}`) 
-        .attachFiles([`./assets/verified.gif`])
-        .setThumbnail(`attachment://verified.gif`)  
-        
-        await message.author.send({ embed: messageReception });
-        
-        // Update Active Data
-        active.channelID = channel.id;
-        active.targetID = message.author.id;
-      }
-
-      channel = client.channels.cache.get(active.channelID); 
-
-      messageReception //fires for newly created and existing tickets 
-      .setTitle(`Modmail Ticket Sent!`)
-      .setDescription(`Your new content was sent to <#${active.channelID}>!`)
-      .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
-      await message.author.send({ embed: messageReception }); 
-
-      db.set(`support_${message.author.id}`, active);
-      db.set(`supportChannel_${channel.id}`, message.author.id);
-      
-      return await channel.send(messageReception.setDescription(`> ${userTicketContent}`).setImage(message.attachments.first() ? message.attachments.first().url : ""));
-   
-    } 
-  } else if (message.channel.type === "dm" && (!message.mentions.has(client.user) || message.attachments.size > 0)) { 
-      return await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message and/or send an attachment!`, color: client.config.school_color}});
-  }
+        let active = await db.fetch(`support_${message.author.id}`);
+        let guild = client.guilds.cache.get(client.config.verification.guildID);
+        let channel, found = true; 
   
+        try { 
+          if (active) client.channels.cache.get(active.channelID).guild;
+        } catch (e) {
+          found = false;
+        }
+  
+        if (!active || !found) { //create support channel for new respondee
+          active = {};
+          channel = await guild.channels.create(`${nickname}-${message.author.discriminator}`);     
+          channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
+          channel.setTopic(`Use **${client.config.prefix}cmds** to utilize the Ticket | ModMail commands on behalf of <@${message.author.id}>`);
+          channel.overwritePermissions([ 
+            {
+              id: guildRole.botOwner,
+              allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
+            },
+            {
+              id: guildRole.mod,
+              allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
+            },
+            {
+              id: message.author.id,
+              allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `EMBED_LINKS`, `ATTACH_FILES`, `USE_EXTERNAL_EMOJIS`]
+            },
+            {
+              id: guildRole.everyone,
+              deny: [`VIEW_CHANNEL`]
+            }
+          ]);
+          
+          messageReception
+          .setTitle(`ModMail Ticket Created`)
+          .setDescription(`Hello, I've opened up a new ticket for you! Our staff members ` +
+          `will respond shortly. If you need to add to your ticket, plug away again!`)
+          .setFooter(`ModMail Ticket Created -- ${message.author.tag}`) 
+          .attachFiles([`./assets/verified.gif`])
+          .setThumbnail(`attachment://verified.gif`)  
+          
+          await message.author.send({ embed: messageReception });
+          
+          // Update Active Data
+          active.channelID = channel.id;
+          active.targetID = message.author.id;
+        }
+  
+        channel = client.channels.cache.get(active.channelID); 
+  
+        messageReception //fires for newly created and existing tickets 
+        .setTitle(`Modmail Ticket Sent!`)
+        .setDescription(`Your new content was sent to <#${active.channelID}>!`)
+        .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
+        await message.author.send({ embed: messageReception }); 
+  
+        db.set(`support_${message.author.id}`, active);
+        db.set(`supportChannel_${channel.id}`, message.author.id);
+        
+        return await channel.send(messageReception.setDescription(`> ${userTicketContent}`).setImage(message.attachments.first() ? message.attachments.first().url : ""));
+     
+      } 
+    } else if (message.channel.type === "dm" && (!message.mentions.has(client.user) || message.attachments.size > 0)) { 
+        return await message.reply({ embed: { description: `To open a ticket, mention <@${client.user.id}> and type your message and/or send an attachment!`, color: client.config.school_color}});
+    }  
+
   let support = await db.fetch(`supportChannel_${message.channel.id}`);
   if (support) {
     support = await db.fetch(`support_${support}`);
@@ -103,13 +110,11 @@ module.exports = async (client, message) => {
     if (!supportUser) return message.channel.delete(); 
     
     function modmailCommands() {
-      const commands = [ 
-        { cmd: "block", desc: "🙅‍♂️ Block this user!" },
+      const commands = [  
         { cmd: "complete", desc: "✅ Close a ticket channel and logs the support channel`s content!" },   
-        { cmd: "continue", desc: "▶️ Continue the modmail session!"},  
+        { cmd: "continue", desc: "▶️ Continue the modmail session!"},   
+        { cmd: "pause", desc: "⏸️ Pause the modmail session!" }, 
         { cmd: "reply", desc: "💬 DM the user who sent the modmail ticket!"},
-        { cmd: "pause", desc: "⏸️ Pause the modmail session!" },
-        { cmd: "unblock", desc: "🙋‍♂️ Unblock this user!" }
       ];
       let str = "```\n";
       for (let i in commands) {
@@ -121,11 +126,9 @@ module.exports = async (client, message) => {
     messageReception.setAuthor(supportUser.tag, supportUser.displayAvatarURL()).setTimestamp()
  
     const isPause = await db.get(`suspended${support.targetID}`);
-    const modmailArgs = message.content.split(" ").slice(1); 
- 
-      let isBlock = await db.get(`isBlocked${support.targetID}`); 
+    const modmailArgs = message.content.split(" ").slice(1);  
 
-      if( !(message.member.roles.cache.has(guildRole.owner) || message.member.roles.cache.has(guildRole.admin) || message.member.roles.cache.has(guildRole.mod) || message.author.id === guildRole.botOwner) ) {
+      if (guildRole.modRoles.forEach(modRole => !(message.member.roles.cache.has(modRole))) || message.author.id !== guildRole.botOwner) {
           await message.delete(); 
           message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
           return false;
@@ -134,23 +137,7 @@ module.exports = async (client, message) => {
         case "cmds": //on default, give list of modmail sub-commands :)
           message.channel.send({ embed: { title: `**📩  MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
           break; 
-
-        case "block": // block a user
-          let reason = modmailArgs.join(" ");
-          if(!reason) return message.channel.send({ embed: { description: `Please enter a reason for blocking the support ticket user!`, color: client.config.school_color}});
-    
-          messageReception.setColor("RED").setTitle("User blocked").addField("Channel", `<#${message.channel.id}>`, true).addField("Reason", reason, true)
-          .setFooter(`ModMail User Blocked -- ${supportUser.tag}`).attachFiles([`./assets/blocked.gif`]).setThumbnail(`attachment://blocked.gif`)
  
-          if(isBlock === true) return message.channel.send({ embed: { description: "The user is already blocked.", color: client.config.school_color}});
-          await db.set(`isBlocked${support.targetID}`, true); 
-        
-          messageReception.setDescription(`🙅‍♂️ You cannot use the modmail anymore and have been blocked.`)
-        
-          await supportUser.send({embed: messageReception});
-          await message.channel.send(messageReception);
-          break;
-
         case "complete": //close the user`s ticket after they`re done and log it!
           messageReception.setTitle(`ModMail Ticket Resolved`).setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
           .setDescription(`✅ *Your ModMail has been marked as **complete** and has been logged by the admins/mods. If you wish to create a new one, please send a message to the bot.*`) 
@@ -171,9 +158,9 @@ module.exports = async (client, message) => {
           }
 
           /*this section of the code is for creating a transcript for a channel created by my bot's ticketing 
-	  implementation, which normally wouldn't have much messages anyways unless someone were to spam haha */         
+          implementation, which normally wouldn't have much messages anyways unless someone were to spam haha */         
 
-	  let msgs = messageCollection.array().reverse();
+          let msgs = messageCollection.array().reverse();
           fs.readFile(`./assets/modmailTemplate/template.html`, `utf8`, function (err, data) {  //goes into my directory for create the log's HTML/CSS template
             const filePath = `./events/modmailLogs/index_${supportUser.tag}.html`; 
             //names file after user's Discord tag and saves to my modmail file logs on my Raspberry Pi
@@ -234,11 +221,11 @@ module.exports = async (client, message) => {
                 //for each embed message sent from the bot, iterate through all of them and create paragraph element for each one
                 //then apply span element to each to divide up the title, description, and footer into viewable sections
                 for (const embed of msg.embeds) {
-                  const embedElements = [`Title: ${embed.title}`, `Description: ${embed.description}`, `Footer: ${embed.footer.text}`];
+                  const embedElements = [`Title: ${embed.title || 'none'}`, `Description: ${embed.description || 'none'}`, `Footer: ${embed.footer.text || 'none'}`, `Thumbnail: ${embed.thumbnail.url || 'none'}`];
                 
-                  for (const text of embedElements) {
+                  for (const element of embedElements) {
                     const paragraph = document.createElement("p");
-                    paragraph.appendChild(document.createTextNode(text));
+                    paragraph.appendChild(document.createTextNode(element));
                     const embedSpan = document.createElement("span");
                     embedSpan.append(paragraph); 
                     messageContainer.appendChild(embedSpan);
@@ -246,7 +233,7 @@ module.exports = async (client, message) => {
                 }
 
                 // messages with code backticks will be rendered as code element in HTML
-                if (msg.content.startsWith("```")) {
+                if (msg.content.startsWith("```") || msg.content.startsWith("`")) {
                   codeNode.appendChild(document.createTextNode(msg.content.replace(/```/g, "")));
                   messageContainer.appendChild(codeNode);
                 } else if (msg.content) {  //normal messages will be put into a span element in HTML
@@ -275,7 +262,7 @@ module.exports = async (client, message) => {
           
           await db.delete(`suspended${support.targetID}`);
           
-          messageReception.setDescription(`▶️ <@${message.author.id}>, your thread has **continued**! We're ready to continue!`).setColor("BLUE") 
+          messageReception.setDescription(`▶️ <@${supportUser.id}>, your thread has **continued**! We're ready to continue!`).setColor("BLUE") 
           .attachFiles([`./assets/continued.gif`]).setThumbnail(`attachment://continued.gif`).setFooter(`ModMail Ticket Continued -- ${supportUser.tag}`) 
           
           await supportUser.send(messageReception);
@@ -287,7 +274,7 @@ module.exports = async (client, message) => {
           
           await db.set(`suspended${support.targetID}`, true);
           
-          messageReception.setDescription(`⏸️ <@${message.author.id}>, your thread has been **paused**!`).setColor("YELLOW")
+          messageReception.setDescription(`⏸️ <@${supportUser.id}>, your thread has been **paused**!`).setColor("YELLOW")
           .attachFiles([`./assets/paused.gif`]).setThumbnail(`attachment://paused.gif`).setFooter(`ModMail Ticket Paused -- ${supportUser.tag}`) 
     
           await supportUser.send(messageReception);
@@ -298,9 +285,8 @@ module.exports = async (client, message) => {
 
         case "reply": // reply to user 
           message.delete();
-          if(isPause === true) return await message.channel.send({ embed: { description: "This ticket already paused. Unpause it to continue.", color: client.config.school_color}})
-          if(isBlock === true) return await message.channel.send({ embed: { description: "The user is blocked. Unblock them to continue or close the ticket.", color: client.config.school_color}})
-          
+          if(isPause === true) return await message.channel.send({ embed: { description: "This ticket is already paused. Unpause it to continue.", color: client.config.school_color}})
+ 
           let msg = modmailArgs.join(" "); 
           if (!msg) return message.channel.send({ embed: { description: `Please enter a message for the support ticket user!`, color: client.config.school_color}});
           
@@ -309,18 +295,6 @@ module.exports = async (client, message) => {
           .setImage(message.attachments.first() ? message.attachments.first().url : "") 
           
           await supportUser.send(messageReception);
-          await message.channel.send(messageReception);
-          break;
- 
-        case "unblock":  // unblock a user  
-          if(isBlock === false || !isBlock || isBlock === null) return message.channel.send({ embed: { description: "User wasn`t blocked", color: client.config.school_color}});
-
-          await db.delete(`isBlocked${support.targetID}`);
-        
-          messageReception.setDescription(`🙋‍♂️ <@${supportUser.id}> has been successfully **unblocked**!`).setColor("BLUE") 
-          .attachFiles([`./assets/unlocked.gif`]).setThumbnail(`attachment://unlocked.gif`).setFooter(`ModMail User Unblocked -- ${supportUser.tag}`)   
-          
-          await supportUser.send({embed: messageReception}); 
           await message.channel.send(messageReception);
           break; 
 
@@ -365,10 +339,10 @@ module.exports = async (client, message) => {
     return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
   }
 	
-  if (command.category === "Admin" & !(message.member.roles.cache.has(guildRole.owner) || message.member.roles.cache.has(guildRole.admin) || message.member.roles.cache.has(guildRole.mod) || message.author.id === guildRole.botOwner)) {
-      await message.delete(); 
-      message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
-      return false;
+  if (command.category === "Admin" && (guildRole.modRoles.forEach(modRole => !(message.member.roles.cache.has(modRole))) || message.author.id !== guildRole.botOwner)) {
+    await message.delete(); 
+    message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
+    return false;
   }	
 	
 /*
@@ -407,5 +381,5 @@ module.exports = async (client, message) => {
   } catch(err) {
       sendMessage(client, client.config.channels.auditlogs, { embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
       return console.log(err.stack || err);
-  }
-} 
+  } 
+}
