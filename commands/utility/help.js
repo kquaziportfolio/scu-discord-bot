@@ -18,11 +18,11 @@ module.exports = {
 			const userRole = message.member.roles.cache;
   			const guildRole = client.config.serverRoles;
 			
-			if (command.category === "Admin" && (guildRole.modRoles.forEach(modRole => !(userRole.has(modRole)) || message.author.id === guildRole.botOwner)) {
-      			    message.delete(); 
-			    message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\` to access these commands!`, color: client.config.school_color}});
-			    return false;
-  			}
+			if (command.category === "Admin" && (guildRole.modRoles.forEach(modRole => !(message.member.roles.cache.has(modRole))) || message.author.id !== guildRole.botOwner)) {
+                            message.delete(); 
+                            message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
+                            return false;
+                        }
 			 
 			const secHelpEmbed = new MessageEmbed()
 			.setTitle(`${command.name.toUpperCase()} Command`)
