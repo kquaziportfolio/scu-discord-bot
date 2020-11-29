@@ -320,7 +320,7 @@ module.exports = async (client, message) => {
     .setTitle("Uh-oh not enough arguments! :x:").setColor(client.config.school_color)
     .setDescription(`<@${message.author.id}>!, the proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``)
     
-    return await message.channel.send(embed: { reply });
+    return await message.channel.send(reply);
   }
 	
   if (command.category === "Admin") {
