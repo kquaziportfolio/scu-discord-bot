@@ -119,7 +119,12 @@ module.exports = async (client, message) => {
     const isPause = await db.get(`suspended${support.targetID}`);
     const modmailArgs = message.content.split(" ").slice(1);  
 
-      if (isAdmin(client, message)) { 
+      if (guildRole.modRoles.forEach(modRole => !(message.member.roles.cache.has(modRole))) || message.author.id !== guildRole.botOwner) {
+          message.delete(); 
+          message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
+          return false;
+      }
+
       switch (message.content.split(" ")[0].slice(1).toLowerCase()) { //if message content in the support user channel is a modmail command, execute the results...
         case "cmds": //on default, give list of modmail sub-commands :)
           message.channel.send({ embed: { title: `**📩  MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
@@ -291,8 +296,7 @@ module.exports = async (client, message) => {
           await message.react("❌");
           await message.delete({ timeout: 3000 });
           break;
-        } 
-      }
+        }
     }
        
 /*
@@ -323,11 +327,11 @@ module.exports = async (client, message) => {
     return await message.channel.send(reply);
   }
 	
-  if (command.category === "Admin") {
-    if (isAdmin(client, message)) {
-       await message.react(":x:");    
-    }
-  }	
+  if (command.category === "Admin" && if (guildRole.modRoles.forEach(modRole => !(message.member.roles.cache.has(modRole))) || message.author.id !== guildRole.botOwner) {
+      message.delete(); 
+      message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
+      return false;
+  }
 	
 /*
 =======================================================
