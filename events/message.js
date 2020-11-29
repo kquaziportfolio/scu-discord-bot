@@ -56,14 +56,10 @@ module.exports = async (client, message) => {
               id: guildRole.botOwner,
               allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
             },
-            {
+            /*{
               id: guildRole.mod,
               allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
-            },
-            {
-              id: message.author.id,
-              allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `EMBED_LINKS`, `ATTACH_FILES`, `USE_EXTERNAL_EMOJIS`]
-            },
+            },*/
             {
               id: guildRole.everyone,
               deny: [`VIEW_CHANNEL`]
@@ -89,7 +85,7 @@ module.exports = async (client, message) => {
   
         messageReception //fires for newly created and existing tickets 
         .setTitle(`Modmail Ticket Sent!`)
-        .setDescription(`Your new content was sent to <#${active.channelID}>!`)
+        .setDescription(`Your new content was sent!`)
         .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
         await message.author.send({ embed: messageReception }); 
   
@@ -132,13 +128,16 @@ module.exports = async (client, message) => {
           await message.delete(); 
           message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
           return false;
-      } else { 
+      } 
+
       switch (message.content.split(" ")[0].slice(1).toLowerCase()) { //if message content in the support user channel is a modmail command, execute the results...
         case "cmds": //on default, give list of modmail sub-commands :)
           message.channel.send({ embed: { title: `**📩  MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
           break; 
  
         case "complete": //close the user`s ticket after they`re done and log it!
+          if(isPause === true || isPause === "true") return await message.channel.send({ embed: { description: "Continue the support user's thread before completing the ticket!", color: client.config.school_color}})
+ 
           messageReception.setTitle(`ModMail Ticket Resolved`).setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
           .setDescription(`✅ *Your ModMail has been marked as **complete** and has been logged by the admins/mods. If you wish to create a new one, please send a message to the bot.*`) 
           
@@ -221,15 +220,15 @@ module.exports = async (client, message) => {
                 //for each embed message sent from the bot, iterate through all of them and create paragraph element for each one
                 //then apply span element to each to divide up the title, description, and footer into viewable sections
                 for (const embed of msg.embeds) {
-                  const embedElements = [`Title: ${embed.title || 'none'}`, `Description: ${embed.description || 'none'}`, `Footer: ${embed.footer.text || 'none'}`, `Thumbnail: ${embed.thumbnail.url || 'none'}`];
+                  const embedElements = [`Title: ${embed.title || 'none'}`, `Description: ${embed.description || 'none'}`, `Footer: ${embed.footer.text || 'none'}`];
                 
                   for (const element of embedElements) {
                     const paragraph = document.createElement("p");
-                    paragraph.appendChild(document.createTextNode(element));
+                    paragraph.appendChild(document.createTextNode(element)); 
                     const embedSpan = document.createElement("span");
                     embedSpan.append(paragraph); 
                     messageContainer.appendChild(embedSpan);
-                  }
+                  }                  
                 }
 
                 // messages with code backticks will be rendered as code element in HTML
@@ -241,7 +240,7 @@ module.exports = async (client, message) => {
                   messageContainer.appendChild(spanElement);
                 }
 
-                parentContainer.appendChild(messageContainer);
+                parentContainer.appendChild(messageContainer); 
 
                 fs.appendFile(filePath, parentContainer.outerHTML, function (err) {
                   if (err)
@@ -270,7 +269,7 @@ module.exports = async (client, message) => {
           break;
           
         case "pause":  // pause a thread 
-          if(isPause === true || isPause === "true") return message.channel.send("This ticket already paused. Unpause it to continue.")
+          if(isPause === true || isPause === "true") return message.channel.send({ embed: { description: "This ticket already paused. Unpause it to continue.", color: client.config.school_color}});
           
           await db.set(`suspended${support.targetID}`, true);
           
@@ -285,7 +284,7 @@ module.exports = async (client, message) => {
 
         case "reply": // reply to user 
           message.delete();
-          if(isPause === true) return await message.channel.send({ embed: { description: "This ticket is already paused. Unpause it to continue.", color: client.config.school_color}})
+          if(isPause === true || isPause === "true") return await message.channel.send({ embed: { description: "This ticket is already paused. Unpause it to continue.", color: client.config.school_color}})
  
           let msg = modmailArgs.join(" "); 
           if (!msg) return message.channel.send({ embed: { description: `Please enter a message for the support ticket user!`, color: client.config.school_color}});
@@ -303,7 +302,6 @@ module.exports = async (client, message) => {
           await message.delete({ timeout: 3000 });
           break;
         } 
-      }
     }
        
 /*
