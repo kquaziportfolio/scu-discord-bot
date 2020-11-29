@@ -327,7 +327,7 @@ module.exports = async (client, message) => {
     return await message.channel.send(reply);
   }
 	
-  if (command.category === "Admin" && if (guildRole.modRoles.forEach(modRole => !(message.member.roles.cache.has(modRole))) || message.author.id !== guildRole.botOwner) {
+  if (command.category === "Admin" && (guildRole.modRoles.forEach(modRole => !(message.member.roles.cache.has(modRole))) || message.author.id !== guildRole.botOwner) {
       message.delete(); 
       message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
       return false;
