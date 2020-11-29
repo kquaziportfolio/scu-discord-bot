@@ -32,4 +32,3 @@ module.exports = {
           delete require.cache[require.resolve(`../../index.js`)]; 
         }
     }
-}
