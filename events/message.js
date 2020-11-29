@@ -2,7 +2,8 @@ const { MessageEmbed, Collection } = require(`discord.js`); //requires Discord.j
 const db = require(`quick.db`);
 const fs = require(`fs`);
 const cooldowns = new Collection();  
-let sendMessage = require(`../modules/sendMessage.js`); 
+const sendMessage = require(`../modules/sendMessage.js`); 
+const isAdmin = require(`../modules/isAdmin.js`);
 const jsdom = require(`jsdom`);
 const { JSDOM } = jsdom;
 const dom = new JSDOM();
@@ -22,8 +23,7 @@ module.exports = async (client, message) => {
 =============================================== 
 */
 
-  const messageReception = new MessageEmbed()
-  .setColor(client.config.school_color)
+  const messageReception = new MessageEmbed().setColor(client.config.school_color)
   .setAuthor(message.author.tag, message.author.displayAvatarURL())
   
   const nickname = client.guilds.cache.get(client.config.verification.guildID).member(message.author).displayName; 	
@@ -34,7 +34,7 @@ module.exports = async (client, message) => {
       const userTicketContent = message.content.split(` `).slice(1).join(` `); 
       if (userTicketContent.length > 1) {
         let user = await db.get(`suspended${message.author.id}`);
-        if (user === true || user === "true") return message.react("❌");
+        if (user === true || user === "true") return await message.channel.send({ embed: { description: `Your ticket has been paused!`, color: client.config.school_color}});
 
         let active = await db.fetch(`support_${message.author.id}`);
         let guild = client.guilds.cache.get(client.config.verification.guildID);
@@ -56,23 +56,21 @@ module.exports = async (client, message) => {
               id: guildRole.botOwner,
               allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
             },
-            /*{
+            {
               id: guildRole.mod,
               allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
-            },*/
+            },
             {
               id: guildRole.everyone,
               deny: [`VIEW_CHANNEL`]
             }
           ]);
           
-          messageReception
-          .setTitle(`ModMail Ticket Created`)
+          messageReception.setTitle(`ModMail Ticket Created`).setThumbnail(`attachment://verified.gif`) 
           .setDescription(`Hello, I've opened up a new ticket for you! Our staff members ` +
           `will respond shortly. If you need to add to your ticket, plug away again!`)
           .setFooter(`ModMail Ticket Created -- ${message.author.tag}`) 
           .attachFiles([`./assets/verified.gif`])
-          .setThumbnail(`attachment://verified.gif`)  
           
           await message.author.send({ embed: messageReception });
           
@@ -83,10 +81,7 @@ module.exports = async (client, message) => {
   
         channel = client.channels.cache.get(active.channelID); 
   
-        messageReception //fires for newly created and existing tickets 
-        .setTitle(`Modmail Ticket Sent!`)
-        .setDescription(`Your new content was sent!`)
-        .setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
+        messageReception .setTitle(`Modmail Ticket Sent!`).setDescription(`Your new content was sent!`).setFooter(`ModMail Ticket Received -- ${message.author.tag}`)
         await message.author.send({ embed: messageReception }); 
   
         db.set(`support_${message.author.id}`, active);
@@ -124,12 +119,7 @@ module.exports = async (client, message) => {
     const isPause = await db.get(`suspended${support.targetID}`);
     const modmailArgs = message.content.split(" ").slice(1);  
 
-      if (guildRole.modRoles.forEach(modRole => !(message.member.roles.cache.has(modRole))) || message.author.id !== guildRole.botOwner) {
-          await message.delete(); 
-          message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
-          return false;
-      } 
-
+      if (isAdmin(client, message)) { 
       switch (message.content.split(" ")[0].slice(1).toLowerCase()) { //if message content in the support user channel is a modmail command, execute the results...
         case "cmds": //on default, give list of modmail sub-commands :)
           message.channel.send({ embed: { title: `**📩  MODMAIL COMMANDS!**`, description: modmailCommands(), color: client.config.school_color}});
@@ -257,7 +247,7 @@ module.exports = async (client, message) => {
           break; 
         
         case "continue": // continue a thread
-          if(isPause === null || isPause === false) return message.channel.send({ embed: { description: "This ticket was not paused.", color: client.config.school_color}});
+          if(isPause === null || isPause === false || isPause === "false") return await message.channel.send({ embed: { description: "This ticket was not paused.", color: client.config.school_color}});
           
           await db.delete(`suspended${support.targetID}`);
           
@@ -269,7 +259,7 @@ module.exports = async (client, message) => {
           break;
           
         case "pause":  // pause a thread 
-          if(isPause === true || isPause === "true") return message.channel.send({ embed: { description: "This ticket already paused. Unpause it to continue.", color: client.config.school_color}});
+          if(isPause === true || isPause === "true" || isPause === null) return await message.channel.send({ embed: { description: "This ticket already paused. Unpause it to continue.", color: client.config.school_color}});
           
           await db.set(`suspended${support.targetID}`, true);
           
@@ -284,7 +274,7 @@ module.exports = async (client, message) => {
 
         case "reply": // reply to user 
           message.delete();
-          if(isPause === true || isPause === "true") return await message.channel.send({ embed: { description: "This ticket is already paused. Unpause it to continue.", color: client.config.school_color}})
+          if(isPause === true || isPause === "true" || isPause === null) return await message.channel.send({ embed: { description: "This ticket is already paused. Unpause it to continue.", color: client.config.school_color}})
  
           let msg = modmailArgs.join(" "); 
           if (!msg) return message.channel.send({ embed: { description: `Please enter a message for the support ticket user!`, color: client.config.school_color}});
@@ -302,6 +292,7 @@ module.exports = async (client, message) => {
           await message.delete({ timeout: 3000 });
           break;
         } 
+      }
     }
        
 /*
@@ -320,27 +311,22 @@ module.exports = async (client, message) => {
   // Our standard argument/command name definition.
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
-
-  // Grab the command data from the client.commands Enmap
-  const command = client.commands.get(commandName);
-
-  // If that command doesn`t exist, return nothing
+ 
+  const command = client.commands.get(commandName); 
   if (!command) return;
 
   if (command.args && !args.length) {
-    let reply = `You didn't provide any arguments, <@${message.author.id}>!`;
+    let reply = new MessageEmbed()
+    .setTitle("Uh-oh not enough arguments! :x:").setColor(client.config.school_color)
+    .setDescription(`<@${message.author.id}>!, the proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``)
     
-    if (command.usage) {
-      reply += `\nThe proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``;
-    }
-    
-    return message.channel.send({embed: { title: "Uh-oh :x:", description: reply, color: client.config.school_color}});
+    return await message.channel.send(embed: { reply });
   }
 	
-  if (command.category === "Admin" && (guildRole.modRoles.forEach(modRole => !(message.member.roles.cache.has(modRole))) || message.author.id !== guildRole.botOwner)) {
-    await message.delete(); 
-    message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
-    return false;
+  if (command.category === "Admin") {
+    if (isAdmin(client, message)) {
+       await message.react(":x:");    
+    }
   }	
 	
 /*
