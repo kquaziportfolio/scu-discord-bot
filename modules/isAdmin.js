@@ -15,9 +15,11 @@
 module.exports = function isAdmin(client, message) { 
   const userRole = message.member.roles.cache;
   const guildRole = client.config.serverRoles;
-  if(guildRole.modRoles.forEach(modRole => !(userRole.has(modRole))) || message.author.id !== guildRole.botOwner) {
-      message.delete();
-      message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}}); 
-      return false; 
+  if(guildRole.modRoles.forEach(modRole => (userRole.has(modRole))) || message.author.id === guildRole.botOwner) {
+    return true;
+  } else {
+    message.delete();
+    message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}}); 
+    return false; 
   }
 }
