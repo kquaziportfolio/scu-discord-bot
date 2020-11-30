@@ -46,25 +46,23 @@ module.exports = async (client, message) => {
         }
   
         if (!active || !found) { //create support channel for new respondee  
-            try {
-              active = {};
-              channel = await guild.channels.create(`${nickname}-${message.author.discriminator}`);     
-              channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
-              channel.setTopic(`Use **${client.config.prefix}cmds** to utilize the Ticket | ModMail commands on behalf of <@${message.author.id}>`);
+          try {
+            active = {};
+            channel = await guild.channels.create(`${message.author.username}-${message.author.discriminator}`);     
+            channel.setParent(client.config.channels.supportTicketsCategory); //sync text channel to category permissions
+            channel.setTopic(`Use **${client.config.prefix}cmds** to utilize the Ticket | ModMail commands on behalf of <@${message.author.id}>`);
 
-              channel.overwritePermissions([  
-                {
-                  id: guildRole.modRoles.forEach(modRole),
-                  allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
-                },
-                {
-                  id: guildRole.everyone,
-                  deny: [`VIEW_CHANNEL`]
-                }
-              ]);
-            } catch (err) {
-                if (err === "TypeError [INVALID_TYPE]: Supplied parameter is not a User nor a Role.") return;
-            }
+            let perms = [{ id: guildRole.everyone, deny: ["VIEW_CHANNEL"]}];
+            let permissionFlags = [`VIEW_CHANNEL`, `SEND_MESSAGES`, `ADD_REACTIONS`, `READ_MESSAGE_HISTORY`, `MANAGE_CHANNELS`, `MANAGE_MESSAGES`, `ADD_REACTIONS`, `USE_EXTERNAL_EMOJIS`]
+
+            guildRole.modRoles.forEach(role => {
+              perms.push({id: role, allow: permissionFlags });
+            });
+
+            channel.overwritePermissions(perms);
+          } catch (err) {
+              if (err == "TypeError [INVALID_TYPE]: Supplied parameter is not a User nor a Role.") return;
+          }
           
           messageReception.setTitle(`ModMail Ticket Created`).setThumbnail(`attachment://verified.gif`) 
           .setDescription(`Hello, I've opened up a new ticket for you! Our staff members ` +
@@ -366,7 +364,7 @@ module.exports = async (client, message) => {
   setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
   
   try {
-  // Run the command as long as it has these three parameters
+    // Run the command as long as it has these three parameters
     command.execute(client, message, args);
   } catch(err) {
       sendMessage(client, client.config.channels.auditlogs, { embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});
