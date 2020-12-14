@@ -117,8 +117,13 @@ module.exports = async (client, message) => {
     const modmailArgs = message.content.split(" ").slice(1);  
 
     if (guildRole.modRoles.forEach(modRole => !(message.member.roles.cache.has(modRole))) || message.author.id !== guildRole.botOwner) {
+<<<<<<< HEAD
         await message.delete(); 
         await message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
+=======
+        message.delete(); 
+        message.channel.send(`<@${message.author.id}>`, { embed: { description: `You don't have one of the following roles: \`OWNER\`, \`ADMIN\`, \`MOD\``, color: client.config.school_color}});
+>>>>>>> 43bebad69e2dfe81680ebe40cc50cb026b2433f7
         return false;
     }
 
@@ -127,6 +132,7 @@ module.exports = async (client, message) => {
         messageReception.setTitle(`**📩  MODMAIL COMMANDS!**`).setColor(client.config.school_color).setDescription(modmailCommands())
         await message.channel.send(messageReception);
         break; 
+<<<<<<< HEAD
 
       case "complete": //close the user`s ticket after they`re done and log it!
         if(isPause === true || isPause === "true") return await message.channel.send({ embed: { description: "Continue the support user's thread before completing the ticket!", color: client.config.school_color}})
@@ -139,6 +145,20 @@ module.exports = async (client, message) => {
         let messageCollection = new Collection();
         let channelMessages = await message.channel.messages.fetch({ limit: 100 });
 
+=======
+
+      case "complete": //close the user`s ticket after they`re done and log it!
+        if(isPause === true || isPause === "true") return await message.channel.send({ embed: { description: "Continue the support user's thread before completing the ticket!", color: client.config.school_color}})
+
+        messageReception.setTitle(`ModMail Ticket Resolved`).setFooter(`ModMail Ticket Closed -- ${supportUser.tag}`)
+        .setDescription(`✅ *Your ModMail has been marked as **complete** and has been logged by the admins/mods. If you wish to create a new one, please send a message to the bot.*`) 
+        
+        await supportUser.send(`<@${supportUser.id}>`, { embed: messageReception });;
+
+        let messageCollection = new Collection();
+        let channelMessages = await message.channel.messages.fetch({ limit: 100 });
+
+>>>>>>> 43bebad69e2dfe81680ebe40cc50cb026b2433f7
         messageCollection = messageCollection.concat(channelMessages);
 
         while(channelMessages.size === 100) {
@@ -161,6 +181,7 @@ module.exports = async (client, message) => {
 
             let guildElement = document.createElement(`div`);
             guildElement.className = "img-container";
+<<<<<<< HEAD
 
             //creates first image which is the SCU banner :)
 
@@ -179,6 +200,26 @@ module.exports = async (client, message) => {
             guildTicketImg.setAttribute(`width`, `500`);
             guildElement.appendChild(guildTicketImg);
 
+=======
+
+            //creates first image which is the SCU banner :)
+
+            let guildBannerImg = document.createElement(`img`);
+            guildBannerImg.setAttribute(`src`, `${client.config.verification.githubLink}blob/master/assets/scu_banner.png?raw=true`);
+            guildBannerImg.setAttribute(`width`, `500`);
+            guildElement.appendChild(guildBannerImg);
+
+            let guildBreak = document.createElement(`br`); //creates break element between these two images
+            guildElement.appendChild(guildBreak);
+
+            // creates second image which says "Modmail Ticket!"
+
+            let guildTicketImg = document.createElement(`img`);
+            guildTicketImg.setAttribute(`src`, `${client.config.verification.githubLink}blob/master/assets/scu_modmail_ticket.png?raw=true`);
+            guildTicketImg.setAttribute(`width`, `500`);
+            guildElement.appendChild(guildTicketImg);
+
+>>>>>>> 43bebad69e2dfe81680ebe40cc50cb026b2433f7
             fs.appendFile(filePath, guildElement.outerHTML, function (err) {
               if (err)
                 console.log(`error`, err);
@@ -363,7 +404,7 @@ module.exports = async (client, message) => {
   setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
   
   try {
-  // Run the command as long as it has these three parameters
+    // Run the command as long as it has these three parameters
     command.execute(client, message, args);
   } catch(err) {
       sendMessage(client, client.config.channels.auditlogs, { embed: { description: `There was an error trying to run ${command.name} due the error: ${err.message}`}});

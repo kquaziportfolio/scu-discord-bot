@@ -63,7 +63,11 @@ module.exports.run = async (client) => {
       //find member in guild
       let member = guild.members.cache.find((member) => member.user.tag == req.body.discord);
       //if the member isn't in the guild return an error in console
+<<<<<<< HEAD
       if (member === null) {
+=======
+      if (member == null) {
+>>>>>>> 43bebad69e2dfe81680ebe40cc50cb026b2433f7
         sendMessage(client, client.config.channels.auditlogs, { embed: { title: `__**❌ ${guild.name} Verification**__`, description: `> **${req.body.name}** returned **${req.body.discord}**, which is **${member}** in the server!\n> Please remove their response from the [form](https://docs.google.com/forms/d/1O4iazeB8sDlTPYLLgTF9IhndV0ZJv-ulvFJyqFkTMO4/edit)!`, color: client.config.school_color, timestamp: new Date()}});
       } else if (member.roles.cache.has(guild.roles.cache.find((role) => role.id === client.config.serverRoles.verifiedStudent))) {
           //if the member already has the join role that means they are already verified so.. tell them that someone is about to hack them!!
