@@ -8,9 +8,10 @@ module.exports = {
 	usage: `[command name]`, 
 	args: true,
 	category: 'Admin',  
-	async execute(client, message, args) {  
+	async execute(client, message, args) { 
+			const { commands } = message.client; 
 			const commandName = args[0];
-			const command = message.client.commands.get(commandName);
+			const command = commands.get(commandName);
 
 			if (!command) return message.reply({ embed: { description: `❌ There is no command with name or alias \`${commandName}\`!`}});
 
